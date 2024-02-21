@@ -5,6 +5,32 @@ public class Position
     public int Row { get; private set; }
     public int Col { get; private set; }
 
+
+    public Position(int row, int col)
+    {
+        Row = row;
+        Col = col;
+    }
+
+    public void ChangeRow(int row)
+    {
+        this.Row = row;
+    }
+    public void ChangeCol(int col)
+    {
+        this.Col = col;
+    }
+
+    public void Change(int row, int col)
+    {
+        this.Row += row;
+        this.Col += col;
+
+    }
+
+
+
+
     public float CalcDistanceFrom(Position otherPos)
     {
         return MathF.Sqrt(MathF.Pow(otherPos.Row - this.Row, 2) + MathF.Pow(otherPos.Col - this.Col, 2));

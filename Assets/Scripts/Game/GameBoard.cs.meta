@@ -3,7 +3,10 @@ guid: 21b80dacb6bab5a4680d2b34dba4ea27
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - IndestructibleWallPrefab: {fileID: 2893851931354454646, guid: b903466e77ce7cd4783039e8d928b621, type: 3}
+  - DestructibleWallPrefab: {fileID: 2893851931354454646, guid: 2217dd57f3b2ffc4494c05202b339e20, type: 3}
+  - playerPrefab: {fileID: 303871658224516377, guid: 7837465c516fa3e44badc1801dea4be5, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

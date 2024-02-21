@@ -17,6 +17,8 @@ public class Player : MovingEntity
     public int Score { get; private set; } = 0;
     public SkinType Skin { get; private set; } = SkinType.Basic;
 
+    public int HP { get; private set; }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -84,7 +86,7 @@ public class Player : MovingEntity
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
-        throw new System.NotImplementedException();
+      base.Init(entityType,gameBoard,CurrentPos);
     }
 
     private void HandleKeys()

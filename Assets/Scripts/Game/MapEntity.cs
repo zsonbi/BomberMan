@@ -5,8 +5,16 @@ using UnityEngine;
 public abstract class MapEntity : MonoBehaviour
 {
     public Position CurrentBoardPos { get; protected set; }
-    public MapEntity EntityType { get; protected set; }
+    public MapEntityType EntityType { get; protected set; }
     public GameBoard GameBoard { get; protected set; }
 
-    public abstract void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos);
+    public virtual void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
+    {
+       
+        this.EntityType = MapEntityType.Obstacle;
+        this.GameBoard = gameBoard;
+        this.CurrentBoardPos = CurrentPos;
+
+    
+}
 }
