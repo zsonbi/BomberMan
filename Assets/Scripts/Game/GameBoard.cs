@@ -104,7 +104,7 @@ public class GameBoard : MonoBehaviour
                 }
 
                 obstacle.Init(MapEntityType.Obstacle, this, new Position(i, j));
-                obstacle.gameObject.transform.position = new Vector3(WIDTH / 2 - j * Config.CELLSIZE, HEIGHT / 2 - 2.5f - i * Config.CELLSIZE, 1);
+                obstacle.gameObject.transform.localPosition = new Vector3( j * Config.CELLSIZE, -2.5f - i * Config.CELLSIZE, 1);
 
                 Cells[i, j] = obstacle;
 
@@ -121,7 +121,7 @@ public class GameBoard : MonoBehaviour
                 Players.Add(Instantiate(playerPrefab, this.transform).GetComponent<Player>());
             }
             Players[counter].Init(MapEntityType.Player, this, playerSpawns[index]);
-            Players[counter].gameObject.transform.position = new Vector3(WIDTH / 2 - playerSpawns[index].Col * Config.CELLSIZE, HEIGHT / 2 - 2.5f - playerSpawns[index].Row * Config.CELLSIZE, 2);
+            Players[counter].gameObject.transform.localPosition = new Vector3(playerSpawns[index].Col * Config.CELLSIZE, - 2.5f - playerSpawns[index].Row * Config.CELLSIZE, 2);
             playerSpawns.RemoveAt(index);
             ++counter;
             
@@ -141,7 +141,7 @@ public class GameBoard : MonoBehaviour
                 Monsters.Add(Instantiate(monsterPrefab, this.transform).GetComponent<Monster>());
             }
             Monsters[counter].Init(MapEntityType.Player, this, monsterSpawns[index]);
-            Monsters[counter].gameObject.transform.position = new Vector3(WIDTH / 2 - monsterSpawns[index].Col * Config.CELLSIZE, HEIGHT / 2 - 2.5f - monsterSpawns[index].Row * Config.CELLSIZE, 2);
+            Monsters[counter].gameObject.transform.localPosition = new Vector3( monsterSpawns[index].Col * Config.CELLSIZE,  -2.5f - monsterSpawns[index].Row * Config.CELLSIZE, 2);
             monsterSpawns.RemoveAt(index);
             ++counter;
 

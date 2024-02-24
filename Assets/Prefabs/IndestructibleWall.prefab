@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1210740011446817530}
   - component: {fileID: 2418121522810420950}
   - component: {fileID: 4070120126647697086}
+  - component: {fileID: 3594115953848070781}
   m_Layer: 0
   m_Name: IndestructibleWall
   m_TagString: Untagged
@@ -76,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 570737053
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -112,3 +113,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destructible: 0
   notPassable: 1
+--- !u!210 &3594115953848070781
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2893851931354454646}
+  m_Enabled: 1
+  m_SortingLayerID: 570737053
+  m_SortingLayer: 3
+  m_SortingOrder: 10
+  m_SortAtRoot: 0
