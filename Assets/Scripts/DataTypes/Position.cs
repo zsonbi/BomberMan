@@ -23,8 +23,8 @@ public class Position
 
     public void Change(int row, int col)
     {
-        this.Row += row;
-        this.Col += col;
+        this.Row = row;
+        this.Col = col;
 
     }
 

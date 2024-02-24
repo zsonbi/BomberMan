@@ -13,7 +13,6 @@ public abstract class MovingEntity : MapEntity
 
     public bool Alive { get; protected set; }
     public Direction CurrentDirection { get; private set; } = Direction.Left;
-    public Position PrevBoardPos { get; protected set; }
 
     private void Update()
     {
@@ -52,6 +51,16 @@ public abstract class MovingEntity : MapEntity
             default:
                 break;
         }
+
+        float boardPosX = Mathf.Round(this.transform.localPosition.x / 5f);
+        float boardPosY = Mathf.Round((this.transform.localPosition.y + 2.5f) / -5f);
+
+        if (boardPosX != this.CurrentBoardPos.Col || boardPosY != this.CurrentBoardPos.Row)
+        {
+            Debug.Log("Changed cell");
+
+            this.CurrentBoardPos.Change((int)boardPosY, (int)boardPosX);
+        }
     }
 
     protected void ChangeDir(Direction dir)
@@ -61,6 +70,9 @@ public abstract class MovingEntity : MapEntity
 
     public virtual void ChangedCell()
     {
-        throw new NotImplementedException();
+        float boardPosX = Mathf.Round(this.transform.localPosition.x / 5f);
+        float boardPosY = Mathf.Round((this.transform.localPosition.y + 2.5f) / -5f);
+
+        this.CurrentBoardPos.Change((int)boardPosY, (int)boardPosX);
     }
 }

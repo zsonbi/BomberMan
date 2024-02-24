@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Characters
+    uniqueID: 1817882055
+    locked: 0
+  - name: BombsAndBonus
+    uniqueID: 3754084269
+    locked: 0
+  - name: BoardElements
+    uniqueID: 570737053
+    locked: 0
