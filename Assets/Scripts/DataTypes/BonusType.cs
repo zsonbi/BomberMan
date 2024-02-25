@@ -1,5 +1,7 @@
 public enum BonusType
 {
+    BonusBomb,
+    BombRange,
     Detonator,
     Skate,
     Immunity,
