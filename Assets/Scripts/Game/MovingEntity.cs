@@ -6,7 +6,9 @@ using UnityEngine;
 public abstract class MovingEntity : MapEntity
 {
     [SerializeField]
-    public float Speed { get; protected set; }
+    private float speed = 1f;
+
+    public float Speed { get => speed; protected set => speed = value; }
 
     [SerializeField]
     public int Hp { get; protected set; }
@@ -29,22 +31,22 @@ public abstract class MovingEntity : MapEntity
         switch (dir)
         {
             case Direction.Left:
-                this.transform.position = new Vector3(this.transform.position.x - Time.deltaTime, this.transform.position.y, this.transform.position.z);
+                this.transform.position = new Vector3(this.transform.position.x - Time.deltaTime * this.Speed, this.transform.position.y, this.transform.position.z);
 
                 break;
 
             case Direction.Up:
-                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + Time.deltaTime, this.transform.position.z);
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + Time.deltaTime * this.Speed, this.transform.position.z);
 
                 break;
 
             case Direction.Right:
-                this.transform.position = new Vector3(this.transform.position.x + Time.deltaTime, this.transform.position.y, this.transform.position.z);
+                this.transform.position = new Vector3(this.transform.position.x + Time.deltaTime * this.Speed, this.transform.position.y, this.transform.position.z);
 
                 break;
 
             case Direction.Down:
-                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - Time.deltaTime, this.transform.position.z);
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - Time.deltaTime * this.Speed, this.transform.position.z);
 
                 break;
 
