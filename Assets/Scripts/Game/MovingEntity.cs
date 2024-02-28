@@ -13,9 +13,9 @@ public abstract class MovingEntity : MapEntity
     public float Speed { get => speed; protected set => speed = value; }
 
     [SerializeField]
-    public int Hp { get; protected set; }=3;
+    public int Hp { get; protected set; } = 3;
 
-    public bool Alive { get; protected set; }
+    public bool Alive { get; protected set; } = true;
     public Direction CurrentDirection { get; private set; } = Direction.Left;
     protected Direction NewDirection = Direction.None;
     private Vector3? targetPos;
@@ -26,6 +26,7 @@ public abstract class MovingEntity : MapEntity
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
+        this.Alive = true;
         base.Init(entityType, gameBoard, CurrentPos);
     }
 
@@ -37,6 +38,11 @@ public abstract class MovingEntity : MapEntity
 
     protected void Update()
     {
+        if (!Alive)
+        {
+            return;
+        }
+
         if (immuneTime > 0f)
         {
             immuneTime -= Time.deltaTime;
@@ -92,9 +98,12 @@ public abstract class MovingEntity : MapEntity
             }
             else
             {
+
                 this.Alive = false;
                 Debug.Log("Unit died");
-                }
+                this.gameObject.SetActive(false);
+                
+            }
         }
 
     }
