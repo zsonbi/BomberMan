@@ -16,7 +16,6 @@ public abstract class MovingEntity : MapEntity
 
     public bool Alive { get; protected set; }
     public Direction CurrentDirection { get; private set; } = Direction.Left;
-    private bool goingTowardsWall = false;
     private Direction NewDirection = Direction.None;
     private Vector3? targetPos;
     private Vector3? startPos;
@@ -65,7 +64,7 @@ public abstract class MovingEntity : MapEntity
             default:
                 Debug.LogError("Can't get obstacle in Move function");
                 throw new Exception("Invalid direction in GetNextTarget()");
-   
+
         }
 
         return new Vector3(obstacle.CurrentBoardPos.Col * Config.CELLSIZE, obstacle.CurrentBoardPos.Row * -Config.CELLSIZE - Config.CELLSIZE / 2, this.transform.localPosition.z);
@@ -121,12 +120,10 @@ public abstract class MovingEntity : MapEntity
     protected bool Move(Direction dir)
     {
         moveProgress += Time.deltaTime;
-        if (targetPos is not null )
+        if (targetPos is not null)
         {
             if (NewDirection != Direction.None && (byte)dir % 2 == (byte)NewDirection % 2)
             {
-
-                Debug.Log("Swapped");
                 Vector3? temp = (Vector3)startPos;
                 startPos = targetPos;
                 targetPos = temp;
@@ -182,7 +179,7 @@ public abstract class MovingEntity : MapEntity
 
         if (boardPosX != this.CurrentBoardPos.Col || boardPosY != this.CurrentBoardPos.Row)
         {
-            this.CurrentBoardPos.Change((int)boardPosY, (int)boardPosX);
+            ChangedCell((int)boardPosY, (int)boardPosX);
         }
         return true;
     }
@@ -198,11 +195,9 @@ public abstract class MovingEntity : MapEntity
 
     }
 
-    public virtual void ChangedCell()
+    public virtual void ChangedCell(int boardRow, int boardCol)
     {
-        float boardPosX = Mathf.Round(this.transform.localPosition.x / Config.CELLSIZE);
-        float boardPosY = Mathf.Round((this.transform.localPosition.y + Config.CELLSIZE / 2) / -Config.CELLSIZE);
 
-        this.CurrentBoardPos.Change((int)boardPosY, (int)boardPosX);
+        this.CurrentBoardPos.Change(boardRow, boardCol);
     }
 }

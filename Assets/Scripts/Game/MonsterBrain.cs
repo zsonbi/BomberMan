@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterBrain : MonoBehaviour
+public abstract class MonsterBrain : MonoBehaviour
 {
-    private Monster body;
+    protected Monster body;
     public Player Target { get; private set; }
 
     public float Accuracy { get; private set; }
@@ -15,8 +15,5 @@ public class MonsterBrain : MonoBehaviour
         this.Accuracy = accuracy;
     }
 
-    public void NextTargetDir()
-    {
-        throw new System.NotImplementedException();
-    }
+    public abstract Direction NextTargetDir();
 }
