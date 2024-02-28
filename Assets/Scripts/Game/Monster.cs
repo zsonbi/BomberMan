@@ -14,7 +14,7 @@ public class Monster : MovingEntity
     private void Update()
     {
 
-        if (!DirectionPassable(CurrentDirection))
+        if (timeToMove<moveProgress&& !DirectionPassable(CurrentDirection))
         {
             base.ChangeDir(Brain.ChangedCell());
 
@@ -44,7 +44,7 @@ public class Monster : MovingEntity
             default:
                 break;
         }
-        this.Brain.InitBrain(this,0.2f);
+        this.Brain.InitBrain(this,0.9f);
     }
 
 

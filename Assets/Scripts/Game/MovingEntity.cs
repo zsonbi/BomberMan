@@ -20,8 +20,8 @@ public abstract class MovingEntity : MapEntity
     protected Direction NewDirection = Direction.None;
     private Vector3? targetPos;
     private Vector3? startPos;
-    private float moveProgress;
-    private float timeToMove = 1f;
+    protected float moveProgress{ get; private set;}
+    protected float timeToMove {get; private set; }=1f;
 
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)

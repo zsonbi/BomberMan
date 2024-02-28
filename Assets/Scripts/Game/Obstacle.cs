@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Obstacle : MapEntity
 {
-    public bool Placed { get; private set; } = false;
+    public bool Placed= false;
+    //public bool Placed { get; private set; } = false;
 
     [SerializeField]
     private bool destructible;
