@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class MovingEntity : MapEntity
@@ -16,14 +17,59 @@ public abstract class MovingEntity : MapEntity
     public bool Alive { get; protected set; }
     public Direction CurrentDirection { get; private set; } = Direction.Left;
     private bool goingTowardsWall = false;
+    private Direction NewDirection = Direction.None;
+    private Vector3? targetPos;
+    private Vector3? startPos;
+    private float moveProgress;
+    private float timeToMove = 1f;
+
+
+    public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
+    {
+        base.Init(entityType, gameBoard, CurrentPos);
+    }
 
     private void Awake()
     {
+        this.timeToMove = 1 / Speed;
+        targetPos = null;
     }
 
     private void Update()
     {
         Move(CurrentDirection);
+    }
+
+
+    private Vector3 GetNextTarget(Direction dir)
+    {
+        Obstacle obstacle;
+        switch (dir)
+        {
+            case Direction.Left:
+                obstacle = GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col - 1];
+                break;
+
+            case Direction.Up:
+                obstacle = GameBoard.Cells[CurrentBoardPos.Row - 1, CurrentBoardPos.Col];
+                break;
+
+            case Direction.Right:
+                obstacle = GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col + 1];
+                break;
+
+            case Direction.Down:
+                obstacle = GameBoard.Cells[CurrentBoardPos.Row + 1, CurrentBoardPos.Col];
+                break;
+
+            default:
+                Debug.LogError("Can't get obstacle in Move function");
+                throw new Exception("Invalid direction in GetNextTarget()");
+   
+        }
+
+        return new Vector3(obstacle.CurrentBoardPos.Col * Config.CELLSIZE, obstacle.CurrentBoardPos.Row * -Config.CELLSIZE - Config.CELLSIZE / 2, this.transform.localPosition.z);
+
     }
 
     public void Kill()
@@ -35,7 +81,7 @@ public abstract class MovingEntity : MapEntity
     {
         if (collision.gameObject.tag == "Wall")
         {
-            Debug.Log("Collided with: " + collision.gameObject.name);
+            // Debug.Log("Collided with: " + collision.gameObject.name);
         }
     }
 
@@ -63,7 +109,6 @@ public abstract class MovingEntity : MapEntity
             default:
                 Debug.LogError("Can't get obstacle in Move function");
                 return false;
-                break;
         }
 
         if (obstacle.NotPassable || obstacle.Placed)
@@ -75,88 +120,82 @@ public abstract class MovingEntity : MapEntity
 
     protected bool Move(Direction dir)
     {
-        if (goingTowardsWall)
+        moveProgress += Time.deltaTime;
+        if (targetPos is not null )
         {
-            return false;
-        }
-
-        //Cap if the game is lagging
-        float moveAmount;
-        if (Config.CELLSIZE / 5 < Time.deltaTime * speed)
-        {
-            moveAmount = Config.CELLSIZE / 5;
-        }
-        else
-        {
-            moveAmount = Time.deltaTime * speed;
-        }
-        float distanceToPositionCenter = Mathf.Sqrt(Mathf.Pow(this.transform.localPosition.x - this.CurrentBoardPos.Col * Config.CELLSIZE, 2) + Mathf.Pow(this.transform.localPosition.y - (this.CurrentBoardPos.Row * -Config.CELLSIZE - Config.CELLSIZE / 2), 2));
-
-        Debug.Log("Dist" + distanceToPositionCenter);
-        //Wall detection
-        if (distanceToPositionCenter < Time.deltaTime * Speed)
-        {
-            if (!DirectionPassable(CurrentDirection))
+            if (NewDirection != Direction.None && (byte)dir % 2 == (byte)NewDirection % 2)
             {
-                this.transform.localPosition = new Vector3(this.CurrentBoardPos.Col * Config.CELLSIZE, this.CurrentBoardPos.Row * -Config.CELLSIZE - Config.CELLSIZE / 2, this.transform.localPosition.z);
-                goingTowardsWall = true;
+
+                Debug.Log("Swapped");
+                Vector3? temp = (Vector3)startPos;
+                startPos = targetPos;
+                targetPos = temp;
+
+                this.CurrentDirection = NewDirection;
+
+                NewDirection = Direction.None;
+
+                moveProgress = timeToMove - moveProgress;
+            }
+            if (moveProgress >= timeToMove)
+            {
+                this.transform.localPosition = (Vector3)targetPos;
+
+                targetPos = null;
+            }
+        }
+        //Not else because the previous if may modify the targetPos
+        if (targetPos is null)
+        {
+            this.startPos = this.gameObject.transform.localPosition;
+            if (NewDirection != Direction.None)
+            {
+                this.CurrentDirection = NewDirection;
+
+                NewDirection = Direction.None;
+            }
+
+            if (DirectionPassable(CurrentDirection))
+            {
+                targetPos = GetNextTarget(CurrentDirection);
+                moveProgress = 0f;
+            }
+            else
+            {
                 return false;
             }
         }
 
-        switch (dir)
+
+        if (targetPos is not null && startPos is not null)
         {
-            case Direction.Left:
-                this.transform.position = new Vector3(this.transform.position.x - moveAmount, this.transform.position.y, this.transform.position.z);
-
-                break;
-
-            case Direction.Up:
-                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + moveAmount, this.transform.position.z);
-
-                break;
-
-            case Direction.Right:
-                this.transform.position = new Vector3(this.transform.position.x + moveAmount, this.transform.position.y, this.transform.position.z);
-
-                break;
-
-            case Direction.Down:
-                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - moveAmount, this.transform.position.z);
-
-                break;
-
-            default:
-                break;
+            this.transform.localPosition = Vector3.MoveTowards((Vector3)startPos, (Vector3)targetPos, (moveProgress / timeToMove) * Config.CELLSIZE);
+        }
+        else
+        {
+            Debug.LogError("No starting position or targer position in movement");
         }
 
+        //Cell position update
         float boardPosX = Mathf.Round(this.transform.localPosition.x / Config.CELLSIZE);
         float boardPosY = Mathf.Round((this.transform.localPosition.y + Config.CELLSIZE / 2) / -Config.CELLSIZE);
 
         if (boardPosX != this.CurrentBoardPos.Col || boardPosY != this.CurrentBoardPos.Row)
         {
             this.CurrentBoardPos.Change((int)boardPosY, (int)boardPosX);
-            //   Debug.Log($"{this.gameObject.name} changed to cell Row:{this.CurrentBoardPos.Row} Col:{this.CurrentBoardPos.Col}");
         }
-        return transform;
+        return true;
     }
 
     protected void ChangeDir(Direction dir)
     {
-        if (DirectionPassable(dir))
+
+        if (dir == CurrentDirection)
         {
-            float distanceToPositionCenter = Mathf.Sqrt(Mathf.Pow(this.transform.localPosition.x - this.CurrentBoardPos.Col * Config.CELLSIZE, 2) + Mathf.Pow(this.transform.localPosition.y - (this.CurrentBoardPos.Row * -Config.CELLSIZE - Config.CELLSIZE / 2), 2));
-
-            Debug.Log("Dist" + distanceToPositionCenter);
-            //Wall detection
-            if (distanceToPositionCenter < Time.deltaTime * Speed)
-            {
-                goingTowardsWall = false;
-                this.transform.localPosition = new Vector3(this.CurrentBoardPos.Col * Config.CELLSIZE, this.CurrentBoardPos.Row * -Config.CELLSIZE - Config.CELLSIZE / 2, this.transform.localPosition.z);
-
-                this.CurrentDirection = dir;
-            }
+            return;
         }
+        NewDirection = dir;
+
     }
 
     public virtual void ChangedCell()
