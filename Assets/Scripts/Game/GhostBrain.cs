@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class GhostBrain : MonsterBrain
 {
-    private bool prevWall = true;
+    private bool prevWall = false;
 
     public override Direction NextTargetDir()
     {
