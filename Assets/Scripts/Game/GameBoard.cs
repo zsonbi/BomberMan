@@ -35,10 +35,10 @@ public class GameBoard : MonoBehaviour
     private GameObject destructibleWallPrefab;
 
     [SerializeField]
-    private GameObject playerPrefab;
+    private List<GameObject> playerPrefabs;
 
     [SerializeField]
-    private GameObject monsterPrefab;
+    private List<GameObject> monsterPrefabs;
 
 
 
@@ -118,7 +118,7 @@ public class GameBoard : MonoBehaviour
             int index = Config.RND.Next(0,playerSpawns.Count);
             if (Players.Count <= counter)
             {
-                Players.Add(Instantiate(playerPrefab, this.transform).GetComponent<Player>());
+                Players.Add(Instantiate(playerPrefabs[counter], this.transform).GetComponent<Player>());
             }
             Players[counter].Init(MapEntityType.Player, this, playerSpawns[index]);
             Players[counter].gameObject.transform.localPosition = new Vector3(playerSpawns[index].Col * Config.CELLSIZE, - 2.5f - playerSpawns[index].Row * Config.CELLSIZE, 2);
@@ -131,14 +131,14 @@ public class GameBoard : MonoBehaviour
         {
             Debug.LogError("Invalid map, no place to spawn the players");
         }
-
+        List<GameObject> tmp= GameObject.FindGameObjectsWithTag("Monster").ToList();
         counter=0;
         while (monsterSpawns.Count != 0 && counter < Config.MonsterCount)
         {
             int index = Config.RND.Next(0, monsterSpawns.Count);
             if (Monsters.Count <= counter)
             {
-                Monsters.Add(Instantiate(monsterPrefab, this.transform).GetComponent<Monster>());
+                Monsters.Add(Instantiate(monsterPrefabs[Config.RND.Next(0,monsterPrefabs.Count)], this.transform).GetComponent<Monster>());
             }
             Monsters[counter].Init(MapEntityType.Player, this, monsterSpawns[index]);
             Monsters[counter].gameObject.transform.localPosition = new Vector3( monsterSpawns[index].Col * Config.CELLSIZE,  -2.5f - monsterSpawns[index].Row * Config.CELLSIZE, 2);

@@ -57,7 +57,15 @@ public class Player : MovingEntity
     private void Update()
     {
         HandleKeys();
-        base.Move(CurrentDirection);
+        base.Update();
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Monster")
+        {
+           this.Kill();
+        }
     }
 
     private void MoveLeft() => base.ChangeDir(Direction.Left);

@@ -13,16 +13,16 @@ public abstract class MovingEntity : MapEntity
     public float Speed { get => speed; protected set => speed = value; }
 
     [SerializeField]
-    public int Hp { get; protected set; }
+    public int Hp { get; protected set; }=3;
 
     public bool Alive { get; protected set; }
     public Direction CurrentDirection { get; private set; } = Direction.Left;
     protected Direction NewDirection = Direction.None;
     private Vector3? targetPos;
     private Vector3? startPos;
-    protected float moveProgress{ get; private set;}
-    protected float timeToMove {get; private set; }=1f;
-
+    protected float moveProgress { get; private set; }
+    protected float timeToMove { get; private set; } = 1f;
+    private float immuneTime = 0f;
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
@@ -37,6 +37,11 @@ public abstract class MovingEntity : MapEntity
 
     protected void Update()
     {
+        if (immuneTime > 0f)
+        {
+            immuneTime -= Time.deltaTime;
+        }
+
         Move(CurrentDirection);
     }
 
@@ -74,16 +79,27 @@ public abstract class MovingEntity : MapEntity
 
     public void Kill()
     {
-        this.Alive = false;
+        if (immuneTime > 0)
+        {
+            return;
+        }
+        else
+        {
+            if (Hp > 0)
+            {
+                Hp--;
+                immuneTime = Config.IMMUNETIME;
+            }
+            else
+            {
+                this.Alive = false;
+                Debug.Log("Unit died");
+                }
+        }
+
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Wall")
-        {
-            // Debug.Log("Collided with: " + collision.gameObject.name);
-        }
-    }
+
 
     public bool DirectionPassable(Direction dir)
     {

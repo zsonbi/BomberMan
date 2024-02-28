@@ -7,6 +7,8 @@ public static class Config
 {
     public const float CELLSIZE = 5;
 
+    public const float IMMUNETIME = 2f;
+
     public static byte PlayerCount = 1;
 
     public static byte MonsterCount = 2;
