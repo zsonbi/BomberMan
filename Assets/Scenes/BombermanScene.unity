@@ -267,7 +267,7 @@ MonoBehaviour:
   indestructibleWallPrefab: {fileID: 2893851931354454646, guid: b903466e77ce7cd4783039e8d928b621, type: 3}
   destructibleWallPrefab: {fileID: 2893851931354454646, guid: 2217dd57f3b2ffc4494c05202b339e20, type: 3}
   playerPrefab: {fileID: 303871658224516377, guid: 7837465c516fa3e44badc1801dea4be5, type: 3}
-  monsterPrefab: {fileID: 0}
+  monsterPrefab: {fileID: 303871658224516377, guid: fc500e9803d819b469c39495cc194d30, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

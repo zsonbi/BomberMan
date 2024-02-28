@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-public abstract class MonsterBrain : MonoBehaviour
+public abstract class MonsterBrain 
 {
     protected Monster body;
     public Player Target { get; private set; }
@@ -16,4 +15,7 @@ public abstract class MonsterBrain : MonoBehaviour
     }
 
     public abstract Direction NextTargetDir();
+
+    public abstract Direction ChangedCell();
+
 }

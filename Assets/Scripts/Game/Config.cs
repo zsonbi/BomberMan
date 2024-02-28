@@ -9,7 +9,7 @@ public static class Config
 
     public static byte PlayerCount = 1;
 
-    public static byte MonsterCount = 0;
+    public static byte MonsterCount = 1;
 
     public static System.Random RND = new System.Random();
 }

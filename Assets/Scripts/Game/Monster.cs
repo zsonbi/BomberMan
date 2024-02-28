@@ -11,6 +11,17 @@ public class Monster : MovingEntity
     private MonsterBrain Brain;
 
 
+    private void Update()
+    {
+
+        if (!DirectionPassable(CurrentDirection))
+        {
+            base.ChangeDir(Brain.ChangedCell());
+
+        }
+        base.Update();
+    }
+
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
@@ -40,5 +51,8 @@ public class Monster : MovingEntity
     public override void ChangedCell(int boardRow, int boardCol)
     {
         base.ChangedCell(boardRow,boardCol);
+
+        base.ChangeDir(Brain.ChangedCell());
+
     }
 }

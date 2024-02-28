@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public abstract class MovingEntity : MapEntity
 
     public bool Alive { get; protected set; }
     public Direction CurrentDirection { get; private set; } = Direction.Left;
-    private Direction NewDirection = Direction.None;
+    protected Direction NewDirection = Direction.None;
     private Vector3? targetPos;
     private Vector3? startPos;
     private float moveProgress;
@@ -34,7 +35,7 @@ public abstract class MovingEntity : MapEntity
         targetPos = null;
     }
 
-    private void Update()
+    protected void Update()
     {
         Move(CurrentDirection);
     }
@@ -84,7 +85,7 @@ public abstract class MovingEntity : MapEntity
         }
     }
 
-    protected bool DirectionPassable(Direction dir)
+    public bool DirectionPassable(Direction dir)
     {
         Obstacle obstacle;
         switch (dir)
@@ -144,6 +145,7 @@ public abstract class MovingEntity : MapEntity
         //Not else because the previous if may modify the targetPos
         if (targetPos is null)
         {
+
             this.startPos = this.gameObject.transform.localPosition;
             if (NewDirection != Direction.None)
             {

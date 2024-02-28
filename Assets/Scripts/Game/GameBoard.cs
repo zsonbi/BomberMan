@@ -23,7 +23,7 @@ public class GameBoard : MonoBehaviour
 
     public List<Player> Players { get; private set; }= new List<Player>();
 
-    public List<Monster> Monsters { get; private set; }
+    public List<Monster> Monsters { get; private set; }= new List<Monster>();
 
     [SerializeField]
     public float CircleDecreaseRate { get; private set; }
