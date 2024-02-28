@@ -16,7 +16,10 @@ public class Player : MovingEntity
     public List<Bomb> Bombs { get; private set; } = new List<Bomb>();
     public int Score { get; private set; } = 0;
     public SkinType Skin { get; private set; } = SkinType.Basic;
+    private float actionCooldown=0.5f;
 
+
+    
 
     // Start is called before the first frame update
     private void Start()
@@ -54,8 +57,13 @@ public class Player : MovingEntity
     }
 
     // Update is called once per frame
-    private void Update()
+    private new void Update()
     {
+        if (actionCooldown>0f)
+        {
+            actionCooldown-=Time.deltaTime;
+        }
+
         HandleKeys();
         base.Update();
     }
@@ -78,11 +86,34 @@ public class Player : MovingEntity
 
     private void PlaceBomb()
     {
+        if (actionCooldown > 0)
+        {
+            return;
+        }
+        actionCooldown = Config.PLAYERACTIONCOOLDOWN;
+
+        throw new System.NotImplementedException();
+    }
+
+    private void PlaceWall()
+    {
+        if (actionCooldown > 0)
+        {
+            return;
+        }
+        actionCooldown = Config.PLAYERACTIONCOOLDOWN;
+
         throw new System.NotImplementedException();
     }
 
     private void Detonate()
     {
+        if (actionCooldown > 0)
+        {
+            return;
+        }
+        actionCooldown=Config.PLAYERACTIONCOOLDOWN ;
+
         throw new System.NotImplementedException();
     }
 
@@ -93,11 +124,14 @@ public class Player : MovingEntity
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
-      base.Init(entityType,gameBoard,CurrentPos);
+        this.EntityType = MapEntityType.Player;
+
+        base.Init(entityType,gameBoard,CurrentPos);
     }
 
     private void HandleKeys()
     {
+        
         foreach (var item in Controls)
         {
             if (Input.GetKey(item.Key))

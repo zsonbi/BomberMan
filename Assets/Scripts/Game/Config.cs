@@ -9,6 +9,10 @@ public static class Config
 
     public const float IMMUNETIME = 2f;
 
+    public const float PLAYERACTIONCOOLDOWN=0.5f;
+
+    public const float GHOSTPASSTHROUGHCHANCE = 0.3f;
+
     public static byte PlayerCount = 1;
 
     public static byte MonsterCount = 2;

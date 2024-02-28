@@ -40,6 +40,8 @@ public class Obstacle : MapEntity
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
+        this.EntityType = MapEntityType.Obstacle;
+
         base.Init(entityType, gameBoard, CurrentPos);
     }
 

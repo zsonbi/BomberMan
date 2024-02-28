@@ -179,7 +179,7 @@ public abstract class MovingEntity : MapEntity
                 NewDirection = Direction.None;
             }
 
-            if (DirectionPassable(CurrentDirection))
+            if (DirectionPassable(CurrentDirection ) || (EntityType==MapEntityType.Monster && ((Monster)this).Type == MonsterType.Ghost))
             {
                 targetPos = GetNextTarget(CurrentDirection);
                 moveProgress = 0f;

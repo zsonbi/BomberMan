@@ -11,9 +11,12 @@ public class Monster : MovingEntity
     private MonsterBrain Brain;
 
 
-    private void Update()
+    private new void Update()
     {
-
+        if (!Alive)
+        {
+            return;
+        }
         if (timeToMove<moveProgress&& !DirectionPassable(CurrentDirection))
         {
             base.ChangeDir(Brain.ChangedCell());
@@ -25,6 +28,8 @@ public class Monster : MovingEntity
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
+        this.EntityType = MapEntityType.Monster;
+
         base.Init(entityType, gameBoard, CurrentPos);
 
         switch (Type)
@@ -33,7 +38,8 @@ public class Monster : MovingEntity
                 this.Brain = new BasicBrain();
                 break;
             case MonsterType.Ghost:
-                throw new System.NotImplementedException();
+                this.Brain = new GhostBrain();
+
                 break;
             case MonsterType.Smarty:
                 throw new System.NotImplementedException();
