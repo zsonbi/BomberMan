@@ -18,6 +18,7 @@ public class Bonus : MapEntity
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
+        base.Init(entityType, gameBoard, CurrentPos);
         throw new System.NotImplementedException();
     }
 }
