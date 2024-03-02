@@ -59,9 +59,4 @@ public class Monster : MovingEntity
     {
         base.ChangeDir(Brain.ChangedCell());
     }
-
-    public override void ChangedCell(int boardRow, int boardCol)
-    {
-        base.ChangedCell(boardRow, boardCol);
-    }
 }
