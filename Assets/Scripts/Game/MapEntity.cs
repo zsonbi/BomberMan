@@ -10,7 +10,7 @@ public abstract class MapEntity : MonoBehaviour
 
     public virtual void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
-
+        this.EntityType = entityType;
         this.GameBoard = gameBoard;
         this.CurrentBoardPos = CurrentPos;
     }
