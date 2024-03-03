@@ -23,6 +23,7 @@ namespace PathFinding
             }
 
             this.Step = step;
+            this.Parent = parent;
         }
 
         public BFSCell(int row, int col)

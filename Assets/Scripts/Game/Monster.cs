@@ -11,7 +11,7 @@ public class Monster : MovingEntity
     public MonsterType Type { get => monsterType; private set => monsterType = value; }
     private MonsterBrain Brain;
 
-    private new void Update()
+    private new async void Update()
     {
         if (!Alive)
         {
@@ -19,12 +19,12 @@ public class Monster : MovingEntity
         }
         if (timeToMove < moveProgress && !DirectionPassable(CurrentDirection))
         {
-            base.ChangeDir(Brain.ChangedCell());
+            base.ChangeDir(await Brain.ChangedCell());
         }
         base.Update();
     }
 
-    public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
+    public override async void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         base.Init(entityType, gameBoard, CurrentPos);
 
@@ -40,7 +40,7 @@ public class Monster : MovingEntity
                 break;
 
             case MonsterType.Smarty:
-                throw new System.NotImplementedException();
+                this.Brain = new SmartyBrain();
                 break;
 
             case MonsterType.Dumber:
@@ -52,11 +52,11 @@ public class Monster : MovingEntity
         }
         this.Brain.InitBrain(this, 0.9f);
         ReachedTargetEvent = ReachedTarget;
-        base.ChangeDir(Brain.ChangedCell());
+        base.ChangeDir(await Brain.ChangedCell());
     }
 
-    private void ReachedTarget(object o, EventArgs args)
+    private async void ReachedTarget(object o, EventArgs args)
     {
-        base.ChangeDir(Brain.ChangedCell());
+        base.ChangeDir(await Brain.ChangedCell());
     }
 }

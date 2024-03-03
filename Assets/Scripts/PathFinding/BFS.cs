@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 
 namespace PathFinding
 {
-    public class BFS
+    public class BFS : PathFindingInterface
     {
         private Obstacle[,] Cells;
         private BFSCell[,] SearchGrid;
@@ -25,6 +27,7 @@ namespace PathFinding
         public BFS(Obstacle[,] Cells)
         {
             this.Cells = Cells;
+            CreateSearchGrid();
         }
 
         private void ResetGrid()
@@ -41,7 +44,7 @@ namespace PathFinding
             }
         }
 
-        public Stack<BFSCell> GetPathToSearched(Position startingPos, List<Position> targets)
+        public async Task<Stack<BFSCell>> GetPathToSearched(Position startingPos, IEnumerable<Position> targets)
         {
             if (SearchGrid[startingPos.Row, startingPos.Col] is null)
             {
@@ -65,6 +68,7 @@ namespace PathFinding
                         while (currNode.Parent is not null)
                         {
                             path.Push(currNode);
+                            currNode = currNode.Parent;
                         }
 
                         return path;
@@ -75,7 +79,7 @@ namespace PathFinding
                         temp = SearchGrid[currNode.Row - 1, currNode.Col];
                         if (temp is not null && !Cells[temp.Row, temp.Col].Placed && temp.Step == -1)
                         {
-                            temp.Visit(currNode.Step, currNode);
+                            temp.Visit(currNode.Step + 1, currNode);
                             whatToCheck.Enqueue(temp);
                         }
                     }
@@ -84,16 +88,16 @@ namespace PathFinding
                         temp = SearchGrid[currNode.Row, currNode.Col - 1];
                         if (temp is not null && !Cells[temp.Row, temp.Col].Placed && temp.Step == -1)
                         {
-                            temp.Visit(currNode.Step, currNode);
+                            temp.Visit(currNode.Step + 1, currNode);
                             whatToCheck.Enqueue(temp);
                         }
                     }
-                    if (currNode.Row > Cells.GetLength(0) - 1)
+                    if (currNode.Row < Cells.GetLength(0) - 1)
                     {
                         temp = SearchGrid[currNode.Row + 1, currNode.Col];
                         if (temp is not null && !Cells[temp.Row, temp.Col].Placed && temp.Step == -1)
                         {
-                            temp.Visit(currNode.Step, currNode);
+                            temp.Visit(currNode.Step + 1, currNode);
                             whatToCheck.Enqueue(temp);
                         }
                     }
@@ -102,7 +106,7 @@ namespace PathFinding
                         temp = SearchGrid[currNode.Row, currNode.Col + 1];
                         if (temp is not null && !Cells[temp.Row, temp.Col].Placed && temp.Step == -1)
                         {
-                            temp.Visit(currNode.Step, currNode);
+                            temp.Visit(currNode.Step + 1, currNode);
                             whatToCheck.Enqueue(temp);
                         }
                     }

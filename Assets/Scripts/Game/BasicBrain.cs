@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 
 public class BasicBrain : MonsterBrain
 {
@@ -21,12 +21,12 @@ public class BasicBrain : MonsterBrain
             return Direction.None;
         }
 
-        return possDir[Config.RND.Next(0,possDir.Count)];
+        return possDir[Config.RND.Next(0, possDir.Count)];
     }
 
-    public override Direction ChangedCell()
+    public override async Task<Direction> ChangedCell()
     {
-        if(Accuracy < Config.RND.NextDouble())
+        if (Accuracy < Config.RND.NextDouble())
         {
             return NextTargetDir();
         }
@@ -42,5 +42,4 @@ public class BasicBrain : MonsterBrain
             }
         }
     }
-
 }
