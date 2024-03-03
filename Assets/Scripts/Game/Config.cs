@@ -13,6 +13,8 @@ public static class Config
 
     public const float GHOSTPASSTHROUGHCHANCE = 0.3f;
 
+    public const float STALKERMISSCHANCE = 0.1f;
+
     public static byte PlayerCount = 1;
 
     public static byte MonsterCount = 3;

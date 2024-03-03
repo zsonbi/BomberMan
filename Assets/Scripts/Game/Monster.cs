@@ -44,7 +44,7 @@ public class Monster : MovingEntity
                 break;
 
             case MonsterType.Stalker:
-                throw new System.NotImplementedException();
+                this.Brain=new StalkerBrain();
                 break;
 
             default:
