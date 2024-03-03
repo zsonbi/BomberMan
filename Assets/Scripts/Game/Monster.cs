@@ -11,20 +11,20 @@ public class Monster : MovingEntity
     public MonsterType Type { get => monsterType; private set => monsterType = value; }
     private MonsterBrain Brain;
 
-    private new async void Update()
+    private new void Update()
     {
         if (!Alive)
         {
             return;
         }
-        if (timeToMove < moveProgress && !DirectionPassable(CurrentDirection))
+        if (timeToMove * 2 < moveProgress && !DirectionPassable(CurrentDirection))
         {
-            base.ChangeDir(await Brain.ChangedCell());
+            base.ChangeDir(Brain.ChangedCell());
         }
         base.Update();
     }
 
-    public override async void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
+    public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         base.Init(entityType, gameBoard, CurrentPos);
 
@@ -52,11 +52,11 @@ public class Monster : MovingEntity
         }
         this.Brain.InitBrain(this, 0.9f);
         ReachedTargetEvent = ReachedTarget;
-        base.ChangeDir(await Brain.ChangedCell());
+        base.ChangeDir(Brain.ChangedCell());
     }
 
-    private async void ReachedTarget(object o, EventArgs args)
+    private void ReachedTarget(object o, EventArgs args)
     {
-        base.ChangeDir(await Brain.ChangedCell());
+        base.ChangeDir(Brain.ChangedCell());
     }
 }

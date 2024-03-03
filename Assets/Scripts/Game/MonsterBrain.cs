@@ -16,5 +16,5 @@ public abstract class MonsterBrain
 
     public abstract Direction NextTargetDir();
 
-    public abstract Task<Direction> ChangedCell();
+    public abstract Direction ChangedCell();
 }

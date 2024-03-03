@@ -44,7 +44,7 @@ namespace PathFinding
             }
         }
 
-        public async Task<Stack<BFSCell>> GetPathToSearched(Position startingPos, IEnumerable<Position> targets)
+        public Stack<BFSCell> GetPathToSearched(Position startingPos, IEnumerable<Position> targets)
         {
             if (SearchGrid[startingPos.Row, startingPos.Col] is null)
             {

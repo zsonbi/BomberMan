@@ -5,6 +5,6 @@ namespace PathFinding
 {
     public interface PathFindingInterface
     {
-        public Task<Stack<BFSCell>> GetPathToSearched(Position startingPos, IEnumerable<Position> targets);
+        public Stack<BFSCell> GetPathToSearched(Position startingPos, IEnumerable<Position> targets);
     }
 }

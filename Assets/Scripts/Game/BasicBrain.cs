@@ -24,7 +24,7 @@ public class BasicBrain : MonsterBrain
         return possDir[Config.RND.Next(0, possDir.Count)];
     }
 
-    public override async Task<Direction> ChangedCell()
+    public override Direction ChangedCell()
     {
         if (Accuracy < Config.RND.NextDouble())
         {

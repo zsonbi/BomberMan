@@ -43,7 +43,7 @@ public class GameBoard : MonoBehaviour
     // Start is called before the first frame update
     private async void Start()
     {
-        await CreateBoard("Assets/Maps/smartyMap.csv");
+        await CreateBoard("Assets/Maps/baseMap.csv");
     }
 
     private async Task CreateBoard(string mapLayoutFilename)
@@ -130,9 +130,9 @@ public class GameBoard : MonoBehaviour
             int index = Config.RND.Next(0, monsterSpawns.Count);
             if (Monsters.Count <= counter)
             {
-                Monsters.Add(Instantiate(monsterPrefabs[Config.RND.Next(2, monsterPrefabs.Count)], this.transform).GetComponent<Monster>());
+                Monsters.Add(Instantiate(monsterPrefabs[Config.RND.Next(0, monsterPrefabs.Count)], this.transform).GetComponent<Monster>());
             }
-            Monsters[counter].Init(MapEntityType.Player, this, monsterSpawns[index]);
+            Monsters[counter].Init(MapEntityType.Monster, this, monsterSpawns[index]);
             Monsters[counter].gameObject.transform.localPosition = new Vector3(monsterSpawns[index].Col * Config.CELLSIZE, -2.5f - monsterSpawns[index].Row * Config.CELLSIZE, 2);
             monsterSpawns.RemoveAt(index);
             ++counter;

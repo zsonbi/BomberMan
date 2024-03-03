@@ -34,9 +34,9 @@ public class SmartyBrain : MonsterBrain
         return possDir[Config.RND.Next(0, possDir.Count)];
     }
 
-    private async Task<Direction> NearestPlayerDir()
+    private Direction NearestPlayerDir()
     {
-        Stack<BFSCell> path = await pathFinder.GetPathToSearched(this.body.CurrentBoardPos, this.body.GameBoard.Players.Select(x => x.CurrentBoardPos));
+        Stack<BFSCell> path =pathFinder.GetPathToSearched(this.body.CurrentBoardPos, this.body.GameBoard.Players.Select(x => x.CurrentBoardPos));
         if (path is null || path.Count == 0)
         {
             return NextTargetDir();
@@ -69,7 +69,7 @@ public class SmartyBrain : MonsterBrain
         }
     }
 
-    public override async Task<Direction> ChangedCell()
+    public override Direction ChangedCell()
     {
         if (Accuracy < Config.RND.NextDouble())
         {
@@ -79,7 +79,7 @@ public class SmartyBrain : MonsterBrain
         {
             if (!body.DirectionPassable(body.CurrentDirection))
             {
-                return await NearestPlayerDir();
+                return NearestPlayerDir();
             }
             else
             {

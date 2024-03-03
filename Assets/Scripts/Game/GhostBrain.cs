@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 public class GhostBrain : MonsterBrain
@@ -47,7 +48,7 @@ public class GhostBrain : MonsterBrain
         }
     }
 
-    public override async Task<Direction> ChangedCell()
+    public override Direction ChangedCell()
     {
         if (Accuracy < Config.RND.NextDouble())
         {
