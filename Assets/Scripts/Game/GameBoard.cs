@@ -132,7 +132,7 @@ public class GameBoard : MonoBehaviour
             {
                 Monsters.Add(Instantiate(monsterPrefabs[Config.RND.Next(0, monsterPrefabs.Count)], this.transform).GetComponent<Monster>());
             }
-            Monsters[counter].Init(MapEntityType.Player, this, monsterSpawns[index]);
+            Monsters[counter].Init(MapEntityType.Monster, this, monsterSpawns[index]);
             Monsters[counter].gameObject.transform.localPosition = new Vector3(monsterSpawns[index].Col * Config.CELLSIZE, -2.5f - monsterSpawns[index].Row * Config.CELLSIZE, 2);
             monsterSpawns.RemoveAt(index);
             ++counter;

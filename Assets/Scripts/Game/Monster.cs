@@ -17,7 +17,7 @@ public class Monster : MovingEntity
         {
             return;
         }
-        if (timeToMove < moveProgress && !DirectionPassable(CurrentDirection))
+        if (timeToMove * 2 < moveProgress && !DirectionPassable(CurrentDirection))
         {
             base.ChangeDir(Brain.ChangedCell());
         }
@@ -40,11 +40,11 @@ public class Monster : MovingEntity
                 break;
 
             case MonsterType.Smarty:
-                throw new System.NotImplementedException();
+                this.Brain = new SmartyBrain();
                 break;
 
-            case MonsterType.Dumber:
-                throw new System.NotImplementedException();
+            case MonsterType.Stalker:
+                this.Brain=new StalkerBrain();
                 break;
 
             default:
