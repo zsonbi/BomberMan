@@ -43,7 +43,7 @@ public class Monster : MovingEntity
                 this.Brain = new SmartyBrain();
                 break;
 
-            case MonsterType.Dumber:
+            case MonsterType.Stalker:
                 throw new System.NotImplementedException();
                 break;
 
