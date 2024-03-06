@@ -1,32 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
 
+
+
+/// <summary>
+/// The ghost monster's brain
+/// </summary>
 public class GhostBrain : MonsterBrain
 {
     private bool prevWall = false;
 
-    public override Direction NextTargetDir()
-    {
-        List<Direction> possDir = new List<Direction>();
-
-        for (int i = 0; i < 4; i++)
-        {
-            if (body.DirectionPassable((Direction)i))
-            {
-                possDir.Add((Direction)i);
-            }
-        }
-
-        if (possDir.Count == 0)
-        {
-            return (Direction)((byte)(body.CurrentDirection + 2) % 4);
-        }
-
-        return possDir[Config.RND.Next(0, possDir.Count)];
-    }
-
+    
+    //Gets it the ghost is currently facing towards an outer wall
     private bool DirectionBorder()
     {
         switch (body.CurrentDirection)
@@ -48,6 +31,10 @@ public class GhostBrain : MonsterBrain
         }
     }
 
+    /// <summary>
+    /// What direction to move towards when changed cells
+    /// </summary>
+    /// <returns>A new direction to move towards</returns>
     public override Direction ChangedCell()
     {
         if (Accuracy < Config.RND.NextDouble())
@@ -58,6 +45,7 @@ public class GhostBrain : MonsterBrain
         {
             if (!body.DirectionPassable(body.CurrentDirection))
             {
+                //Determine if the ghost should go through the wall
                 if (!DirectionBorder() && (prevWall || Config.RND.NextDouble() <= Config.GHOSTPASSTHROUGHCHANCE))
                 {
                     prevWall = true;

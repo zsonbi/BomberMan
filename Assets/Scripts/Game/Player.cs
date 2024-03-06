@@ -5,18 +5,43 @@ using System;
 
 public class Player : MovingEntity
 {
+    //How long should the player wait between actions
+    private float actionCooldown = 0.5f;
+
+
+    //The id of the player (set it in the editor)
     [SerializeField]
     private int playerId;
 
     [SerializeField]
-    public string PlayerName { get; private set; }
+    private string playerName = "player";
 
+    /// <summary>
+    /// The player's name
+    /// </summary>
+    public string PlayerName { get => playerName; private set => playerName = value; }
+
+    /// <summary>
+    /// The bonuses active for the player
+    /// </summary>
     public Dictionary<BonusType, Bonus> Bonuses { get; private set; } = new Dictionary<BonusType, Bonus>();
+    /// <summary>
+    /// The control's for the player
+    /// </summary>
     public Dictionary<KeyCode, Action> Controls { get; private set; } = new Dictionary<KeyCode, Action>();
+    /// <summary>
+    /// The bomb's of the player
+    /// </summary>
     public List<Bomb> Bombs { get; private set; } = new List<Bomb>();
+    /// <summary>
+    /// The current score of the player
+    /// </summary>
     public int Score { get; private set; } = 0;
+    /// <summary>
+    /// What skin does the player use
+    /// </summary>
     public SkinType Skin { get; private set; } = SkinType.Basic;
-    private float actionCooldown = 0.5f;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -32,11 +57,11 @@ public class Player : MovingEntity
                 break;
 
             case 1:
-                Controls.Add(KeyCode.A, MoveLeft);
-                Controls.Add(KeyCode.W, MoveUp);
-                Controls.Add(KeyCode.D, MoveRight);
-                Controls.Add(KeyCode.S, MoveDown);
-                Controls.Add(KeyCode.Space, PlaceBomb);
+                Controls.Add(KeyCode.LeftArrow, MoveLeft);
+                Controls.Add(KeyCode.UpArrow, MoveUp);
+                Controls.Add(KeyCode.RightArrow, MoveRight);
+                Controls.Add(KeyCode.DownArrow, MoveDown);
+                Controls.Add(KeyCode.RightShift, PlaceBomb);
                 break;
 
             case 2:
@@ -65,6 +90,10 @@ public class Player : MovingEntity
         base.Update();
     }
 
+    /// <summary>
+    /// Check for collision with the elements
+    /// </summary>
+    /// <param name="collision">What it collided with</param>
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Monster")
@@ -73,14 +102,19 @@ public class Player : MovingEntity
         }
     }
 
+    //Changes the player's direction to left
     private void MoveLeft() => base.ChangeDir(Direction.Left);
 
+    //Changes the player's direction to up
     private void MoveUp() => base.ChangeDir(Direction.Up);
 
+    //Changes the player's direction to right
     private void MoveRight() => base.ChangeDir(Direction.Right);
-
+    
+    //Changes the player's direction to down
     private void MoveDown() => base.ChangeDir(Direction.Down);
 
+    //The player places a bomb on the board if it has a bomb available
     private void PlaceBomb()
     {
         if (actionCooldown > 0)
@@ -92,6 +126,7 @@ public class Player : MovingEntity
         throw new System.NotImplementedException();
     }
 
+    //The player places a bomb on the board if it has a wall available
     private void PlaceWall()
     {
         if (actionCooldown > 0)
@@ -103,6 +138,7 @@ public class Player : MovingEntity
         throw new System.NotImplementedException();
     }
 
+    //The player detonates all of it's bombs
     private void Detonate()
     {
         if (actionCooldown > 0)
@@ -114,16 +150,15 @@ public class Player : MovingEntity
         throw new System.NotImplementedException();
     }
 
+    //Resets the player
     private void Reset()
     {
         throw new System.NotImplementedException();
     }
 
-    public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
-    {
-        base.Init(entityType, gameBoard, CurrentPos);
-    }
-
+    /// <summary>
+    /// Handles the keypresses
+    /// </summary>
     private void HandleKeys()
     {
         foreach (var item in Controls)
@@ -135,6 +170,10 @@ public class Player : MovingEntity
         }
     }
 
+    /// <summary>
+    /// Changes the player's name
+    /// </summary>
+    /// <param name="newName">The new name of the player</param>
     public void ChangeName(string newName)
     {
         this.PlayerName = newName;
