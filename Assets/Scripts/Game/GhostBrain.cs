@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 public class GhostBrain : MonsterBrain
 {
@@ -20,7 +21,7 @@ public class GhostBrain : MonsterBrain
 
         if (possDir.Count == 0)
         {
-            return (Direction)((byte)(body.CurrentDirection+2)%4);
+            return (Direction)((byte)(body.CurrentDirection + 2) % 4);
         }
 
         return possDir[Config.RND.Next(0, possDir.Count)];
@@ -32,12 +33,16 @@ public class GhostBrain : MonsterBrain
         {
             case Direction.Left:
                 return body.CurrentBoardPos.Col <= 1;
+
             case Direction.Up:
                 return body.CurrentBoardPos.Row <= 1;
+
             case Direction.Right:
                 return body.CurrentBoardPos.Col >= body.GameBoard.ColCount - 2;
+
             case Direction.Down:
                 return body.CurrentBoardPos.Row >= body.GameBoard.RowCount - 2;
+
             default:
                 return false;
         }
@@ -53,12 +58,11 @@ public class GhostBrain : MonsterBrain
         {
             if (!body.DirectionPassable(body.CurrentDirection))
             {
-                if (!DirectionBorder() &&(prevWall || Config.RND.NextDouble() <= Config.GHOSTPASSTHROUGHCHANCE))
+                if (!DirectionBorder() && (prevWall || Config.RND.NextDouble() <= Config.GHOSTPASSTHROUGHCHANCE))
                 {
                     prevWall = true;
 
                     return body.CurrentDirection;
-
                 }
 
                 return NextTargetDir();
@@ -70,5 +74,4 @@ public class GhostBrain : MonsterBrain
             }
         }
     }
-
 }

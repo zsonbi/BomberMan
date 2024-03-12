@@ -24,6 +24,8 @@ public abstract class MovingEntity : MapEntity
     protected float timeToMove { get; private set; } = 1f;
     private float immuneTime = 0f;
 
+    public EventHandler ReachedTargetEvent;
+
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         this.Alive = true;
@@ -51,7 +53,6 @@ public abstract class MovingEntity : MapEntity
         Move(CurrentDirection);
     }
 
-
     private Vector3 GetNextTarget(Direction dir)
     {
         Obstacle obstacle;
@@ -76,11 +77,9 @@ public abstract class MovingEntity : MapEntity
             default:
                 Debug.LogError("Can't get obstacle in Move function");
                 throw new Exception("Invalid direction in GetNextTarget()");
-
         }
 
         return new Vector3(obstacle.CurrentBoardPos.Col * Config.CELLSIZE, obstacle.CurrentBoardPos.Row * -Config.CELLSIZE - Config.CELLSIZE / 2, this.transform.localPosition.z);
-
     }
 
     public void Kill()
@@ -98,17 +97,12 @@ public abstract class MovingEntity : MapEntity
             }
             else
             {
-
                 this.Alive = false;
                 Debug.Log("Unit died");
                 this.gameObject.SetActive(false);
-                
             }
         }
-
     }
-
-
 
     public bool DirectionPassable(Direction dir)
     {
@@ -163,14 +157,13 @@ public abstract class MovingEntity : MapEntity
             if (moveProgress >= timeToMove)
             {
                 this.transform.localPosition = (Vector3)targetPos;
-
+                ReachedTargetEvent?.Invoke(this, EventArgs.Empty);
                 targetPos = null;
             }
         }
         //Not else because the previous if may modify the targetPos
         if (targetPos is null)
         {
-
             this.startPos = this.gameObject.transform.localPosition;
             if (NewDirection != Direction.None)
             {
@@ -179,7 +172,7 @@ public abstract class MovingEntity : MapEntity
                 NewDirection = Direction.None;
             }
 
-            if (DirectionPassable(CurrentDirection ) || (EntityType==MapEntityType.Monster && ((Monster)this).Type == MonsterType.Ghost))
+            if (DirectionPassable(CurrentDirection) || (EntityType == MapEntityType.Monster && ((Monster)this).Type == MonsterType.Ghost))
             {
                 targetPos = GetNextTarget(CurrentDirection);
                 moveProgress = 0f;
@@ -189,7 +182,6 @@ public abstract class MovingEntity : MapEntity
                 return false;
             }
         }
-
 
         if (targetPos is not null && startPos is not null)
         {
@@ -213,18 +205,15 @@ public abstract class MovingEntity : MapEntity
 
     protected void ChangeDir(Direction dir)
     {
-
         if (dir == CurrentDirection)
         {
             return;
         }
         NewDirection = dir;
-
     }
 
     public virtual void ChangedCell(int boardRow, int boardCol)
     {
-
         this.CurrentBoardPos.Change(boardRow, boardCol);
     }
 }

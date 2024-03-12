@@ -27,6 +27,7 @@ public class Bomb : MapEntity
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
+        base.Init(MapEntityType.Bomb, gameBoard, CurrentPos);
         throw new System.NotImplementedException();
     }
 }

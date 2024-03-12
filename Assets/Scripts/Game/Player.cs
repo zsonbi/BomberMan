@@ -16,10 +16,7 @@ public class Player : MovingEntity
     public List<Bomb> Bombs { get; private set; } = new List<Bomb>();
     public int Score { get; private set; } = 0;
     public SkinType Skin { get; private set; } = SkinType.Basic;
-    private float actionCooldown=0.5f;
-
-
-    
+    private float actionCooldown = 0.5f;
 
     // Start is called before the first frame update
     private void Start()
@@ -59,9 +56,9 @@ public class Player : MovingEntity
     // Update is called once per frame
     private new void Update()
     {
-        if (actionCooldown>0f)
+        if (actionCooldown > 0f)
         {
-            actionCooldown-=Time.deltaTime;
+            actionCooldown -= Time.deltaTime;
         }
 
         HandleKeys();
@@ -72,7 +69,7 @@ public class Player : MovingEntity
     {
         if (collision.gameObject.tag == "Monster")
         {
-           this.Kill();
+            this.Kill();
         }
     }
 
@@ -112,7 +109,7 @@ public class Player : MovingEntity
         {
             return;
         }
-        actionCooldown=Config.PLAYERACTIONCOOLDOWN ;
+        actionCooldown = Config.PLAYERACTIONCOOLDOWN;
 
         throw new System.NotImplementedException();
     }
@@ -124,14 +121,11 @@ public class Player : MovingEntity
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
-        this.EntityType = MapEntityType.Player;
-
-        base.Init(entityType,gameBoard,CurrentPos);
+        base.Init(entityType, gameBoard, CurrentPos);
     }
 
     private void HandleKeys()
     {
-        
         foreach (var item in Controls)
         {
             if (Input.GetKey(item.Key))

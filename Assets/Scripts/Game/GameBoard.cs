@@ -13,17 +13,15 @@ public class GameBoard : MonoBehaviour
     private const int HEIGHT = 100;
     private const int WIDTH = 100;
 
-
-
     public Obstacle[,] Cells { get; private set; }
 
     public List<MapEntity> Entites { get; private set; }
     public int RowCount { get; private set; }
     public int ColCount { get; private set; }
 
-    public List<Player> Players { get; private set; }= new List<Player>();
+    public List<Player> Players { get; private set; } = new List<Player>();
 
-    public List<Monster> Monsters { get; private set; }= new List<Monster>();
+    public List<Monster> Monsters { get; private set; } = new List<Monster>();
 
     [SerializeField]
     public float CircleDecreaseRate { get; private set; }
@@ -40,26 +38,23 @@ public class GameBoard : MonoBehaviour
     [SerializeField]
     private List<GameObject> monsterPrefabs;
 
-
-
     public EventHandler UpdateMenuFields;
 
     // Start is called before the first frame update
     private async void Start()
     {
         await CreateBoard("Assets/Maps/baseMap.csv");
-
     }
 
     private async Task CreateBoard(string mapLayoutFilename)
     {
-
         string mapsPath = Directory.GetCurrentDirectory() + "/";
 
         string[] fileLines = await File.ReadAllLinesAsync(mapsPath + mapLayoutFilename);
 
         this.Cells = new Obstacle[fileLines.Length, fileLines[0].Split(CSVDELIMITER).Length];
-
+        this.RowCount = this.Cells.GetLength(0);
+        this.ColCount = this.Cells.GetLength(1);
         List<Position> playerSpawns = new List<Position>();
         List<Position> monsterSpawns = new List<Position>();
 
@@ -104,57 +99,50 @@ public class GameBoard : MonoBehaviour
                 }
 
                 obstacle.Init(MapEntityType.Obstacle, this, new Position(i, j));
-                obstacle.gameObject.transform.localPosition = new Vector3( j * Config.CELLSIZE, -2.5f - i * Config.CELLSIZE, 1);
+                obstacle.gameObject.transform.localPosition = new Vector3(j * Config.CELLSIZE, -2.5f - i * Config.CELLSIZE, 1);
 
                 Cells[i, j] = obstacle;
-
             }
-
         }
 
-        int counter=0;
-        while (playerSpawns.Count != 0 && counter<Config.PlayerCount)
+        int counter = 0;
+        while (playerSpawns.Count != 0 && counter < Config.PlayerCount)
         {
-            int index = Config.RND.Next(0,playerSpawns.Count);
+            int index = Config.RND.Next(0, playerSpawns.Count);
             if (Players.Count <= counter)
             {
                 Players.Add(Instantiate(playerPrefabs[counter], this.transform).GetComponent<Player>());
             }
             Players[counter].Init(MapEntityType.Player, this, playerSpawns[index]);
-            Players[counter].gameObject.transform.localPosition = new Vector3(playerSpawns[index].Col * Config.CELLSIZE, - 2.5f - playerSpawns[index].Row * Config.CELLSIZE, 2);
+            Players[counter].gameObject.transform.localPosition = new Vector3(playerSpawns[index].Col * Config.CELLSIZE, -2.5f - playerSpawns[index].Row * Config.CELLSIZE, 2);
             playerSpawns.RemoveAt(index);
             ++counter;
-            
         }
 
         if (counter < Config.PlayerCount)
         {
             Debug.LogError("Invalid map, no place to spawn the players");
         }
-        List<GameObject> tmp= GameObject.FindGameObjectsWithTag("Monster").ToList();
-        counter=0;
+        List<GameObject> tmp = GameObject.FindGameObjectsWithTag("Monster").ToList();
+        counter = 0;
         while (monsterSpawns.Count != 0 && counter < Config.MonsterCount)
         {
             int index = Config.RND.Next(0, monsterSpawns.Count);
             if (Monsters.Count <= counter)
             {
-                Monsters.Add(Instantiate(monsterPrefabs[Config.RND.Next(0,monsterPrefabs.Count)], this.transform).GetComponent<Monster>());
+                Monsters.Add(Instantiate(monsterPrefabs[Config.RND.Next(0, monsterPrefabs.Count)], this.transform).GetComponent<Monster>());
             }
-            Monsters[counter].Init(MapEntityType.Player, this, monsterSpawns[index]);
-            Monsters[counter].gameObject.transform.localPosition = new Vector3( monsterSpawns[index].Col * Config.CELLSIZE,  -2.5f - monsterSpawns[index].Row * Config.CELLSIZE, 2);
+            Monsters[counter].Init(MapEntityType.Monster, this, monsterSpawns[index]);
+            Monsters[counter].gameObject.transform.localPosition = new Vector3(monsterSpawns[index].Col * Config.CELLSIZE, -2.5f - monsterSpawns[index].Row * Config.CELLSIZE, 2);
             monsterSpawns.RemoveAt(index);
             ++counter;
-
         }
 
         if (counter < Config.MonsterCount)
         {
             Debug.LogError("Invalid map, no place to spawn the monsters");
         }
-
     }
-
-
 
     private void DecreaseCircle()
     {
