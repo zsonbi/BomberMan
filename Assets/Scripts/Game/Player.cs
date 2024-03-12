@@ -11,6 +11,9 @@ public class Player : MovingEntity
     [SerializeField]
     public string PlayerName { get; private set; }
 
+    [SerializeField]
+    private GameObject bombPrefab;
+
     public Dictionary<BonusType, Bonus> Bonuses { get; private set; } = new Dictionary<BonusType, Bonus>();
     public Dictionary<KeyCode, Action> Controls { get; private set; } = new Dictionary<KeyCode, Action>();
     public List<Bomb> Bombs { get; private set; } = new List<Bomb>();
@@ -88,8 +91,15 @@ public class Player : MovingEntity
             return;
         }
         actionCooldown = Config.PLAYERACTIONCOOLDOWN;
-
-        throw new System.NotImplementedException();
+        
+        foreach(Bomb bomb in Bombs)
+        {
+            if(!bomb.Placed)
+            {
+                bomb.Place(new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));             
+            }
+        }
+        //throw new System.NotImplementedException();
     }
 
     private void PlaceWall()
@@ -122,6 +132,11 @@ public class Player : MovingEntity
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         base.Init(entityType, gameBoard, CurrentPos);
+        
+        Bomb bomb1 = Instantiate(bombPrefab,this.GameBoard.gameObject.transform).GetComponent<Bomb>();
+        bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
+        Bombs.Add(bomb1);
+        
     }
 
     private void HandleKeys()
