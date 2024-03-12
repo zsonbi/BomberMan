@@ -30,9 +30,8 @@ public static class Config
     /// </summary>
     public const float STALKERMISSCHANCE = 0.1f;
 
-    /// <summary>
-    /// How many player's does the game has
-    /// </summary>
+    public const float BOMBBLOWTIME = 3f;
+
     public static byte PlayerCount = 1;
 
     /// <summary>
@@ -44,4 +43,6 @@ public static class Config
     /// Global random for the program
     /// </summary>
     public static System.Random RND = new System.Random();
+
+    
 }

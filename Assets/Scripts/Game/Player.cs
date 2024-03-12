@@ -21,6 +21,9 @@ public class Player : MovingEntity
     /// </summary>
     public string PlayerName { get => playerName; private set => playerName = value; }
 
+    [SerializeField]
+    private GameObject bombPrefab;
+
     /// <summary>
     /// The bonuses active for the player
     /// </summary>
@@ -122,8 +125,15 @@ public class Player : MovingEntity
             return;
         }
         actionCooldown = Config.PLAYERACTIONCOOLDOWN;
-
-        throw new System.NotImplementedException();
+        
+        foreach(Bomb bomb in Bombs)
+        {
+            if(!bomb.Placed)
+            {
+                bomb.Place(new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));             
+            }
+        }
+        //throw new System.NotImplementedException();
     }
 
     //The player places a bomb on the board if it has a wall available
@@ -156,9 +166,22 @@ public class Player : MovingEntity
         throw new System.NotImplementedException();
     }
 
+<<<<<<< Assets/Scripts/Game/Player.cs
     /// <summary>
     /// Handles the keypresses
     /// </summary>
+=======
+    public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
+    {
+        base.Init(entityType, gameBoard, CurrentPos);
+        
+        Bomb bomb1 = Instantiate(bombPrefab,this.GameBoard.gameObject.transform).GetComponent<Bomb>();
+        bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
+        Bombs.Add(bomb1);
+        
+    }
+
+>>>>>>> Assets/Scripts/Game/Player.cs
     private void HandleKeys()
     {
         foreach (var item in Controls)
