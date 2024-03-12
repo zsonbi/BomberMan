@@ -166,11 +166,11 @@ public class Player : MovingEntity
         throw new System.NotImplementedException();
     }
 
-<<<<<<< Assets/Scripts/Game/Player.cs
+
     /// <summary>
     /// Handles the keypresses
     /// </summary>
-=======
+
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         base.Init(entityType, gameBoard, CurrentPos);
@@ -181,7 +181,7 @@ public class Player : MovingEntity
         
     }
 
->>>>>>> Assets/Scripts/Game/Player.cs
+
     private void HandleKeys()
     {
         foreach (var item in Controls)
