@@ -10,17 +10,17 @@ GameObject:
   m_Component:
   - component: {fileID: 5390487795292997576}
   - component: {fileID: 7336817923410608790}
-  - component: {fileID: 2558613945012570298}
   - component: {fileID: -5313675320585796262}
   - component: {fileID: -6163297736317662572}
   - component: {fileID: -7445584803186903890}
+  - component: {fileID: -983735463898977984}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5390487795292997576
 Transform:
   m_ObjectHideFlags: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 256ab1abab66ca447897d4c25c142cc6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec70fca3778720b4d9e6fd67ea55714a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,21 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2558613945012570298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303871658224516377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e3eb7e354c85004eb8988f02e3e9e25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  playerId: 0
-  bombPrefab: {fileID: 303871658224516377, guid: dc5cc3bd449818446a78604dcdab9924, type: 3}
 --- !u!210 &-5313675320585796262
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -187,3 +172,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-983735463898977984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303871658224516377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a2f49be1065c014f84d01f2b25cd632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
