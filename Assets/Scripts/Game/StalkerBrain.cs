@@ -1,48 +1,40 @@
 using PathFinding;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
+/// <summary>
+/// The stalker monster's brain
+/// </summary>
 public class StalkerBrain : MonsterBrain
 {
     private PathFindingInterface pathFinder;
 
+    /// <summary>
+    /// Inits the brain
+    /// </summary>
+    /// <param name="body">The parent monster</param>
+    /// <param name="accuracy">The accuracy of the brain</param>
     public override void InitBrain(Monster body, float accuracy = 0.9F)
     {
         base.InitBrain(body, accuracy);
         this.pathFinder = new BFS(body.GameBoard.Cells);
     }
 
-    public override Direction NextTargetDir()
-    {
-        List<Direction> possDir = new List<Direction>();
 
-        for (int i = 0; i < 4; i++)
-        {
-            if (body.DirectionPassable((Direction)i))
-            {
-                possDir.Add((Direction)i);
-            }
-        }
 
-        if (possDir.Count == 0)
-        {
-            return (Direction)((byte)(body.CurrentDirection + 2) % 4);
-        }
-
-        return possDir[Config.RND.Next(0, possDir.Count)];
-    }
-
+    //Gets what direction to move to get to the nearest player
     private Direction NearestPlayerDir()
     {
-        Stack<BFSCell> path = pathFinder.GetPathToSearched(this.body.CurrentBoardPos, this.body.GameBoard.Players.Select(x => x.CurrentBoardPos));
+        //Get the path to the player
+        Stack<BFSCell> path = pathFinder.GetPathToSearched(this.body.CurrentBoardPos, this.body.GameBoard.Players.Where(x => x.Alive).Select(x => x.CurrentBoardPos));
+        //If there is no path
         if (path is null || path.Count == 0)
         {
             return NextTargetDir();
         }
         else
         {
+            //Get the direction
             BFSCell newTarget = path.Pop();
             if (newTarget.Row == this.body.CurrentBoardPos.Row)
             {
@@ -69,6 +61,11 @@ public class StalkerBrain : MonsterBrain
         }
     }
 
+
+    /// <summary>
+    /// What direction to move towards when changed cells
+    /// </summary>
+    /// <returns>A new direction to move towards</returns>
     public override Direction ChangedCell()
     {
         if (Accuracy < Config.RND.NextDouble())
@@ -89,6 +86,7 @@ public class StalkerBrain : MonsterBrain
                     return NearestPlayerDir();
                 }
             }
+            //Check if it is a juncktion if it is move towards the nearest player
             else
             {
                 List<Direction> possDir = new List<Direction>();

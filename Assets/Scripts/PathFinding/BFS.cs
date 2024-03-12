@@ -1,16 +1,19 @@
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
+
 
 namespace PathFinding
 {
+    /// <summary>
+    /// Algoritm for bfs pathfinding
+    /// </summary>
     public class BFS : PathFindingInterface
     {
+        //Reference to the Gameboard's cell
         private Obstacle[,] Cells;
+        //Grid for the bfs algorithm
         private BFSCell[,] SearchGrid;
 
+        //Creates the search grid does not create cells for the impassable walls
         private void CreateSearchGrid()
         {
             SearchGrid = new BFSCell[Cells.GetLength(0), Cells.GetLength(1)];
@@ -24,12 +27,19 @@ namespace PathFinding
             }
         }
 
+        /// <summary>
+        /// Creates a new BFS class
+        /// </summary>
+        /// <param name="Cells">The gameboard's cells 2d array</param>
         public BFS(Obstacle[,] Cells)
         {
             this.Cells = Cells;
             CreateSearchGrid();
         }
-
+        
+        /// <summary>
+        /// Resets the BFS search grid table
+        /// </summary>
         private void ResetGrid()
         {
             for (int i = 0; i < SearchGrid.GetLength(0); i++)
@@ -44,27 +54,39 @@ namespace PathFinding
             }
         }
 
+        /// <summary>
+        /// Gets the path to the targets returns when it found one of the targets
+        /// </summary>
+        /// <param name="startingPos">The starting position of the algorithm</param>
+        /// <param name="targets">The targets for the algorithm</param>
+        /// <returns>The path to one of the target</returns>
         public Stack<BFSCell> GetPathToSearched(Position startingPos, IEnumerable<Position> targets)
         {
+            //If the starting position is not valid return
             if (SearchGrid[startingPos.Row, startingPos.Col] is null)
             {
                 return null;
             }
 
+            //Reset the search grid
             ResetGrid();
 
             Queue<BFSCell> whatToCheck = new Queue<BFSCell>();
             SearchGrid[startingPos.Row, startingPos.Col].Visit(0, null);
             whatToCheck.Enqueue(SearchGrid[startingPos.Row, startingPos.Col]);
 
+            //While the bfs still got nodes to check
             while (whatToCheck.Count != 0)
             {
+
                 BFSCell currNode = whatToCheck.Dequeue();
+                //Check if we reached target
                 foreach (var target in targets)
                 {
                     if (currNode.Row == target.Row && currNode.Col == target.Col)
                     {
                         Stack<BFSCell> path = new Stack<BFSCell>();
+                        //Put the path into the path stack
                         while (currNode.Parent is not null)
                         {
                             path.Push(currNode);
@@ -73,6 +95,7 @@ namespace PathFinding
 
                         return path;
                     }
+                    //Check the neighbouring cells if it is a new cell put it in the queue
                     BFSCell temp = null;
                     if (currNode.Row > 0)
                     {

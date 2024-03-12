@@ -9,35 +9,72 @@ public abstract class MovingEntity : MapEntity
 {
     [SerializeField]
     private float speed = 1f;
+    [SerializeField]    
+    private int hp = 3;
 
-    public float Speed { get => speed; protected set => speed = value; }
 
-    [SerializeField]
-    public int Hp { get; protected set; } = 3;
-
-    public bool Alive { get; protected set; } = true;
-    public Direction CurrentDirection { get; private set; } = Direction.Left;
-    protected Direction NewDirection = Direction.None;
+    //Where will the entity move
     private Vector3? targetPos;
+    //Where to start the calculation from for the movement
     private Vector3? startPos;
-    protected float moveProgress { get; private set; }
-    protected float timeToMove { get; private set; } = 1f;
+    //Immunity counter if it been killed
     private float immuneTime = 0f;
 
+
+    /// <summary>
+    /// Speed of the entity (how fast it will move on the board)
+    /// </summary>
+    public float Speed { get => speed; protected set => speed = value; }
+
+
+    /// <summary>
+    /// How many times can the entity be "killed"
+    /// </summary>
+    public int Hp { get=>hp; protected set=>hp=value; }
+    /// <summary>
+    /// Is the entity alive
+    /// </summary>
+    public bool Alive { get; protected set; } = true;
+    /// <summary>
+    /// The current moving direction of the entity
+    /// </summary>
+    public Direction CurrentDirection { get; private set; } = Direction.Left;
+    //What will be the entity's new moving direction after it changed tiles
+    protected Direction NewDirection = Direction.None;
+    /// <summary>
+    /// How is the move progressing (0.0-1.0)
+    /// </summary>
+    protected float moveProgress { get; private set; }
+    /// <summary>
+    /// How long does the movement take
+    /// </summary>
+    protected float timeToMove { get; private set; } = 1f;
+    
+    /// <summary>
+    /// Event which is called when it changed tiles completely
+    /// </summary>
     public EventHandler ReachedTargetEvent;
 
+    /// <summary>
+    /// Inits the entity should be called right after creating the entity
+    /// </summary>
+    /// <param name="entityType">The type of the entity</param>
+    /// <param name="gameBoard">The parent board</param>
+    /// <param name="CurrentPos">The current position of the entity</param>
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         this.Alive = true;
         base.Init(entityType, gameBoard, CurrentPos);
     }
 
+    //Called when the script is loaded
     private void Awake()
     {
         this.timeToMove = 1 / Speed;
         targetPos = null;
     }
 
+    //Called every frame update
     protected void Update()
     {
         if (!Alive)
@@ -53,6 +90,7 @@ public abstract class MovingEntity : MapEntity
         Move(CurrentDirection);
     }
 
+    //Get the next target determined by the direction
     private Vector3 GetNextTarget(Direction dir)
     {
         Obstacle obstacle;
@@ -82,6 +120,9 @@ public abstract class MovingEntity : MapEntity
         return new Vector3(obstacle.CurrentBoardPos.Col * Config.CELLSIZE, obstacle.CurrentBoardPos.Row * -Config.CELLSIZE - Config.CELLSIZE / 2, this.transform.localPosition.z);
     }
 
+    /// <summary>
+    /// Kills the entity if it isn't immune and have 0 Health kill it
+    /// </summary>
     public void Kill()
     {
         if (immuneTime > 0)
@@ -104,6 +145,11 @@ public abstract class MovingEntity : MapEntity
         }
     }
 
+    /// <summary>
+    /// Checks if the given direction is passable for the entity
+    /// </summary>
+    /// <param name="dir">Which direction to check</param>
+    /// <returns>true-passable false-impassable</returns>
     public bool DirectionPassable(Direction dir)
     {
         Obstacle obstacle;
@@ -137,7 +183,8 @@ public abstract class MovingEntity : MapEntity
         return true;
     }
 
-    protected bool Move(Direction dir)
+    //What direction to move towards
+    private bool Move(Direction dir)
     {
         moveProgress += Time.deltaTime;
         if (targetPos is not null)
@@ -203,6 +250,10 @@ public abstract class MovingEntity : MapEntity
         return true;
     }
 
+    /// <summary>
+    /// Changes the direction of the entity
+    /// </summary>
+    /// <param name="dir">The dir to change</param>
     protected void ChangeDir(Direction dir)
     {
         if (dir == CurrentDirection)
@@ -212,6 +263,11 @@ public abstract class MovingEntity : MapEntity
         NewDirection = dir;
     }
 
+    /// <summary>
+    /// Called when an entity changed it's cell on the board
+    /// </summary>
+    /// <param name="boardRow">New row index</param>
+    /// <param name="boardCol">New col index</param>
     public virtual void ChangedCell(int boardRow, int boardCol)
     {
         this.CurrentBoardPos.Change(boardRow, boardCol);

@@ -1,31 +1,22 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
+/// <summary>
+/// Controls the game
+/// </summary>
 public class GameBoard : MonoBehaviour
 {
+    //What will be used as a delimiter in the maps file if it is a csv
     private const char CSVDELIMITER = ';';
-    private const int HEIGHT = 100;
-    private const int WIDTH = 100;
-
-    public Obstacle[,] Cells { get; private set; }
-
-    public List<MapEntity> Entites { get; private set; }
-    public int RowCount { get; private set; }
-    public int ColCount { get; private set; }
-
-    public List<Player> Players { get; private set; } = new List<Player>();
-
-    public List<Monster> Monsters { get; private set; } = new List<Monster>();
 
     [SerializeField]
-    public float CircleDecreaseRate { get; private set; }
-
+    private float circleDecreaseRate;
+    
+    //Prefabs link them in editor!
     [SerializeField]
     private GameObject indestructibleWallPrefab;
 
@@ -38,6 +29,43 @@ public class GameBoard : MonoBehaviour
     [SerializeField]
     private List<GameObject> monsterPrefabs;
 
+
+    /// <summary>
+    /// The cells of the board
+    /// </summary>
+    public Obstacle[,] Cells { get; private set; }
+
+    /// <summary>
+    /// List of the entities such as Bonuses, Bombs etc.
+    /// </summary>
+    public List<MapEntity> Entites { get; private set; }
+    /// <summary>
+    /// The number of rows of the board
+    /// </summary>
+    public int RowCount { get; private set; }
+    /// <summary>
+    /// The number of cols of the board
+    /// </summary>
+    public int ColCount { get; private set; }
+
+    /// <summary>
+    /// The players on the board (check for alive)
+    /// </summary>
+    public List<Player> Players { get; private set; } = new List<Player>();
+
+    /// <summary>
+    /// The players on the board (check for alive)
+    /// </summary>
+    public List<Monster> Monsters { get; private set; } = new List<Monster>();
+
+    /// <summary>
+    /// How quick the circle will decrease
+    /// </summary>
+    public float CircleDecreaseRate { get=>circleDecreaseRate; private set=>circleDecreaseRate=value; }
+
+    /// <summary>
+    /// Event is called when the menu needs to be refreshed
+    /// </summary>
     public EventHandler UpdateMenuFields;
 
     // Start is called before the first frame update
@@ -46,10 +74,13 @@ public class GameBoard : MonoBehaviour
         await CreateBoard("Assets/Maps/baseMap.csv");
     }
 
+    //Creates a new board specified by the given file's layout
     private async Task CreateBoard(string mapLayoutFilename)
     {
+        //The path to the base directory
         string mapsPath = Directory.GetCurrentDirectory() + "/";
 
+        //lines
         string[] fileLines = await File.ReadAllLinesAsync(mapsPath + mapLayoutFilename);
 
         this.Cells = new Obstacle[fileLines.Length, fileLines[0].Split(CSVDELIMITER).Length];
@@ -64,6 +95,7 @@ public class GameBoard : MonoBehaviour
             for (int j = 0; j < splitted.Length; j++)
             {
                 Obstacle obstacle;
+                //Determine by the type what to spawn
                 switch ((MapCell)Convert.ToByte(splitted[j]))
                 {
                     case MapCell.Walkable:
@@ -99,12 +131,13 @@ public class GameBoard : MonoBehaviour
                 }
 
                 obstacle.Init(MapEntityType.Obstacle, this, new Position(i, j));
+                //Set the object position's on the board
                 obstacle.gameObject.transform.localPosition = new Vector3(j * Config.CELLSIZE, -2.5f - i * Config.CELLSIZE, 1);
 
                 Cells[i, j] = obstacle;
             }
         }
-
+        //Spawns the player's in
         int counter = 0;
         while (playerSpawns.Count != 0 && counter < Config.PlayerCount)
         {
@@ -118,12 +151,13 @@ public class GameBoard : MonoBehaviour
             playerSpawns.RemoveAt(index);
             ++counter;
         }
-
+        //Error detection
         if (counter < Config.PlayerCount)
         {
             Debug.LogError("Invalid map, no place to spawn the players");
         }
-        List<GameObject> tmp = GameObject.FindGameObjectsWithTag("Monster").ToList();
+      
+        //Spawns the monsters in
         counter = 0;
         while (monsterSpawns.Count != 0 && counter < Config.MonsterCount)
         {
@@ -137,18 +171,21 @@ public class GameBoard : MonoBehaviour
             monsterSpawns.RemoveAt(index);
             ++counter;
         }
-
+        //Error detection
         if (counter < Config.MonsterCount)
         {
             Debug.LogError("Invalid map, no place to spawn the monsters");
         }
     }
 
+    //Decreases the battle royale circle
     private void DecreaseCircle()
     {
     }
 
+    
     public void Reset()
     {
+        throw new NotImplementedException();
     }
 }
