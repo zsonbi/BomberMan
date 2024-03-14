@@ -52,23 +52,29 @@ public class Bomb : MapEntity
     // Update is called once per frame
     private void Update()
     {
+        //If the bomb is active
         if (Placed)
         {
             BombTimer += Time.deltaTime;
+            //If the bomb is blowing up expand it's destruction
             if (bombBlowingUp)
             {
+                
                 if (BombTimer >= explosionSpreadTime)
                 {
                     ++currentRange;
-                    ExpandExplosion();
+                    if (currentRange >= BlastRadius)
+                    {
+                        BlownUp();
+                    }
                     
+                    ExpandExplosion();
+
                     BombTimer = 0f;
                 }
-                if (currentRange == BlastRadius)
-                {
-                    BlownUp();
-                }
+           
             }
+            //Otherwise check if it is ready to blow
             else
             {
                 if (BombTimer >= TimeTillBlow)
@@ -84,76 +90,71 @@ public class Bomb : MapEntity
     {
         for (Direction i = 0; i <= Direction.Down; i++)
         {
+            //Should we spread the bomb's explosion towards that direction
             if (!ongoingExplosions[i])
             {
                 continue;
             }
 
-            Vector3 newPosition=Vector3.zero;
-            Vector3 newScale=Vector3.zero;
-            Obstacle cell=null;
+            //Get the cell in that direction
+            Vector3 newPosition = Vector3.zero;
+            Vector3 newScale = Vector3.zero;
+            Obstacle cell = null;
+            //According to the direction adjust the transforms and get the appropiate cell of the gameboard
             switch (i)
             {
                 case Direction.Left:
-                    cell = GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col - 1];
+                    cell = GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col - 1*currentRange];
+                    newPosition = new Vector3(-0.5f * currentRange, 0);
+                    newScale = new Vector3(1 * (currentRange + 1), 1);
                     break;
                 case Direction.Up:
-                    cell = GameBoard.Cells[CurrentBoardPos.Row-1, CurrentBoardPos.Col];
+                    cell = GameBoard.Cells[CurrentBoardPos.Row - 1 * currentRange, CurrentBoardPos.Col];
+                    newPosition = new Vector3(0, +0.5f * currentRange);
+                    newScale = new Vector3(1, 1 * (currentRange + 1));
                     break;
                 case Direction.Right:
-                    cell = GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col+1];
+                    cell = GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col + 1 * currentRange];
+                    newPosition = new Vector3(0.5f * currentRange, 0);
+                    newScale = new Vector3(1 * (currentRange + 1), 1);
                     break;
                 case Direction.Down:
-                    cell = GameBoard.Cells[CurrentBoardPos.Row+1, CurrentBoardPos.Col];
+                    cell = GameBoard.Cells[CurrentBoardPos.Row + 1 * currentRange, CurrentBoardPos.Col];
+                    newPosition = new Vector3(0, -0.5f * currentRange);
+                    newScale = new Vector3(1, 1 * (currentRange + 1));
                     break;
                 case Direction.None:
                     break;
                 default:
                     break;
             }
-
+            //Based on the type of the cell spread the explosion or not
+            bool spreadIt = false;
             if (cell.Placed)
             {
+                //If the block can be blown up blow it up
                 if (cell.Destructible)
                 {
-
+                    cell.BlowUp(true);
+                    ongoingExplosions[i] = false;
+                    spreadIt = true;
                 }
+                //Otherwise just skip this side for the rest of the bomb blow up cycle
                 else
                 {
-                    ongoingExplosions[i]=false;
-                    blowUpVisuals[(int)i].SetActive(false);
-                    Debug.Log("disaappear");
+                    ongoingExplosions[i] = false;
                     continue;
                 }
             }
             else
             {
-                switch (i)
-                {
-                    case Direction.Left:
-                        newPosition = new Vector3(-0.5f * currentRange, 0);
-                        newScale = new Vector3(1 * (currentRange + 1), 1);
-                        break;
-                    case Direction.Up:
-                        newPosition = new Vector3(0,+0.5f * currentRange);
-                        newScale = new Vector3(1, 1 * (currentRange + 1));
-                        break;
-                    case Direction.Right:
-                        newPosition = new Vector3(0.5f * currentRange, 0);
-                        newScale = new Vector3(1 * (currentRange + 1), 1);
-                        break;
-                    case Direction.Down:
-                        newPosition = new Vector3(0,-0.5f * currentRange);
-                        newScale = new Vector3(1, 1 * (currentRange+1));
-                        break;
-       
-                }
+                spreadIt = true;
             }
-            Debug.Log("Expanded");
-
+            //Adjust the visuals positions
+            if(spreadIt) { 
             blowUpVisuals[(int)i].transform.localPosition = newPosition;
             blowUpVisuals[(int)i].transform.localScale = newScale;
-
+            }
         }
 
     }
@@ -173,15 +174,17 @@ public class Bomb : MapEntity
     /// <param name="radius">How far does the bomb's radius is</param>
     public void Place(Position whereToPlace, int radius)
     {
+        //Reset the bomb's parameters
         this.BlastRadius = radius;
         this.bombBlowingUp = false;
         this.Placed = true;
         this.explosionSpreadTime = (float)Config.BOMBEXPLOSIONSPREADSPEED / (float)radius;
         this.gameObject.SetActive(true);
-        this.currentRange=0;
+        this.currentRange = 0;
         this.CurrentBoardPos = whereToPlace;
         this.gameObject.transform.localPosition = new Vector3(whereToPlace.Col * Config.CELLSIZE, -2.5f - whereToPlace.Row * Config.CELLSIZE, 1);
 
+        //Reset the visuals and their parameters
         for (Direction i = 0; i <= Direction.Down; i++)
         {
             blowUpVisuals[(int)i].SetActive(false);
@@ -207,12 +210,5 @@ public class Bomb : MapEntity
             blowUpVisuals[(int)i].SetActive(true);
         }
 
-    }
-
-
-    public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
-    {
-        base.Init(entityType, gameBoard, CurrentPos);
-        //throw new System.NotImplementedException();
     }
 }

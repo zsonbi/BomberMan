@@ -38,7 +38,7 @@ public class Obstacle : MapEntity
 
     private void DropBonus()
     {
-        throw new System.NotImplementedException();
+        Debug.LogError("Drop bonus is not yet implemented!");
     }
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
