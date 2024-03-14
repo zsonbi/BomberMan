@@ -130,7 +130,17 @@ public class Player : MovingEntity
         {
             if(!bomb.Placed)
             {
-                bomb.Place(new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));             
+                int bombRange = Config.BOMBDEFAULTEXPLOSIONRANGE;
+                if (Bonuses.ContainsKey(BonusType.BombRange))
+                {
+                    bombRange += Bonuses[BonusType.BombRange].Tier;
+                }
+                if (Bonuses.ContainsKey(BonusType.SmallExplosion))
+                {
+                    bombRange =1;
+                }
+
+                bomb.Place(new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col),bombRange);             
             }
         }
         //throw new System.NotImplementedException();
@@ -167,10 +177,7 @@ public class Player : MovingEntity
     }
 
 
-    /// <summary>
-    /// Handles the keypresses
-    /// </summary>
-
+ 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         base.Init(entityType, gameBoard, CurrentPos);
@@ -181,7 +188,9 @@ public class Player : MovingEntity
         
     }
 
-
+    /// <summary>
+    /// Handles the keypresses
+    /// </summary>
     private void HandleKeys()
     {
         foreach (var item in Controls)
