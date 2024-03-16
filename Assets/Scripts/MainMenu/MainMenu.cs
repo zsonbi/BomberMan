@@ -46,7 +46,7 @@ public class MainMenu : MonoBehaviour
     /// <summary>
     /// Readning the player's name
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name = "name" ></ param >
     public void ReadPlayer1Name(string name)
     {
         MainMenuConfig.PlayerNames[0] = name;
@@ -65,14 +65,26 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Player 3 name: " + MainMenuConfig.PlayerNames[2]);
     }
 
+
     /// <summary>
-    /// Reading the required points to win the game
+    /// Read all player's name
     /// </summary>
-    /// <param name="points"></param>
-    public void ReadRequiredPoints(string points)
+    /// <param name="name"></param>
+    /// <param name="index"></param>
+    //public void ReadPlayerName(string name, int index)
+    //{
+    //    MainMenuConfig.PlayerNames[index] = name;
+    //    Debug.Log("Player " + (index + 1) + ". name: " + MainMenuConfig.PlayerNames[index]);
+    //}
+
+    /// <summary>
+    /// Read the choosen index of the map
+    /// </summary>
+    /// <param name="index"></param>
+    public void ReadMapIndex(int index = 0)
     {
-        MainMenuConfig.RequiredPoint = int.Parse(points);
-        Debug.Log("Required points to win the game: " + MainMenuConfig.RequiredPoint);
+        MainMenuConfig.Map = index;
+        Debug.Log("Map index: " + MainMenuConfig.Map);
     }
 
     /// <summary>
@@ -91,5 +103,15 @@ public class MainMenu : MonoBehaviour
             MainMenuConfig.BattleRoyale = false;
             Debug.Log("Battle Royale Game mode is not choosen");
         }
+    }
+
+    /// <summary>
+    /// Reading the required points to win the game
+    /// </summary>
+    /// <param name="points"></param>
+    public void ReadRequiredPoints(string points)
+    {
+        MainMenuConfig.RequiredPoint = int.Parse(points);
+        Debug.Log("Required points to win the game: " + MainMenuConfig.RequiredPoint);
     }
 }
