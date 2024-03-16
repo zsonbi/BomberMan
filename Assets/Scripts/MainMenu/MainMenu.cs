@@ -65,7 +65,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Player 3 name: " + MainMenuConfig.PlayerNames[2]);
     }
 
-
+    //Easier read instead of 3 void
     /// <summary>
     /// Read all player's name
     /// </summary>
@@ -76,6 +76,8 @@ public class MainMenu : MonoBehaviour
     //    MainMenuConfig.PlayerNames[index] = name;
     //    Debug.Log("Player " + (index + 1) + ". name: " + MainMenuConfig.PlayerNames[index]);
     //}
+
+
 
     /// <summary>
     /// Read the choosen index of the map
@@ -113,5 +115,19 @@ public class MainMenu : MonoBehaviour
     {
         MainMenuConfig.RequiredPoint = int.Parse(points);
         Debug.Log("Required points to win the game: " + MainMenuConfig.RequiredPoint);
+    }
+
+    /// <summary>
+    /// when they type in any data, and click on Back, then no data will be stored
+    /// </summary>
+    public void ResetEveryInput()
+    {
+        Debug.Log("Map index: " + MainMenuConfig.Map); //Before
+        MainMenuConfig.PlayerNames = null;
+        MainMenuConfig.RequiredPoint = 3;
+        MainMenuConfig.Map = 0;
+        MainMenuConfig.Player3 = true;
+        MainMenuConfig.BattleRoyale = true;
+        Debug.Log("Map index: " + MainMenuConfig.Map); //After
     }
 }
