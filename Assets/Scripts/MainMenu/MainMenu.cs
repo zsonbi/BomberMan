@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 using Unity.VisualScripting;
 
 public class MainMenu : MonoBehaviour
