@@ -13,7 +13,7 @@ public static class MainMenuConfig
     /// <summary>
     /// How many players (default: checked)
     /// </summary>
-    public static bool Player3 = true;
+    public static bool Player3;
 
     /// <summary>
     /// Choosen map index to play on (default: 0)
@@ -34,9 +34,6 @@ public static class MainMenuConfig
     public static void ResetEveryValue()
     {
         PlayerNames = new string[3];
-        Player3 = true;
-        Map = 0;
-        BattleRoyale = true;
         RequiredPoint = 3;
     }
 

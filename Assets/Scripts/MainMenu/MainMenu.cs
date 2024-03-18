@@ -102,12 +102,4 @@ public class MainMenu : MonoBehaviour
         MainMenuConfig.RequiredPoint = int.Parse(points);
         Debug.Log("Required points to win the game: " + MainMenuConfig.RequiredPoint);
     }
-
-    /// <summary>
-    /// when they type in any data, and click on Back, then no data will be stored
-    /// </summary>
-    public void ResetEveryInput()
-    { 
-        MainMenuConfig.ResetEveryValue();
-    }
 }
