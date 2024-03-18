@@ -11,12 +11,12 @@ public static class MainMenuConfig
     public static string[] PlayerNames = new string[3];
 
     /// <summary>
-    /// How many players (default: checked)
+    /// How many players (default: unchecked)
     /// </summary>
     public static bool Player3;
 
     /// <summary>
-    /// Choosen map index to play on (default: 0)
+    /// Choosen map index to play on (default: null)
     /// </summary>
     public static int Map;
 
@@ -29,12 +29,5 @@ public static class MainMenuConfig
     /// Required points to win (default: 3)
     /// </summary>
     public static int RequiredPoint;
-
-
-    public static void ResetEveryValue()
-    {
-        PlayerNames = new string[3];
-        RequiredPoint = 3;
-    }
 
 }
