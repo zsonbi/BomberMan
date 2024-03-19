@@ -17,36 +17,38 @@ public class MainMenu : MonoBehaviour
         if (MainMenuConfig.RequiredPoint > 0 && MainMenuConfig.Map >= 0 && MainMenuConfig.Map <= 2)
         {
             //Checking the names
-            if (MainMenuConfig.Player3 && MainMenuConfig.PlayerNames[0] != "" && MainMenuConfig.PlayerNames[1] != "" && MainMenuConfig.PlayerNames[2] != "")
+            if (MainMenuConfig.Player3 && MainMenuConfig.PlayerNames[0].Length > 0 && MainMenuConfig.PlayerNames[1].Length > 0 && MainMenuConfig.PlayerNames[2].Length > 0)
             {
                 SceneManager.LoadSceneAsync("BombermanScene");
 
                 //Testing the inputs
                 Debug.Log("Game started");
-                Debug.Log(MainMenuConfig.PlayerNames[0] + " ; " + MainMenuConfig.PlayerNames[1] + " ; " + MainMenuConfig.PlayerNames[2]);
+                Debug.Log(MainMenuConfig.PlayerNames[0] + " | " + MainMenuConfig.PlayerNames[1] + " | " + MainMenuConfig.PlayerNames[2]);
                 Debug.Log(MainMenuConfig.Player3 + ", Battle royale: " + MainMenuConfig.BattleRoyale);
-                Debug.Log(MainMenuConfig.RequiredPoint + "points, Map: " + MainMenuConfig.Map);
+                Debug.Log(MainMenuConfig.RequiredPoint + " points, Map: " + MainMenuConfig.Map);
                 
             }
-            else if (!MainMenuConfig.Player3 && MainMenuConfig.PlayerNames[0] != "" && MainMenuConfig.PlayerNames[1] != "")
+            else if (!MainMenuConfig.Player3 && MainMenuConfig.PlayerNames[0].Length > 0 && MainMenuConfig.PlayerNames[1].Length > 0)
             {
                 MainMenuConfig.PlayerNames[2] = "";
                 SceneManager.LoadSceneAsync("BombermanScene");
 
                 //Testing the inputs
                 Debug.Log("Game started");
-                Debug.Log(MainMenuConfig.PlayerNames[0] + " ; " + MainMenuConfig.PlayerNames[1] + " ; " + MainMenuConfig.PlayerNames[2]);
+                Debug.Log(MainMenuConfig.PlayerNames[0] + " | " + MainMenuConfig.PlayerNames[1] + " | " + MainMenuConfig.PlayerNames[2]);
                 Debug.Log(MainMenuConfig.Player3 + ", Battle royale: " + MainMenuConfig.BattleRoyale);
-                Debug.Log(MainMenuConfig.RequiredPoint + "points, Map: " + MainMenuConfig.Map);
+                Debug.Log(MainMenuConfig.RequiredPoint + " points, Map: " + MainMenuConfig.Map);
             }
             else
             {
-                //Error message: Less input or not good syntacs
+                //Error message: Less input or not good syntax
+                Debug.Log("Not enough input or bad syntax");
             }
         }
         else
         {
-            //Error message: Less input or not good syntacs
+            //Error message: Less input or not good syntax
+            Debug.Log("Not enough input or bad syntax");
         }
     }
 

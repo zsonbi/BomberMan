@@ -16,18 +16,18 @@ public static class MainMenuConfig
     public static bool Player3;
 
     /// <summary>
-    /// Choosen map index to play on (default: null)
+    /// Choosen map index to play on (default: -1)
     /// </summary>
-    public static int Map;
+    public static int Map = -1;
 
     /// <summary>
-    /// Is Battle Royale Game mode choosen (default: checked)
+    /// Is Battle Royale Game mode choosen (default: unchecked)
     /// </summary>
     public static bool BattleRoyale;
 
     /// <summary>
     /// Required points to win (default: 3)
     /// </summary>
-    public static int RequiredPoint;
+    public static int RequiredPoint = 3;
 
 }
