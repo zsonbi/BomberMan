@@ -162,6 +162,9 @@ public class Bomb : MapEntity
     //When the bomb blow up process completed
     private void BlownUp()
     {
+        this.GameBoard.Cells[this.CurrentBoardPos.Row,this.CurrentBoardPos.Col].EraseBomb();
+
+
         Debug.Log("Bumm");
         this.gameObject.SetActive(false);
         this.Placed = false;

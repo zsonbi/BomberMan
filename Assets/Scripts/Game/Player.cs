@@ -140,7 +140,9 @@ public class Player : MovingEntity
                     bombRange =1;
                 }
 
-                bomb.Place(new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col),bombRange);             
+                bomb.Place(new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col),bombRange);
+                GameBoard.Cells[this.CurrentBoardPos.Row,this.CurrentBoardPos.Col].PlaceBomb(bomb);
+                return;
             }
         }
         //throw new System.NotImplementedException();
@@ -181,10 +183,14 @@ public class Player : MovingEntity
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         base.Init(entityType, gameBoard, CurrentPos);
-        
-        Bomb bomb1 = Instantiate(bombPrefab,this.GameBoard.gameObject.transform).GetComponent<Bomb>();
-        bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
-        Bombs.Add(bomb1);
+
+        for (int i = 0; i < 2; i++)
+        {
+            Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
+            bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
+            Bombs.Add(bomb1);
+        }
+       
         
     }
 
