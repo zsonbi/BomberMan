@@ -63,12 +63,21 @@ public class Bomb : MapEntity
                 if (BombTimer >= explosionSpreadTime)
                 {
                     ++currentRange;
-                    if (currentRange >= BlastRadius)
+
+                    if (currentRange <= BlastRadius)
+                    {
+                        ExpandExplosion();
+
+                    }
+                    else
                     {
                         BlownUp();
+
                     }
-                    
-                    ExpandExplosion();
+
+
+
+
 
                     BombTimer = 0f;
                 }
@@ -88,6 +97,7 @@ public class Bomb : MapEntity
     // Expands the bomb's explosion
     private void ExpandExplosion()
     {
+        Debug.Log("Tick");
         for (Direction i = 0; i <= Direction.Down; i++)
         {
             //Should we spread the bomb's explosion towards that direction
