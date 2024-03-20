@@ -40,4 +40,18 @@ public class Position
     {
         return MathF.Sqrt(MathF.Pow(pos1.Row - pos2.Row, 2) + MathF.Pow(pos1.Col - pos2.Col, 2));
     }
+
+    public override bool Equals(object other)
+    {
+        if(other is Position)
+        {
+            Position otherPos = (Position)other;
+
+            return this.Row == otherPos.Row && this.Col == otherPos.Col;
+
+
+        }
+
+        return false;
+    }
 }

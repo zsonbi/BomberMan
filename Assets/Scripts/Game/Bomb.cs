@@ -97,7 +97,7 @@ public class Bomb : MapEntity
     // Expands the bomb's explosion
     private void ExpandExplosion()
     {
-        Debug.Log("Tick");
+      
         for (Direction i = 0; i <= Direction.Down; i++)
         {
             //Should we spread the bomb's explosion towards that direction
@@ -161,8 +161,24 @@ public class Bomb : MapEntity
                 spreadIt = true;
             }
             //Adjust the visuals positions
-            if(spreadIt) { 
-            blowUpVisuals[(int)i].transform.localPosition = newPosition;
+            if(spreadIt) {
+                foreach (var item in this.GameBoard.Players)
+                {
+                    if (item.CurrentBoardPos.Equals(cell.CurrentBoardPos))
+                    {
+                        item.Kill();
+                    }
+                }
+                foreach (var item in this.GameBoard.Monsters)
+                {
+                    if (item.CurrentBoardPos.Equals(cell.CurrentBoardPos))
+                    {
+                        item.Kill();
+                    }
+                }
+
+
+                blowUpVisuals[(int)i].transform.localPosition = newPosition;
             blowUpVisuals[(int)i].transform.localScale = newScale;
             }
         }

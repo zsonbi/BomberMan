@@ -15,7 +15,7 @@ public class GameBoard : MonoBehaviour
 
     [SerializeField]
     private float circleDecreaseRate;
-    
+
     //Prefabs link them in editor!
     [SerializeField]
     private GameObject indestructibleWallPrefab;
@@ -61,7 +61,7 @@ public class GameBoard : MonoBehaviour
     /// <summary>
     /// How quick the circle will decrease
     /// </summary>
-    public float CircleDecreaseRate { get=>circleDecreaseRate; private set=>circleDecreaseRate=value; }
+    public float CircleDecreaseRate { get => circleDecreaseRate; private set => circleDecreaseRate = value; }
 
     /// <summary>
     /// Event is called when the menu needs to be refreshed
@@ -71,6 +71,7 @@ public class GameBoard : MonoBehaviour
     // Start is called before the first frame update
     private async void Start()
     {
+        //await CreateBoard("Assets/Maps/testMap.csv");
         await CreateBoard("Assets/Maps/baseMap.csv");
     }
 
@@ -156,7 +157,7 @@ public class GameBoard : MonoBehaviour
         {
             Debug.LogError("Invalid map, no place to spawn the players");
         }
-      
+
         //Spawns the monsters in
         counter = 0;
         while (monsterSpawns.Count != 0 && counter < Config.MonsterCount)
@@ -183,7 +184,7 @@ public class GameBoard : MonoBehaviour
     {
     }
 
-    
+
     public void Reset()
     {
         throw new NotImplementedException();
