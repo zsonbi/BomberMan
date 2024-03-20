@@ -10,8 +10,13 @@ public class GhostBrain : MonsterBrain
 
     
     //Gets it the ghost is currently facing towards an outer wall
-    private bool DirectionBorder()
+    private bool DirectionTotallyImpassable()
     {
+        if (body.GameBoard.Cells[body.CurrentBoardPos.Row, body.CurrentBoardPos.Col].HasBomb)
+        {
+            return true;
+        }
+
         switch (body.CurrentDirection)
         {
             case Direction.Left:
@@ -46,7 +51,7 @@ public class GhostBrain : MonsterBrain
             if (!body.DirectionPassable(body.CurrentDirection))
             {
                 //Determine if the ghost should go through the wall
-                if (!DirectionBorder() && (prevWall || Config.RND.NextDouble() <= Config.GHOSTPASSTHROUGHCHANCE))
+                if (!DirectionTotallyImpassable() && (prevWall || Config.RND.NextDouble() <= Config.GHOSTPASSTHROUGHCHANCE))
                 {
                     prevWall = true;
 
