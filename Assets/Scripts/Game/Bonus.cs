@@ -21,9 +21,9 @@ public class Bonus : MapEntity
 
     public bool Decaying { get=>decaying; private set=>decaying=value; }
 
-    public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
+
+    public void Show()
     {
-        base.Init(entityType, gameBoard, CurrentPos);
-        throw new System.NotImplementedException();
+        this.gameObject.SetActive(true);
     }
 }

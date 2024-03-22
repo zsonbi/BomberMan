@@ -103,6 +103,32 @@ public class Player : MovingEntity
         {
             this.Kill();
         }
+        if(collision.gameObject.tag == "Bonus")
+        {
+            Bonus bonus = collision.gameObject.GetComponent<Bonus>();
+            switch (bonus.Type) {
+                case BonusType.BonusBomb:
+                    if (Bonuses.Contains(BonusType.BonusBomb) && Bonuses[BonusType.BonusBomb].Tier < 3)
+                    {
+                        Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
+                        bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
+                        Bombs.Add(bomb1);
+
+                    }
+                    else
+                    {
+                        Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
+                        bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
+                        Bombs.Add(bomb1);
+                        Bonuses.Add(bonus.Type,bonus);
+                    }
+                    
+                    break;
+                default : 
+                    break;
+            }
+            bonus.gameObject.SetActive(false);
+        }
     }
 
     //Changes the player's direction to left

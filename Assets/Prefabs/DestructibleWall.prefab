@@ -113,10 +113,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b11d3e2b97697044bfdd59d774c6f7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placed: 0
   destructible: 1
   notPassable: 0
   spriteWhenPlaced: {fileID: 21300000, guid: c11abbd29a2c4874488fc355a735d4fc, type: 3}
   spriteWhenBlownUp: {fileID: 21300000, guid: 53aeb0161105d6e46a78ed304a82a211, type: 3}
+  bonusPrefabs:
+  - {fileID: 2893851931354454646, guid: bf4073abf9a5d744e8021b9b24a1a593, type: 3}
 --- !u!210 &-1947205429256782114
 SortingGroup:
   m_ObjectHideFlags: 0

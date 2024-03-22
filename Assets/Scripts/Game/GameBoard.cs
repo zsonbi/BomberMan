@@ -101,27 +101,31 @@ public class GameBoard : MonoBehaviour
                 {
                     case MapCell.Walkable:
                         obstacle = Instantiate(destructibleWallPrefab, this.gameObject.transform).GetComponent<Obstacle>();
-
+                        obstacle.Init(MapEntityType.Obstacle, this, new Position(i, j));
                         break;
 
                     case MapCell.IndestructibleWall:
                         obstacle = Instantiate(indestructibleWallPrefab, this.gameObject.transform).GetComponent<Obstacle>();
+                        obstacle.Init(MapEntityType.Obstacle, this, new Position(i, j));
                         obstacle.Place(false);
                         break;
 
                     case MapCell.DestructibleWall:
                         obstacle = Instantiate(destructibleWallPrefab, this.gameObject.transform).GetComponent<Obstacle>();
+                        obstacle.Init(MapEntityType.Obstacle, this, new Position(i, j));
                         obstacle.Place(true);
                         break;
 
                     case MapCell.PlayerSpawn:
                         obstacle = Instantiate(destructibleWallPrefab, this.gameObject.transform).GetComponent<Obstacle>();
+                        obstacle.Init(MapEntityType.Obstacle, this, new Position(i, j));
                         playerSpawns.Add(new Position(i, j));
 
                         break;
 
                     case MapCell.MonsterSpawn:
                         obstacle = Instantiate(destructibleWallPrefab, this.gameObject.transform).GetComponent<Obstacle>();
+                        obstacle.Init(MapEntityType.Obstacle, this, new Position(i, j));
                         monsterSpawns.Add(new Position(i, j));
                         break;
 
@@ -131,7 +135,7 @@ public class GameBoard : MonoBehaviour
                         break;
                 }
 
-                obstacle.Init(MapEntityType.Obstacle, this, new Position(i, j));
+                
                 //Set the object position's on the board
                 obstacle.gameObject.transform.localPosition = new Vector3(j * Config.CELLSIZE, -2.5f - i * Config.CELLSIZE, 1);
 
