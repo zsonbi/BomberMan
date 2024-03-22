@@ -120,6 +120,7 @@ MonoBehaviour:
   spriteWhenBlownUp: {fileID: 21300000, guid: 53aeb0161105d6e46a78ed304a82a211, type: 3}
   bonusPrefabs:
   - {fileID: 2893851931354454646, guid: bf4073abf9a5d744e8021b9b24a1a593, type: 3}
+  - {fileID: 2893851931354454646, guid: e65df04bd54859a45a668585ea0e0389, type: 3}
 --- !u!210 &-1947205429256782114
 SortingGroup:
   m_ObjectHideFlags: 0

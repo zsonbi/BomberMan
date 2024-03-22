@@ -44,6 +44,7 @@ public class Bonus : MapEntity
                 break;
 
             case BonusType.BombRange:
+                maxTier = BonusConfigs.EXTRA_RANGE_MAX_TIER;
                 break;
 
             case BonusType.Detonator:

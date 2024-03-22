@@ -109,7 +109,7 @@ public class Player : MovingEntity
 
             case "Bonus":
                 Bonus bonus = collision.gameObject.GetComponent<Bonus>();
-                if (!Bonuses.ContainsKey(BonusType.BonusBomb))
+                if (!Bonuses.ContainsKey(bonus.Type))
                 {
                     Bonuses.Add(bonus.Type, bonus);
                 }
@@ -125,6 +125,10 @@ public class Player : MovingEntity
                         }
                         break;
 
+                    case BonusType.BombRange:
+                        Bonuses[bonus.Type].IncreaseTier();
+                        break;
+
                     default:
                         break;
                 }
@@ -134,7 +138,7 @@ public class Player : MovingEntity
                 }
                 else
                 {
-                    GameObject.Destroy(bonus.gameObject);
+                    Destroy(bonus.gameObject);
                 }
 
                 break;
