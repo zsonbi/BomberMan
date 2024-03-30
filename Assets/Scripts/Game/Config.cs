@@ -32,8 +32,6 @@ public static class Config
 
     public const float BOMBBLOWTIME = 3f;
 
-    public static byte PlayerCount = 1;
-
     /// <summary>
     /// How many monsters does the game has
     /// </summary>
@@ -43,6 +41,4 @@ public static class Config
     /// Global random for the program
     /// </summary>
     public static System.Random RND = new System.Random();
-
-    
 }

@@ -15,7 +15,7 @@ public class GameBoard : MonoBehaviour
 
     [SerializeField]
     private float circleDecreaseRate;
-    
+
     //Prefabs link them in editor!
     [SerializeField]
     private GameObject indestructibleWallPrefab;
@@ -29,7 +29,6 @@ public class GameBoard : MonoBehaviour
     [SerializeField]
     private List<GameObject> monsterPrefabs;
 
-
     /// <summary>
     /// The cells of the board
     /// </summary>
@@ -39,10 +38,12 @@ public class GameBoard : MonoBehaviour
     /// List of the entities such as Bonuses, Bombs etc.
     /// </summary>
     public List<MapEntity> Entites { get; private set; }
+
     /// <summary>
     /// The number of rows of the board
     /// </summary>
     public int RowCount { get; private set; }
+
     /// <summary>
     /// The number of cols of the board
     /// </summary>
@@ -61,7 +62,7 @@ public class GameBoard : MonoBehaviour
     /// <summary>
     /// How quick the circle will decrease
     /// </summary>
-    public float CircleDecreaseRate { get=>circleDecreaseRate; private set=>circleDecreaseRate=value; }
+    public float CircleDecreaseRate { get => circleDecreaseRate; private set => circleDecreaseRate = value; }
 
     /// <summary>
     /// Event is called when the menu needs to be refreshed
@@ -139,7 +140,7 @@ public class GameBoard : MonoBehaviour
         }
         //Spawns the player's in
         int counter = 0;
-        while (playerSpawns.Count != 0 && counter < Config.PlayerCount)
+        while (playerSpawns.Count != 0 && counter < (MainMenuConfig.Player3 ? 3 : 2))
         {
             int index = Config.RND.Next(0, playerSpawns.Count);
             if (Players.Count <= counter)
@@ -152,11 +153,11 @@ public class GameBoard : MonoBehaviour
             ++counter;
         }
         //Error detection
-        if (counter < Config.PlayerCount)
+        if (counter < (MainMenuConfig.Player3 ? 3 : 2))
         {
             Debug.LogError("Invalid map, no place to spawn the players");
         }
-      
+
         //Spawns the monsters in
         counter = 0;
         while (monsterSpawns.Count != 0 && counter < Config.MonsterCount)
@@ -183,7 +184,6 @@ public class GameBoard : MonoBehaviour
     {
     }
 
-    
     public void Reset()
     {
         throw new NotImplementedException();
