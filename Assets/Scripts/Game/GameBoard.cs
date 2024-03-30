@@ -149,6 +149,7 @@ public class GameBoard : MonoBehaviour
             }
             Players[counter].Init(MapEntityType.Player, this, playerSpawns[index]);
             Players[counter].gameObject.transform.localPosition = new Vector3(playerSpawns[index].Col * Config.CELLSIZE, -2.5f - playerSpawns[index].Row * Config.CELLSIZE, 2);
+            Players[counter].ChangeName(MainMenuConfig.PlayerNames[counter]);
             playerSpawns.RemoveAt(index);
             ++counter;
         }
