@@ -125,12 +125,14 @@ public abstract class MovingEntity : MapEntity
     /// </summary>
     public void Kill()
     {
+        
         if (immuneTime > 0)
         {
             return;
         }
         else
         {
+            Debug.Log("Got dmg");
             if (Hp > 0)
             {
                 Hp--;

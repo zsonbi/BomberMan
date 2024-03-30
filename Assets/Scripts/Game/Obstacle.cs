@@ -8,7 +8,9 @@ public class Obstacle : MapEntity
     [SerializeField]
     private bool placed = false;
 
-    public bool Placed { get=>placed; private set=>placed=value;} 
+    public bool Placed { get => placed; private set => placed = value; }
+
+    public bool HasBomb { get => placedBomb is not null; }
     //public bool Placed { get; private set; } = false;
 
     [SerializeField]
@@ -25,11 +27,15 @@ public class Obstacle : MapEntity
 
     private SpriteRenderer spriteRenderer;
 
+    private Bomb placedBomb = null;
+
     public bool Destructible { get => destructible; private set => destructible = value; }
 
     public Bonus ContainingBonus { get; private set; }
 
     public bool NotPassable { get; private set; } = false;
+
+
 
     private void Awake()
     {
@@ -38,7 +44,7 @@ public class Obstacle : MapEntity
 
     private void DropBonus()
     {
-        throw new System.NotImplementedException();
+        Debug.LogError("Drop bonus is not yet implemented!");
     }
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
@@ -73,6 +79,11 @@ public class Obstacle : MapEntity
             return false;
         }
 
+        if (HasBomb)
+        {
+            placedBomb.BlowUp();
+            placedBomb=null;
+        }
         if (dropBonus)
         {
             DropBonus();
@@ -88,5 +99,17 @@ public class Obstacle : MapEntity
             Debug.LogError("Sprite when blown up is not set!");
         }
         return true;
+    }
+
+    public void PlaceBomb(Bomb bombToPlace)
+    {
+        this.placedBomb = bombToPlace;
+        this.Placed = true;
+    }
+
+    public void EraseBomb()
+    {
+        this.placedBomb=null;
+        this.Placed=false;
     }
 }

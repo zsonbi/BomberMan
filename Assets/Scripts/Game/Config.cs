@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Runtime.CompilerServices;
 
 public static class Config
 {
@@ -30,7 +31,25 @@ public static class Config
     /// </summary>
     public const float STALKERMISSCHANCE = 0.1f;
 
+    /// <summary>
+    /// How far should the bomb range be default
+    /// </summary>
+    public const int BOMBDEFAULTEXPLOSIONRANGE=2;
+
+    /// <summary>
+    /// How long does it take for the bomb to blow up
+    /// </summary>
     public const float BOMBBLOWTIME = 3f;
+
+    /// <summary>
+    /// How quickly should the explosion spread
+    /// </summary>
+    public const float BOMBEXPLOSIONSPREADSPEED=1f;
+
+    /// <summary>
+    /// The number of players to spawn on start
+    /// </summary>
+    public static byte PlayerCount = 1;
 
     /// <summary>
     /// How many monsters does the game has

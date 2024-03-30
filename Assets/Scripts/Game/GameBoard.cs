@@ -72,6 +72,7 @@ public class GameBoard : MonoBehaviour
     // Start is called before the first frame update
     private async void Start()
     {
+        //await CreateBoard("Assets/Maps/testMap.csv");
         await CreateBoard("Assets/Maps/baseMap.csv");
     }
 
@@ -184,6 +185,7 @@ public class GameBoard : MonoBehaviour
     private void DecreaseCircle()
     {
     }
+
 
     public void Reset()
     {
