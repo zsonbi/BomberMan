@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         //Every field is filled with valid informations
-        if (MainMenuConfig.RequiredPoint > 0 && MainMenuConfig.Map >= 0 && MainMenuConfig.Map <= 2)
+        if (MainMenuConfig.RequiredPoint > 0)
         {
             //Checking the names
             if (MainMenuConfig.Player3 && MainMenuConfig.PlayerNames[0].Length > 0 && MainMenuConfig.PlayerNames[1].Length > 0 && MainMenuConfig.PlayerNames[2].Length > 0)
@@ -26,7 +26,6 @@ public class MainMenu : MonoBehaviour
                 Debug.Log(MainMenuConfig.PlayerNames[0] + " | " + MainMenuConfig.PlayerNames[1] + " | " + MainMenuConfig.PlayerNames[2]);
                 Debug.Log(MainMenuConfig.Player3 + ", Battle royale: " + MainMenuConfig.BattleRoyale);
                 Debug.Log(MainMenuConfig.RequiredPoint + " points, Map: " + MainMenuConfig.Map);
-                
             }
             else if (!MainMenuConfig.Player3 && MainMenuConfig.PlayerNames[0].Length > 0 && MainMenuConfig.PlayerNames[1].Length > 0)
             {
@@ -99,7 +98,6 @@ public class MainMenu : MonoBehaviour
         MainMenuConfig.PlayerNames[2] = name;
         Debug.Log("Player 3 name: " + MainMenuConfig.PlayerNames[2]);
     }
-
 
     /// <summary>
     /// Read the choosen index of the map

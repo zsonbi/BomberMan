@@ -60,6 +60,4 @@ public static class Config
     /// Global random for the program
     /// </summary>
     public static System.Random RND = new System.Random();
-
-    
 }

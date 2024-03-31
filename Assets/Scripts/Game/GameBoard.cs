@@ -29,7 +29,6 @@ public class GameBoard : MonoBehaviour
     [SerializeField]
     private List<GameObject> monsterPrefabs;
 
-
     /// <summary>
     /// The cells of the board
     /// </summary>
@@ -39,10 +38,12 @@ public class GameBoard : MonoBehaviour
     /// List of the entities such as Bonuses, Bombs etc.
     /// </summary>
     public List<MapEntity> Entites { get; private set; }
+
     /// <summary>
     /// The number of rows of the board
     /// </summary>
     public int RowCount { get; private set; }
+
     /// <summary>
     /// The number of cols of the board
     /// </summary>
@@ -140,7 +141,7 @@ public class GameBoard : MonoBehaviour
         }
         //Spawns the player's in
         int counter = 0;
-        while (playerSpawns.Count != 0 && counter < Config.PlayerCount)
+        while (playerSpawns.Count != 0 && counter < (MainMenuConfig.Player3 ? 3 : 2))
         {
             int index = Config.RND.Next(0, playerSpawns.Count);
             if (Players.Count <= counter)
@@ -149,11 +150,12 @@ public class GameBoard : MonoBehaviour
             }
             Players[counter].Init(MapEntityType.Player, this, playerSpawns[index]);
             Players[counter].gameObject.transform.localPosition = new Vector3(playerSpawns[index].Col * Config.CELLSIZE, -2.5f - playerSpawns[index].Row * Config.CELLSIZE, 2);
+            Players[counter].ChangeName(MainMenuConfig.PlayerNames[counter]);
             playerSpawns.RemoveAt(index);
             ++counter;
         }
         //Error detection
-        if (counter < Config.PlayerCount)
+        if (counter < (MainMenuConfig.Player3 ? 3 : 2))
         {
             Debug.LogError("Invalid map, no place to spawn the players");
         }
