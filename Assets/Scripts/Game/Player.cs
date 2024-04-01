@@ -52,11 +52,11 @@ public class Player : MovingEntity
         switch (playerId)
         {
             case 0:
-                Controls.Add(KeyCode.A, MoveLeft);
-                Controls.Add(KeyCode.W, MoveUp);
-                Controls.Add(KeyCode.D, MoveRight);
-                Controls.Add(KeyCode.S, MoveDown);
-                Controls.Add(KeyCode.Space, PlaceBomb);
+                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton", "A")), MoveLeft);
+                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton", "W")), MoveUp);
+                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton", "D")), MoveRight);
+                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton", "S")), MoveDown);
+                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton", "Space")), PlaceBomb);
                 break;
 
             case 1:
