@@ -60,11 +60,11 @@ public class Player : MovingEntity
                 break;
 
             case 1:
-                Controls.Add(KeyCode.LeftArrow, MoveLeft);
-                Controls.Add(KeyCode.UpArrow, MoveUp);
-                Controls.Add(KeyCode.RightArrow, MoveRight);
-                Controls.Add(KeyCode.DownArrow, MoveDown);
-                Controls.Add(KeyCode.RightShift, PlaceBomb);
+                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton2", "LeftArrow")), MoveLeft);
+                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton", "UpArrow")), MoveUp);
+                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton", "RightArrow")), MoveRight);
+                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton", "DownArrow")), MoveDown);
+                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton", "RightShift")), PlaceBomb);
                 break;
 
             case 2:
