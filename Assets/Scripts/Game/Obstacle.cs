@@ -36,7 +36,7 @@ public class Obstacle : MapEntity
 
     public Bonus ContainingBonus { get; private set; }
 
-    public bool NotPassable { get; private set; } = false;
+    public bool NotPassable { get=>notPassable; private set => notPassable=value; }
 
     private void Awake()
     {

@@ -121,7 +121,7 @@ public class Player : MovingEntity
                         {
                             Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
                             bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
-                            Bombs.Add(bomb1);
+                            this.Bombs.Add(bomb1);
                         }
                         break;
 

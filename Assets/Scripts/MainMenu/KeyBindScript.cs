@@ -10,8 +10,10 @@ public class KeyBindScript : MonoBehaviour
 
     private Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();
 
-    public TextMeshProUGUI up, down, right, left, place;
-    public TextMeshProUGUI up2, down2, right2, left2, place2;
+    [SerializeField]
+    private TextMeshProUGUI up, down, right, left, place;
+    [SerializeField]
+    private TextMeshProUGUI up2, down2, right2, left2, place2;
 
     private GameObject currentKey;
 
