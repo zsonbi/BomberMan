@@ -34,7 +34,7 @@ public static class Config
     /// <summary>
     /// How far should the bomb range be default
     /// </summary>
-    public const int BOMBDEFAULTEXPLOSIONRANGE=2;
+    public const int BOMBDEFAULTEXPLOSIONRANGE = 1;
 
     /// <summary>
     /// How long does it take for the bomb to blow up
@@ -44,7 +44,7 @@ public static class Config
     /// <summary>
     /// How quickly should the explosion spread
     /// </summary>
-    public const float BOMBEXPLOSIONSPREADSPEED=1f;
+    public const float BOMBEXPLOSIONSPREADSPEED = 1f;
 
     /// <summary>
     /// The number of players to spawn on start

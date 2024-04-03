@@ -25,6 +25,9 @@ public class Obstacle : MapEntity
     [SerializeField]
     private Sprite spriteWhenBlownUp;
 
+    [SerializeField]
+    private List<GameObject> bonusPrefabs;
+
     private SpriteRenderer spriteRenderer;
 
     private Bomb placedBomb = null;
@@ -35,8 +38,6 @@ public class Obstacle : MapEntity
 
     public bool NotPassable { get; private set; } = false;
 
-
-
     private void Awake()
     {
         this.spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
@@ -44,7 +45,8 @@ public class Obstacle : MapEntity
 
     private void DropBonus()
     {
-        Debug.LogError("Drop bonus is not yet implemented!");
+        ContainingBonus.Show();
+        this.ContainingBonus = null;
     }
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
@@ -69,6 +71,12 @@ public class Obstacle : MapEntity
             Debug.LogError("Sprite when placed is not set!");
         }
 
+        if (containBonus)
+        {
+            this.ContainingBonus = Instantiate(bonusPrefabs[Config.RND.Next(0, bonusPrefabs.Count)], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
+            this.ContainingBonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
+        }
+
         return true;
     }
 
@@ -82,9 +90,9 @@ public class Obstacle : MapEntity
         if (HasBomb)
         {
             placedBomb.BlowUp();
-            placedBomb=null;
+            placedBomb = null;
         }
-        if (dropBonus)
+        else if (dropBonus)
         {
             DropBonus();
         }
@@ -98,6 +106,7 @@ public class Obstacle : MapEntity
         {
             Debug.LogError("Sprite when blown up is not set!");
         }
+
         return true;
     }
 
@@ -109,7 +118,7 @@ public class Obstacle : MapEntity
 
     public void EraseBomb()
     {
-        this.placedBomb=null;
-        this.Placed=false;
+        this.placedBomb = null;
+        this.Placed = false;
     }
 }

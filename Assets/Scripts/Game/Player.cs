@@ -6,8 +6,7 @@ using System;
 public class Player : MovingEntity
 {
     //How long should the player wait between actions
-    private float actionCooldown = 0.5f;
-
+    private float actionCooldown = 0.1f;
 
     //The id of the player (set it in the editor)
     [SerializeField]
@@ -28,23 +27,26 @@ public class Player : MovingEntity
     /// The bonuses active for the player
     /// </summary>
     public Dictionary<BonusType, Bonus> Bonuses { get; private set; } = new Dictionary<BonusType, Bonus>();
+
     /// <summary>
     /// The control's for the player
     /// </summary>
     public Dictionary<KeyCode, Action> Controls { get; private set; } = new Dictionary<KeyCode, Action>();
+
     /// <summary>
     /// The bomb's of the player
     /// </summary>
     public List<Bomb> Bombs { get; private set; } = new List<Bomb>();
+
     /// <summary>
     /// The current score of the player
     /// </summary>
     public int Score { get; private set; } = 0;
+
     /// <summary>
     /// What skin does the player use
     /// </summary>
     public SkinType Skin { get; private set; } = SkinType.Basic;
-
 
     // Start is called before the first frame update
     private void Start()
@@ -99,9 +101,50 @@ public class Player : MovingEntity
     /// <param name="collision">What it collided with</param>
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Monster")
+        switch (collision.gameObject.tag)
         {
-            this.Kill();
+            case "Monster":
+                this.Kill();
+                break;
+
+            case "Bonus":
+                Bonus bonus = collision.gameObject.GetComponent<Bonus>();
+                if (!Bonuses.ContainsKey(bonus.Type))
+                {
+                    Bonuses.Add(bonus.Type, bonus);
+                }
+                switch (bonus.Type)
+                {
+                    case BonusType.BonusBomb:
+
+                        if (Bonuses[bonus.Type].IncreaseTier())
+                        {
+                            Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
+                            bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
+                            Bombs.Add(bomb1);
+                        }
+                        break;
+
+                    case BonusType.BombRange:
+                        Bonuses[bonus.Type].IncreaseTier();
+                        break;
+
+                    default:
+                        break;
+                }
+                if (Bonuses[bonus.Type].Tier == 1)
+                {
+                    bonus.Hide();
+                }
+                else
+                {
+                    Destroy(bonus.gameObject);
+                }
+
+                break;
+
+            default:
+                break;
         }
     }
 
@@ -113,7 +156,7 @@ public class Player : MovingEntity
 
     //Changes the player's direction to right
     private void MoveRight() => base.ChangeDir(Direction.Right);
-    
+
     //Changes the player's direction to down
     private void MoveDown() => base.ChangeDir(Direction.Down);
 
@@ -125,10 +168,10 @@ public class Player : MovingEntity
             return;
         }
         actionCooldown = Config.PLAYERACTIONCOOLDOWN;
-        
-        foreach(Bomb bomb in Bombs)
+
+        foreach (Bomb bomb in Bombs)
         {
-            if(!bomb.Placed)
+            if (!bomb.Placed)
             {
                 int bombRange = Config.BOMBDEFAULTEXPLOSIONRANGE;
                 if (Bonuses.ContainsKey(BonusType.BombRange))
@@ -137,11 +180,11 @@ public class Player : MovingEntity
                 }
                 if (Bonuses.ContainsKey(BonusType.SmallExplosion))
                 {
-                    bombRange =1;
+                    bombRange = 1;
                 }
 
-                bomb.Place(new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col),bombRange);
-                GameBoard.Cells[this.CurrentBoardPos.Row,this.CurrentBoardPos.Col].PlaceBomb(bomb);
+                bomb.Place(new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col), bombRange);
+                GameBoard.Cells[this.CurrentBoardPos.Row, this.CurrentBoardPos.Col].PlaceBomb(bomb);
                 return;
             }
         }
@@ -178,20 +221,13 @@ public class Player : MovingEntity
         throw new System.NotImplementedException();
     }
 
-
- 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         base.Init(entityType, gameBoard, CurrentPos);
 
-        for (int i = 0; i < 2; i++)
-        {
-            Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
-            bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
-            Bombs.Add(bomb1);
-        }
-       
-        
+        Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
+        bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
+        Bombs.Add(bomb1);
     }
 
     /// <summary>
