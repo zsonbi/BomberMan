@@ -74,16 +74,18 @@ namespace Bomberman
         public EventHandler UpdateMenuFields;
 
         // Start is called before the first frame update
-        private async void Start()
+        private void Start()
         {
             //await CreateBoard("Assets/Maps/testMap.csv");
             if (loadMapOnStartUp)
             {
-                //string mapsPath = Directory.GetCurrentDirectory() + "/Assets/Maps/GameMaps/";
-                //string[] filePaths = Directory.GetFiles(mapsPath, "*.csv");
+                //Not efficient, but can't do it other way
+                TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
 
-                //CreateBoard(filePaths[Config.RND.Next(0,filePaths.Length)]);
-                CreateBoard("Maps/GameMaps/baseMap");
+                //string mapsPath = Directory.GetCurrentDirectory() + "/Assets/Maps/GameMaps/";
+
+                CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
+                // CreateBoard("Maps/GameMaps/baseMap");
             }
         }
 
@@ -95,8 +97,6 @@ namespace Bomberman
         //Creates a new board specified by the given file's layout
         public void CreateBoard(string mapLayoutResourcePath)
         {
-
-
             //lines
             string[] fileLines = Resources.Load<TextAsset>(mapLayoutResourcePath).text.Trim('\n').Split('\n');
 
