@@ -1,7 +1,10 @@
-public enum MonsterType
+namespace DataTypes
 {
-    Basic,
-    Ghost,
-    Smarty,
-    Stalker
+    public enum MonsterType
+    {
+        Basic,
+        Ghost,
+        Smarty,
+        Stalker
+    }
 }

@@ -1,12 +1,17 @@
-public static class Persistance
-{
-    public static void Save(GameBoard game, string path)
-    {
-        throw new System.NotImplementedException();
-    }
+using Bomberman;
 
-    public static GameBoard Load(string path)
+namespace Persistance
+{
+    public static class Persistance
     {
-        throw new System.NotImplementedException();
+        public static void Save(GameBoard game, string path)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public static GameBoard Load(string path)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

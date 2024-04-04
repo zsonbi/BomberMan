@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-
+using DataTypes;
+using Bomberman;
 
 namespace PathFinding
 {
@@ -10,6 +11,7 @@ namespace PathFinding
     {
         //Reference to the Gameboard's cell
         private Obstacle[,] Cells;
+
         //Grid for the bfs algorithm
         private BFSCell[,] SearchGrid;
 
@@ -36,7 +38,7 @@ namespace PathFinding
             this.Cells = Cells;
             CreateSearchGrid();
         }
-        
+
         /// <summary>
         /// Resets the BFS search grid table
         /// </summary>
@@ -78,7 +80,6 @@ namespace PathFinding
             //While the bfs still got nodes to check
             while (whatToCheck.Count != 0)
             {
-
                 BFSCell currNode = whatToCheck.Dequeue();
                 //Check if we reached target
                 foreach (var target in targets)

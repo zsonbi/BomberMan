@@ -1,14 +1,17 @@
-public enum BonusType
+namespace DataTypes
 {
-    BonusBomb,
-    BombRange,
-    Detonator,
-    Skate,
-    Immunity,
-    Ghost,
-    Obstacle,
-    Slowness,
-    SmallExplosion,
-    NoBomb,
-    InstantBomb
+    public enum BonusType
+    {
+        BonusBomb,
+        BombRange,
+        Detonator,
+        Skate,
+        Immunity,
+        Ghost,
+        Obstacle,
+        Slowness,
+        SmallExplosion,
+        NoBomb,
+        InstantBomb
+    }
 }

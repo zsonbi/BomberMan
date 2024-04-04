@@ -1,4 +1,7 @@
-public enum SkinType
+namespace DataTypes
 {
-    Basic
+    public enum SkinType
+    {
+        Basic
+    }
 }

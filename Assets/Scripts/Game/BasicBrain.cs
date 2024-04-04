@@ -1,31 +1,32 @@
-using System.Collections.Generic;
+using DataTypes;
 
-/// <summary>
-/// The basic monster's brain
-/// </summary>
-public class BasicBrain : MonsterBrain
+namespace Bomberman
 {
-
-
     /// <summary>
-    /// What direction to move towards when changed cells
+    /// The basic monster's brain
     /// </summary>
-    /// <returns>A new direction to move towards</returns>
-    public override Direction ChangedCell()
+    public class BasicBrain : MonsterBrain
     {
-        if (Accuracy < Config.RND.NextDouble())
+        /// <summary>
+        /// What direction to move towards when changed cells
+        /// </summary>
+        /// <returns>A new direction to move towards</returns>
+        public override Direction ChangedCell()
         {
-            return NextTargetDir();
-        }
-        else
-        {
-            if (!body.DirectionPassable(body.CurrentDirection))
+            if (Accuracy < Config.RND.NextDouble())
             {
                 return NextTargetDir();
             }
             else
             {
-                return body.CurrentDirection;
+                if (!body.DirectionPassable(body.CurrentDirection))
+                {
+                    return NextTargetDir();
+                }
+                else
+                {
+                    return body.CurrentDirection;
+                }
             }
         }
     }

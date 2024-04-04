@@ -1,4 +1,5 @@
 ﻿using System;
+using DataTypes;
 
 namespace PathFinding
 {
@@ -7,7 +8,6 @@ namespace PathFinding
     /// </summary>
     public class BFSCell
     {
-
         /// <summary>
         /// Parent cell of the cell
         /// </summary>
@@ -17,10 +17,12 @@ namespace PathFinding
         /// How many steps did it take to reach this cell
         /// </summary>
         public int Step { get; private set; } = -1;
+
         /// <summary>
         /// The row index of the cell
         /// </summary>
         public int Row { get; private set; }
+
         /// <summary>
         /// The col index of the cell
         /// </summary>
