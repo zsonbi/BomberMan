@@ -1,88 +1,90 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DataTypes;
 
-public class Bonus : MapEntity
+namespace Bomberman
 {
-    [SerializeField]
-    private int tier;
-
-    [SerializeField]
-    private BonusType type;
-
-    [SerializeField]
-    private float duration;
-
-    [SerializeField]
-    private bool decaying = false;
-
-    public int Tier { get => tier; private set => tier = value; }
-
-    public BonusType Type { get => type; private set => type = value; }
-
-    public float Duration { get => duration; private set => duration = value; }
-
-    public bool Decaying { get => decaying; private set => decaying = value; }
-
-    public void Show()
+    public class Bonus : MapEntity
     {
-        this.gameObject.SetActive(true);
-    }
+        [SerializeField]
+        private int tier;
 
-    public void Hide()
-    {
-        this.gameObject.SetActive(false);
-    }
+        [SerializeField]
+        private BonusType type;
 
-    public bool IncreaseTier()
-    {
-        int maxTier = -1;
-        switch (Type)
+        [SerializeField]
+        private float duration;
+
+        [SerializeField]
+        private bool decaying = false;
+
+        public int Tier { get => tier; private set => tier = value; }
+
+        public BonusType Type { get => type; private set => type = value; }
+
+        public float Duration { get => duration; private set => duration = value; }
+
+        public bool Decaying { get => decaying; private set => decaying = value; }
+
+        public void Show()
         {
-            case BonusType.BonusBomb:
-                maxTier = BonusConfigs.EXTRA_BOMB_MAX_TIER;
-                break;
-
-            case BonusType.BombRange:
-                maxTier = BonusConfigs.EXTRA_RANGE_MAX_TIER;
-                break;
-
-            case BonusType.Detonator:
-                break;
-
-            case BonusType.Skate:
-                break;
-
-            case BonusType.Immunity:
-                break;
-
-            case BonusType.Ghost:
-                break;
-
-            case BonusType.Obstacle:
-                break;
-
-            case BonusType.Slowness:
-                break;
-
-            case BonusType.SmallExplosion:
-                break;
-
-            case BonusType.NoBomb:
-                break;
-
-            case BonusType.InstantBomb:
-                break;
-
-            default:
-                break;
+            this.gameObject.SetActive(true);
         }
 
-        if (Tier < maxTier)
+        public void Hide()
         {
-            Tier++;
-            return true;
+            this.gameObject.SetActive(false);
         }
-        return false;
+
+        public bool IncreaseTier()
+        {
+            int maxTier = -1;
+            switch (Type)
+            {
+                case BonusType.BonusBomb:
+                    maxTier = BonusConfigs.EXTRA_BOMB_MAX_TIER;
+                    break;
+
+                case BonusType.BombRange:
+                    maxTier = BonusConfigs.EXTRA_RANGE_MAX_TIER;
+                    break;
+
+                case BonusType.Detonator:
+                    break;
+
+                case BonusType.Skate:
+                    break;
+
+                case BonusType.Immunity:
+                    break;
+
+                case BonusType.Ghost:
+                    break;
+
+                case BonusType.Obstacle:
+                    break;
+
+                case BonusType.Slowness:
+                    break;
+
+                case BonusType.SmallExplosion:
+                    break;
+
+                case BonusType.NoBomb:
+                    break;
+
+                case BonusType.InstantBomb:
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (Tier < maxTier)
+            {
+                Tier++;
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using System.Runtime.CompilerServices;
-
 public static class Config
 {
+    public const char CSVDELIMITER = ';';
+
     /// <summary>
     /// The size of a single tile
     /// </summary>

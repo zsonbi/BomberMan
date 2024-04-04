@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Bomberman;
+using DataTypes;
 
 public class Player : MovingEntity
 {

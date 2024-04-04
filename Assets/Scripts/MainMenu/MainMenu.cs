@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
-using Unity.VisualScripting;
 
 public class MainMenu : MonoBehaviour
 {
