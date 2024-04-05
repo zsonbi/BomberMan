@@ -4,7 +4,6 @@ using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 using DataTypes;
-using Codice.Client.BaseCommands;
 
 namespace Bomberman
 {
