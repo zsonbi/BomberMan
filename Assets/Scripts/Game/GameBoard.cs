@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 using DataTypes;
+using Codice.Client.BaseCommands;
 
 namespace Bomberman
 {
@@ -13,6 +14,10 @@ namespace Bomberman
     public class GameBoard : MonoBehaviour
     {
         //What will be used as a delimiter in the maps file if it is a csv
+
+        [SerializeField]
+        [Header("Path to the asset you want to force load (Can be left empty)")]
+        private string mapAssetPath = "";
 
         [SerializeField]
         private bool loadMapOnStartUp = true;
@@ -79,13 +84,20 @@ namespace Bomberman
             //await CreateBoard("Assets/Maps/testMap.csv");
             if (loadMapOnStartUp)
             {
-                //Not efficient, but can't do it other way
-                TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
+                if (mapAssetPath != "")
+                {
+                    CreateBoard(mapAssetPath);
+                }
+                else
+                {
+                    //Not efficient, but can't do it other way
+                    TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
 
-                //string mapsPath = Directory.GetCurrentDirectory() + "/Assets/Maps/GameMaps/";
+                    //string mapsPath = Directory.GetCurrentDirectory() + "/Assets/Maps/GameMaps/";
 
-                CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
-                // CreateBoard("Maps/GameMaps/baseMap");
+                    CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
+                    // CreateBoard("Maps/GameMaps/baseMap");
+                }
             }
         }
 

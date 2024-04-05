@@ -136,6 +136,10 @@ PrefabInstance:
       value: GameBoardPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 5348707529584158226, guid: 8a965841668ac524ea5cbe37f9c182e5, type: 3}
+      propertyPath: mapAssetPath
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5348707529584158226, guid: 8a965841668ac524ea5cbe37f9c182e5, type: 3}
       propertyPath: playerPrefabs.Array.size
       value: 3
       objectReference: {fileID: 0}
