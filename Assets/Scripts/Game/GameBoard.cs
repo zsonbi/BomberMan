@@ -109,7 +109,7 @@ namespace Bomberman
         public void CreateBoard(string mapLayoutResourcePath)
         {
             //lines
-            string[] fileLines = Resources.Load<TextAsset>(mapLayoutResourcePath).text.Trim('\n').Split('\n');
+            string[] fileLines = Resources.Load<TextAsset>(mapLayoutResourcePath).text.Trim('\n').Trim('\r').Split('\n');
 
             this.Cells = new Obstacle[fileLines.Length, fileLines[0].Split(Config.CSVDELIMITER).Length];
             this.RowCount = this.Cells.GetLength(0);
