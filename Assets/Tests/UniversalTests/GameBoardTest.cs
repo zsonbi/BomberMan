@@ -107,7 +107,7 @@ namespace Tests
             {
 
 
-                Assert.IsTrue(validateMap(item.text.Trim('\n').Split('\n')));
+                Assert.IsTrue(validateMap(item.text.Trim('\n').Replace("\r", "").Split('\n')));
             }
             yield return null;
         }
