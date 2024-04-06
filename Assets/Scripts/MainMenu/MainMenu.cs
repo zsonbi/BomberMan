@@ -36,6 +36,10 @@ public class MainMenu : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Select the next skin
+    /// </summary>
+    /// <param name="parent">The image object to set the new skin for display</param>
     public void NextSkinButton(UnityEngine.UI.Image parent)
     {
         int id=-1;
@@ -65,6 +69,10 @@ public class MainMenu : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Select the previous skin
+    /// </summary>
+    /// <param name="parent">The image object to set the new skin for display</param>
     public void PrevSkinButton(UnityEngine.UI.Image parent)
     {
         int id = -1;

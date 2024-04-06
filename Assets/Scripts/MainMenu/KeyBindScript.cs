@@ -7,14 +7,23 @@ using UnityEngine.UI;
 public class KeyBindScript : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] 
+    private Dictionary<string, TextMeshProUGUI> buttons;
 
     private Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();
 
+    [Header("Player 1 buttons")]
     [SerializeField]
-    private TextMeshProUGUI up, down, right, left, place;
+    private TextMeshProUGUI up, down, right, left, place, detonate, placeingObstacle;
+    
+    [Header("Player 2 buttons")]
+    [SerializeField]
+    private TextMeshProUGUI up2, down2, right2, left2, place2, detonate2, placeingObstacle2;
+    
+    [Header("Player 3 buttons")]
+    [SerializeField]
+    private TextMeshProUGUI up3, down3, right3, left3, place3, detonate3, placeingObstacle3;
 
-    [SerializeField]
-    private TextMeshProUGUI up2, down2, right2, left2, place2;
 
     private GameObject currentKey;
 
@@ -23,60 +32,41 @@ public class KeyBindScript : MonoBehaviour
 
     private void Start()
     {
-        keys.Add("UpButton", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton", "W")));
-        keys.Add("DownButton", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton", "S")));
-        keys.Add("RightButton", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton", "D")));
-        keys.Add("LeftButton", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton", "A")));
-        keys.Add("PlacingBombButton", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton", "Space")));
+        bool saveStuff = !PlayerPrefs.HasKey("UpButton0");
 
-        keys.Add("UpButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton2", "UpArrow")));
-        keys.Add("DownButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton2", "DownArrow")));
-        keys.Add("RightButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton2", "RightArrow")));
-        keys.Add("LeftButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton2", "LeftArrow")));
-        keys.Add("PlacingBombButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton2", "RightShift")));
+        keys.Add("UpButton0", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton0", "W")));
+        keys.Add("DownButton0", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton0", "S")));
+        keys.Add("RightButton0", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton0", "D")));
+        keys.Add("LeftButton0", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton0", "A")));
+        keys.Add("PlacingBombButton0", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton0", "Space")));
+        keys.Add("DetonateButton0",  (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DetonateButton0", "LeftAlt")));
+        keys.Add("PlacingObstacleButton0", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton0", KeyCode.X.ToString())));
 
-        up.text = keys["UpButton"].ToString();
-        down.text = keys["DownButton"].ToString();
-        right.text = keys["RightButton"].ToString();
-        left.text = keys["LeftButton"].ToString();
-        place.text = keys["PlacingBombButton"].ToString();
+        keys.Add("UpButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton1", "UpArrow")));
+        keys.Add("DownButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton1", "DownArrow")));
+        keys.Add("RightButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton1", "RightArrow")));
+        keys.Add("LeftButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton1", "LeftArrow")));
+        keys.Add("PlacingBombButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton1", "RightShift")));
+        keys.Add("DetonateButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton1", KeyCode.RightControl.ToString())));
+        keys.Add("PlacingObstacleButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton1", KeyCode.Return.ToString())));
 
-        up2.text = keys["UpButton2"].ToString();
-        down2.text = keys["DownButton2"].ToString();
-        right2.text = keys["RightButton2"].ToString();
-        left2.text = keys["LeftButton2"].ToString();
-        place2.text = keys["PlacingBombButton2"].ToString();
+        keys.Add("UpButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton2", KeyCode.Keypad8.ToString())));
+        keys.Add("DownButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton2", KeyCode.Keypad5.ToString())));
+        keys.Add("RightButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton2", KeyCode.Keypad6.ToString())));
+        keys.Add("LeftButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton2", KeyCode.Keypad4.ToString())));
+        keys.Add("PlacingBombButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton2", KeyCode.KeypadPlus.ToString())));
+        keys.Add("DetonateButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton2", KeyCode.KeypadEnter.ToString())));
+        keys.Add("PlacingObstacleButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton2", KeyCode.KeypadMinus.ToString())));
+
+        UpdateLabels();
+
+        if (saveStuff)
+        {
+            SaveKeys();
+        }
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        if (Input.GetKeyDown(keys["UpButton"]))
-        {
-            // Do a move action
-            Debug.Log("UpButton");
-        }
-        if (Input.GetKeyDown(keys["DownButton"]))
-        {
-            // Do a move action
-            Debug.Log("DownButton");
-        }
-        if (Input.GetKeyDown(keys["PlacingBombButton"]))
-        {
-            // Do a move action
-            Debug.Log("PlacingBombButton");
-        }
-        if (Input.GetKeyDown(keys["LeftButton"]))
-        {
-            // Do a move action
-            Debug.Log("LeftButton");
-        }
-        if (Input.GetKeyDown(keys["RightButton"]))
-        {
-            // Do a move action
-            Debug.Log("RightButton");
-        }
-    }
+
 
     private void OnGUI()
     {
@@ -91,6 +81,33 @@ public class KeyBindScript : MonoBehaviour
                 currentKey = null;
             }
         }
+    }
+
+    private void UpdateLabels()
+    {
+        up.text = keys["UpButton0"].ToString();
+        down.text = keys["DownButton0"].ToString();
+        right.text = keys["RightButton0"].ToString();
+        left.text = keys["LeftButton0"].ToString();
+        place.text = keys["PlacingBombButton0"].ToString();
+        detonate.text = keys["DetonateButton0"].ToString();
+        placeingObstacle.text = keys["PlacingObstacleButton0"].ToString();
+
+        up2.text = keys["UpButton1"].ToString();
+        down2.text = keys["DownButton1"].ToString();
+        right2.text = keys["RightButton1"].ToString();
+        left2.text = keys["LeftButton1"].ToString();
+        place2.text = keys["PlacingBombButton1"].ToString();
+        detonate2.text = keys["DetonateButton1"].ToString();
+        placeingObstacle2.text = keys["PlacingObstacleButton1"].ToString();
+
+        up3.text = keys["UpButton2"].ToString();
+        down3.text = keys["DownButton2"].ToString();
+        right3.text = keys["RightButton2"].ToString();
+        left3.text = keys["LeftButton2"].ToString();
+        place3.text = keys["PlacingBombButton2"].ToString();
+        detonate3.text = keys["DetonateButton2"].ToString();
+        placeingObstacle3.text = keys["PlacingObstacleButton2"].ToString();
     }
 
     public void ChangeKey(GameObject clicked)
@@ -115,28 +132,31 @@ public class KeyBindScript : MonoBehaviour
 
     public void ResetSettings()
     {
-        keys["UpButton"] = KeyCode.W;
-        keys["DownButton"] = KeyCode.S;
-        keys["LeftButton"] = KeyCode.A;
-        keys["RightButton"] = KeyCode.D;
-        keys["PlacingBombButton"] = KeyCode.Space;
+        keys["UpButton0"] = KeyCode.W;
+        keys["DownButton0"] = KeyCode.S;
+        keys["LeftButton0"] = KeyCode.A;
+        keys["RightButton0"] = KeyCode.D;
+        keys["PlacingBombButton0"] = KeyCode.Space;
+        keys["DetonateButton0"]=KeyCode.LeftAlt;
+        keys["PlacingObstacleButton0"]=KeyCode.X;
 
-        keys["UpButton2"] = KeyCode.UpArrow;
-        keys["DownButton2"] = KeyCode.DownArrow;
-        keys["LeftButton2"] = KeyCode.LeftArrow;
-        keys["RightButton2"] = KeyCode.RightArrow;
-        keys["PlacingBombButton2"] = KeyCode.RightShift;
+        keys["UpButton1"] = KeyCode.UpArrow;
+        keys["DownButton1"] = KeyCode.DownArrow;
+        keys["LeftButton1"] = KeyCode.LeftArrow;
+        keys["RightButton1"] = KeyCode.RightArrow;
+        keys["PlacingBombButton1"] = KeyCode.RightShift;
+        keys["DetonateButton1"] = KeyCode.RightControl;
+        keys["PlacingObstacleButton1"] = KeyCode.Return;
 
-        up.text = keys["UpButton"].ToString();
-        down.text = keys["DownButton"].ToString();
-        right.text = keys["RightButton"].ToString();
-        left.text = keys["LeftButton"].ToString();
-        place.text = keys["PlacingBombButton"].ToString();
+        keys["UpButton2"] = KeyCode.Keypad8;
+        keys["DownButton2"] = KeyCode.Keypad5;
+        keys["LeftButton2"] = KeyCode.Keypad4;
+        keys["RightButton2"] = KeyCode.Keypad6;
+        keys["PlacingBombButton2"] = KeyCode.KeypadPlus;
+        keys["DetonateButton2"] = KeyCode.KeypadEnter;
+        keys["PlacingObstacleButton2"] = KeyCode.KeypadMinus;
 
-        up2.text = keys["UpButton2"].ToString();
-        down2.text = keys["DownButton2"].ToString();
-        right2.text = keys["RightButton2"].ToString();
-        left2.text = keys["LeftButton2"].ToString();
-        place2.text = keys["PlacingBombButton2"].ToString();
+
+        UpdateLabels();
     }
 }
