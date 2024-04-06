@@ -45,44 +45,35 @@ public class Player : MovingEntity
     /// </summary>
     public int Score { get; private set; } = 0;
 
-    /// <summary>
-    /// What skin does the player use
-    /// </summary>
-    public SkinType Skin { get; private set; } = SkinType.Basic;
-
     // Start is called before the first frame update
     private void Start()
     {
-        switch (playerId)
+        if (playerId > 2)
         {
-            case 0:
-                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton", "A")), MoveLeft);
-                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton", "W")), MoveUp);
-                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton", "D")), MoveRight);
-                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton", "S")), MoveDown);
-                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton", "Space")), PlaceBomb);
-                break;
-
-            case 1:
-                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton2", "LeftArrow")), MoveLeft);
-                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton2", "UpArrow")), MoveUp);
-                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton2", "RightArrow")), MoveRight);
-                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton2", "DownArrow")), MoveDown);
-                Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton2", "RightShift")), PlaceBomb);
-                break;
-
-            case 2:
-                Controls.Add(KeyCode.A, MoveLeft);
-                Controls.Add(KeyCode.W, MoveUp);
-                Controls.Add(KeyCode.D, MoveRight);
-                Controls.Add(KeyCode.S, MoveDown);
-                Controls.Add(KeyCode.Space, PlaceBomb);
-                break;
-
-            default:
-                Debug.LogError("Inalid player id");
-                break;
+            Debug.LogError("PlayerId can't be higher than 2");
         }
+
+
+        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 0].ToString())), MoveLeft);
+        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 1].ToString())), MoveUp);
+        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 2].ToString())), MoveRight);
+        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 3].ToString())), MoveDown);
+        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 4].ToString())), PlaceBomb);
+        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DetonateButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 5].ToString())), Detonate);
+        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 6].ToString())), PlaceObstacle);
+
+       
+        SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        if(spriteRenderer != null)
+        {
+            spriteRenderer.sprite = Resources.Load<Sprite>("PlayerSkins/" + MainMenuConfig.PlayerSkins[playerId]);
+        }
+        else
+        {
+            Debug.LogError("No sprite renderer connected to the player script's gameobject");
+        }
+
+
     }
 
     // Update is called once per frame
@@ -194,7 +185,7 @@ public class Player : MovingEntity
     }
 
     //The player places a bomb on the board if it has a wall available
-    private void PlaceWall()
+    private void PlaceObstacle()
     {
         if (actionCooldown > 0)
         {

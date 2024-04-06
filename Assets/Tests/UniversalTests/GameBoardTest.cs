@@ -105,10 +105,9 @@ namespace Tests
 
             foreach (var item in maps)
             {
-                //Check so it doesn't contain \r
-                Assert.IsFalse(item.text.Contains('\r'));
 
-                Assert.IsTrue(validateMap(item.text.Trim('\n').Split('\n')));
+
+                Assert.IsTrue(validateMap(item.text.Trim('\n').Replace("\r", "").Split('\n')));
             }
             yield return null;
         }

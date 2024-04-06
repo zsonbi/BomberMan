@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 public static class Config
 {
     public const char CSVDELIMITER = ';';
@@ -51,6 +54,9 @@ public static class Config
     /// How many monsters does the game has
     /// </summary>
     public static byte MonsterCount = 3;
+
+
+    public static readonly KeyCode[,] PLAYERDEFAULTKEYS=new KeyCode[3,7]{{ KeyCode.W,KeyCode.S,KeyCode.A,KeyCode.D,KeyCode.Space,KeyCode.LeftAlt,KeyCode.X}, { KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.LeftArrow, KeyCode.RightArrow, KeyCode.RightShift, KeyCode.RightControl, KeyCode.Return }, { KeyCode.Keypad8, KeyCode.Keypad5, KeyCode.Keypad4, KeyCode.Keypad6, KeyCode.KeypadPlus, KeyCode.KeypadEnter, KeyCode.KeypadMinus } };
 
     /// <summary>
     /// Global random for the program

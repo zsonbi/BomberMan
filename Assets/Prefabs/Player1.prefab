@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 256ab1abab66ca447897d4c25c142cc6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b58bec124e1da348a2e7492ceecc60e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,7 +101,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  hp: 3
   playerId: 0
+  playerName: player
   bombPrefab: {fileID: 303871658224516377, guid: dc5cc3bd449818446a78604dcdab9924, type: 3}
 --- !u!210 &-5313675320585796262
 SortingGroup:

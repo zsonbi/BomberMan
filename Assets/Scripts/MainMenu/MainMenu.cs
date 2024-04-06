@@ -7,6 +7,104 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+
+    private Sprite[] playerSkins;
+    private int[] skinIds;
+    [SerializeField]
+    private UnityEngine.UI.Image[] skinRenderers;
+
+    /// <summary>
+    /// Runs on first frame to load the necessary things
+    /// </summary>
+    private void Start()
+    {
+        playerSkins = Resources.LoadAll<Sprite>("PlayerSkins");
+        skinIds = new int[3];
+
+        //Get which skin is which Id
+        for (int i = 0; i < playerSkins.Length; i++)
+        {
+            for (int j = 0; j < MainMenuConfig.PlayerSkins.Length; j++)
+            {
+                if (playerSkins[i].name == MainMenuConfig.PlayerSkins[j])
+                {
+                    skinIds[j] = i;
+                    skinRenderers[j].sprite = playerSkins[i];
+                }
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Select the next skin
+    /// </summary>
+    /// <param name="parent">The image object to set the new skin for display</param>
+    public void NextSkinButton(UnityEngine.UI.Image parent)
+    {
+        int id=-1;
+        switch (parent.name)
+        {
+            case "Player1Skin":
+                id=0;
+                break;
+
+            case "Player2Skin":
+                id = 1;
+                break;
+
+
+            case "Player3Skin":
+                id = 2;
+                break;
+            default:
+                Debug.LogError("No such thing as: "+parent.name+" in the switch");
+                return;
+        }
+
+        skinIds[id] = (skinIds[id]+1)%playerSkins.Length;
+
+        parent.sprite=playerSkins[skinIds[id]];
+        MainMenuConfig.PlayerSkins[id] = playerSkins[skinIds[id]].name;
+
+    }
+
+    /// <summary>
+    /// Select the previous skin
+    /// </summary>
+    /// <param name="parent">The image object to set the new skin for display</param>
+    public void PrevSkinButton(UnityEngine.UI.Image parent)
+    {
+        int id = -1;
+        switch (parent.name)
+        {
+            case "Player1Skin":
+                id = 0;
+                break;
+
+            case "Player2Skin":
+                id = 1;
+                break;
+
+
+            case "Player3Skin":
+                id = 2;
+                break;
+            default:
+                Debug.LogError("No such thing as: " + parent.name + " in the switch");
+                return;
+        }
+
+        skinIds[id] = (skinIds[id] - 1);
+        if (skinIds[id] < 0)
+        {
+            skinIds[id] = playerSkins.Length-1;
+        }
+        parent.sprite = playerSkins[skinIds[id]];
+        MainMenuConfig.PlayerSkins[id]= playerSkins[skinIds[id]].name;
+    }
+
+
     /// <summary>
     /// Starting the game by switching between the two scene
     /// </summary>
@@ -24,7 +122,7 @@ public class MainMenu : MonoBehaviour
                 Debug.Log("Game started");
                 Debug.Log(MainMenuConfig.PlayerNames[0] + " | " + MainMenuConfig.PlayerNames[1] + " | " + MainMenuConfig.PlayerNames[2]);
                 Debug.Log(MainMenuConfig.Player3 + ", Battle royale: " + MainMenuConfig.BattleRoyale);
-                Debug.Log(MainMenuConfig.RequiredPoint + " points, Map: " + MainMenuConfig.Map);
+
             }
             else if (!MainMenuConfig.Player3 && MainMenuConfig.PlayerNames[0].Length > 0 && MainMenuConfig.PlayerNames[1].Length > 0)
             {
@@ -35,7 +133,7 @@ public class MainMenu : MonoBehaviour
                 Debug.Log("Game started");
                 Debug.Log(MainMenuConfig.PlayerNames[0] + " | " + MainMenuConfig.PlayerNames[1] + " | " + MainMenuConfig.PlayerNames[2]);
                 Debug.Log(MainMenuConfig.Player3 + ", Battle royale: " + MainMenuConfig.BattleRoyale);
-                Debug.Log(MainMenuConfig.RequiredPoint + " points, Map: " + MainMenuConfig.Map);
+
             }
             else
             {
@@ -98,15 +196,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Player 3 name: " + MainMenuConfig.PlayerNames[2]);
     }
 
-    /// <summary>
-    /// Read the choosen index of the map
-    /// </summary>
-    /// <param name="index"></param>
-    public void ReadMapIndex(int index = 0)
-    {
-        MainMenuConfig.Map = index;
-        Debug.Log("Map index: " + MainMenuConfig.Map);
-    }
+
 
     /// <summary>
     /// Read if Battle Royale game mode is choosen or not
