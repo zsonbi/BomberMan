@@ -32,38 +32,21 @@ public class KeyBindScript : MonoBehaviour
 
     private void Start()
     {
-        bool saveStuff = !PlayerPrefs.HasKey("UpButton0");
 
-        keys.Add("UpButton0", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton0", "W")));
-        keys.Add("DownButton0", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton0", "S")));
-        keys.Add("RightButton0", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton0", "D")));
-        keys.Add("LeftButton0", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton0", "A")));
-        keys.Add("PlacingBombButton0", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton0", "Space")));
-        keys.Add("DetonateButton0",  (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DetonateButton0", "LeftAlt")));
-        keys.Add("PlacingObstacleButton0", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton0", KeyCode.X.ToString())));
+        for (int i = 0; i < 3; i++)
+        {
+            keys.Add("UpButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton"+i, Config.PLAYERDEFAULTKEYS[i, 0].ToString())));
+            keys.Add("DownButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton"+i, Config.PLAYERDEFAULTKEYS[i, 1].ToString())));
+            keys.Add("RightButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton"+i, Config.PLAYERDEFAULTKEYS[i, 2].ToString())));
+            keys.Add("LeftButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton"+i, Config.PLAYERDEFAULTKEYS[i, 3].ToString())));
+            keys.Add("PlacingBombButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton"+i, Config.PLAYERDEFAULTKEYS[i, 4].ToString())));
+            keys.Add("DetonateButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DetonateButton"+i, Config.PLAYERDEFAULTKEYS[i, 5].ToString())));
+            keys.Add("PlacingObstacleButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton"+i, Config.PLAYERDEFAULTKEYS[i, 6].ToString())));
 
-        keys.Add("UpButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton1", "UpArrow")));
-        keys.Add("DownButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton1", "DownArrow")));
-        keys.Add("RightButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton1", "RightArrow")));
-        keys.Add("LeftButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton1", "LeftArrow")));
-        keys.Add("PlacingBombButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton1", "RightShift")));
-        keys.Add("DetonateButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton1", KeyCode.RightControl.ToString())));
-        keys.Add("PlacingObstacleButton1", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton1", KeyCode.Return.ToString())));
-
-        keys.Add("UpButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton2", KeyCode.Keypad8.ToString())));
-        keys.Add("DownButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton2", KeyCode.Keypad5.ToString())));
-        keys.Add("RightButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton2", KeyCode.Keypad6.ToString())));
-        keys.Add("LeftButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton2", KeyCode.Keypad4.ToString())));
-        keys.Add("PlacingBombButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton2", KeyCode.KeypadPlus.ToString())));
-        keys.Add("DetonateButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton2", KeyCode.KeypadEnter.ToString())));
-        keys.Add("PlacingObstacleButton2", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton2", KeyCode.KeypadMinus.ToString())));
-
+        }
         UpdateLabels();
 
-        if (saveStuff)
-        {
-            SaveKeys();
-        }
+      
     }
 
 
@@ -132,30 +115,16 @@ public class KeyBindScript : MonoBehaviour
 
     public void ResetSettings()
     {
-        keys["UpButton0"] = KeyCode.W;
-        keys["DownButton0"] = KeyCode.S;
-        keys["LeftButton0"] = KeyCode.A;
-        keys["RightButton0"] = KeyCode.D;
-        keys["PlacingBombButton0"] = KeyCode.Space;
-        keys["DetonateButton0"]=KeyCode.LeftAlt;
-        keys["PlacingObstacleButton0"]=KeyCode.X;
-
-        keys["UpButton1"] = KeyCode.UpArrow;
-        keys["DownButton1"] = KeyCode.DownArrow;
-        keys["LeftButton1"] = KeyCode.LeftArrow;
-        keys["RightButton1"] = KeyCode.RightArrow;
-        keys["PlacingBombButton1"] = KeyCode.RightShift;
-        keys["DetonateButton1"] = KeyCode.RightControl;
-        keys["PlacingObstacleButton1"] = KeyCode.Return;
-
-        keys["UpButton2"] = KeyCode.Keypad8;
-        keys["DownButton2"] = KeyCode.Keypad5;
-        keys["LeftButton2"] = KeyCode.Keypad4;
-        keys["RightButton2"] = KeyCode.Keypad6;
-        keys["PlacingBombButton2"] = KeyCode.KeypadPlus;
-        keys["DetonateButton2"] = KeyCode.KeypadEnter;
-        keys["PlacingObstacleButton2"] = KeyCode.KeypadMinus;
-
+        for (int i = 0; i < 3; i++)
+        {
+            keys["UpButton"+i] = Config.PLAYERDEFAULTKEYS[i,0];
+            keys["DownButton"+i] = Config.PLAYERDEFAULTKEYS[i, 1];
+            keys["LeftButton"+i] = Config.PLAYERDEFAULTKEYS[i, 2];
+            keys["RightButton"+i] = Config.PLAYERDEFAULTKEYS[i, 3];
+            keys["PlacingBombButton"+i] = Config.PLAYERDEFAULTKEYS[i, 4];
+            keys["DetonateButton"+i] = Config.PLAYERDEFAULTKEYS[i, 5];
+            keys["PlacingObstacleButton"+i] = Config.PLAYERDEFAULTKEYS[i, 6];
+        }
 
         UpdateLabels();
     }
