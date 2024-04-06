@@ -12,10 +12,6 @@ public static class MainMenuConfig
     /// </summary>
     public static bool Player3 = false;
 
-    /// <summary>
-    /// Choosen map index to play on (default: -1)
-    /// </summary>
-    public static int Map = -1;
 
     /// <summary>
     /// Is Battle Royale Game mode choosen (default: unchecked)

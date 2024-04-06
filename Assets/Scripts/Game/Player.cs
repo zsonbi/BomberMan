@@ -45,11 +45,6 @@ public class Player : MovingEntity
     /// </summary>
     public int Score { get; private set; } = 0;
 
-    /// <summary>
-    /// What skin does the player use
-    /// </summary>
-    public SkinType Skin { get; private set; } = SkinType.Basic;
-
     // Start is called before the first frame update
     private void Start()
     {

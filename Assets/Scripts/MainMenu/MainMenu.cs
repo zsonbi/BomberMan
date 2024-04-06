@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour
                 Debug.Log("Game started");
                 Debug.Log(MainMenuConfig.PlayerNames[0] + " | " + MainMenuConfig.PlayerNames[1] + " | " + MainMenuConfig.PlayerNames[2]);
                 Debug.Log(MainMenuConfig.Player3 + ", Battle royale: " + MainMenuConfig.BattleRoyale);
-                Debug.Log(MainMenuConfig.RequiredPoint + " points, Map: " + MainMenuConfig.Map);
+
             }
             else if (!MainMenuConfig.Player3 && MainMenuConfig.PlayerNames[0].Length > 0 && MainMenuConfig.PlayerNames[1].Length > 0)
             {
@@ -35,7 +35,7 @@ public class MainMenu : MonoBehaviour
                 Debug.Log("Game started");
                 Debug.Log(MainMenuConfig.PlayerNames[0] + " | " + MainMenuConfig.PlayerNames[1] + " | " + MainMenuConfig.PlayerNames[2]);
                 Debug.Log(MainMenuConfig.Player3 + ", Battle royale: " + MainMenuConfig.BattleRoyale);
-                Debug.Log(MainMenuConfig.RequiredPoint + " points, Map: " + MainMenuConfig.Map);
+
             }
             else
             {
@@ -98,15 +98,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Player 3 name: " + MainMenuConfig.PlayerNames[2]);
     }
 
-    /// <summary>
-    /// Read the choosen index of the map
-    /// </summary>
-    /// <param name="index"></param>
-    public void ReadMapIndex(int index = 0)
-    {
-        MainMenuConfig.Map = index;
-        Debug.Log("Map index: " + MainMenuConfig.Map);
-    }
+
 
     /// <summary>
     /// Read if Battle Royale game mode is choosen or not
