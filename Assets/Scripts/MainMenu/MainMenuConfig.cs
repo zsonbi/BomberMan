@@ -5,6 +5,8 @@ public static class MainMenuConfig
     /// </summary>
     public static string[] PlayerNames = new string[3] { "player1", "player2", "player3" };
 
+    public static string[] PlayerSkins = new string[3] {"ChenSpray", "Sylvanas_Spray", "Illidan_Spray" };
+
     /// <summary>
     /// How many players (default: unchecked)
     /// </summary>

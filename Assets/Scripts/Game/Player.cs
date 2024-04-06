@@ -83,6 +83,18 @@ public class Player : MovingEntity
                 Debug.LogError("Inalid player id");
                 break;
         }
+
+        SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        if(spriteRenderer != null)
+        {
+            spriteRenderer.sprite = Resources.Load<Sprite>("PlayerSkins/" + MainMenuConfig.PlayerSkins[playerId]);
+        }
+        else
+        {
+            Debug.LogError("No sprite renderer connected to the player script's gameobject");
+        }
+
+
     }
 
     // Update is called once per frame
