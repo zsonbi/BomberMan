@@ -7,6 +7,96 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+
+    private Sprite[] playerSkins;
+    private int[] skinIds;
+    [SerializeField]
+    private UnityEngine.UI.Image[] skinRenderers;
+
+    /// <summary>
+    /// Runs on first frame to load the necessary things
+    /// </summary>
+    private void Start()
+    {
+        playerSkins = Resources.LoadAll<Sprite>("PlayerSkins");
+        skinIds = new int[3];
+
+        //Get which skin is which Id
+        for (int i = 0; i < playerSkins.Length; i++)
+        {
+            for (int j = 0; j < MainMenuConfig.PlayerSkins.Length; j++)
+            {
+                if (playerSkins[i].name == MainMenuConfig.PlayerSkins[j])
+                {
+                    skinIds[j] = i;
+                    skinRenderers[j].sprite = playerSkins[i];
+                }
+            }
+        }
+    }
+
+
+    public void NextSkinButton(UnityEngine.UI.Image parent)
+    {
+        int id=-1;
+        switch (parent.name)
+        {
+            case "Player1Skin":
+                id=0;
+                break;
+
+            case "Player2Skin":
+                id = 1;
+                break;
+
+
+            case "Player3Skin":
+                id = 2;
+                break;
+            default:
+                Debug.LogError("No such thing as: "+parent.name+" in the switch");
+                return;
+        }
+
+        skinIds[id] = (skinIds[id]+1)%playerSkins.Length;
+
+        parent.sprite=playerSkins[skinIds[id]];
+        MainMenuConfig.PlayerSkins[id] = playerSkins[skinIds[id]].name;
+
+    }
+
+    public void PrevSkinButton(UnityEngine.UI.Image parent)
+    {
+        int id = -1;
+        switch (parent.name)
+        {
+            case "Player1Skin":
+                id = 0;
+                break;
+
+            case "Player2Skin":
+                id = 1;
+                break;
+
+
+            case "Player3Skin":
+                id = 2;
+                break;
+            default:
+                Debug.LogError("No such thing as: " + parent.name + " in the switch");
+                return;
+        }
+
+        skinIds[id] = (skinIds[id] - 1);
+        if (skinIds[id] < 0)
+        {
+            skinIds[id] = playerSkins.Length-1;
+        }
+        parent.sprite = playerSkins[skinIds[id]];
+        MainMenuConfig.PlayerSkins[id]= playerSkins[skinIds[id]].name;
+    }
+
+
     /// <summary>
     /// Starting the game by switching between the two scene
     /// </summary>
