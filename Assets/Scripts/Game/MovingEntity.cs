@@ -84,6 +84,11 @@ namespace Bomberman
         //Called every frame update
         protected void Update()
         {
+            if (GameBoard.Paused)
+            {
+                return;
+            }
+
             if (!Alive)
             {
                 return;

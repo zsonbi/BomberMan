@@ -60,6 +60,11 @@ namespace Bomberman
         // Update is called once per frame
         private void Update()
         {
+            if (GameBoard.Paused)
+            {
+                return;
+            }
+
             //If the bomb is active
             if (Placed)
             {

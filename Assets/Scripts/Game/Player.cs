@@ -79,6 +79,10 @@ public class Player : MovingEntity
     // Update is called once per frame
     private new void Update()
     {
+        if (GameBoard.Paused)
+        {
+            return;
+        }
         if (actionCooldown > 0f)
         {
             actionCooldown -= Time.deltaTime;

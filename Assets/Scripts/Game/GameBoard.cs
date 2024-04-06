@@ -77,6 +77,8 @@ namespace Bomberman
         /// </summary>
         public EventHandler UpdateMenuFields;
 
+        public bool Paused { get;private set; }=false;
+
         // Start is called before the first frame update
         private void Start()
         {
@@ -219,6 +221,21 @@ namespace Bomberman
         //Decreases the battle royale circle
         private void DecreaseCircle()
         {
+        }
+        /// <summary>
+        /// Make the game paused
+        /// </summary>
+        public void Pause()
+        {
+            this.Paused=true;
+        }
+
+        /// <summary>
+        /// Make the game unpaused
+        /// </summary>
+        public void Resume()
+        {
+            this.Paused=false;
         }
 
         public void Reset()
