@@ -27,12 +27,12 @@ namespace Bomberman
         /// <summary>
         /// Speed of the entity (how fast it will move on the board)
         /// </summary>
-        public float Speed { get => speed; protected set => speed = value; }
+        public float Speed { get; protected set; }
 
         /// <summary>
         /// How many times can the entity be "killed"
         /// </summary>
-        public int Hp { get => hp; protected set => hp = value; }
+        public int Hp { get; protected set; }
 
         /// <summary>
         /// Is the entity alive
@@ -71,13 +71,20 @@ namespace Bomberman
         public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
         {
             this.Alive = true;
+            this.Hp = hp;
+            this.Speed = speed;
+            this.targetPos = null;
+            this.startPos = null;
+            CurrentDirection = Direction.Left;
+            NewDirection = Direction.None;
+            moveProgress = 0f;
             base.Init(entityType, gameBoard, CurrentPos);
         }
 
         //Called when the script is loaded
         private void Awake()
         {
-            this.timeToMove = 1 / Speed;
+            this.timeToMove = 1 / speed;
             targetPos = null;
         }
 
@@ -135,7 +142,7 @@ namespace Bomberman
         /// <summary>
         /// Kills the entity if it isn't immune and have 0 Health kill it
         /// </summary>
-        public void Kill()
+        public virtual void Kill()
         {
             if (immuneTime > 0)
             {

@@ -45,6 +45,12 @@ public class Player : MovingEntity
     /// </summary>
     public int Score { get; private set; } = 0;
 
+    /// <summary>
+    /// Event to call when the player died
+    /// </summary>
+    public EventHandler PlayerDiedEventHandler;
+
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -222,6 +228,23 @@ public class Player : MovingEntity
     {
         base.Init(entityType, gameBoard, CurrentPos);
 
+        //Reset the player's components
+        while (Bombs.Count != 0)
+        {
+            Destroy(Bombs[0]);
+            Bombs.RemoveAt(0);
+        }
+        foreach (BonusType bonus in Enum.GetValues(typeof(BonusType)))
+        {
+            if (Bonuses.ContainsKey(bonus))
+            {
+                Destroy(Bonuses[bonus]);
+                Bonuses.Remove(bonus);
+            }
+
+        }
+
+
         Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
         bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
         Bombs.Add(bomb1);
@@ -240,6 +263,22 @@ public class Player : MovingEntity
             }
         }
     }
+
+
+    /// <summary>
+    /// Override the kill event so we can check for game over
+    /// </summary>
+    public override void Kill()
+    {
+        base.Kill();
+
+        if (!this.Alive && PlayerDiedEventHandler is not null)
+        {
+            PlayerDiedEventHandler.Invoke(this,EventArgs.Empty);
+        }
+
+    }
+
 
     /// <summary>
     /// Changes the player's name

@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 using DataTypes;
+using System.Linq;
 
 namespace Bomberman
 {
@@ -36,6 +37,12 @@ namespace Bomberman
 
         [SerializeField]
         private List<GameObject> monsterPrefabs;
+
+        [SerializeField]
+        private ModalWindow modalWindow;
+
+        //How long it will take after one player is alive to the game over to happen
+        private float gameOverTimer=Config.GAME_OVER_TIMER;
 
         /// <summary>
         /// The cells of the board
@@ -77,7 +84,37 @@ namespace Bomberman
         /// </summary>
         public EventHandler UpdateMenuFields;
 
+        /// <summary>
+        /// The game is paused
+        /// </summary>
         public bool Paused { get;private set; }=false;
+
+        /// <summary>
+        /// The game over counter is started
+        /// </summary>
+        public bool StartGameOverCounter { get; private set;}=false;
+
+
+
+        //Called every frame
+        private void Update()
+        {
+            Debug.Log(Paused);
+            if (StartGameOverCounter)
+            {
+                if (!Paused)
+                {
+                    gameOverTimer -= Time.deltaTime;
+
+                    if (gameOverTimer <= 0)
+                    {
+                        Pause();
+                        modalWindow.Show("Round is over!","",StartNextGame);
+                    }
+                }
+            }
+            
+        }
 
         // Start is called before the first frame update
         private void Start()
@@ -182,6 +219,7 @@ namespace Bomberman
                 Players[counter].Init(MapEntityType.Player, this, playerSpawns[index]);
                 Players[counter].gameObject.transform.localPosition = new Vector3(playerSpawns[index].Col * Config.CELLSIZE, -2.5f - playerSpawns[index].Row * Config.CELLSIZE, 2);
                 Players[counter].ChangeName(MainMenuConfig.PlayerNames[counter]);
+                Players[counter].PlayerDiedEventHandler=CheckGameOverEvent;
                 playerSpawns.RemoveAt(index);
                 ++counter;
             }
@@ -238,9 +276,53 @@ namespace Bomberman
             this.Paused=false;
         }
 
-        public void Reset()
+        /// <summary>
+        /// Check if the game over timer should be started
+        /// </summary>
+        public void CheckGameOverEvent(object obj, EventArgs args)
         {
-            throw new NotImplementedException();
+            if (Players.Count(x => x.Alive) == 1)
+            {
+                StartGameOverCounter=true;
+            }
+        }
+
+        /// <summary>
+        /// Start the next game
+        /// </summary>
+        private void StartNextGame()
+        {
+            StartGameOverCounter = false;
+            gameOverTimer=Config.GAME_OVER_TIMER;
+
+            for (int i = 0; i < Cells.GetLength(0); i++)
+            {
+                for (int j = 0; j < Cells.GetLength(1); j++)
+                {
+                    Destroy(Cells[i,j]);
+                }
+            }
+
+            if (loadMapOnStartUp)
+            {
+                if (mapAssetPath != "")
+                {
+                    CreateBoard(mapAssetPath);
+                }
+                else
+                {
+                    //Not efficient, but can't do it other way
+                    TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
+
+                    //string mapsPath = Directory.GetCurrentDirectory() + "/Assets/Maps/GameMaps/";
+
+                    CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
+                    // CreateBoard("Maps/GameMaps/baseMap");
+                }
+            }
+
+
+            Resume();
         }
     }
 }
