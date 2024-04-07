@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using DataTypes;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 namespace Bomberman
 {
@@ -42,7 +43,7 @@ namespace Bomberman
         private ModalWindow modalWindow;
 
         //How long it will take after one player is alive to the game over to happen
-        private float gameOverTimer=Config.GAME_OVER_TIMER;
+        private float gameOverTimer = Config.GAME_OVER_TIMER;
 
         /// <summary>
         /// The cells of the board
@@ -52,7 +53,7 @@ namespace Bomberman
         /// <summary>
         /// List of the entities such as Bonuses, Bombs etc.
         /// </summary>
-        public List<MapEntity> Entites { get; private set; }
+        public List<MapEntity> Entites { get; private set; } = new List<MapEntity>();
 
         /// <summary>
         /// The number of rows of the board
@@ -87,19 +88,22 @@ namespace Bomberman
         /// <summary>
         /// The game is paused
         /// </summary>
-        public bool Paused { get;private set; }=false;
+        public bool Paused { get; private set; } = false;
 
         /// <summary>
         /// The game over counter is started
         /// </summary>
-        public bool StartGameOverCounter { get; private set;}=false;
+        public bool StartGameOverCounter { get; private set; } = false;
 
 
 
         //Called every frame
         private void Update()
         {
-            Debug.Log(Paused);
+            if (Paused)
+            {
+                return;
+            }
             if (StartGameOverCounter)
             {
                 if (!Paused)
@@ -109,11 +113,31 @@ namespace Bomberman
                     if (gameOverTimer <= 0)
                     {
                         Pause();
-                        modalWindow.Show("Round is over!","",StartNextGame);
+
+                        Player winner = Players.Find(x => x.Alive);
+                        string modalContent;
+                        if (winner is not null)
+                        {
+                            winner.AddScore();
+                            modalContent = $"{winner.PlayerName} won this round!";
+                        }
+                        else
+                        {
+                            modalContent = "The round was a draw";
+                        }
+
+                        if (winner.Score >= MainMenuConfig.RequiredPoint)
+                        {
+                            modalWindow.Show("The game is over", $"{winner.PlayerName} won the game!", BackToMainMenu,"Back to main menu");
+                        }
+                        else
+                        {
+                            modalWindow.Show("Round is over!", modalContent, StartNextGame);
+                        }
                     }
                 }
             }
-            
+
         }
 
         // Start is called before the first frame update
@@ -148,7 +172,7 @@ namespace Bomberman
         public void CreateBoard(string mapLayoutResourcePath)
         {
             //lines
-            string[] fileLines = Resources.Load<TextAsset>(mapLayoutResourcePath).text.Trim('\n').Replace("\r","").Split('\n');
+            string[] fileLines = Resources.Load<TextAsset>(mapLayoutResourcePath).text.Trim('\n').Replace("\r", "").Split('\n');
 
             this.Cells = new Obstacle[fileLines.Length, fileLines[0].Split(Config.CSVDELIMITER).Length];
             this.RowCount = this.Cells.GetLength(0);
@@ -219,7 +243,8 @@ namespace Bomberman
                 Players[counter].Init(MapEntityType.Player, this, playerSpawns[index]);
                 Players[counter].gameObject.transform.localPosition = new Vector3(playerSpawns[index].Col * Config.CELLSIZE, -2.5f - playerSpawns[index].Row * Config.CELLSIZE, 2);
                 Players[counter].ChangeName(MainMenuConfig.PlayerNames[counter]);
-                Players[counter].PlayerDiedEventHandler=CheckGameOverEvent;
+                Players[counter].PlayerDiedEventHandler = CheckGameOverEvent;
+                Players[counter].gameObject.SetActive(true);
                 playerSpawns.RemoveAt(index);
                 ++counter;
             }
@@ -232,7 +257,7 @@ namespace Bomberman
             //Delete the monsters so they are still random
             while (Monsters.Count != 0)
             {
-                Destroy(Monsters[0]);
+                Destroy(Monsters[0].gameObject);
                 Monsters.RemoveAt(0);
             }
             //Spawns the monsters in
@@ -265,7 +290,7 @@ namespace Bomberman
         /// </summary>
         public void Pause()
         {
-            this.Paused=true;
+            this.Paused = true;
         }
 
         /// <summary>
@@ -273,7 +298,10 @@ namespace Bomberman
         /// </summary>
         public void Resume()
         {
-            this.Paused=false;
+            if (gameOverTimer >= 0)
+            {
+                this.Paused = false;
+            }
         }
 
         /// <summary>
@@ -283,8 +311,14 @@ namespace Bomberman
         {
             if (Players.Count(x => x.Alive) == 1)
             {
-                StartGameOverCounter=true;
+                StartGameOverCounter = true;
             }
+        }
+
+
+        public void BackToMainMenu()
+        {
+            SceneManager.LoadSceneAsync("MainMenuScene");
         }
 
         /// <summary>
@@ -293,15 +327,22 @@ namespace Bomberman
         private void StartNextGame()
         {
             StartGameOverCounter = false;
-            gameOverTimer=Config.GAME_OVER_TIMER;
+            gameOverTimer = Config.GAME_OVER_TIMER;
 
+            //Cleare out the previous game's entities
             for (int i = 0; i < Cells.GetLength(0); i++)
             {
                 for (int j = 0; j < Cells.GetLength(1); j++)
                 {
-                    Destroy(Cells[i,j]);
+                    Destroy(Cells[i, j].gameObject);
                 }
             }
+            while (Entites.Count > 0)
+            {
+                Destroy(Entites[0].gameObject);
+                Entites.RemoveAt(0);
+            }
+
 
             if (loadMapOnStartUp)
             {

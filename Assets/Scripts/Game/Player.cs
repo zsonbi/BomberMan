@@ -141,6 +141,7 @@ public class Player : MovingEntity
                 }
                 else
                 {
+                    this.GameBoard.Entites.Remove(bonus);
                     Destroy(bonus.gameObject);
                 }
 
@@ -218,12 +219,6 @@ public class Player : MovingEntity
         throw new System.NotImplementedException();
     }
 
-    //Resets the player
-    private void Reset()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         base.Init(entityType, gameBoard, CurrentPos);
@@ -231,17 +226,15 @@ public class Player : MovingEntity
         //Reset the player's components
         while (Bombs.Count != 0)
         {
-            Destroy(Bombs[0]);
+            Destroy(Bombs[0].gameObject);
             Bombs.RemoveAt(0);
         }
         foreach (BonusType bonus in Enum.GetValues(typeof(BonusType)))
         {
             if (Bonuses.ContainsKey(bonus))
             {
-                Destroy(Bonuses[bonus]);
                 Bonuses.Remove(bonus);
             }
-
         }
 
 
@@ -287,5 +280,13 @@ public class Player : MovingEntity
     public void ChangeName(string newName)
     {
         this.PlayerName = newName;
+    }
+
+    /// <summary>
+    /// Increase the score of the player
+    /// </summary>
+    public void AddScore()
+    {
+        ++this.Score;
     }
 }

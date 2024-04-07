@@ -13,6 +13,7 @@ namespace Bomberman
 
             public void NewGame()
             {
+
                 throw new System.NotImplementedException();
             }
 

@@ -59,6 +59,9 @@ public class ModalWindow : MonoBehaviour
         this.ModalContentText.text = content;
         this.onOkAction = onOkAction;
         this.ConfirmButtonText.text = confirmButtonLabel;
+
+       RectTransform rectTrans= ConfirmButtonText.transform.parent.GetComponent<RectTransform>();
+        rectTrans.sizeDelta = new Vector2(confirmButtonLabel.Length*12+25,rectTrans.sizeDelta.y);
         Show();
     }
 

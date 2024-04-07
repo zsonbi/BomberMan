@@ -70,6 +70,7 @@ namespace Bomberman
         /// <param name="CurrentPos">The current position of the entity</param>
         public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
         {
+            base.Init(entityType, gameBoard, CurrentPos);
             this.Alive = true;
             this.Hp = hp;
             this.Speed = speed;
@@ -78,7 +79,6 @@ namespace Bomberman
             CurrentDirection = Direction.Left;
             NewDirection = Direction.None;
             moveProgress = 0f;
-            base.Init(entityType, gameBoard, CurrentPos);
         }
 
         //Called when the script is loaded

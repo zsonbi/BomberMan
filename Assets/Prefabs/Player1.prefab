@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  hp: 1
+  hp: 0
   playerId: 0
   playerName: player
   bombPrefab: {fileID: 303871658224516377, guid: dc5cc3bd449818446a78604dcdab9924, type: 3}

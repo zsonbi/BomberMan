@@ -241,6 +241,22 @@ namespace Bomberman
         {
             bombBlowingUp = true;
             BombTimer = 0f;
+
+            foreach (var item in this.GameBoard.Players)
+            {
+                if (item.CurrentBoardPos.Equals(this.CurrentBoardPos))
+                {
+                    item.Kill();
+                }
+            }
+            foreach (var item in this.GameBoard.Monsters)
+            {
+                if (item.CurrentBoardPos.Equals(this.CurrentBoardPos))
+                {
+                    item.Kill();
+                }
+            }
+
             for (Direction i = 0; i <= Direction.Down; i++)
             {
                 blowUpVisuals[(int)i].SetActive(true);

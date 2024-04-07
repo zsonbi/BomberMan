@@ -35,6 +35,13 @@ namespace Bomberman
             this.gameObject.SetActive(false);
         }
 
+        public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
+        {
+
+            base.Init(entityType, gameBoard, CurrentPos);
+            this.GameBoard.Entites.Add(this);
+        }
+
         public bool IncreaseTier()
         {
             int maxTier = -1;
