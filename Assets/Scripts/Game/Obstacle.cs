@@ -77,6 +77,7 @@ public class Obstacle : MapEntity
         {
             this.ContainingBonus = Instantiate(bonusPrefabs[Config.RND.Next(0, bonusPrefabs.Count)], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
             this.ContainingBonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
+            this.ContainingBonus.Init(MapEntityType.Bonus,this.GameBoard,new Position(this.CurrentBoardPos.Row,this.CurrentBoardPos.Col));
         }
 
         return true;

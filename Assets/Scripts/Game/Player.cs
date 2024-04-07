@@ -45,6 +45,12 @@ public class Player : MovingEntity
     /// </summary>
     public int Score { get; private set; } = 0;
 
+    /// <summary>
+    /// Event to call when the player died
+    /// </summary>
+    public EventHandler PlayerDiedEventHandler;
+
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -54,10 +60,10 @@ public class Player : MovingEntity
         }
 
 
-        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 0].ToString())), MoveLeft);
-        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 1].ToString())), MoveUp);
+        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 0].ToString())), MoveUp);
+        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 1].ToString())), MoveDown);
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 2].ToString())), MoveRight);
-        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 3].ToString())), MoveDown);
+        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 3].ToString())), MoveLeft);
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 4].ToString())), PlaceBomb);
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DetonateButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 5].ToString())), Detonate);
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 6].ToString())), PlaceObstacle);
@@ -79,6 +85,10 @@ public class Player : MovingEntity
     // Update is called once per frame
     private new void Update()
     {
+        if (GameBoard.Paused)
+        {
+            return;
+        }
         if (actionCooldown > 0f)
         {
             actionCooldown -= Time.deltaTime;
@@ -131,6 +141,7 @@ public class Player : MovingEntity
                 }
                 else
                 {
+                    this.GameBoard.Entites.Remove(bonus);
                     Destroy(bonus.gameObject);
                 }
 
@@ -208,15 +219,24 @@ public class Player : MovingEntity
         throw new System.NotImplementedException();
     }
 
-    //Resets the player
-    private void Reset()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         base.Init(entityType, gameBoard, CurrentPos);
+
+        //Reset the player's components
+        while (Bombs.Count != 0)
+        {
+            Destroy(Bombs[0].gameObject);
+            Bombs.RemoveAt(0);
+        }
+        foreach (BonusType bonus in Enum.GetValues(typeof(BonusType)))
+        {
+            if (Bonuses.ContainsKey(bonus))
+            {
+                Bonuses.Remove(bonus);
+            }
+        }
+
 
         Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
         bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
@@ -237,6 +257,22 @@ public class Player : MovingEntity
         }
     }
 
+
+    /// <summary>
+    /// Override the kill event so we can check for game over
+    /// </summary>
+    public override void Kill()
+    {
+        base.Kill();
+
+        if (!this.Alive && PlayerDiedEventHandler is not null)
+        {
+            PlayerDiedEventHandler.Invoke(this,EventArgs.Empty);
+        }
+
+    }
+
+
     /// <summary>
     /// Changes the player's name
     /// </summary>
@@ -244,5 +280,13 @@ public class Player : MovingEntity
     public void ChangeName(string newName)
     {
         this.PlayerName = newName;
+    }
+
+    /// <summary>
+    /// Increase the score of the player
+    /// </summary>
+    public void AddScore()
+    {
+        ++this.Score;
     }
 }

@@ -50,5 +50,10 @@ namespace DataTypes
 
             return false;
         }
+        public override int GetHashCode()
+        {
+            return Row*100+Col;
+        }
+
     }
 }

@@ -4,6 +4,8 @@ using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 using DataTypes;
+using System.Linq;
+using UnityEngine.SceneManagement;
 
 namespace Bomberman
 {
@@ -37,6 +39,15 @@ namespace Bomberman
         [SerializeField]
         private List<GameObject> monsterPrefabs;
 
+        [SerializeField]
+        private ModalWindow modalWindow;
+
+        //How long it will take after one player is alive to the game over to happen
+        private float gameOverTimer = Config.GAME_OVER_TIMER;
+
+        //What monster type to force load only works when it is none
+        private MonsterType forceMonsterType=MonsterType.None;
+
         /// <summary>
         /// The cells of the board
         /// </summary>
@@ -45,7 +56,7 @@ namespace Bomberman
         /// <summary>
         /// List of the entities such as Bonuses, Bombs etc.
         /// </summary>
-        public List<MapEntity> Entites { get; private set; }
+        public List<MapEntity> Entites { get; private set; } = new List<MapEntity>();
 
         /// <summary>
         /// The number of rows of the board
@@ -76,6 +87,61 @@ namespace Bomberman
         /// Event is called when the menu needs to be refreshed
         /// </summary>
         public EventHandler UpdateMenuFields;
+
+        /// <summary>
+        /// The game is paused
+        /// </summary>
+        public bool Paused { get; private set; } = false;
+
+        /// <summary>
+        /// The game over counter is started
+        /// </summary>
+        public bool StartGameOverCounter { get; private set; } = false;
+
+
+
+        //Called every frame
+        private void Update()
+        {
+            if (Paused)
+            {
+                return;
+            }
+            if (StartGameOverCounter)
+            {
+                if (!Paused)
+                {
+                    gameOverTimer -= Time.deltaTime;
+
+                    if (gameOverTimer <= 0)
+                    {
+                        Pause();
+
+                        Player winner = Players.Find(x => x.Alive);
+                        string modalContent;
+                        if (winner is not null)
+                        {
+                            winner.AddScore();
+                            modalContent = $"{winner.PlayerName} won this round!";
+                        }
+                        else
+                        {
+                            modalContent = "The round was a draw";
+                        }
+
+                        if (winner.Score >= MainMenuConfig.RequiredPoint)
+                        {
+                            modalWindow.Show("The game is over", $"{winner.PlayerName} won the game!", BackToMainMenu, "Back to main menu");
+                        }
+                        else
+                        {
+                            modalWindow.Show("Round is over!", modalContent, StartNextGame);
+                        }
+                    }
+                }
+            }
+
+        }
 
         // Start is called before the first frame update
         private void Start()
@@ -109,7 +175,7 @@ namespace Bomberman
         public void CreateBoard(string mapLayoutResourcePath)
         {
             //lines
-            string[] fileLines = Resources.Load<TextAsset>(mapLayoutResourcePath).text.Trim('\n').Replace("\r","").Split('\n');
+            string[] fileLines = Resources.Load<TextAsset>(mapLayoutResourcePath).text.Trim('\n').Replace("\r", "").Split('\n');
 
             this.Cells = new Obstacle[fileLines.Length, fileLines[0].Split(Config.CSVDELIMITER).Length];
             this.RowCount = this.Cells.GetLength(0);
@@ -180,6 +246,8 @@ namespace Bomberman
                 Players[counter].Init(MapEntityType.Player, this, playerSpawns[index]);
                 Players[counter].gameObject.transform.localPosition = new Vector3(playerSpawns[index].Col * Config.CELLSIZE, -2.5f - playerSpawns[index].Row * Config.CELLSIZE, 2);
                 Players[counter].ChangeName(MainMenuConfig.PlayerNames[counter]);
+                Players[counter].PlayerDiedEventHandler = CheckGameOverEvent;
+                Players[counter].gameObject.SetActive(true);
                 playerSpawns.RemoveAt(index);
                 ++counter;
             }
@@ -192,38 +260,150 @@ namespace Bomberman
             //Delete the monsters so they are still random
             while (Monsters.Count != 0)
             {
-                Destroy(Monsters[0]);
+                Destroy(Monsters[0].gameObject);
                 Monsters.RemoveAt(0);
             }
             //Spawns the monsters in
             counter = 0;
-            while (monsterSpawns.Count != 0 && counter < Config.MonsterCount)
+            while (monsterSpawns.Count != 0 )
             {
                 int index = Config.RND.Next(0, monsterSpawns.Count);
                 if (Monsters.Count <= counter)
                 {
-                    Monsters.Add(Instantiate(monsterPrefabs[Config.RND.Next(0, monsterPrefabs.Count)], this.transform).GetComponent<Monster>());
+                    if(forceMonsterType==MonsterType.None)
+                    {
+                        Monsters.Add(Instantiate(monsterPrefabs[Config.RND.Next(0, monsterPrefabs.Count)], this.transform).GetComponent<Monster>());
+                    }
+                    else
+                    {
+                        Monsters.Add(Instantiate(monsterPrefabs[(int)forceMonsterType], this.transform).GetComponent<Monster>());
+                    }
                 }
                 Monsters[counter].Init(MapEntityType.Monster, this, monsterSpawns[index]);
                 Monsters[counter].gameObject.transform.localPosition = new Vector3(monsterSpawns[index].Col * Config.CELLSIZE, -2.5f - monsterSpawns[index].Row * Config.CELLSIZE, 2);
                 monsterSpawns.RemoveAt(index);
                 ++counter;
             }
-            //Error detection
-            if (counter < Config.MonsterCount)
-            {
-                Debug.LogError("Invalid map, no place to spawn the monsters");
-            }
+
+
         }
 
-        //Decreases the battle royale circle
+
+        /// <summary>
+        ///Decreases the battle royale circle
+        /// </summary>
         private void DecreaseCircle()
         {
         }
-
-        public void Reset()
+        /// <summary>
+        /// Make the game paused
+        /// </summary>
+        public void Pause()
         {
-            throw new NotImplementedException();
+            this.Paused = true;
+        }
+
+        /// <summary>
+        /// Make the game unpaused
+        /// </summary>
+        public void Resume()
+        {
+            if (gameOverTimer >= 0)
+            {
+                this.Paused = false;
+            }
+        }
+
+        /// <summary>
+        /// Check if the game over timer should be started
+        /// </summary>
+        public void CheckGameOverEvent(object obj, EventArgs args)
+        {
+            if (Players.Count(x => x.Alive) == 1)
+            {
+                StartGameOverCounter = true;
+            }
+        }
+
+        /// <summary>
+        /// Change to the main menu scene
+        /// </summary>
+        public void BackToMainMenu()
+        {
+            SceneManager.LoadSceneAsync("MainMenuScene");
+        }
+
+        /// <summary>
+        /// Make a monster type force loaded
+        /// </summary>
+        /// <param name="monsterType">The type to force use (MonsterType.None) to reset it back to random</param>
+        public void ForceSpecificMobTypeOnLoad(MonsterType monsterType)
+        {
+            this.forceMonsterType= monsterType;
+        }
+
+        /// <summary>
+        ///Spawn a bomb at the given position 
+        /// </summary>
+        /// <param name="whereToSpawn">Where to spawn the bomb</param>
+        public void SpawnBomb(Position whereToSpawn,int radius = Config.BOMBDEFAULTEXPLOSIONRANGE, bool permament=false)
+        {
+            Bomb bombToSpawn = Instantiate(Players[0].Bombs[0],this.transform).GetComponent<Bomb>();
+
+            bombToSpawn.Init(MapEntityType.Bomb,this,whereToSpawn);
+            bombToSpawn.PlaceByGameBoard(whereToSpawn,radius,permament);
+        }
+
+
+        /// <summary>
+        /// Start the next game
+        /// </summary>
+        public void StartNextGame()
+        {
+            if (Cells is null)
+            {
+                return;
+            }
+            StartGameOverCounter = false;
+            gameOverTimer = Config.GAME_OVER_TIMER;
+
+            
+
+            //Cleare out the previous game's entities
+            for (int i = 0; i < Cells.GetLength(0); i++)
+            {
+                for (int j = 0; j < Cells.GetLength(1); j++)
+                {
+                    Destroy(Cells[i, j].gameObject);
+                }
+            }
+            while (Entites.Count > 0)
+            {
+                Destroy(Entites[0].gameObject);
+                Entites.RemoveAt(0);
+            }
+
+
+            if (loadMapOnStartUp)
+            {
+                if (mapAssetPath != "")
+                {
+                    CreateBoard(mapAssetPath);
+                }
+                else
+                {
+                    //Not efficient, but can't do it other way
+                    TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
+
+                    //string mapsPath = Directory.GetCurrentDirectory() + "/Assets/Maps/GameMaps/";
+
+                    CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
+                    // CreateBoard("Maps/GameMaps/baseMap");
+                }
+            }
+
+
+            Resume();
         }
     }
 }

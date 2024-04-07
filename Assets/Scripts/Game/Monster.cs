@@ -20,7 +20,8 @@ namespace Bomberman
         //Called on every frame
         private new void Update()
         {
-            if (!Alive)
+            
+            if (!Alive || GameBoard.Paused)
             {
                 return;
             }

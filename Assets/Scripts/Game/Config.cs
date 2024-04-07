@@ -13,7 +13,7 @@ public static class Config
     /// <summary>
     /// How long should the entities be immune
     /// </summary>
-    public const float IMMUNETIME = 2f;
+    public const float IMMUNETIME = 1f;
 
     /// <summary>
     /// How long should the player action cooldown last
@@ -40,6 +40,8 @@ public static class Config
     /// </summary>
     public const float BOMBBLOWTIME = 3f;
 
+    public const float GAME_OVER_TIMER=3f;
+
     /// <summary>
     /// How quickly should the explosion spread
     /// </summary>
@@ -56,7 +58,9 @@ public static class Config
     public static byte MonsterCount = 3;
 
 
-    public static readonly KeyCode[,] PLAYERDEFAULTKEYS=new KeyCode[3,7]{{ KeyCode.W,KeyCode.S,KeyCode.A,KeyCode.D,KeyCode.Space,KeyCode.LeftAlt,KeyCode.X}, { KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.LeftArrow, KeyCode.RightArrow, KeyCode.RightShift, KeyCode.RightControl, KeyCode.Return }, { KeyCode.Keypad8, KeyCode.Keypad5, KeyCode.Keypad4, KeyCode.Keypad6, KeyCode.KeypadPlus, KeyCode.KeypadEnter, KeyCode.KeypadMinus } };
+
+
+    public static readonly KeyCode[,] PLAYERDEFAULTKEYS=new KeyCode[3,7]{{ KeyCode.W,KeyCode.S,KeyCode.D,KeyCode.A,KeyCode.Space,KeyCode.LeftAlt,KeyCode.X}, { KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow, KeyCode.LeftArrow, KeyCode.RightShift, KeyCode.RightControl, KeyCode.Return }, { KeyCode.Keypad8, KeyCode.Keypad5, KeyCode.Keypad6, KeyCode.Keypad4, KeyCode.KeypadPlus, KeyCode.KeypadEnter, KeyCode.KeypadMinus } };
 
     /// <summary>
     /// Global random for the program
