@@ -45,6 +45,9 @@ namespace Bomberman
         //How long it will take after one player is alive to the game over to happen
         private float gameOverTimer = Config.GAME_OVER_TIMER;
 
+        //What monster type to force load only works when it is none
+        private MonsterType forceMonsterType=MonsterType.None;
+
         /// <summary>
         /// The cells of the board
         /// </summary>
@@ -128,7 +131,7 @@ namespace Bomberman
 
                         if (winner.Score >= MainMenuConfig.RequiredPoint)
                         {
-                            modalWindow.Show("The game is over", $"{winner.PlayerName} won the game!", BackToMainMenu,"Back to main menu");
+                            modalWindow.Show("The game is over", $"{winner.PlayerName} won the game!", BackToMainMenu, "Back to main menu");
                         }
                         else
                         {
@@ -267,7 +270,14 @@ namespace Bomberman
                 int index = Config.RND.Next(0, monsterSpawns.Count);
                 if (Monsters.Count <= counter)
                 {
-                    Monsters.Add(Instantiate(monsterPrefabs[Config.RND.Next(0, monsterPrefabs.Count)], this.transform).GetComponent<Monster>());
+                    if(forceMonsterType==MonsterType.None)
+                    {
+                        Monsters.Add(Instantiate(monsterPrefabs[Config.RND.Next(0, monsterPrefabs.Count)], this.transform).GetComponent<Monster>());
+                    }
+                    else
+                    {
+                        Monsters.Add(Instantiate(monsterPrefabs[(int)forceMonsterType], this.transform).GetComponent<Monster>());
+                    }
                 }
                 Monsters[counter].Init(MapEntityType.Monster, this, monsterSpawns[index]);
                 Monsters[counter].gameObject.transform.localPosition = new Vector3(monsterSpawns[index].Col * Config.CELLSIZE, -2.5f - monsterSpawns[index].Row * Config.CELLSIZE, 2);
@@ -279,9 +289,13 @@ namespace Bomberman
             {
                 Debug.LogError("Invalid map, no place to spawn the monsters");
             }
+
         }
 
-        //Decreases the battle royale circle
+
+        /// <summary>
+        ///Decreases the battle royale circle
+        /// </summary>
         private void DecreaseCircle()
         {
         }
@@ -315,11 +329,23 @@ namespace Bomberman
             }
         }
 
-
+        /// <summary>
+        /// Change to the main menu scene
+        /// </summary>
         public void BackToMainMenu()
         {
             SceneManager.LoadSceneAsync("MainMenuScene");
         }
+
+        /// <summary>
+        /// Make a monster type force loaded
+        /// </summary>
+        /// <param name="monsterType">The type to force use (MonsterType.None) to reset it back to random</param>
+        public void ForceSpecificMobTypeOnLoad(MonsterType monsterType)
+        {
+            forceMonsterType= monsterType;
+        }
+        
 
         /// <summary>
         /// Start the next game

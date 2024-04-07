@@ -5,6 +5,7 @@ namespace DataTypes
         Basic,
         Ghost,
         Smarty,
-        Stalker
+        Stalker,
+        None
     }
 }
