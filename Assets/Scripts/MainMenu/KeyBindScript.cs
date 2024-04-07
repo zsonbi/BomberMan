@@ -119,8 +119,8 @@ public class KeyBindScript : MonoBehaviour
         {
             keys["UpButton"+i] = Config.PLAYERDEFAULTKEYS[i,0];
             keys["DownButton"+i] = Config.PLAYERDEFAULTKEYS[i, 1];
-            keys["LeftButton"+i] = Config.PLAYERDEFAULTKEYS[i, 2];
-            keys["RightButton"+i] = Config.PLAYERDEFAULTKEYS[i, 3];
+            keys["RightButton"+i] = Config.PLAYERDEFAULTKEYS[i, 2];
+            keys["LeftButton"+i] = Config.PLAYERDEFAULTKEYS[i, 3];
             keys["PlacingBombButton"+i] = Config.PLAYERDEFAULTKEYS[i, 4];
             keys["DetonateButton"+i] = Config.PLAYERDEFAULTKEYS[i, 5];
             keys["PlacingObstacleButton"+i] = Config.PLAYERDEFAULTKEYS[i, 6];
