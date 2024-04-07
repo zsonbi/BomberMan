@@ -13,7 +13,7 @@ public static class Config
     /// <summary>
     /// How long should the entities be immune
     /// </summary>
-    public const float IMMUNETIME = 2f;
+    public const float IMMUNETIME = 1f;
 
     /// <summary>
     /// How long should the player action cooldown last
