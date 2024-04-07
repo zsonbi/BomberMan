@@ -179,6 +179,7 @@ namespace Bomberman
                             item.Kill();
                         }
                     }
+
                     foreach (var item in this.GameBoard.Monsters)
                     {
                         if (item.CurrentBoardPos.Equals(cell.CurrentBoardPos))
@@ -233,6 +234,31 @@ namespace Bomberman
 
             //throw new System.NotImplementedException();
         }
+
+        /// <summary>
+        /// Place a bomb which blows up instantly
+        /// </summary>
+        /// <param name="whereToPlace">Where to place the bomb</param>
+        /// <param name="radius">The size of the explosion</param>
+        public void PlaceByGameBoard(Position whereToPlace, int radius,bool endless=false)
+        {
+            Place(whereToPlace,radius);
+            if (endless)
+            {
+                TimeTillBlow=float.MaxValue;
+                return;
+            }
+
+            BlowUp();
+            for (int i = 0; i < radius; i++)
+            {
+                ++currentRange;
+                ExpandExplosion();
+            }
+            BlownUp();
+            Destroy(this.gameObject);
+        }
+
 
         /// <summary>
         /// Singnals the bomb to start blowing up

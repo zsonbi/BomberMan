@@ -265,7 +265,7 @@ namespace Bomberman
             }
             //Spawns the monsters in
             counter = 0;
-            while (monsterSpawns.Count != 0 && counter < Config.MonsterCount)
+            while (monsterSpawns.Count != 0 )
             {
                 int index = Config.RND.Next(0, monsterSpawns.Count);
                 if (Monsters.Count <= counter)
@@ -284,11 +284,7 @@ namespace Bomberman
                 monsterSpawns.RemoveAt(index);
                 ++counter;
             }
-            //Error detection
-            if (counter < Config.MonsterCount)
-            {
-                Debug.LogError("Invalid map, no place to spawn the monsters");
-            }
+
 
         }
 
@@ -343,17 +339,35 @@ namespace Bomberman
         /// <param name="monsterType">The type to force use (MonsterType.None) to reset it back to random</param>
         public void ForceSpecificMobTypeOnLoad(MonsterType monsterType)
         {
-            forceMonsterType= monsterType;
+            this.forceMonsterType= monsterType;
         }
-        
+
+        /// <summary>
+        ///Spawn a bomb at the given position 
+        /// </summary>
+        /// <param name="whereToSpawn">Where to spawn the bomb</param>
+        public void SpawnBomb(Position whereToSpawn,int radius = Config.BOMBDEFAULTEXPLOSIONRANGE, bool permament=false)
+        {
+            Bomb bombToSpawn = Instantiate(Players[0].Bombs[0],this.transform).GetComponent<Bomb>();
+
+            bombToSpawn.Init(MapEntityType.Bomb,this,whereToSpawn);
+            bombToSpawn.PlaceByGameBoard(whereToSpawn,radius,permament);
+        }
+
 
         /// <summary>
         /// Start the next game
         /// </summary>
-        private void StartNextGame()
+        public void StartNextGame()
         {
+            if (Cells is null)
+            {
+                return;
+            }
             StartGameOverCounter = false;
             gameOverTimer = Config.GAME_OVER_TIMER;
+
+            
 
             //Cleare out the previous game's entities
             for (int i = 0; i < Cells.GetLength(0); i++)

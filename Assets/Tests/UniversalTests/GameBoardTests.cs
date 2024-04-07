@@ -12,7 +12,7 @@ using UnityEngine.TestTools;
 
 namespace Tests
 {
-    public class GameBoardTest
+    public class GameBoardTests
     {
         [SerializeField]
         private GameObject gameBoardPrefab = Resources.Load<GameObject>("Prefabs/GameBoardPrefab");
@@ -39,7 +39,7 @@ namespace Tests
 
         // A simple load test
         [Test]
-        public void GameBoardLoadPasses()
+        public void GameBoardLoadTest()
         {
             gameBoard.CreateBoard("Maps/TestMaps/testMap1");
 
@@ -99,8 +99,7 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestMaps()
         {
-            //    string mapsPath = Directory.GetCurrentDirectory() + "/Assets/Maps/GameMaps/";
-            //    string[] filePaths = Directory.GetFiles(mapsPath, "*.csv");
+
             TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
 
             foreach (var item in maps)
@@ -111,5 +110,52 @@ namespace Tests
             }
             yield return null;
         }
+
+        [UnityTest]
+        public IEnumerator TestPause()
+        {
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testEveryOneCanMove");
+            List<Vector3> playerStartVector3 = new List<Vector3>();
+            List<Vector3> monsterStartVector3 = new List<Vector3>();
+            foreach (var item in gameBoard.Players)
+            {
+                playerStartVector3.Add(new Vector3(item.transform.position.x, item.transform.position.y, item.transform.position.z));
+            }
+
+            foreach (var item in gameBoard.Monsters)
+            {
+                monsterStartVector3.Add(new Vector3(item.transform.position.x, item.transform.position.y, item.transform.position.z));
+            }
+
+            yield return new WaitForSeconds(0.2f);
+
+            for (int i = 0; i < gameBoard.Players.Count; i++)
+            {
+
+                Assert.IsFalse(playerStartVector3[i].Equals(gameBoard.Players[i].transform.position));
+                playerStartVector3[i] = new Vector3(gameBoard.Players[i].transform.position.x, gameBoard.Players[i].transform.position.y, gameBoard.Players[i].transform.position.z);
+            }
+            for (int i = 0; i < gameBoard.Monsters.Count; i++)
+            {
+                Assert.IsFalse(monsterStartVector3[i].Equals(gameBoard.Monsters[i].transform.position));
+                monsterStartVector3[i] = new Vector3(gameBoard.Monsters[i].transform.position.x, gameBoard.Monsters[i].transform.position.y, gameBoard.Monsters[i].transform.position.z);
+            }
+
+            gameBoard.Pause();
+            yield return new WaitForSeconds(0.2f);
+            for (int i = 0; i < gameBoard.Players.Count; i++)
+            {
+
+                Assert.IsTrue(playerStartVector3[i].Equals(gameBoard.Players[i].transform.position));
+            }
+            for (int i = 0; i < gameBoard.Monsters.Count; i++)
+            {
+                Assert.IsTrue(monsterStartVector3[i].Equals(gameBoard.Monsters[i].transform.position));
+            }
+
+            yield return null;
+        }
+
     }
 }
