@@ -134,7 +134,31 @@ public class Player : MovingEntity
                         break;
 
                     case BonusType.Slowness:
+                        Debug.Log("Slowness effect started");
                         this.timeToMove = 1 / (float)(this.Speed * 0.6);
+                        //Missing: This effect lasts for a period of time
+                        break;
+
+                    case BonusType.SmallExplosion:
+                        Debug.Log("SmallExplosion effect started");
+                        //Missing: This effect lasts for a period of time
+                        break;
+
+                    case BonusType.NoBomb:
+                        Debug.Log("NoBomb effect started");
+                        List<Bomb> bombsSaved = Bombs;
+                        Bombs = new List<Bomb>();
+                        //Missing: This effect lasts for a period of time
+                        break;
+
+                    case BonusType.InstantBomb:
+                        Debug.Log("InstantBomb effect started");
+                        /*
+                        while (Bombs.Count > 0)
+                        {
+                            PlaceBomb();
+                        }
+                        */
                         //Missing: This effect lasts for a period of time
                         break;
 
