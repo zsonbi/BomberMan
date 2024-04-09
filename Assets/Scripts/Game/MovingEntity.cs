@@ -55,7 +55,7 @@ namespace Bomberman
         /// <summary>
         /// How long does the movement take
         /// </summary>
-        protected float timeToMove { get; private set; } = 1f;
+        public float timeToMove { get; protected set; } = 1f;
 
         /// <summary>
         /// Event which is called when it changed tiles completely

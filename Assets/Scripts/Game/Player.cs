@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using Bomberman;
 using DataTypes;
+using Codice.CM.Common;
 
 public class Player : MovingEntity
 {
@@ -130,6 +131,11 @@ public class Player : MovingEntity
 
                     case BonusType.BombRange:
                         Bonuses[bonus.Type].IncreaseTier();
+                        break;
+
+                    case BonusType.Slowness:
+                        this.timeToMove = 1 / (float)(this.Speed * 0.6);
+                        //Missing: This effect lasts for a period of time
                         break;
 
                     default:
