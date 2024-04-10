@@ -115,7 +115,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 570737053
   m_SortingLayer: 3
-  m_SortingOrder: 255
+  m_SortingOrder: 245
   m_SortAtRoot: 0
 --- !u!61 &-6163297736317662572
 BoxCollider2D:
