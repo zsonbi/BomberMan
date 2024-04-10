@@ -46,14 +46,15 @@ public class Player : MovingEntity
     /// </summary>
     public int Score { get; private set; } = 0;
 
+    public int PlayerId{get=>playerId; }
+
     /// <summary>
     /// Event to call when the player died
     /// </summary>
     public EventHandler PlayerDiedEventHandler;
 
 
-    // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         if (playerId > 2)
         {
@@ -69,9 +70,9 @@ public class Player : MovingEntity
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DetonateButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 5].ToString())), Detonate);
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 6].ToString())), PlaceObstacle);
 
-       
+
         SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
-        if(spriteRenderer != null)
+        if (spriteRenderer != null)
         {
             spriteRenderer.sprite = Resources.Load<Sprite>("PlayerSkins/" + MainMenuConfig.PlayerSkins[playerId]);
         }
@@ -79,6 +80,11 @@ public class Player : MovingEntity
         {
             Debug.LogError("No sprite renderer connected to the player script's gameobject");
         }
+    }
+
+    // Start is called before the first frame update
+    private void Start()
+    {
 
 
     }
@@ -335,15 +341,21 @@ public class Player : MovingEntity
     /// <summary>
     /// Override the kill event so we can check for game over
     /// </summary>
-    public override void Kill()
+    public override bool Kill()
     {
-        base.Kill();
+        bool tookDamage= base.Kill();
 
-        if (!this.Alive && PlayerDiedEventHandler is not null)
+        if (!this.Alive)
         {
-            PlayerDiedEventHandler.Invoke(this,EventArgs.Empty);
+            PlayerDiedEventHandler?.Invoke(this,EventArgs.Empty);
+        }
+        else
+        {
+            GameBoard.MenuController.RemoveHealth(this);
         }
 
+
+        return tookDamage;
     }
 
 

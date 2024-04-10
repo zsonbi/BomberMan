@@ -1,6 +1,9 @@
+using DataTypes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Bomberman
 {
@@ -8,31 +11,50 @@ namespace Bomberman
     {
         public class MenuController : MonoBehaviour
         {
-            [SerializeField]
-            private GameBoard Game;
+
 
             [SerializeField]
             PlayerInGameMenuHandler[] PlayerInGameMenuHandlers;
 
             public void Update()
             {
-                PlayerInGameMenuHandlers[0].SetUpPanel(Game.Players[0]);   
             }
 
-            public void NewGame()
+            public void NewGame(List<Player> players)
             {
 
-                throw new System.NotImplementedException();
+                for (int i = 0; i < players.Count; i++)
+                {
+                    if (PlayerInGameMenuHandlers.Length < players.Count)
+                    {
+                        Debug.LogError("Not enough PlayerInGameMenuHandlers for the players");
+                        continue;
+                    }
+                    PlayerInGameMenuHandlers[i].SetUpPanel(players[i]);
+                    PlayerInGameMenuHandlers[i].gameObject.SetActive(true);
+
+                }
+                for (int i = players.Count;i < PlayerInGameMenuHandlers.Length;i++)
+                {
+                    PlayerInGameMenuHandlers[i].gameObject.SetActive(false);
+                }
+
             }
 
-            public void NewGame(int playerCount)
+            public void RemoveHealth(Player player)
             {
-                throw new System.NotImplementedException();
+                PlayerInGameMenuHandlers[player.PlayerId].RemoveHealth();
+            }
+           
+
+            public void AddBonus(BonusType bonusType, Player player)
+            {
+
             }
 
-            public bool AlterPlayerControls(int playerId)
+            public void RemoveBonus(BonusType bonusType, Player player)
             {
-                throw new System.NotImplementedException();
+
             }
 
         }

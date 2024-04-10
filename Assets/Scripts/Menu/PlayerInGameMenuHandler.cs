@@ -29,6 +29,8 @@ public class PlayerInGameMenuHandler : MonoBehaviour
     private int currentHealth = 0;
     List<BonusType> bonuses = new List<BonusType>();
 
+    List<GameObject> healthIcons = new List<GameObject>();
+
     public void SetUpPanel(Player player)
     {
         playerName.text = player.PlayerName;
@@ -100,20 +102,28 @@ public class PlayerInGameMenuHandler : MonoBehaviour
         rectTransform.localScale = Vector3.one;
         rectTransform.localPosition= new Vector2(-30+(currentHealth-1)*30,0);
         rectTransform.sizeDelta=new Vector2(30,30);
-        
+        healthIcons.Add(healthGameObject);
     }
 
-    private void RemoveHealth()
+    public void RemoveHealth()
     {
+        if(currentHealth<=0)
+        {
+            throw new NullReferenceException("No health to remove");
+        }
+
         currentHealth--;
+        Destroy(healthIcons[currentHealth]);
+        healthIcons.RemoveAt(currentHealth);
+
     }
 
-    private void AddBonus(BonusType type, Sprite bonusImage)
+    public void AddBonus(BonusType type, Sprite bonusImage)
     {
         bonuses.Add(type);
     }
 
-    private void RemoveBonus(BonusType type)
+    public void RemoveBonus(BonusType type)
     {
 
     }

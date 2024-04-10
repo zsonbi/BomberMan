@@ -18,7 +18,7 @@ namespace Bomberman
         
 
         [SerializeField]
-        public MenuController UpdateMenuFields;
+        public MenuController MenuController;
 
 
         [SerializeField]
@@ -145,24 +145,7 @@ namespace Bomberman
         // Start is called before the first frame update
         private void Start()
         {
-            //await CreateBoard("Assets/Maps/testMap.csv");
-            if (loadMapOnStartUp)
-            {
-                if (mapAssetPath != "")
-                {
-                    CreateBoard(mapAssetPath);
-                }
-                else
-                {
-                    //Not efficient, but can't do it other way
-                    TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
-
-                    //string mapsPath = Directory.GetCurrentDirectory() + "/Assets/Maps/GameMaps/";
-
-                    CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
-                    // CreateBoard("Maps/GameMaps/baseMap");
-                }
-            }
+          StartNextGame();
         }
 
         public void MakeMapLoadManual()
@@ -360,17 +343,16 @@ namespace Bomberman
         /// </summary>
         public void StartNextGame()
         {
-            if (Cells is null)
-            {
-                return;
-            }
+          
+        
             StartGameOverCounter = false;
             gameOverTimer = Config.GAME_OVER_TIMER;
 
-            
+            if (Cells is not null)
+            {
 
-            //Cleare out the previous game's entities
-            for (int i = 0; i < Cells.GetLength(0); i++)
+                //Cleare out the previous game's entities
+                for (int i = 0; i < Cells.GetLength(0); i++)
             {
                 for (int j = 0; j < Cells.GetLength(1); j++)
                 {
@@ -383,7 +365,7 @@ namespace Bomberman
                 Entites.RemoveAt(0);
             }
 
-
+            }
             if (loadMapOnStartUp)
             {
                 if (mapAssetPath != "")
@@ -402,7 +384,7 @@ namespace Bomberman
                 }
             }
 
-
+            this.MenuController.NewGame(Players);
             Resume();
         }
     }
