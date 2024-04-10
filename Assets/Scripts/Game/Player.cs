@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 using Bomberman;
 using DataTypes;
-using Codice.CM.Common;
 
 public class Player : MovingEntity
 {
@@ -95,6 +94,11 @@ public class Player : MovingEntity
             actionCooldown -= Time.deltaTime;
         }
 
+        if (Bonuses.ContainsKey(BonusType.InstantBomb))
+        {
+            PlaceBomb();
+        }
+
         HandleKeys();
         base.Update();
     }
@@ -145,21 +149,11 @@ public class Player : MovingEntity
                         break;
 
                     case BonusType.NoBomb:
-                        Debug.Log("NoBomb effect started");
-                        List<Bomb> bombsSaved = Bombs;
-                        Bombs = new List<Bomb>();
-                        //Missing: This effect lasts for a period of time
-                        break;
+                    
+                    break;
 
                     case BonusType.InstantBomb:
                         Debug.Log("InstantBomb effect started");
-                        /*
-                        while (Bombs.Count > 0)
-                        {
-                            PlaceBomb();
-                        }
-                        */
-                        //Missing: This effect lasts for a period of time
                         break;
 
                     default:
@@ -201,6 +195,12 @@ public class Player : MovingEntity
         {
             return;
         }
+
+        if(Bonuses.ContainsKey(BonusType.NoBomb) || GameBoard.Cells[this.CurrentBoardPos.Row, this.CurrentBoardPos.Col].Placed)
+        {
+            return;
+        }
+
         actionCooldown = Config.PLAYERACTIONCOOLDOWN;
 
         foreach (Bomb bomb in Bombs)
