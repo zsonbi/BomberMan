@@ -98,8 +98,7 @@ namespace Bomberman
         /// </summary>
         public bool StartGameOverCounter { get; private set; } = false;
 
-
-
+  
         //Called every frame
         private void Update()
         {
@@ -294,6 +293,7 @@ namespace Bomberman
         /// </summary>
         private void DecreaseCircle()
         {
+
         }
         /// <summary>
         /// Make the game paused
