@@ -31,7 +31,7 @@ public class PlayerInGameMenuHandler : MonoBehaviour
 
     public void SetUpPanel(Player player)
     {
-        playerName.text = player.name;
+        playerName.text = player.PlayerName;
         playerIconImage.sprite = player.gameObject.GetComponent<SpriteRenderer>().sprite;
         while (bonuses.Count > 0)
         {

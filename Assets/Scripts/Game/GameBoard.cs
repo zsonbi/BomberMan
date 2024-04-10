@@ -6,6 +6,7 @@ using UnityEngine;
 using DataTypes;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using Bomberman.Menu;
 
 namespace Bomberman
 {
@@ -14,7 +15,11 @@ namespace Bomberman
     /// </summary>
     public class GameBoard : MonoBehaviour
     {
-        //What will be used as a delimiter in the maps file if it is a csv
+        
+
+        [SerializeField]
+        public MenuController UpdateMenuFields;
+
 
         [SerializeField]
         [Header("Path to the asset you want to force load (Can be left empty)")]
@@ -82,11 +87,6 @@ namespace Bomberman
         /// How quick the circle will decrease
         /// </summary>
         public float CircleDecreaseRate { get => circleDecreaseRate; private set => circleDecreaseRate = value; }
-
-        /// <summary>
-        /// Event is called when the menu needs to be refreshed
-        /// </summary>
-        public EventHandler UpdateMenuFields;
 
         /// <summary>
         /// The game is paused
