@@ -6,6 +6,7 @@ using UnityEngine;
 using DataTypes;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using PlasticGui;
 
 namespace Bomberman
 {
@@ -34,6 +35,9 @@ namespace Bomberman
         private GameObject destructibleWallPrefab;
 
         [SerializeField]
+        private GameObject BattleRoyaleCirclePrefab;
+
+        [SerializeField]
         private List<GameObject> playerPrefabs;
 
         [SerializeField]
@@ -47,6 +51,8 @@ namespace Bomberman
 
         //What monster type to force load only works when it is none
         private MonsterType forceMonsterType=MonsterType.None;
+
+        private Transform circleTransform;
 
         /// <summary>
         /// The cells of the board
@@ -98,7 +104,13 @@ namespace Bomberman
         /// </summary>
         public bool StartGameOverCounter { get; private set; } = false;
 
-  
+        private void Awake()
+        {
+            circleTransform = transform.Find("BattleRoyaleCircle");
+
+            DecreaseCircle(new Vector3(), new Vector3(200, 200));
+        }
+
         //Called every frame
         private void Update()
         {
@@ -139,7 +151,14 @@ namespace Bomberman
                     }
                 }
             }
-
+            if (MainMenuConfig.BattleRoyale)
+            {
+                /*
+                Vector3 sizeChange = (targetCircleSize - circleSize).normalized;
+                Vector3 newCircleSize = circleSize + sizeChange * Time.deltaTime * circleDecreaseRate;
+                DecreaseCircle(circlePosition, newCircleSize);
+                */
+            }
         }
 
         // Start is called before the first frame update
@@ -291,9 +310,9 @@ namespace Bomberman
         /// <summary>
         ///Decreases the battle royale circle
         /// </summary>
-        private void DecreaseCircle()
+        private void DecreaseCircle(Vector3 position, Vector3 size)
         {
-
+           circleTransform.localScale = size;
         }
         /// <summary>
         /// Make the game paused

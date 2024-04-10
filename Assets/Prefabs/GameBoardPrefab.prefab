@@ -48,10 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21b80dacb6bab5a4680d2b34dba4ea27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapAssetPath: 
   loadMapOnStartUp: 1
-  circleDecreaseRate: 0
+  circleDecreaseRate: 5
   indestructibleWallPrefab: {fileID: 2893851931354454646, guid: b903466e77ce7cd4783039e8d928b621, type: 3}
   destructibleWallPrefab: {fileID: 2893851931354454646, guid: 2217dd57f3b2ffc4494c05202b339e20, type: 3}
+  BattleRoyaleCirclePrefab: {fileID: 811004828914311579, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
   playerPrefabs:
   - {fileID: 303871658224516377, guid: 7837465c516fa3e44badc1801dea4be5, type: 3}
   - {fileID: 303871658224516377, guid: 1462a5034b5bec946b392ad2404e1d1e, type: 3}
@@ -61,3 +63,4 @@ MonoBehaviour:
   - {fileID: 303871658224516377, guid: 0dce2e405a0c6a94a9ab406bed03658e, type: 3}
   - {fileID: 303871658224516377, guid: 95fef9ab1efaa344f8b18c0a70dff618, type: 3}
   - {fileID: 303871658224516377, guid: 6c7df7f2708ab284d955fb4f0b39c29e, type: 3}
+  modalWindow: {fileID: 0}
