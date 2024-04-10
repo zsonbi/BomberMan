@@ -52,6 +52,7 @@ public class PlayerInGameMenuHandler : MonoBehaviour
             AddHealth();
         }
 
+        ScoreText.text=player.Score.ToString();
 
     }
 
