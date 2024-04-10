@@ -25,6 +25,10 @@ public class PlayerInGameMenuHandler : MonoBehaviour
     [SerializeField]
     TMP_Text playerName;
 
+    [SerializeField]
+    TMP_Text ScoreText;
+
+
     private int currentHealth = 0;
     Dictionary<BonusType, RectTransform> bonuses = new Dictionary<BonusType, RectTransform>();
 

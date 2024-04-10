@@ -128,7 +128,7 @@ namespace Bomberman
                             modalContent = "The round was a draw";
                         }
 
-                        if (winner.Score >= MainMenuConfig.RequiredPoint)
+                        if (winner?.Score >= MainMenuConfig.RequiredPoint)
                         {
                             modalWindow.Show("The game is over", $"{winner.PlayerName} won the game!", BackToMainMenu, "Back to main menu");
                         }
