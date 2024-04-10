@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using Bomberman;
 using DataTypes;
+using System.Linq;
 
 public class Player : MovingEntity
 {
@@ -94,6 +95,33 @@ public class Player : MovingEntity
             actionCooldown -= Time.deltaTime;
         }
 
+        for (int i = 0; i < Bonuses.Keys.Count; i++)
+        {
+            Bonus bonus = Bonuses.ElementAt(i).Value;
+            if (bonus.Decaying)
+            {
+                if (bonus.DecreaseDuration(Time.deltaTime))
+                {
+                    switch (bonus.Type)
+                    {
+        
+              
+                        case BonusType.Slowness:
+                            this.timeToMove = 1f / this.Speed;
+
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    Destroy(bonus.gameObject);
+                    Bonuses.Remove(bonus.Type);
+                }
+            }
+        }
+
+
         if (Bonuses.ContainsKey(BonusType.InstantBomb))
         {
             PlaceBomb();
@@ -139,7 +167,7 @@ public class Player : MovingEntity
 
                     case BonusType.Slowness:
                         Debug.Log("Slowness effect started");
-                        this.timeToMove = 1 / (float)(this.Speed * 0.6);
+                        this.timeToMove = 1 / (float)(this.Speed * 0.6f);
                         //Missing: This effect lasts for a period of time
                         break;
 
@@ -149,7 +177,7 @@ public class Player : MovingEntity
                         break;
 
                     case BonusType.NoBomb:
-                    
+                        Debug.Log("No bomb activated");
                     break;
 
                     case BonusType.InstantBomb:
@@ -159,10 +187,26 @@ public class Player : MovingEntity
                     default:
                         break;
                 }
-                if (Bonuses[bonus.Type].Tier == 1)
+                if (bonus.Decaying)
+                {
+                    this.GameBoard.Entites.Remove(bonus);
+
+                    if (bonus != Bonuses[bonus.Type])
+                    {
+                        Destroy(bonus.gameObject);
+                    }
+                    else
+                    {
+                        bonus.Hide();
+                    }
+
+                    Bonuses[bonus.Type].ResetDecayingBonus(bonus.Duration);
+                }
+                else if (Bonuses[bonus.Type].Tier == 1)
                 {
                     bonus.Hide();
                 }
+           
                 else
                 {
                     this.GameBoard.Entites.Remove(bonus);

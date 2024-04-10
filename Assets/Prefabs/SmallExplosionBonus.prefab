@@ -199,5 +199,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tier: 1
   type: 8
-  duration: 0
-  decaying: 0
+  duration: 10
+  decaying: 1
