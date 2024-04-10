@@ -144,6 +144,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5348707529584158226, guid: 8a965841668ac524ea5cbe37f9c182e5, type: 3}
+      propertyPath: CircleGameObject
+      value: 
+      objectReference: {fileID: 1515423860}
+    - target: {fileID: 5348707529584158226, guid: 8a965841668ac524ea5cbe37f9c182e5, type: 3}
+      propertyPath: circleDecreaseRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5348707529584158226, guid: 8a965841668ac524ea5cbe37f9c182e5, type: 3}
       propertyPath: playerPrefabs.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -335,7 +343,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1822984925}
   - {fileID: 70608345}
   - {fileID: 1888417941}
   m_Father: {fileID: 0}
@@ -586,6 +593,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8161596304387292324, guid: 258c78a90df07c1488133909f4310a0e, type: 3}
   m_PrefabInstance: {fileID: 1269276871}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1515423860 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 811004828914311579, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
+  m_PrefabInstance: {fileID: 2137697310}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1822984925 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1525460631505483369, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
@@ -623,6 +635,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1269276872}
+  - {fileID: 1822984925}
   m_Father: {fileID: 519420032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -710,7 +723,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 519420032}
+    m_TransformParent: {fileID: 1888417941}
     m_Modifications:
     - target: {fileID: 811004828914311579, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
       propertyPath: m_Name
@@ -718,11 +731,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1525460631505483369, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
       propertyPath: m_LocalScale.x
-      value: 200
+      value: 979.99994
       objectReference: {fileID: 0}
     - target: {fileID: 1525460631505483369, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
       propertyPath: m_LocalScale.y
-      value: 200
+      value: 979.99994
+      objectReference: {fileID: 0}
+    - target: {fileID: 1525460631505483369, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1525460631505483369, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
       propertyPath: m_LocalPosition.x
@@ -742,15 +759,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1525460631505483369, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1525460631505483369, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1525460631505483369, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1525460631505483369, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -764,7 +781,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1658411005953202416, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
+      propertyPath: m_SortingOrder
+      value: 245
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

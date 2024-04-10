@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1525460631505483369}
-  - component: {fileID: 5015472998306016575}
   - component: {fileID: -5289438045167569310}
   - component: {fileID: 1658411005953202416}
   - component: {fileID: 1965579907654657463}
@@ -36,27 +35,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5015472998306016575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811004828914311579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b80dacb6bab5a4680d2b34dba4ea27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mapAssetPath: 
-  loadMapOnStartUp: 1
-  circleDecreaseRate: 10
-  indestructibleWallPrefab: {fileID: 0}
-  destructibleWallPrefab: {fileID: 0}
-  BattleRoyaleCirclePrefab: {fileID: 0}
-  playerPrefabs: []
-  monsterPrefabs: []
-  modalWindow: {fileID: 0}
 --- !u!212 &-5289438045167569310
 SpriteRenderer:
   m_ObjectHideFlags: 0

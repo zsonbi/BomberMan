@@ -35,9 +35,6 @@ namespace Bomberman
         private GameObject destructibleWallPrefab;
 
         [SerializeField]
-        private GameObject BattleRoyaleCirclePrefab;
-
-        [SerializeField]
         private List<GameObject> playerPrefabs;
 
         [SerializeField]
@@ -50,9 +47,10 @@ namespace Bomberman
         private float gameOverTimer = Config.GAME_OVER_TIMER;
 
         //What monster type to force load only works when it is none
-        private MonsterType forceMonsterType=MonsterType.None;
+        private MonsterType forceMonsterType = MonsterType.None;
 
-        private Transform circleTransform;
+        [SerializeField]
+        private GameObject CircleGameObject;
 
         /// <summary>
         /// The cells of the board
@@ -106,9 +104,7 @@ namespace Bomberman
 
         private void Awake()
         {
-            circleTransform = transform.Find("BattleRoyaleCircle");
-
-            DecreaseCircle(new Vector3(), new Vector3(200, 200));
+            // DecreaseCircle(new Vector3(200, 200));
         }
 
         //Called every frame
@@ -151,13 +147,16 @@ namespace Bomberman
                     }
                 }
             }
+            //Rakd bele majd az if-be
+            DecreaseCircle(CircleGameObject.transform.localScale - Vector3.one * circleDecreaseRate * Time.deltaTime);
+
             if (MainMenuConfig.BattleRoyale)
             {
-                /*
-                Vector3 sizeChange = (targetCircleSize - circleSize).normalized;
-                Vector3 newCircleSize = circleSize + sizeChange * Time.deltaTime * circleDecreaseRate;
-                DecreaseCircle(circlePosition, newCircleSize);
-                */
+                DecreaseCircle(CircleGameObject.transform.localScale - circleDecreaseRate * Time.deltaTime * CircleGameObject.transform.localScale);
+
+                //Vector3 sizeChange = (targetCircleSize - circleSize).normalized;
+                //Vector3 newCircleSize = circleSize + sizeChange * Time.deltaTime * circleDecreaseRate;
+                //DecreaseCircle(circlePosition, newCircleSize);
             }
         }
 
@@ -283,12 +282,12 @@ namespace Bomberman
             }
             //Spawns the monsters in
             counter = 0;
-            while (monsterSpawns.Count != 0 )
+            while (monsterSpawns.Count != 0)
             {
                 int index = Config.RND.Next(0, monsterSpawns.Count);
                 if (Monsters.Count <= counter)
                 {
-                    if(forceMonsterType==MonsterType.None)
+                    if (forceMonsterType == MonsterType.None)
                     {
                         Monsters.Add(Instantiate(monsterPrefabs[Config.RND.Next(0, monsterPrefabs.Count)], this.transform).GetComponent<Monster>());
                     }
@@ -302,18 +301,16 @@ namespace Bomberman
                 monsterSpawns.RemoveAt(index);
                 ++counter;
             }
-
-
         }
-
 
         /// <summary>
         ///Decreases the battle royale circle
         /// </summary>
-        private void DecreaseCircle(Vector3 position, Vector3 size)
+        private void DecreaseCircle(Vector3 size)
         {
-           circleTransform.localScale = size;
+            CircleGameObject.transform.localScale = size;
         }
+
         /// <summary>
         /// Make the game paused
         /// </summary>
@@ -358,21 +355,20 @@ namespace Bomberman
         /// <param name="monsterType">The type to force use (MonsterType.None) to reset it back to random</param>
         public void ForceSpecificMobTypeOnLoad(MonsterType monsterType)
         {
-            this.forceMonsterType= monsterType;
+            this.forceMonsterType = monsterType;
         }
 
         /// <summary>
-        ///Spawn a bomb at the given position 
+        ///Spawn a bomb at the given position
         /// </summary>
         /// <param name="whereToSpawn">Where to spawn the bomb</param>
-        public void SpawnBomb(Position whereToSpawn,int radius = Config.BOMBDEFAULTEXPLOSIONRANGE, bool permament=false)
+        public void SpawnBomb(Position whereToSpawn, int radius = Config.BOMBDEFAULTEXPLOSIONRANGE, bool permament = false)
         {
-            Bomb bombToSpawn = Instantiate(Players[0].Bombs[0],this.transform).GetComponent<Bomb>();
+            Bomb bombToSpawn = Instantiate(Players[0].Bombs[0], this.transform).GetComponent<Bomb>();
 
-            bombToSpawn.Init(MapEntityType.Bomb,this,whereToSpawn);
-            bombToSpawn.PlaceByGameBoard(whereToSpawn,radius,permament);
+            bombToSpawn.Init(MapEntityType.Bomb, this, whereToSpawn);
+            bombToSpawn.PlaceByGameBoard(whereToSpawn, radius, permament);
         }
-
 
         /// <summary>
         /// Start the next game
@@ -385,8 +381,6 @@ namespace Bomberman
             }
             StartGameOverCounter = false;
             gameOverTimer = Config.GAME_OVER_TIMER;
-
-            
 
             //Cleare out the previous game's entities
             for (int i = 0; i < Cells.GetLength(0); i++)
@@ -401,7 +395,6 @@ namespace Bomberman
                 Destroy(Entites[0].gameObject);
                 Entites.RemoveAt(0);
             }
-
 
             if (loadMapOnStartUp)
             {
@@ -420,7 +413,6 @@ namespace Bomberman
                     // CreateBoard("Maps/GameMaps/baseMap");
                 }
             }
-
 
             Resume();
         }
