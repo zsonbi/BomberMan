@@ -42,6 +42,27 @@ namespace Bomberman
             this.GameBoard.Entites.Add(this);
         }
 
+        /// <summary>
+        /// Decrease it's duration if it's duration hit's 0 or less return true
+        /// </summary>
+        /// <param name="amount">How much to decrease</param>
+        /// <returns></returns>
+        /// <exception cref="System.Exception"></exception>
+        public bool DecreaseDuration(float amount)
+        {
+            if(!Decaying)
+            {
+                throw new System.Exception("Not decaying");
+            }
+            this.Duration-=amount;
+            return this.Duration<=0;
+        }
+
+        public void ResetDecayingBonus(float baseDuration)
+        {
+            this.Duration=baseDuration;
+        }
+
         public bool IncreaseTier()
         {
             int maxTier = -1;

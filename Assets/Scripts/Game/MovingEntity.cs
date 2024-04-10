@@ -55,7 +55,7 @@ namespace Bomberman
         /// <summary>
         /// How long does the movement take
         /// </summary>
-        protected float timeToMove { get; private set; } = 1f;
+        public float timeToMove { get; protected set; } = 1f;
 
         /// <summary>
         /// Event which is called when it changed tiles completely
@@ -79,14 +79,9 @@ namespace Bomberman
             CurrentDirection = Direction.Left;
             NewDirection = Direction.None;
             moveProgress = 0f;
+            this.timeToMove = 1f / this.Speed;
         }
 
-        //Called when the script is loaded
-        private void Awake()
-        {
-            this.timeToMove = 1 / speed;
-            targetPos = null;
-        }
 
         //Called every frame update
         protected void Update()
