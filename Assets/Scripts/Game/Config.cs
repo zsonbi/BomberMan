@@ -45,7 +45,7 @@ public static class Config
     /// <summary>
     /// How quickly should the explosion spread
     /// </summary>
-    public const float BOMBEXPLOSIONSPREADSPEED = 1f;
+    public const float BOMBEXPLOSIONSPREADSPEED = 0.3f;
 
     /// <summary>
     /// The number of players to spawn on start

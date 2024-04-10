@@ -6,6 +6,7 @@ using UnityEngine;
 using DataTypes;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using Bomberman.Menu;
 
 namespace Bomberman
 {
@@ -14,7 +15,11 @@ namespace Bomberman
     /// </summary>
     public class GameBoard : MonoBehaviour
     {
-        //What will be used as a delimiter in the maps file if it is a csv
+        
+
+        [SerializeField]
+        public MenuController MenuController;
+
 
         [SerializeField]
         [Header("Path to the asset you want to force load (Can be left empty)")]
@@ -84,11 +89,6 @@ namespace Bomberman
         public float CircleDecreaseRate { get => circleDecreaseRate; private set => circleDecreaseRate = value; }
 
         /// <summary>
-        /// Event is called when the menu needs to be refreshed
-        /// </summary>
-        public EventHandler UpdateMenuFields;
-
-        /// <summary>
         /// The game is paused
         /// </summary>
         public bool Paused { get; private set; } = false;
@@ -128,7 +128,7 @@ namespace Bomberman
                             modalContent = "The round was a draw";
                         }
 
-                        if (winner.Score >= MainMenuConfig.RequiredPoint)
+                        if (winner?.Score >= MainMenuConfig.RequiredPoint)
                         {
                             modalWindow.Show("The game is over", $"{winner.PlayerName} won the game!", BackToMainMenu, "Back to main menu");
                         }
@@ -145,24 +145,7 @@ namespace Bomberman
         // Start is called before the first frame update
         private void Start()
         {
-            //await CreateBoard("Assets/Maps/testMap.csv");
-            if (loadMapOnStartUp)
-            {
-                if (mapAssetPath != "")
-                {
-                    CreateBoard(mapAssetPath);
-                }
-                else
-                {
-                    //Not efficient, but can't do it other way
-                    TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
-
-                    //string mapsPath = Directory.GetCurrentDirectory() + "/Assets/Maps/GameMaps/";
-
-                    CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
-                    // CreateBoard("Maps/GameMaps/baseMap");
-                }
-            }
+          StartNextGame();
         }
 
         public void MakeMapLoadManual()
@@ -284,7 +267,7 @@ namespace Bomberman
                 ++counter;
             }
 
-
+            this.MenuController.NewGame(Players);
         }
 
 
@@ -360,17 +343,16 @@ namespace Bomberman
         /// </summary>
         public void StartNextGame()
         {
-            if (Cells is null)
-            {
-                return;
-            }
+          
+        
             StartGameOverCounter = false;
             gameOverTimer = Config.GAME_OVER_TIMER;
 
-            
+            if (Cells is not null)
+            {
 
-            //Cleare out the previous game's entities
-            for (int i = 0; i < Cells.GetLength(0); i++)
+                //Cleare out the previous game's entities
+                for (int i = 0; i < Cells.GetLength(0); i++)
             {
                 for (int j = 0; j < Cells.GetLength(1); j++)
                 {
@@ -383,7 +365,7 @@ namespace Bomberman
                 Entites.RemoveAt(0);
             }
 
-
+            }
             if (loadMapOnStartUp)
             {
                 if (mapAssetPath != "")
@@ -400,10 +382,10 @@ namespace Bomberman
                     CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
                     // CreateBoard("Maps/GameMaps/baseMap");
                 }
+                Resume();
             }
-
-
-            Resume();
+            
+            
         }
     }
 }

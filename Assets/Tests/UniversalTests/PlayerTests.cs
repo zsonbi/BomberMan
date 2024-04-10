@@ -34,6 +34,7 @@ namespace Tests
             MainMenuConfig.Player3 = true;
             gameBoard.StartNextGame();
             gameBoard.CreateBoard("Maps/TestMaps/playerNextToMonsterMap");
+            gameBoard.Resume();
             List<int> healths = gameBoard.Players.Select(x => x.Hp).ToList();
             List<Position> playerSpawns = new List<Position>();
 
@@ -64,7 +65,6 @@ namespace Tests
             MainMenuConfig.Player3 = true;
             gameBoard.StartNextGame();
             gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
-
             gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck");
             List<Position> playerSpawns = new List<Position>();
             List<Position> monsterSpawns = new List<Position>();
@@ -121,7 +121,7 @@ namespace Tests
                 {
                     if(control.Value.Method.Name== "PlaceBomb")
                     {
-                        control.Value.Method.Invoke(null,null);
+                        control.Value.Method.Invoke(item,null);
                         Assert.AreNotEqual(item.Bombs.Count,item.Bombs.Count(x=>!x.Placed));
                     }
                 }
