@@ -6,7 +6,6 @@ using UnityEngine;
 using DataTypes;
 using System.Linq;
 using UnityEngine.SceneManagement;
-using PlasticGui;
 
 namespace Bomberman
 {
