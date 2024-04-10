@@ -9,7 +9,7 @@ using System.Linq;
 public class Player : MovingEntity
 {
     //How long should the player wait between actions
-    private float actionCooldown = 0.1f;
+    private float actionCooldown = 0f;
 
     //The id of the player (set it in the editor)
     [SerializeField]

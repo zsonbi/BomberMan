@@ -267,7 +267,7 @@ namespace Bomberman
                 ++counter;
             }
 
-
+            this.MenuController.NewGame(Players);
         }
 
 
@@ -382,10 +382,10 @@ namespace Bomberman
                     CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
                     // CreateBoard("Maps/GameMaps/baseMap");
                 }
+                Resume();
             }
-
-            this.MenuController.NewGame(Players);
-            Resume();
+            
+            
         }
     }
 }
