@@ -49,11 +49,13 @@ namespace Bomberman
 
             public void AddBonus(BonusType bonusType, Player player)
             {
+                PlayerInGameMenuHandlers[player.PlayerId].AddBonus(bonusType, player.Bonuses[bonusType].GetComponent<SpriteRenderer>().sprite);
 
             }
 
             public void RemoveBonus(BonusType bonusType, Player player)
             {
+                PlayerInGameMenuHandlers[player.PlayerId].RemoveBonus(bonusType);
 
             }
 

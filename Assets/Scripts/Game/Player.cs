@@ -120,7 +120,7 @@ public class Player : MovingEntity
                         default:
                             break;
                     }
-
+                    this.GameBoard.MenuController.RemoveBonus(bonus.Type,this);
                     Destroy(bonus.gameObject);
                     Bonuses.Remove(bonus.Type);
                 }
@@ -154,6 +154,7 @@ public class Player : MovingEntity
                 if (!Bonuses.ContainsKey(bonus.Type))
                 {
                     Bonuses.Add(bonus.Type, bonus);
+                    GameBoard.MenuController.AddBonus(bonus.Type,this);
                 }
                 switch (bonus.Type)
                 {

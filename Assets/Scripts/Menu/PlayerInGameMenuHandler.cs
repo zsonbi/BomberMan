@@ -2,6 +2,7 @@ using DataTypes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,10 +25,8 @@ public class PlayerInGameMenuHandler : MonoBehaviour
     [SerializeField]
     TMP_Text playerName;
 
-    List<Image> playerHealths = new List<Image>();
-
     private int currentHealth = 0;
-    List<BonusType> bonuses = new List<BonusType>();
+    Dictionary<BonusType, RectTransform> bonuses = new Dictionary<BonusType, RectTransform>();
 
     List<GameObject> healthIcons = new List<GameObject>();
 
@@ -37,8 +36,7 @@ public class PlayerInGameMenuHandler : MonoBehaviour
         playerIconImage.sprite = player.gameObject.GetComponent<SpriteRenderer>().sprite;
         while (bonuses.Count > 0)
         {
-            RemoveBonus(bonuses[0]);
-            bonuses.RemoveAt(0);
+            RemoveBonusWithoutReorganize(bonuses.ElementAt(0).Key);
         }
         while (currentHealth > player.Hp)
         {
@@ -53,61 +51,26 @@ public class PlayerInGameMenuHandler : MonoBehaviour
 
     }
 
-    public void UpdatePlayer(Player playerToDisplay)
-    {
-        if (playerToDisplay.Hp < currentHealth)
-        {
-            AddHealth();
-        }
-        else if (playerToDisplay.Hp > currentHealth)
-        {
-            RemoveHealth();
-        }
-
-        int count = 0;
-        foreach (var bonusType in playerToDisplay.Bonuses.Keys)
-        {
-            if (!bonuses.Contains(bonusType))
-            {
-                AddBonus(bonusType, playerToDisplay.Bonuses[bonusType].gameObject.GetComponent<SpriteRenderer>().sprite);
-            }
-            count++;
-        }
-        if (count != bonuses.Count)
-        {
-            for (int i = 0; i < bonuses.Count; i++)
-            {
-                if (!playerToDisplay.Bonuses.ContainsKey(bonuses[i]))
-                {
-                    RemoveBonus(bonuses[i]);
-                    bonuses.RemoveAt(i);
-                    i--;
-                }
-            }
-
-        }
-
-    }
 
     private void AddHealth()
     {
         currentHealth++;
         GameObject healthGameObject = new GameObject("health" + currentHealth, typeof(UnityEngine.UI.Image));
-        healthGameObject.transform.SetParent( healthBarContainer.transform);
+        healthGameObject.transform.SetParent(healthBarContainer.transform);
         Image healthImage = healthGameObject.GetComponent<Image>();
         RectTransform rectTransform = healthImage.GetComponent<RectTransform>();
         healthImage.sprite = healthSprite;
-        rectTransform.anchorMin = new Vector2(0,0.5f);
-        rectTransform.anchorMax = new Vector2(0,0.5f);
+        rectTransform.anchorMin = new Vector2(0, 0.5f);
+        rectTransform.anchorMax = new Vector2(0, 0.5f);
         rectTransform.localScale = Vector3.one;
-        rectTransform.localPosition= new Vector2(-30+(currentHealth-1)*30,0);
-        rectTransform.sizeDelta=new Vector2(30,30);
+        rectTransform.localPosition = new Vector2(-30 + (currentHealth - 1) * 30, 0);
+        rectTransform.sizeDelta = new Vector2(30, 30);
         healthIcons.Add(healthGameObject);
     }
 
     public void RemoveHealth()
     {
-        if(currentHealth<=0)
+        if (currentHealth <= 0)
         {
             throw new NullReferenceException("No health to remove");
         }
@@ -118,16 +81,59 @@ public class PlayerInGameMenuHandler : MonoBehaviour
 
     }
 
+
     public void AddBonus(BonusType type, Sprite bonusImage)
     {
-        bonuses.Add(type);
+        GameObject bonusGameObject = new GameObject("bonusIcon" + type.ToString(), typeof(UnityEngine.UI.Image));
+        bonusGameObject.transform.SetParent(bonusesContainer.transform);
+        Image bonusImageComp = bonusGameObject.GetComponent<Image>();
+        RectTransform rectTransform = bonusImageComp.GetComponent<RectTransform>();
+        bonusImageComp.sprite = bonusImage;
+        rectTransform.anchorMin = new Vector2(0, 1f);
+        rectTransform.anchorMax = new Vector2(0, 1f);
+        rectTransform.localScale = Vector3.one;
+        rectTransform.localPosition = new Vector2(-40 + (bonuses.Count % 4) * 30, 20 + (bonuses.Count / 4) * 30);
+        rectTransform.sizeDelta = new Vector2(30, 30);
+        bonuses.Add(type, rectTransform);
+        if (bonuses.Count > 8)
+        {
+            bonusGameObject.SetActive(false);
+        }
+
+        //bonuses.Add(type);
     }
 
     public void RemoveBonus(BonusType type)
     {
 
+        RemoveBonusWithoutReorganize(type);
+        ReorganizeBonuses();
     }
 
+    private void ReorganizeBonuses()
+    {
+        int counter = 0;
+        foreach (var bonus in bonuses)
+        {
+            if (counter >= 8)
+            {
+                bonus.Value.gameObject.SetActive(false);
 
+            }
+            else
+            {
+                bonus.Value.gameObject.SetActive(true);
+            }
+            bonus.Value.transform.localPosition = new Vector2(-40 + (counter % 4) * 30, 20 + (counter / 4) * 30);
+            counter++;
+
+        }
+    }
+
+    private void RemoveBonusWithoutReorganize(BonusType type)
+    {
+        Destroy(bonuses[type].gameObject);
+        bonuses.Remove(type);
+    }
 
 }
