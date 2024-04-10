@@ -11,6 +11,14 @@ namespace Bomberman
             [SerializeField]
             private GameBoard Game;
 
+            [SerializeField]
+            PlayerInGameMenuHandler[] PlayerInGameMenuHandlers;
+
+            public void Update()
+            {
+                PlayerInGameMenuHandlers[0].SetUpPanel(Game.Players[0]);   
+            }
+
             public void NewGame()
             {
 
@@ -26,6 +34,7 @@ namespace Bomberman
             {
                 throw new System.NotImplementedException();
             }
+
         }
     }
 }
