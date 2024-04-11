@@ -340,6 +340,20 @@ namespace Bomberman
         }
 
         /// <summary>
+        /// Spawn a bonus at a specific coordinate
+        /// </summary>
+        /// <param name="bonusType">The type of the bonus</param>
+        /// <param name="row">The row index to spawn</param>
+        /// <param name="col">The col index to spawn</param>
+        public void SpawnBonus(BonusType bonusType, int row, int col)
+        {
+            if (row >= 0 && col >= 0 && row < this.Cells.GetLength(0) && col < Cells.GetLength(1))
+            {
+                this.Cells[row, col].SpawnBonus(bonusType);
+            }
+        }
+
+        /// <summary>
         /// Start the next game
         /// </summary>
         public void StartNextGame()

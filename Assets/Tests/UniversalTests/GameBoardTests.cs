@@ -113,6 +113,7 @@ namespace Tests
             yield return null;
         }
 
+        //Test the pause for the game
         [UnityTest]
         public IEnumerator TestPause()
         {
