@@ -135,6 +135,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameBoardPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 4178396929882039966, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 6189817343236521063, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.754
+      objectReference: {fileID: 0}
     - target: {fileID: 6649390919642674505, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -261,7 +269,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.2233001, g: 0.231849, b: 0.24528301, a: 0}
+  m_BackGroundColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

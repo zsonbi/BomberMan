@@ -11,10 +11,21 @@ namespace Bomberman
     {
         public class MenuController : MonoBehaviour
         {
-
+            [SerializeField]
+            private RectTransform leftMenu;
 
             [SerializeField]
-            PlayerInGameMenuHandler[] PlayerInGameMenuHandlers;
+            private RectTransform rightMenu;
+
+            [SerializeField]
+            private RectTransform GameBoard;
+
+            [SerializeField]
+            private PlayerInGameMenuHandler[] PlayerInGameMenuHandlers;
+
+            private void Start()
+            {
+            }
 
             public void Update()
             {
@@ -22,7 +33,6 @@ namespace Bomberman
 
             public void NewGame(List<Player> players)
             {
-
                 for (int i = 0; i < players.Count; i++)
                 {
                     if (PlayerInGameMenuHandlers.Length < players.Count)
@@ -32,33 +42,27 @@ namespace Bomberman
                     }
                     PlayerInGameMenuHandlers[i].SetUpPanel(players[i]);
                     PlayerInGameMenuHandlers[i].gameObject.SetActive(true);
-
                 }
-                for (int i = players.Count;i < PlayerInGameMenuHandlers.Length;i++)
+                for (int i = players.Count; i < PlayerInGameMenuHandlers.Length; i++)
                 {
                     PlayerInGameMenuHandlers[i].gameObject.SetActive(false);
                 }
-
             }
 
             public void RemoveHealth(Player player)
             {
                 PlayerInGameMenuHandlers[player.PlayerId].RemoveHealth();
             }
-           
 
             public void AddBonus(BonusType bonusType, Player player)
             {
                 PlayerInGameMenuHandlers[player.PlayerId].AddBonus(bonusType, player.Bonuses[bonusType].GetComponent<SpriteRenderer>().sprite);
-
             }
 
             public void RemoveBonus(BonusType bonusType, Player player)
             {
                 PlayerInGameMenuHandlers[player.PlayerId].RemoveBonus(bonusType);
-
             }
-
         }
     }
 }
