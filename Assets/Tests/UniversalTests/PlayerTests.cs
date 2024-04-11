@@ -27,6 +27,12 @@ namespace Tests
             this.gameBoard.MakeMapLoadManual();
         }
 
+        [TearDown]
+        public void Shutdown()
+        {
+            GameObject.Destroy(this.gameBoard.gameObject);
+        }
+
         // Test if private the load private on startup is disabled as private it should be
         [UnityTest]
         public IEnumerator MonsterDeathAndPlayerDamageTest()
@@ -37,7 +43,6 @@ namespace Tests
             gameBoard.Resume();
             List<int> healths = gameBoard.Players.Select(x => x.Hp).ToList();
             List<Position> playerSpawns = new List<Position>();
-
 
             foreach (var item in gameBoard.Players)
             {
@@ -54,9 +59,7 @@ namespace Tests
             Assert.AreNotEqual(gameBoard.Monsters.Count, gameBoard.Monsters.Count(x => x.Alive));
             yield return null;
             MainMenuConfig.Player3 = false;
-
         }
-
 
         //Test if every movingentity respects the walls
         [UnityTest]
@@ -90,14 +93,12 @@ namespace Tests
             {
                 Assert.IsTrue(playerSpawns[i].Equals(gameBoard.Players[i].CurrentBoardPos));
                 Assert.IsTrue(playerStartVector3[i].Equals(gameBoard.Players[i].transform.position));
-
             }
 
             for (int i = 0; i < monsterSpawns.Count; i++)
             {
                 Assert.IsTrue(monsterSpawns[i].Equals(gameBoard.Monsters[i].CurrentBoardPos));
                 Assert.IsTrue(monsterStartVector3[i].Equals(gameBoard.Monsters[i].transform.position));
-
             }
             MainMenuConfig.Player3 = false;
             gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.None);
@@ -119,10 +120,10 @@ namespace Tests
             {
                 foreach (var control in item.Controls)
                 {
-                    if(control.Value.Method.Name== "PlaceBomb")
+                    if (control.Value.Method.Name == "PlaceBomb")
                     {
-                        control.Value.Method.Invoke(item,null);
-                        Assert.AreNotEqual(item.Bombs.Count,item.Bombs.Count(x=>!x.Placed));
+                        control.Value.Method.Invoke(item, null);
+                        Assert.AreNotEqual(item.Bombs.Count, item.Bombs.Count(x => !x.Placed));
                     }
                 }
             }
@@ -138,12 +139,9 @@ namespace Tests
                 Assert.AreEqual(healths[i], gameBoard.Players[i].Hp);
             }
 
-
             MainMenuConfig.Player3 = false;
-
 
             yield return null;
         }
-
     }
 }

@@ -26,15 +26,20 @@ namespace Tests
             this.gameBoard.MakeMapLoadManual();
         }
 
+        [TearDown]
+        public void Shutdown()
+        {
+            GameObject.Destroy(this.gameBoard.gameObject);
+        }
+
         // Test if private the load private on startup is disabled as private it should be
         [UnityTest]
         public IEnumerator ManualLoadPasses()
         {
-            GameBoard tmp = GameObject.Instantiate(gameBoardPrefab).GetComponent<GameBoard>();
-            tmp.MakeMapLoadManual();
+            //  GameBoard tmp = GameObject.Instantiate(gameBoardPrefab).GetComponent<GameBoard>();
+            gameBoard.MakeMapLoadManual();
             yield return null;
-            Assert.IsNull(tmp.Cells);
-            // GameObject.Destroy(tmp);
+            Assert.IsNull(gameBoard.Cells);
         }
 
         // A simple load test
@@ -99,13 +104,10 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestMaps()
         {
-
             TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
 
             foreach (var item in maps)
             {
-
-
                 Assert.IsTrue(validateMap(item.text.Trim('\n').Replace("\r", "").Split('\n')));
             }
             yield return null;
@@ -132,7 +134,6 @@ namespace Tests
 
             for (int i = 0; i < gameBoard.Players.Count; i++)
             {
-
                 Assert.IsFalse(playerStartVector3[i].Equals(gameBoard.Players[i].transform.position));
                 playerStartVector3[i] = new Vector3(gameBoard.Players[i].transform.position.x, gameBoard.Players[i].transform.position.y, gameBoard.Players[i].transform.position.z);
             }
@@ -146,7 +147,6 @@ namespace Tests
             yield return new WaitForSeconds(0.2f);
             for (int i = 0; i < gameBoard.Players.Count; i++)
             {
-
                 Assert.IsTrue(playerStartVector3[i].Equals(gameBoard.Players[i].transform.position));
             }
             for (int i = 0; i < gameBoard.Monsters.Count; i++)
@@ -156,6 +156,5 @@ namespace Tests
 
             yield return null;
         }
-
     }
 }
