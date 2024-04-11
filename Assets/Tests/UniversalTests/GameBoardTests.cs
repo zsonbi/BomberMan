@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Bomberman;
 using DataTypes;
@@ -26,15 +27,20 @@ namespace Tests
             this.gameBoard.MakeMapLoadManual();
         }
 
+        [TearDown]
+        public void Shutdown()
+        {
+            GameObject.Destroy(this.gameBoard.gameObject);
+        }
+
         // Test if private the load private on startup is disabled as private it should be
         [UnityTest]
         public IEnumerator ManualLoadPasses()
         {
-            GameBoard tmp = GameObject.Instantiate(gameBoardPrefab).GetComponent<GameBoard>();
-            tmp.MakeMapLoadManual();
+            //  GameBoard tmp = GameObject.Instantiate(gameBoardPrefab).GetComponent<GameBoard>();
+            gameBoard.MakeMapLoadManual();
             yield return null;
-            Assert.IsNull(tmp.Cells);
-            // GameObject.Destroy(tmp);
+            Assert.IsNull(gameBoard.Cells);
         }
 
         // A simple load test
@@ -99,18 +105,16 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestMaps()
         {
-
             TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
 
             foreach (var item in maps)
             {
-
-
                 Assert.IsTrue(validateMap(item.text.Trim('\n').Replace("\r", "").Split('\n')));
             }
             yield return null;
         }
 
+        //Test the pause for the game
         [UnityTest]
         public IEnumerator TestPause()
         {
@@ -132,7 +136,6 @@ namespace Tests
 
             for (int i = 0; i < gameBoard.Players.Count; i++)
             {
-
                 Assert.IsFalse(playerStartVector3[i].Equals(gameBoard.Players[i].transform.position));
                 playerStartVector3[i] = new Vector3(gameBoard.Players[i].transform.position.x, gameBoard.Players[i].transform.position.y, gameBoard.Players[i].transform.position.z);
             }
@@ -146,7 +149,6 @@ namespace Tests
             yield return new WaitForSeconds(0.2f);
             for (int i = 0; i < gameBoard.Players.Count; i++)
             {
-
                 Assert.IsTrue(playerStartVector3[i].Equals(gameBoard.Players[i].transform.position));
             }
             for (int i = 0; i < gameBoard.Monsters.Count; i++)
@@ -157,5 +159,78 @@ namespace Tests
             yield return null;
         }
 
+        [UnityTest]
+        public IEnumerator WinTest2Players()
+        {
+            MainMenuConfig.Player3 = false;
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+            yield return null;
+            int healthCount = this.gameBoard.Players.First().Hp;
+
+            for (int i = 0; i <= healthCount; i++)
+            {
+                gameBoard.SpawnBomb(this.gameBoard.Players.First().CurrentBoardPos, 2);
+                yield return new WaitForSeconds(Config.IMMUNETIME + 0.01f);
+            }
+            yield return new WaitForSeconds(Config.GAME_OVER_TIMER + 0.01f);
+            Assert.AreEqual(1, this.gameBoard.Players[1].Score);
+        }
+
+        [UnityTest]
+        public IEnumerator WinTest3Players()
+        {
+            MainMenuConfig.Player3 = true;
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
+
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+            yield return null;
+            int healthCount = this.gameBoard.Players.First().Hp;
+
+            for (int i = 0; i <= healthCount; i++)
+            {
+                foreach (var item in gameBoard.Players.Skip(1))
+                {
+                    gameBoard.SpawnBomb(item.CurrentBoardPos, 2);
+                };
+                yield return new WaitForSeconds(Config.IMMUNETIME + 0.01f);
+            }
+            yield return new WaitForSeconds(Config.GAME_OVER_TIMER - Config.IMMUNETIME + 0.01f);
+            Assert.AreEqual(1, this.gameBoard.Players.First().Score);
+
+            MainMenuConfig.Player3 = false;
+        }
+
+        [EdgeCase]
+        [UnityTest]
+        public IEnumerator DrawTest3Players()
+        {
+            MainMenuConfig.Player3 = true;
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
+
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+            yield return null;
+            int healthCount = this.gameBoard.Players.First().Hp;
+
+            for (int i = 0; i <= healthCount; i++)
+            {
+                foreach (var item in gameBoard.Players)
+                {
+                    gameBoard.SpawnBomb(item.CurrentBoardPos, 2);
+                };
+                yield return new WaitForSeconds(Config.IMMUNETIME + 0.01f);
+            }
+            yield return new WaitForSeconds(Config.GAME_OVER_TIMER - Config.IMMUNETIME + 0.01f);
+
+            foreach (var player in this.gameBoard.Players)
+            {
+                Assert.AreEqual(0, player.Score);
+            }
+
+            MainMenuConfig.Player3 = false;
+        }
     }
 }

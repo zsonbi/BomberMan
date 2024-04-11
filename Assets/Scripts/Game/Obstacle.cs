@@ -45,6 +45,37 @@ public class Obstacle : MapEntity
         this.spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
+    /// <summary>
+    /// This function is for testing purposes only!!!
+    /// Spawn a specific bonus at the obstacle's position
+    /// </summary>
+    public void SpawnBonus(BonusType bonusToSpawn)
+    {
+        int index = -1;
+
+        for (int i = 0; i < bonusPrefabs.Count; i++)
+        {
+            if (bonusPrefabs[i].GetComponent<Bonus>().Type == bonusToSpawn)
+            {
+                index = i;
+                break;
+            }
+        }
+
+        if (index < 0)
+        {
+            throw new System.Exception("No such bonus we can spawn!");
+            
+        }
+
+        Debug.Log(bonusToSpawn.ToString()+index);
+
+        Bonus bonus = Instantiate(bonusPrefabs[index], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
+        bonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
+        bonus.Init(MapEntityType.Bonus, this.GameBoard, new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));
+        bonus.Show();
+    }
+
     private void DropBonus()
     {
         ContainingBonus.Show();
@@ -77,7 +108,7 @@ public class Obstacle : MapEntity
         {
             this.ContainingBonus = Instantiate(bonusPrefabs[Config.RND.Next(0, bonusPrefabs.Count)], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
             this.ContainingBonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
-            this.ContainingBonus.Init(MapEntityType.Bonus,this.GameBoard,new Position(this.CurrentBoardPos.Row,this.CurrentBoardPos.Col));
+            this.ContainingBonus.Init(MapEntityType.Bonus, this.GameBoard, new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));
         }
 
         return true;

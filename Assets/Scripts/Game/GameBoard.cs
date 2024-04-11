@@ -15,11 +15,8 @@ namespace Bomberman
     /// </summary>
     public class GameBoard : MonoBehaviour
     {
-        
-
         [SerializeField]
         public MenuController MenuController;
-
 
         [SerializeField]
         [Header("Path to the asset you want to force load (Can be left empty)")]
@@ -51,7 +48,7 @@ namespace Bomberman
         private float gameOverTimer = Config.GAME_OVER_TIMER;
 
         //What monster type to force load only works when it is none
-        private MonsterType forceMonsterType=MonsterType.None;
+        private MonsterType forceMonsterType = MonsterType.None;
 
         /// <summary>
         /// The cells of the board
@@ -98,7 +95,6 @@ namespace Bomberman
         /// </summary>
         public bool StartGameOverCounter { get; private set; } = false;
 
-  
         //Called every frame
         private void Update()
         {
@@ -139,13 +135,12 @@ namespace Bomberman
                     }
                 }
             }
-
         }
 
         // Start is called before the first frame update
         private void Start()
         {
-          StartNextGame();
+            StartNextGame();
         }
 
         public void MakeMapLoadManual()
@@ -247,12 +242,12 @@ namespace Bomberman
             }
             //Spawns the monsters in
             counter = 0;
-            while (monsterSpawns.Count != 0 )
+            while (monsterSpawns.Count != 0)
             {
                 int index = Config.RND.Next(0, monsterSpawns.Count);
                 if (Monsters.Count <= counter)
                 {
-                    if(forceMonsterType==MonsterType.None)
+                    if (forceMonsterType == MonsterType.None)
                     {
                         Monsters.Add(Instantiate(monsterPrefabs[Config.RND.Next(0, monsterPrefabs.Count)], this.transform).GetComponent<Monster>());
                     }
@@ -270,14 +265,13 @@ namespace Bomberman
             this.MenuController.NewGame(Players);
         }
 
-
         /// <summary>
         ///Decreases the battle royale circle
         /// </summary>
         private void DecreaseCircle()
         {
-
         }
+
         /// <summary>
         /// Make the game paused
         /// </summary>
@@ -317,54 +311,75 @@ namespace Bomberman
         }
 
         /// <summary>
+        /// Closes the game (the whole application)
+        /// </summary>
+        public void ExitGame()
+        {
+            Application.Quit();
+        }
+
+        /// <summary>
         /// Make a monster type force loaded
         /// </summary>
         /// <param name="monsterType">The type to force use (MonsterType.None) to reset it back to random</param>
         public void ForceSpecificMobTypeOnLoad(MonsterType monsterType)
         {
-            this.forceMonsterType= monsterType;
+            this.forceMonsterType = monsterType;
         }
 
         /// <summary>
-        ///Spawn a bomb at the given position 
+        ///Spawn a bomb at the given position
         /// </summary>
         /// <param name="whereToSpawn">Where to spawn the bomb</param>
-        public void SpawnBomb(Position whereToSpawn,int radius = Config.BOMBDEFAULTEXPLOSIONRANGE, bool permament=false)
+        public void SpawnBomb(Position whereToSpawn, int radius = Config.BOMBDEFAULTEXPLOSIONRANGE, bool permament = false)
         {
-            Bomb bombToSpawn = Instantiate(Players[0].Bombs[0],this.transform).GetComponent<Bomb>();
+            Bomb bombToSpawn = Instantiate(Players[0].Bombs[0], this.transform).GetComponent<Bomb>();
 
-            bombToSpawn.Init(MapEntityType.Bomb,this,whereToSpawn);
-            bombToSpawn.PlaceByGameBoard(whereToSpawn,radius,permament);
+            bombToSpawn.Init(MapEntityType.Bomb, this, whereToSpawn);
+            bombToSpawn.PlaceByGameBoard(whereToSpawn, radius, permament);
         }
 
+        /// <summary>
+        /// Spawn a bonus at a specific coordinate
+        /// </summary>
+        /// <param name="bonusType">The type of the bonus</param>
+        /// <param name="pos">The position to spawn the bonus at</param>
+
+        public void SpawnBonus(BonusType bonusType, Position pos)
+        {
+            if (pos.Row >= 0 && pos.Col >= 0 && pos.Row < this.Cells.GetLength(0) && pos.Col < Cells.GetLength(1))
+            {
+                this.Cells[pos.Row, pos.Col].SpawnBonus(bonusType);
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("The cells array is not big enough to spawn a bonus there!");
+            }
+        }
 
         /// <summary>
         /// Start the next game
         /// </summary>
         public void StartNextGame()
         {
-          
-        
             StartGameOverCounter = false;
             gameOverTimer = Config.GAME_OVER_TIMER;
 
             if (Cells is not null)
             {
-
                 //Cleare out the previous game's entities
                 for (int i = 0; i < Cells.GetLength(0); i++)
-            {
-                for (int j = 0; j < Cells.GetLength(1); j++)
                 {
-                    Destroy(Cells[i, j].gameObject);
+                    for (int j = 0; j < Cells.GetLength(1); j++)
+                    {
+                        Destroy(Cells[i, j].gameObject);
+                    }
                 }
-            }
-            while (Entites.Count > 0)
-            {
-                Destroy(Entites[0].gameObject);
-                Entites.RemoveAt(0);
-            }
-
+                while (Entites.Count > 0)
+                {
+                    Destroy(Entites[0].gameObject);
+                    Entites.RemoveAt(0);
+                }
             }
             if (loadMapOnStartUp)
             {
@@ -384,8 +399,6 @@ namespace Bomberman
                 }
                 Resume();
             }
-            
-            
         }
     }
 }
