@@ -135,22 +135,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameBoardPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 1511022200187755376, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511022200187755376, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1511022200187755376, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4178396929882039966, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 519420031}
     - target: {fileID: 6649390919642674505, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
