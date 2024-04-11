@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Bomberman;
 using DataTypes;
@@ -156,6 +157,78 @@ namespace Tests
             }
 
             yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator WinTest2Players()
+        {
+            MainMenuConfig.Player3 = false;
+
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+            yield return null;
+            int healthCount = this.gameBoard.Players.First().Hp;
+
+            for (int i = 0; i <= healthCount; i++)
+            {
+                gameBoard.SpawnBomb(this.gameBoard.Players.First().CurrentBoardPos, 2);
+                yield return new WaitForSeconds(Config.IMMUNETIME + 0.01f);
+            }
+            yield return new WaitForSeconds(Config.GAME_OVER_TIMER + 0.01f);
+            Assert.AreEqual(1, this.gameBoard.Players[1].Score);
+        }
+
+        [UnityTest]
+        public IEnumerator WinTest3Players()
+        {
+            MainMenuConfig.Player3 = true;
+
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+            yield return null;
+            int healthCount = this.gameBoard.Players.First().Hp;
+
+            for (int i = 0; i <= healthCount; i++)
+            {
+                foreach (var item in gameBoard.Players.Skip(1))
+                {
+                    gameBoard.SpawnBomb(item.CurrentBoardPos, 2);
+                };
+                yield return new WaitForSeconds(Config.IMMUNETIME + 0.01f);
+            }
+            yield return new WaitForSeconds(Config.GAME_OVER_TIMER - Config.IMMUNETIME + 0.01f);
+            Assert.AreEqual(1, this.gameBoard.Players.First().Score);
+
+            MainMenuConfig.Player3 = false;
+        }
+
+        [EdgeCase]
+        [UnityTest]
+        public IEnumerator DrawTest3Players()
+        {
+            MainMenuConfig.Player3 = true;
+
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+            yield return null;
+            int healthCount = this.gameBoard.Players.First().Hp;
+
+            for (int i = 0; i <= healthCount; i++)
+            {
+                foreach (var item in gameBoard.Players)
+                {
+                    gameBoard.SpawnBomb(item.CurrentBoardPos, 2);
+                };
+                yield return new WaitForSeconds(Config.IMMUNETIME + 0.01f);
+            }
+            yield return new WaitForSeconds(Config.GAME_OVER_TIMER - Config.IMMUNETIME + 0.01f);
+
+            foreach (var player in this.gameBoard.Players)
+            {
+                Assert.AreEqual(0, player.Score);
+            }
+
+            MainMenuConfig.Player3 = false;
         }
     }
 }
