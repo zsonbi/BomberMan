@@ -163,7 +163,7 @@ namespace Tests
         public IEnumerator WinTest2Players()
         {
             MainMenuConfig.Player3 = false;
-
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
             gameBoard.StartNextGame();
             gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
             yield return null;
@@ -182,6 +182,7 @@ namespace Tests
         public IEnumerator WinTest3Players()
         {
             MainMenuConfig.Player3 = true;
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
 
             gameBoard.StartNextGame();
             gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
@@ -207,6 +208,7 @@ namespace Tests
         public IEnumerator DrawTest3Players()
         {
             MainMenuConfig.Player3 = true;
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
 
             gameBoard.StartNextGame();
             gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");

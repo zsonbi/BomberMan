@@ -343,13 +343,17 @@ namespace Bomberman
         /// Spawn a bonus at a specific coordinate
         /// </summary>
         /// <param name="bonusType">The type of the bonus</param>
-        /// <param name="row">The row index to spawn</param>
-        /// <param name="col">The col index to spawn</param>
-        public void SpawnBonus(BonusType bonusType, int row, int col)
+        /// <param name="pos">The position to spawn the bonus at</param>
+
+        public void SpawnBonus(BonusType bonusType, Position pos)
         {
-            if (row >= 0 && col >= 0 && row < this.Cells.GetLength(0) && col < Cells.GetLength(1))
+            if (pos.Row >= 0 && pos.Col >= 0 && pos.Row < this.Cells.GetLength(0) && pos.Col < Cells.GetLength(1))
             {
-                this.Cells[row, col].SpawnBonus(bonusType);
+                this.Cells[pos.Row, pos.Col].SpawnBonus(bonusType);
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("The cells array is not big enough to spawn a bonus there!");
             }
         }
 
