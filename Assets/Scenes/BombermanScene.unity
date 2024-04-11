@@ -141,7 +141,11 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 6189817343236521063, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
       propertyPath: m_MatchWidthOrHeight
-      value: 0.754
+      value: 0.691
+      objectReference: {fileID: 0}
+    - target: {fileID: 6189817343236521063, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 6649390919642674505, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
       propertyPath: m_Pivot.x
