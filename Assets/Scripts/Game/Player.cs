@@ -191,6 +191,10 @@ public class Player : MovingEntity
                             bomb.Detonable = true;
                         }
                         break;
+                    case BonusType.Skate:
+                        Debug.Log("Skate bonus picked up");
+                        this.timeToMove = 1 / (float)(this.Speed * 1.3f);
+                        break;
                     default:
                         break;
                 }
