@@ -214,9 +214,18 @@ public class Player : MovingEntity
                 }
 
                 break;
-
+                
             default:
                 break;
+        }
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.tag);
+        if (collision.gameObject.tag == "Circle")
+        {
+            InstantKill();
         }
     }
 
@@ -348,6 +357,13 @@ public class Player : MovingEntity
 
         return tookDamage;
     }
+
+    public void InstantKill()
+    {
+        this.Hp = 0;
+        this.Kill();
+    }
+
 
     /// <summary>
     /// Changes the player's name

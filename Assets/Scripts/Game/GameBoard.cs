@@ -131,9 +131,15 @@ namespace Bomberman
                 }
             }
 
-            if (MainMenuConfig.BattleRoyale)
+
+            if (WasBattleRoyale)
             {
                 DecreaseCircle();
+            }
+            else
+            {
+                //Rakd bele majd az if-be
+                DecreaseCircle(CircleGameObject.transform.localScale - Vector3.one * circleDecreaseRate * Time.deltaTime);
             }
         }
 
@@ -391,6 +397,10 @@ namespace Bomberman
                 if (mapAssetPath != "")
                 {
                     CreateBoard(mapAssetPath);
+
+                    //A Battle Royale k�rt is �jra kell "spawnolni"
+                    //CircleGameObject.transform.localScale = new Vector3(1350, 1350);
+                    //BattleRoyaleCircle.transform.localScale = new Vector3(1350, 1350);
                 }
                 else
                 {
