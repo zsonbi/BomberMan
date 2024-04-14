@@ -7,6 +7,7 @@ using DataTypes;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using Bomberman.Menu;
+using UnityEngine.UI;
 
 namespace Bomberman
 {
@@ -94,6 +95,11 @@ namespace Bomberman
         /// The MainMenuConfig.BattleRoyale value will change, this won't
         /// </summary>
         public bool WasBattleRoyaleMode { get; private set; } = MainMenuConfig.BattleRoyale;
+
+        /// <summary>
+        /// Visualize the ticking time
+        /// </summary>
+        public Text timeText;
 
         //Called every frame
         private void Update()
@@ -304,7 +310,8 @@ namespace Bomberman
         /// </summary>
         private void CountDown()
         {
-
+            
+          
         }
 
         /// <summary>
