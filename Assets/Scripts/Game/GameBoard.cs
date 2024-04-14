@@ -87,6 +87,11 @@ namespace Bomberman
         public float CircleDecreaseRate { get => circleDecreaseRate; private set => circleDecreaseRate = value; }
 
         /// <summary>
+        /// Need to stop and continue the shrinking of the circle
+        /// </summary>
+        public bool WasBattleRoyale { get; private set; } = MainMenuConfig.BattleRoyale;
+
+        /// <summary>
         /// Event is called when the menu needs to be refreshed
         /// </summary>
         public EventHandler UpdateMenuFields;
@@ -146,16 +151,30 @@ namespace Bomberman
                     }
                 }
             }
-            //Rakd bele majd az if-be
-            DecreaseCircle(CircleGameObject.transform.localScale - Vector3.one * circleDecreaseRate * Time.deltaTime);
 
-            if (MainMenuConfig.BattleRoyale)
+
+            if (WasBattleRoyale)
             {
-                DecreaseCircle(CircleGameObject.transform.localScale - circleDecreaseRate * Time.deltaTime * CircleGameObject.transform.localScale);
+                if (DateTime.Now.Second % 5 == 0)
+                {
+                    MainMenuConfig.BattleRoyale = !MainMenuConfig.BattleRoyale;
+
+                    
+
+                    if (MainMenuConfig.BattleRoyale)
+                    {
+                        DecreaseCircle(CircleGameObject.transform.localScale - (circleDecreaseRate * 0.2f) * Time.deltaTime * CircleGameObject.transform.localScale);
+                    }
+                }
 
                 //Vector3 sizeChange = (targetCircleSize - circleSize).normalized;
                 //Vector3 newCircleSize = circleSize + sizeChange * Time.deltaTime * circleDecreaseRate;
                 //DecreaseCircle(circlePosition, newCircleSize);
+            }
+            else
+            {
+                //Rakd bele majd az if-be
+                DecreaseCircle(CircleGameObject.transform.localScale - Vector3.one * circleDecreaseRate * Time.deltaTime);
             }
         }
 
@@ -400,6 +419,10 @@ namespace Bomberman
                 if (mapAssetPath != "")
                 {
                     CreateBoard(mapAssetPath);
+
+                    //A Battle Royale kört is újra kell "spawnolni"
+                    //CircleGameObject.transform.localScale = new Vector3(1350, 1350);
+                    //BattleRoyaleCircle.transform.localScale = new Vector3(1350, 1350);
                 }
                 else
                 {
