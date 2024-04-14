@@ -149,12 +149,16 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 4284309761228197384, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5348707529584158226, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
       propertyPath: timeText
       value: 
       objectReference: {fileID: 143195379}
+    - target: {fileID: 5348707529584158226, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
+      propertyPath: TimerGameObject
+      value: 
+      objectReference: {fileID: 70608347}
     - target: {fileID: 6189817343236521063, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
       propertyPath: m_MatchWidthOrHeight
       value: 0.691
@@ -268,6 +272,11 @@ RectTransform:
 --- !u!224 &70608346 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7310921860791366634, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
+  m_PrefabInstance: {fileID: 70608344}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &70608347 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4284309761228197384, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
   m_PrefabInstance: {fileID: 70608344}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &143195378

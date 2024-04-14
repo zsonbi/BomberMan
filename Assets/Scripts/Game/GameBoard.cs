@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 using Bomberman.Menu;
 using UnityEngine.UI;
+using System.Threading;
 
 namespace Bomberman
 {
@@ -50,6 +51,12 @@ namespace Bomberman
 
         [SerializeField]
         private GameObject CircleGameObject;
+
+        [SerializeField]
+        private GameObject TimerGameObject;
+
+        [SerializeField]
+        private Text timeText;
 
         /// <summary>
         /// The cells of the board
@@ -96,10 +103,10 @@ namespace Bomberman
         /// </summary>
         public bool WasBattleRoyaleMode { get; private set; } = MainMenuConfig.BattleRoyale;
 
-        /// <summary>
-        /// Visualize the ticking time
-        /// </summary>
-        public Text timeText;
+        public int timeConst { get; private set; } = 8;
+
+        public bool first { get; private set; } = true;
+
 
         //Called every frame
         private void Update()
@@ -143,19 +150,17 @@ namespace Bomberman
             }
             if (WasBattleRoyaleMode)
             {
-                if (DateTime.Now.Second % 5 == 0)
+                if (DateTime.Now.Second % timeConst != 0 && !MainMenuConfig.BattleRoyale)
                 {
-                    MainMenuConfig.BattleRoyale = !MainMenuConfig.BattleRoyale;
+                    MainMenuConfig.BattleRoyale = true;
+                } else if (DateTime.Now.Second % timeConst == 0 && MainMenuConfig.BattleRoyale)
+                {
+                    MainMenuConfig.BattleRoyale = false;
                 }
-                else if(MainMenuConfig.BattleRoyale)
+                if (MainMenuConfig.BattleRoyale)
                 {
                     DecreaseCircle();
                 }
-                else
-                {
-
-                }
-
                 CountDown();
             }
             
@@ -165,10 +170,21 @@ namespace Bomberman
         private void Start()
         {
             CircleGameObject.SetActive(MainMenuConfig.BattleRoyale);
+            TimerGameObject.SetActive(MainMenuConfig.BattleRoyale);
 
             if (CircleGameObject is null)
             {
                 throw new Exception("The battle royale circle object is not set");
+            }
+
+            if (TimerGameObject is null)
+            {
+                throw new Exception("The battle royale timer container object is not set");
+            }
+
+            if (timeText is null)
+            {
+                throw new Exception("The battle royale timer text is not set");
             }
 
             StartNextGame();
@@ -310,15 +326,16 @@ namespace Bomberman
         /// </summary>
         private void CountDown()
         {
-            if (true)
+            Debug.Log("MainMenuConfig.BattleRoyale:" + MainMenuConfig.BattleRoyale);
+            if (MainMenuConfig.BattleRoyale)
             {
-
+                timeText.text = "00:0" + (timeConst - DateTime.Now.Second % timeConst).ToString();
             }
             else
             {
-
+                timeText.text = "00:00";
+                first = true;
             }
-            timeText.text = "00:" + (DateTime.Now.Second % 5).ToString();
         }
 
         /// <summary>
