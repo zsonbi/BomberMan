@@ -34,13 +34,6 @@ namespace Tests
                 GameObject.Destroy(this.mainMenu.gameObject);
         }
 
-        //    [UnityTest]
-        //    public IEnumerator StartNewGameTest()
-        //    {
-        //        mainMenu.PlayGame();
-
-        //        yield return null;
-        //    }
 
         [UnityTest]
         public IEnumerator SkinSelectorTest()
@@ -59,6 +52,50 @@ namespace Tests
             Assert.AreEqual(prevSkin, MainMenuConfig.PlayerSkins[0]);
 
             GameObject.Destroy(imgComp.gameObject);
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator Player3EnableTest()
+        {
+            mainMenu.ReadMorePlayerOption(true);
+            Assert.IsTrue(MainMenuConfig.Player3);
+            mainMenu.ReadMorePlayerOption(false);
+            Assert.IsFalse(MainMenuConfig.Player3);
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator PlayerNamesTest()
+        {
+
+            mainMenu.ReadPlayer1Name("xd0");
+            mainMenu.ReadPlayer2Name("xd1");
+            mainMenu.ReadPlayer3Name("xd2");
+            for (int i = 0; i < 3; i++)
+            {
+                Assert.AreEqual(MainMenuConfig.PlayerNames[i], "xd" + i);
+            }
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator RequiredScoreAndBattleRoyaleTest()
+        {
+            mainMenu.ReadRequiredPoints("5");
+            Assert.AreEqual(5,MainMenuConfig.RequiredPoint);
+            mainMenu.ReadRequiredPoints("1");
+            Assert.AreEqual(1, MainMenuConfig.RequiredPoint);
+            mainMenu.ReadRequiredPoints("");
+            Assert.AreEqual(3, MainMenuConfig.RequiredPoint);
+            mainMenu.ReadBattleRoyaleGameMode(true);
+
+            Assert.IsTrue(MainMenuConfig.BattleRoyale);
+
+            mainMenu.ReadBattleRoyaleGameMode(false);
+
+            Assert.IsFalse(MainMenuConfig.BattleRoyale);
+
             yield return null;
         }
 

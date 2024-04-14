@@ -113,33 +113,8 @@ public class MainMenu : MonoBehaviour
         //Every field is filled with valid informations
         if (MainMenuConfig.RequiredPoint > 0)
         {
-            //Checking the names
-            if (MainMenuConfig.Player3 && MainMenuConfig.PlayerNames[0].Length > 0 && MainMenuConfig.PlayerNames[1].Length > 0 && MainMenuConfig.PlayerNames[2].Length > 0)
-            {
-                SceneManager.LoadSceneAsync("BombermanScene");
+            SceneManager.LoadSceneAsync("BombermanScene");
 
-                //Testing the inputs
-                Debug.Log("Game started");
-                Debug.Log(MainMenuConfig.PlayerNames[0] + " | " + MainMenuConfig.PlayerNames[1] + " | " + MainMenuConfig.PlayerNames[2]);
-                Debug.Log(MainMenuConfig.Player3 + ", Battle royale: " + MainMenuConfig.BattleRoyale);
-
-            }
-            else if (!MainMenuConfig.Player3 && MainMenuConfig.PlayerNames[0].Length > 0 && MainMenuConfig.PlayerNames[1].Length > 0)
-            {
-                MainMenuConfig.PlayerNames[2] = "";
-                SceneManager.LoadSceneAsync("BombermanScene");
-
-                //Testing the inputs
-                Debug.Log("Game started");
-                Debug.Log(MainMenuConfig.PlayerNames[0] + " | " + MainMenuConfig.PlayerNames[1] + " | " + MainMenuConfig.PlayerNames[2]);
-                Debug.Log(MainMenuConfig.Player3 + ", Battle royale: " + MainMenuConfig.BattleRoyale);
-
-            }
-            else
-            {
-                //Error message: Less input or not good syntax
-                Debug.Log("Not enough input or bad syntax");
-            }
         }
         else
         {
@@ -225,6 +200,7 @@ public class MainMenu : MonoBehaviour
         if (points == "")
         {
             MainMenuConfig.RequiredPoint=3;
+            return;
         }
         MainMenuConfig.RequiredPoint = int.Parse(points);
         Debug.Log("Required points to win the game: " + MainMenuConfig.RequiredPoint);
