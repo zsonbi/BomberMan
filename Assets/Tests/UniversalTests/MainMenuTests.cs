@@ -40,9 +40,26 @@ namespace Tests
             mainMenu.PlayGame();
 
             yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator SkinSelectorTest()
+        {
+           Image imgComp = new GameObject("Player1Skin",typeof(Image)).GetComponent<Image>();
 
 
+            string prevSkin= MainMenuConfig.PlayerSkins[0];
 
+            mainMenu.NextSkinButton(imgComp);
+
+            Assert.AreNotEqual(prevSkin, MainMenuConfig.PlayerSkins[0]);
+
+            mainMenu.PrevSkinButton(imgComp);
+
+            Assert.AreEqual(prevSkin, MainMenuConfig.PlayerSkins[0]);
+
+            GameObject.Destroy(imgComp.gameObject);
+            yield return null;
         }
 
     }
