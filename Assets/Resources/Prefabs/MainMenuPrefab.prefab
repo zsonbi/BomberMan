@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 6649390919642674505}
   - component: {fileID: 5348707529584158226}
   m_Layer: 0
-  m_Name: GameBoardPrefab
+  m_Name: MainMenuPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
