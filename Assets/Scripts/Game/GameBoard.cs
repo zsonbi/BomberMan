@@ -137,14 +137,19 @@ namespace Bomberman
             }
             if (WasBattleRoyaleMode)
             {
-                if (DateTime.Now.Second % 7 == 0)
+                if (DateTime.Now.Second % 5 == 0)
                 {
                     MainMenuConfig.BattleRoyale = !MainMenuConfig.BattleRoyale;
                 }
-                if (MainMenuConfig.BattleRoyale)
+                else if(MainMenuConfig.BattleRoyale)
                 {
                     DecreaseCircle();
                 }
+                else
+                {
+
+                }
+
                 CountDown();
             }
             

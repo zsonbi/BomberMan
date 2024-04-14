@@ -60,7 +60,7 @@ public static class Config
     /// <summary>
     /// How quick should the battle royale circle decrease
     /// </summary>
-    public const float CIRCLE_DECREASE_RATE = 10f;
+    public const float CIRCLE_DECREASE_RATE = 30f;
 
     public static readonly KeyCode[,] PLAYERDEFAULTKEYS = new KeyCode[3, 7] { { KeyCode.W, KeyCode.S, KeyCode.D, KeyCode.A, KeyCode.Space, KeyCode.LeftAlt, KeyCode.X }, { KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow, KeyCode.LeftArrow, KeyCode.RightShift, KeyCode.RightControl, KeyCode.Return }, { KeyCode.Keypad8, KeyCode.Keypad5, KeyCode.Keypad6, KeyCode.Keypad4, KeyCode.KeypadPlus, KeyCode.KeypadEnter, KeyCode.KeypadMinus } };
 
