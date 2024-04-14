@@ -222,6 +222,10 @@ public class MainMenu : MonoBehaviour
     /// <param name="points"></param>
     public void ReadRequiredPoints(string points)
     {
+        if (points == "")
+        {
+            MainMenuConfig.RequiredPoint=3;
+        }
         MainMenuConfig.RequiredPoint = int.Parse(points);
         Debug.Log("Required points to win the game: " + MainMenuConfig.RequiredPoint);
     }

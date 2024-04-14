@@ -392,14 +392,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 3
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 2
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 3
+  m_CharacterValidation: 2
   m_RegexValue: 
   m_GlobalPointSize: 30
   m_CharacterLimit: 2
@@ -409,7 +409,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2052757999726270294}
         m_TargetAssemblyTypeName: MainMenu, BomberManAssembly
         m_MethodName: ReadRequiredPoints
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7916,7 +7916,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2052757999726270294}
         m_TargetAssemblyTypeName: MainMenu, BomberManAssembly
         m_MethodName: ReadBattleRoyaleGameMode
-        m_Mode: 6
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9309,7 +9309,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2052757999726270294}
         m_TargetAssemblyTypeName: MainMenu, BomberManAssembly
         m_MethodName: ReadPlayer1Name
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9631,7 +9631,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2052757999726270294}
         m_TargetAssemblyTypeName: MainMenu, BomberManAssembly
         m_MethodName: ReadPlayer3Name
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13105,7 +13105,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2052757999726270294}
         m_TargetAssemblyTypeName: MainMenu, BomberManAssembly
         m_MethodName: ReadPlayer2Name
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
