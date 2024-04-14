@@ -25,9 +25,6 @@ namespace Bomberman
         [SerializeField]
         private bool loadMapOnStartUp = true;
 
-        [SerializeField]
-        private float circleDecreaseRate;
-
         //Prefabs link them in editor!
         [SerializeField]
         private GameObject indestructibleWallPrefab;
@@ -50,10 +47,8 @@ namespace Bomberman
         //What monster type to force load only works when it is none
         private MonsterType forceMonsterType = MonsterType.None;
 
-
         [SerializeField]
         private GameObject CircleGameObject;
-
 
         /// <summary>
         /// The cells of the board
@@ -86,11 +81,6 @@ namespace Bomberman
         public List<Monster> Monsters { get; private set; } = new List<Monster>();
 
         /// <summary>
-        /// How quick the circle will decrease
-        /// </summary>
-        public float CircleDecreaseRate { get => circleDecreaseRate; private set => circleDecreaseRate = value; }
-
-        /// <summary>
         /// The game is paused
         /// </summary>
         public bool Paused { get; private set; } = false;
@@ -99,7 +89,6 @@ namespace Bomberman
         /// The game over counter is started
         /// </summary>
         public bool StartGameOverCounter { get; private set; } = false;
-
 
         //Called every frame
         private void Update()
@@ -142,18 +131,10 @@ namespace Bomberman
                 }
             }
 
-            //Rakd bele majd az if-be
-            DecreaseCircle(CircleGameObject.transform.localScale - Vector3.one * circleDecreaseRate * Time.deltaTime);
-
             if (MainMenuConfig.BattleRoyale)
             {
-                DecreaseCircle(CircleGameObject.transform.localScale - circleDecreaseRate * Time.deltaTime * CircleGameObject.transform.localScale);
-
-                //Vector3 sizeChange = (targetCircleSize - circleSize).normalized;
-                //Vector3 newCircleSize = circleSize + sizeChange * Time.deltaTime * circleDecreaseRate;
-                //DecreaseCircle(circlePosition, newCircleSize);
+                DecreaseCircle();
             }
-
         }
 
         // Start is called before the first frame update
@@ -281,19 +262,19 @@ namespace Bomberman
                 ++counter;
             }
 
-
             this.MenuController.NewGame(Players);
-
         }
 
         /// <summary>
         ///Decreases the battle royale circle
         /// </summary>
-        private void DecreaseCircle(Vector3 size)
+        private void DecreaseCircle()
         {
-
-            CircleGameObject.transform.localScale = size;
-
+            if (CircleGameObject is not null)
+            {
+                Vector3 size = CircleGameObject.transform.localScale - Vector3.one * Config.CIRCLE_DECREASE_RATE * Time.deltaTime;
+                CircleGameObject.transform.localScale = size;
+            }
         }
 
         /// <summary>
@@ -363,7 +344,6 @@ namespace Bomberman
             bombToSpawn.PlaceByGameBoard(whereToSpawn, radius, permament);
         }
 
-
         /// <summary>
         /// Spawn a bonus at a specific coordinate
         /// </summary>
@@ -382,7 +362,6 @@ namespace Bomberman
             }
         }
 
-
         /// <summary>
         /// Start the next game
         /// </summary>
@@ -391,12 +370,7 @@ namespace Bomberman
             StartGameOverCounter = false;
             gameOverTimer = Config.GAME_OVER_TIMER;
 
-
-            //Cleare out the previous game's entities
-            for (int i = 0; i < Cells.GetLength(0); i++)
-
             if (Cells is not null)
-
             {
                 //Cleare out the previous game's entities
                 for (int i = 0; i < Cells.GetLength(0); i++)
@@ -412,14 +386,6 @@ namespace Bomberman
                     Entites.RemoveAt(0);
                 }
             }
-
-            while (Entites.Count > 0)
-            {
-                Destroy(Entites[0].gameObject);
-                Entites.RemoveAt(0);
-            }
-
-
             if (loadMapOnStartUp)
             {
                 if (mapAssetPath != "")
@@ -438,10 +404,6 @@ namespace Bomberman
                 }
                 Resume();
             }
-
-
-            Resume();
-
         }
     }
 }
