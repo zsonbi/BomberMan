@@ -310,8 +310,15 @@ namespace Bomberman
         /// </summary>
         private void CountDown()
         {
-            
-          
+            if (true)
+            {
+
+            }
+            else
+            {
+
+            }
+            timeText.text = "00:" + (DateTime.Now.Second % 5).ToString();
         }
 
         /// <summary>
