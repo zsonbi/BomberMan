@@ -8,7 +8,6 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 using Bomberman.Menu;
 using UnityEngine.UI;
-using System.Threading;
 
 namespace Bomberman
 {
@@ -103,10 +102,7 @@ namespace Bomberman
         /// </summary>
         public bool WasBattleRoyaleMode { get; private set; } = MainMenuConfig.BattleRoyale;
 
-        public int timeConst { get; private set; } = 8;
-
-        public bool first { get; private set; } = true;
-
+        public int timeConst { get; private set; } = 5;
 
         //Called every frame
         private void Update()
@@ -148,21 +144,20 @@ namespace Bomberman
                     }
                 }
             }
+            
             if (WasBattleRoyaleMode)
             {
-                if (DateTime.Now.Second % timeConst != 0 && !MainMenuConfig.BattleRoyale)
+                if (DateTime.Now.Second % timeConst == 0)
                 {
-                    MainMenuConfig.BattleRoyale = true;
-                } else if (DateTime.Now.Second % timeConst == 0 && MainMenuConfig.BattleRoyale)
-                {
-                    MainMenuConfig.BattleRoyale = false;
-                }
-                if (MainMenuConfig.BattleRoyale)
+                    MainMenuConfig.BattleRoyale = !MainMenuConfig.BattleRoyale;
+                } 
+                else if (MainMenuConfig.BattleRoyale)
                 {
                     DecreaseCircle();
                 }
                 CountDown();
             }
+            
             
         }
 
@@ -171,6 +166,7 @@ namespace Bomberman
         {
             CircleGameObject.SetActive(MainMenuConfig.BattleRoyale);
             TimerGameObject.SetActive(MainMenuConfig.BattleRoyale);
+
 
             if (CircleGameObject is null)
             {
@@ -334,7 +330,6 @@ namespace Bomberman
             else
             {
                 timeText.text = "00:00";
-                first = true;
             }
         }
 
