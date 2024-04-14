@@ -1,6 +1,9 @@
+using DataTypes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Bomberman
 {
@@ -9,22 +12,56 @@ namespace Bomberman
         public class MenuController : MonoBehaviour
         {
             [SerializeField]
-            private GameBoard Game;
+            private RectTransform leftMenu;
 
-            public void NewGame()
+            [SerializeField]
+            private RectTransform rightMenu;
+
+            [SerializeField]
+            private RectTransform GameBoard;
+
+            [SerializeField]
+            private PlayerInGameMenuHandler[] PlayerInGameMenuHandlers;
+
+            private void Start()
             {
-
-                throw new System.NotImplementedException();
             }
 
-            public void NewGame(int playerCount)
+            public void Update()
             {
-                throw new System.NotImplementedException();
             }
 
-            public bool AlterPlayerControls(int playerId)
+            public void NewGame(List<Player> players)
             {
-                throw new System.NotImplementedException();
+                for (int i = 0; i < players.Count; i++)
+                {
+                    if (PlayerInGameMenuHandlers.Length < players.Count)
+                    {
+                        Debug.LogError("Not enough PlayerInGameMenuHandlers for the players");
+                        continue;
+                    }
+                    PlayerInGameMenuHandlers[i].SetUpPanel(players[i]);
+                    PlayerInGameMenuHandlers[i].gameObject.SetActive(true);
+                }
+                for (int i = players.Count; i < PlayerInGameMenuHandlers.Length; i++)
+                {
+                    PlayerInGameMenuHandlers[i].gameObject.SetActive(false);
+                }
+            }
+
+            public void RemoveHealth(Player player)
+            {
+                PlayerInGameMenuHandlers[player.PlayerId].RemoveHealth();
+            }
+
+            public void AddBonus(BonusType bonusType, Player player)
+            {
+                PlayerInGameMenuHandlers[player.PlayerId].AddBonus(bonusType, player.Bonuses[bonusType].GetComponent<SpriteRenderer>().sprite);
+            }
+
+            public void RemoveBonus(BonusType bonusType, Player player)
+            {
+                PlayerInGameMenuHandlers[player.PlayerId].RemoveBonus(bonusType);
             }
         }
     }

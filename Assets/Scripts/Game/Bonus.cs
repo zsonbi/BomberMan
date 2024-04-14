@@ -37,7 +37,6 @@ namespace Bomberman
 
         public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
         {
-
             base.Init(entityType, gameBoard, CurrentPos);
             this.GameBoard.Entites.Add(this);
         }
@@ -50,17 +49,17 @@ namespace Bomberman
         /// <exception cref="System.Exception"></exception>
         public bool DecreaseDuration(float amount)
         {
-            if(!Decaying)
+            if (!Decaying)
             {
                 throw new System.Exception("Not decaying");
             }
-            this.Duration-=amount;
-            return this.Duration<=0;
+            this.Duration -= amount;
+            return this.Duration <= 0;
         }
 
         public void ResetDecayingBonus(float baseDuration)
         {
-            this.Duration=baseDuration;
+            this.Duration = baseDuration;
         }
 
         public bool IncreaseTier()
@@ -89,18 +88,6 @@ namespace Bomberman
                     break;
 
                 case BonusType.Obstacle:
-                    break;
-
-                case BonusType.Slowness:
-                    break;
-
-                case BonusType.SmallExplosion:
-                    break;
-
-                case BonusType.NoBomb:
-                    break;
-
-                case BonusType.InstantBomb:
                     break;
 
                 default:

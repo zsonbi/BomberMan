@@ -9,7 +9,7 @@ using System.Linq;
 public class Player : MovingEntity
 {
     //How long should the player wait between actions
-    private float actionCooldown = 0.1f;
+    private float actionCooldown = 0f;
 
     //The id of the player (set it in the editor)
     [SerializeField]
@@ -46,20 +46,19 @@ public class Player : MovingEntity
     /// </summary>
     public int Score { get; private set; } = 0;
 
+    public int PlayerId { get => playerId; }
+
     /// <summary>
     /// Event to call when the player died
     /// </summary>
     public EventHandler PlayerDiedEventHandler;
 
-
-    // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         if (playerId > 2)
         {
             Debug.LogError("PlayerId can't be higher than 2");
         }
-
 
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("UpButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 0].ToString())), MoveUp);
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DownButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 1].ToString())), MoveDown);
@@ -69,9 +68,8 @@ public class Player : MovingEntity
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DetonateButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 5].ToString())), Detonate);
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 6].ToString())), PlaceObstacle);
 
-       
         SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
-        if(spriteRenderer != null)
+        if (spriteRenderer != null)
         {
             spriteRenderer.sprite = Resources.Load<Sprite>("PlayerSkins/" + MainMenuConfig.PlayerSkins[playerId]);
         }
@@ -79,8 +77,11 @@ public class Player : MovingEntity
         {
             Debug.LogError("No sprite renderer connected to the player script's gameobject");
         }
+    }
 
-
+    // Start is called before the first frame update
+    private void Start()
+    {
     }
 
     // Update is called once per frame
@@ -104,8 +105,6 @@ public class Player : MovingEntity
                 {
                     switch (bonus.Type)
                     {
-        
-              
                         case BonusType.Slowness:
                             this.timeToMove = 1f / this.Speed;
 
@@ -114,13 +113,12 @@ public class Player : MovingEntity
                         default:
                             break;
                     }
-
+                    this.GameBoard.MenuController.RemoveBonus(bonus.Type, this);
                     Destroy(bonus.gameObject);
                     Bonuses.Remove(bonus.Type);
                 }
             }
         }
-
 
         if (Bonuses.ContainsKey(BonusType.InstantBomb))
         {
@@ -145,9 +143,12 @@ public class Player : MovingEntity
 
             case "Bonus":
                 Bonus bonus = collision.gameObject.GetComponent<Bonus>();
+                Debug.Log("Picked up " + bonus.name);
+
                 if (!Bonuses.ContainsKey(bonus.Type))
                 {
                     Bonuses.Add(bonus.Type, bonus);
+                    GameBoard.MenuController.AddBonus(bonus.Type, this);
                 }
                 switch (bonus.Type)
                 {
@@ -178,7 +179,7 @@ public class Player : MovingEntity
 
                     case BonusType.NoBomb:
                         Debug.Log("No bomb activated");
-                    break;
+                        break;
 
                     case BonusType.InstantBomb:
                         Debug.Log("InstantBomb effect started");
@@ -206,7 +207,6 @@ public class Player : MovingEntity
                 {
                     bonus.Hide();
                 }
-           
                 else
                 {
                     this.GameBoard.Entites.Remove(bonus);
@@ -240,7 +240,7 @@ public class Player : MovingEntity
             return;
         }
 
-        if(Bonuses.ContainsKey(BonusType.NoBomb) || GameBoard.Cells[this.CurrentBoardPos.Row, this.CurrentBoardPos.Col].Placed)
+        if (Bonuses.ContainsKey(BonusType.NoBomb) || GameBoard.Cells[this.CurrentBoardPos.Row, this.CurrentBoardPos.Col].Placed)
         {
             return;
         }
@@ -311,7 +311,6 @@ public class Player : MovingEntity
             }
         }
 
-
         Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
         bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
         Bombs.Add(bomb1);
@@ -331,21 +330,24 @@ public class Player : MovingEntity
         }
     }
 
-
     /// <summary>
     /// Override the kill event so we can check for game over
     /// </summary>
-    public override void Kill()
+    public override bool Kill()
     {
-        base.Kill();
+        bool tookDamage = base.Kill();
 
-        if (!this.Alive && PlayerDiedEventHandler is not null)
+        if (!this.Alive)
         {
-            PlayerDiedEventHandler.Invoke(this,EventArgs.Empty);
+            PlayerDiedEventHandler?.Invoke(this, EventArgs.Empty);
+        }
+        else
+        {
+            GameBoard.MenuController.RemoveHealth(this);
         }
 
+        return tookDamage;
     }
-
 
     /// <summary>
     /// Changes the player's name

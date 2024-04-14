@@ -137,11 +137,11 @@ namespace Bomberman
         /// <summary>
         /// Kills the entity if it isn't immune and have 0 Health kill it
         /// </summary>
-        public virtual void Kill()
+        public virtual bool Kill()
         {
             if (immuneTime > 0)
             {
-                return;
+                return false;
             }
             else
             {
@@ -157,6 +157,7 @@ namespace Bomberman
                     Debug.Log("Unit died");
                     this.gameObject.SetActive(false);
                 }
+                return true;
             }
         }
 

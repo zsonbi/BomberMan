@@ -6,6 +6,7 @@ using UnityEngine;
 using DataTypes;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using Bomberman.Menu;
 
 namespace Bomberman
 {
@@ -14,7 +15,8 @@ namespace Bomberman
     /// </summary>
     public class GameBoard : MonoBehaviour
     {
-        //What will be used as a delimiter in the maps file if it is a csv
+        [SerializeField]
+        public MenuController MenuController;
 
         [SerializeField]
         [Header("Path to the asset you want to force load (Can be left empty)")]
@@ -48,8 +50,10 @@ namespace Bomberman
         //What monster type to force load only works when it is none
         private MonsterType forceMonsterType = MonsterType.None;
 
+
         [SerializeField]
         private GameObject CircleGameObject;
+
 
         /// <summary>
         /// The cells of the board
@@ -87,11 +91,6 @@ namespace Bomberman
         public float CircleDecreaseRate { get => circleDecreaseRate; private set => circleDecreaseRate = value; }
 
         /// <summary>
-        /// Event is called when the menu needs to be refreshed
-        /// </summary>
-        public EventHandler UpdateMenuFields;
-
-        /// <summary>
         /// The game is paused
         /// </summary>
         public bool Paused { get; private set; } = false;
@@ -101,10 +100,6 @@ namespace Bomberman
         /// </summary>
         public bool StartGameOverCounter { get; private set; } = false;
 
-        private void Awake()
-        {
-            // DecreaseCircle(new Vector3(200, 200));
-        }
 
         //Called every frame
         private void Update()
@@ -135,7 +130,7 @@ namespace Bomberman
                             modalContent = "The round was a draw";
                         }
 
-                        if (winner.Score >= MainMenuConfig.RequiredPoint)
+                        if (winner?.Score >= MainMenuConfig.RequiredPoint)
                         {
                             modalWindow.Show("The game is over", $"{winner.PlayerName} won the game!", BackToMainMenu, "Back to main menu");
                         }
@@ -146,6 +141,7 @@ namespace Bomberman
                     }
                 }
             }
+
             //Rakd bele majd az if-be
             DecreaseCircle(CircleGameObject.transform.localScale - Vector3.one * circleDecreaseRate * Time.deltaTime);
 
@@ -157,29 +153,13 @@ namespace Bomberman
                 //Vector3 newCircleSize = circleSize + sizeChange * Time.deltaTime * circleDecreaseRate;
                 //DecreaseCircle(circlePosition, newCircleSize);
             }
+
         }
 
         // Start is called before the first frame update
         private void Start()
         {
-            //await CreateBoard("Assets/Maps/testMap.csv");
-            if (loadMapOnStartUp)
-            {
-                if (mapAssetPath != "")
-                {
-                    CreateBoard(mapAssetPath);
-                }
-                else
-                {
-                    //Not efficient, but can't do it other way
-                    TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
-
-                    //string mapsPath = Directory.GetCurrentDirectory() + "/Assets/Maps/GameMaps/";
-
-                    CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
-                    // CreateBoard("Maps/GameMaps/baseMap");
-                }
-            }
+            StartNextGame();
         }
 
         public void MakeMapLoadManual()
@@ -300,6 +280,10 @@ namespace Bomberman
                 monsterSpawns.RemoveAt(index);
                 ++counter;
             }
+
+
+            this.MenuController.NewGame(Players);
+
         }
 
         /// <summary>
@@ -307,7 +291,9 @@ namespace Bomberman
         /// </summary>
         private void DecreaseCircle(Vector3 size)
         {
+
             CircleGameObject.transform.localScale = size;
+
         }
 
         /// <summary>
@@ -349,6 +335,14 @@ namespace Bomberman
         }
 
         /// <summary>
+        /// Closes the game (the whole application)
+        /// </summary>
+        public void ExitGame()
+        {
+            Application.Quit();
+        }
+
+        /// <summary>
         /// Make a monster type force loaded
         /// </summary>
         /// <param name="monsterType">The type to force use (MonsterType.None) to reset it back to random</param>
@@ -369,31 +363,62 @@ namespace Bomberman
             bombToSpawn.PlaceByGameBoard(whereToSpawn, radius, permament);
         }
 
+
+        /// <summary>
+        /// Spawn a bonus at a specific coordinate
+        /// </summary>
+        /// <param name="bonusType">The type of the bonus</param>
+        /// <param name="pos">The position to spawn the bonus at</param>
+
+        public void SpawnBonus(BonusType bonusType, Position pos)
+        {
+            if (pos.Row >= 0 && pos.Col >= 0 && pos.Row < this.Cells.GetLength(0) && pos.Col < Cells.GetLength(1))
+            {
+                this.Cells[pos.Row, pos.Col].SpawnBonus(bonusType);
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("The cells array is not big enough to spawn a bonus there!");
+            }
+        }
+
+
         /// <summary>
         /// Start the next game
         /// </summary>
         public void StartNextGame()
         {
-            if (Cells is null)
-            {
-                return;
-            }
             StartGameOverCounter = false;
             gameOverTimer = Config.GAME_OVER_TIMER;
 
+
             //Cleare out the previous game's entities
             for (int i = 0; i < Cells.GetLength(0); i++)
+
+            if (Cells is not null)
+
             {
-                for (int j = 0; j < Cells.GetLength(1); j++)
+                //Cleare out the previous game's entities
+                for (int i = 0; i < Cells.GetLength(0); i++)
                 {
-                    Destroy(Cells[i, j].gameObject);
+                    for (int j = 0; j < Cells.GetLength(1); j++)
+                    {
+                        Destroy(Cells[i, j].gameObject);
+                    }
+                }
+                while (Entites.Count > 0)
+                {
+                    Destroy(Entites[0].gameObject);
+                    Entites.RemoveAt(0);
                 }
             }
+
             while (Entites.Count > 0)
             {
                 Destroy(Entites[0].gameObject);
                 Entites.RemoveAt(0);
             }
+
 
             if (loadMapOnStartUp)
             {
@@ -411,9 +436,12 @@ namespace Bomberman
                     CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
                     // CreateBoard("Maps/GameMaps/baseMap");
                 }
+                Resume();
             }
 
+
             Resume();
+
         }
     }
 }
