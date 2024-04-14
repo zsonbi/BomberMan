@@ -157,8 +157,6 @@ namespace Bomberman
                 }
                 CountDown();
             }
-            
-            
         }
 
         // Start is called before the first frame update
