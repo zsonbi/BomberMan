@@ -220,6 +220,15 @@ public class Player : MovingEntity
         }
     }
 
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.tag);
+        if (collision.gameObject.tag == "Circle")
+        {
+            InstantKill();
+        }
+    }
+
     //Changes the player's direction to left
     private void MoveLeft() => base.ChangeDir(Direction.Left);
 

@@ -10,7 +10,6 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
-using static UnityEditor.Progress;
 
 namespace Tests
 {

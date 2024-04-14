@@ -25,9 +25,6 @@ namespace Bomberman
         [SerializeField]
         private bool loadMapOnStartUp = true;
 
-        [SerializeField]
-        private float circleDecreaseRate;
-
         //Prefabs link them in editor!
         [SerializeField]
         private GameObject indestructibleWallPrefab;
@@ -49,6 +46,9 @@ namespace Bomberman
 
         //What monster type to force load only works when it is none
         private MonsterType forceMonsterType = MonsterType.None;
+
+        [SerializeField]
+        private GameObject CircleGameObject;
 
         /// <summary>
         /// The cells of the board
@@ -79,11 +79,6 @@ namespace Bomberman
         /// The players on the board (check for alive)
         /// </summary>
         public List<Monster> Monsters { get; private set; } = new List<Monster>();
-
-        /// <summary>
-        /// How quick the circle will decrease
-        /// </summary>
-        public float CircleDecreaseRate { get => circleDecreaseRate; private set => circleDecreaseRate = value; }
 
         /// <summary>
         /// The game is paused
@@ -135,11 +130,23 @@ namespace Bomberman
                     }
                 }
             }
+
+            if (MainMenuConfig.BattleRoyale)
+            {
+                DecreaseCircle();
+            }
         }
 
         // Start is called before the first frame update
         private void Start()
         {
+            CircleGameObject.SetActive(MainMenuConfig.BattleRoyale);
+
+            if (CircleGameObject is null)
+            {
+                throw new Exception("The battle royale circle object is not set");
+            }
+
             StartNextGame();
         }
 
@@ -270,6 +277,8 @@ namespace Bomberman
         /// </summary>
         private void DecreaseCircle()
         {
+            Vector3 size = CircleGameObject.transform.localScale - Vector3.one * Config.CIRCLE_DECREASE_RATE * Time.deltaTime;
+            CircleGameObject.transform.localScale = size;
         }
 
         /// <summary>
@@ -364,7 +373,11 @@ namespace Bomberman
         {
             StartGameOverCounter = false;
             gameOverTimer = Config.GAME_OVER_TIMER;
-
+            //Reset the battle royale circle
+            if (CircleGameObject is not null)
+            {
+                CircleGameObject.transform.localScale = new Vector3(1000, 1000);
+            }
             if (Cells is not null)
             {
                 //Cleare out the previous game's entities
@@ -392,10 +405,7 @@ namespace Bomberman
                     //Not efficient, but can't do it other way
                     TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
 
-                    //string mapsPath = Directory.GetCurrentDirectory() + "/Assets/Maps/GameMaps/";
-
                     CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
-                    // CreateBoard("Maps/GameMaps/baseMap");
                 }
                 Resume();
             }

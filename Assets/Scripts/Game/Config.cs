@@ -40,7 +40,7 @@ public static class Config
     /// </summary>
     public const float BOMBBLOWTIME = 3f;
 
-    public const float GAME_OVER_TIMER=3f;
+    public const float GAME_OVER_TIMER = 3f;
 
     /// <summary>
     /// How quickly should the explosion spread
@@ -57,10 +57,12 @@ public static class Config
     /// </summary>
     public static byte MonsterCount = 3;
 
+    /// <summary>
+    /// How quick should the battle royale circle decrease
+    /// </summary>
+    public const float CIRCLE_DECREASE_RATE = 10f;
 
-
-
-    public static readonly KeyCode[,] PLAYERDEFAULTKEYS=new KeyCode[3,7]{{ KeyCode.W,KeyCode.S,KeyCode.D,KeyCode.A,KeyCode.Space,KeyCode.LeftAlt,KeyCode.X}, { KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow, KeyCode.LeftArrow, KeyCode.RightShift, KeyCode.RightControl, KeyCode.Return }, { KeyCode.Keypad8, KeyCode.Keypad5, KeyCode.Keypad6, KeyCode.Keypad4, KeyCode.KeypadPlus, KeyCode.KeypadEnter, KeyCode.KeypadMinus } };
+    public static readonly KeyCode[,] PLAYERDEFAULTKEYS = new KeyCode[3, 7] { { KeyCode.W, KeyCode.S, KeyCode.D, KeyCode.A, KeyCode.Space, KeyCode.LeftAlt, KeyCode.X }, { KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow, KeyCode.LeftArrow, KeyCode.RightShift, KeyCode.RightControl, KeyCode.Return }, { KeyCode.Keypad8, KeyCode.Keypad5, KeyCode.Keypad6, KeyCode.Keypad4, KeyCode.KeypadPlus, KeyCode.KeypadEnter, KeyCode.KeypadMinus } };
 
     /// <summary>
     /// Global random for the program
