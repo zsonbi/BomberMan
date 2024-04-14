@@ -131,15 +131,9 @@ namespace Bomberman
                 }
             }
 
-
-            if (WasBattleRoyale)
+            if (MainMenuConfig.BattleRoyale)
             {
                 DecreaseCircle();
-            }
-            else
-            {
-                //Rakd bele majd az if-be
-                DecreaseCircle(CircleGameObject.transform.localScale - Vector3.one * circleDecreaseRate * Time.deltaTime);
             }
         }
 
