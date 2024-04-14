@@ -299,6 +299,9 @@ namespace Bomberman
             CircleGameObject.transform.localScale = size;
         }
 
+        /// <summary>
+        /// Count down waiting and shringing time
+        /// </summary>
         private void CountDown()
         {
 
