@@ -90,6 +90,11 @@ namespace Bomberman
         /// </summary>
         public bool StartGameOverCounter { get; private set; } = false;
 
+        /// <summary>
+        /// The MainMenuConfig.BattleRoyale value will change, this won't
+        /// </summary>
+        public bool WasBattleRoyaleMode { get; private set; } = MainMenuConfig.BattleRoyale;
+
         //Called every frame
         private void Update()
         {
@@ -130,11 +135,19 @@ namespace Bomberman
                     }
                 }
             }
-
-            if (MainMenuConfig.BattleRoyale)
+            if (WasBattleRoyaleMode)
             {
-                DecreaseCircle();
+                if (DateTime.Now.Second % 7 == 0)
+                {
+                    MainMenuConfig.BattleRoyale = !MainMenuConfig.BattleRoyale;
+                }
+                if (MainMenuConfig.BattleRoyale)
+                {
+                    DecreaseCircle();
+                }
+                CountDown();
             }
+            
         }
 
         // Start is called before the first frame update
@@ -279,6 +292,11 @@ namespace Bomberman
         {
             Vector3 size = CircleGameObject.transform.localScale - Vector3.one * Config.CIRCLE_DECREASE_RATE * Time.deltaTime;
             CircleGameObject.transform.localScale = size;
+        }
+
+        private void CountDown()
+        {
+
         }
 
         /// <summary>
