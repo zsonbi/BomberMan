@@ -102,6 +102,9 @@ namespace Bomberman
         /// </summary>
         public bool WasBattleRoyaleMode { get; private set; } = MainMenuConfig.BattleRoyale;
 
+        /// <summary>
+        /// Amount of time to wait between two shrinking
+        /// </summary>
         public int timeConst { get; private set; } = 5;
 
         //Called every frame
