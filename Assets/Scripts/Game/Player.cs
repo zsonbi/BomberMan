@@ -214,7 +214,7 @@ public class Player : MovingEntity
                 }
 
                 break;
-                
+
             default:
                 break;
         }
@@ -357,13 +357,6 @@ public class Player : MovingEntity
 
         return tookDamage;
     }
-
-    public void InstantKill()
-    {
-        this.Hp = 0;
-        this.Kill();
-    }
-
 
     /// <summary>
     /// Changes the player's name

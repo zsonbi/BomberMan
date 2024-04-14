@@ -1918,6 +1918,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleRoyaleCircle
       objectReference: {fileID: 0}
+    - target: {fileID: 811004828914311579, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1525460631505483369, guid: 018eca29a6f6a4a428ba9191bbd9c718, type: 3}
       propertyPath: m_LocalPosition.x
       value: 100

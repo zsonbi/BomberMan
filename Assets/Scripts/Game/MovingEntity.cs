@@ -82,7 +82,6 @@ namespace Bomberman
             this.timeToMove = 1f / this.Speed;
         }
 
-
         //Called every frame update
         protected void Update()
         {
@@ -159,6 +158,13 @@ namespace Bomberman
                 }
                 return true;
             }
+        }
+
+        protected void InstantKill()
+        {
+            this.Hp = 0;
+            immuneTime = 0f;
+            this.Kill();
         }
 
         /// <summary>

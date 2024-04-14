@@ -15,7 +15,7 @@ public static class MainMenuConfig
     /// <summary>
     /// Is Battle Royale Game mode choosen (default: unchecked)
     /// </summary>
-    public static bool BattleRoyale = true;
+    public static bool BattleRoyale = false;
 
     /// <summary>
     /// Required points to win (default: 3)

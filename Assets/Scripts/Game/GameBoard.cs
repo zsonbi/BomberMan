@@ -140,6 +140,13 @@ namespace Bomberman
         // Start is called before the first frame update
         private void Start()
         {
+            CircleGameObject.SetActive(MainMenuConfig.BattleRoyale);
+
+            if (CircleGameObject is null)
+            {
+                throw new Exception("The battle royale circle object is not set");
+            }
+
             StartNextGame();
         }
 
@@ -270,11 +277,8 @@ namespace Bomberman
         /// </summary>
         private void DecreaseCircle()
         {
-            if (CircleGameObject is not null)
-            {
-                Vector3 size = CircleGameObject.transform.localScale - Vector3.one * Config.CIRCLE_DECREASE_RATE * Time.deltaTime;
-                CircleGameObject.transform.localScale = size;
-            }
+            Vector3 size = CircleGameObject.transform.localScale - Vector3.one * Config.CIRCLE_DECREASE_RATE * Time.deltaTime;
+            CircleGameObject.transform.localScale = size;
         }
 
         /// <summary>
@@ -369,7 +373,11 @@ namespace Bomberman
         {
             StartGameOverCounter = false;
             gameOverTimer = Config.GAME_OVER_TIMER;
-
+            //Reset the battle royale circle
+            if (CircleGameObject is not null)
+            {
+                CircleGameObject.transform.localScale = new Vector3(1000, 1000);
+            }
             if (Cells is not null)
             {
                 //Cleare out the previous game's entities
@@ -391,20 +399,13 @@ namespace Bomberman
                 if (mapAssetPath != "")
                 {
                     CreateBoard(mapAssetPath);
-
-                    //A Battle Royale k�rt is �jra kell "spawnolni"
-                    //CircleGameObject.transform.localScale = new Vector3(1350, 1350);
-                    //BattleRoyaleCircle.transform.localScale = new Vector3(1350, 1350);
                 }
                 else
                 {
                     //Not efficient, but can't do it other way
                     TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
 
-                    //string mapsPath = Directory.GetCurrentDirectory() + "/Assets/Maps/GameMaps/";
-
                     CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
-                    // CreateBoard("Maps/GameMaps/baseMap");
                 }
                 Resume();
             }
