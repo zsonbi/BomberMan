@@ -10,6 +10,7 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 namespace Tests
 {
@@ -29,12 +30,18 @@ namespace Tests
         [TearDown]
         public void Shutdown()
         {
-            GameObject.Destroy(this.mainMenu.gameObject);
+            if (mainMenu is not null)
+                GameObject.Destroy(this.mainMenu.gameObject);
         }
 
         [UnityTest]
-        public void StartNewGameTest()
+        public IEnumerator StartNewGameTest()
         {
+            mainMenu.PlayGame();
+
+            yield return null;
+
+
 
         }
 
