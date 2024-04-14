@@ -148,11 +148,11 @@ namespace Bomberman
                 }
             }
             
-            if (WasBattleRoyaleMode)
+            if (MainMenuConfig.BattleRoyale)
             {
                 if (DateTime.Now.Second % timeConst == 0)
                 {
-                    MainMenuConfig.BattleRoyale = !MainMenuConfig.BattleRoyale;
+                    WasBattleRoyaleMode = !MainMenuConfig.BattleRoyale;
                 } 
                 else if (MainMenuConfig.BattleRoyale)
                 {
