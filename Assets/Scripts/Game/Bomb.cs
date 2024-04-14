@@ -48,6 +48,12 @@ namespace Bomberman
         /// </summary>
         public float TimeTillBlow { get; private set; } = Config.BOMBBLOWTIME;
 
+        /// <summary>
+        /// Is the bomb detonable
+        /// </summary>
+        public bool Detonable { get; set; } = false;
+
+
         // Called when the script is loaded
         private void Awake()
         {
@@ -68,7 +74,7 @@ namespace Bomberman
             //If the bomb is active
             if (Placed)
             {
-                BombTimer += Time.deltaTime;
+                BombTimer += Time.deltaTime;                
                 //If the bomb is blowing up expand it's destruction
                 if (bombBlowingUp)
                 {
@@ -91,7 +97,7 @@ namespace Bomberman
                 //Otherwise check if it is ready to blow
                 else
                 {
-                    if (BombTimer >= TimeTillBlow)
+                    if (BombTimer >= TimeTillBlow && !Detonable)
                     {
                         BlowUp();
                     }

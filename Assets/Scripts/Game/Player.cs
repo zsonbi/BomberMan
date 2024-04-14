@@ -184,7 +184,13 @@ public class Player : MovingEntity
                     case BonusType.InstantBomb:
                         Debug.Log("InstantBomb effect started");
                         break;
-
+                    case BonusType.Detonator:
+                        Debug.Log("Detonator bonus picked up");
+                        foreach (Bomb bomb in Bombs)
+                        {
+                            bomb.Detonable = true;
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -255,6 +261,17 @@ public class Player : MovingEntity
         }
 
         actionCooldown = Config.PLAYERACTIONCOOLDOWN;
+
+        if (Bonuses.ContainsKey(BonusType.Detonator))
+        {
+            if (AllTheBombsPlaced())
+            {
+                foreach (Bomb bomb in Bombs)
+                {
+                    bomb.BlowUp();
+                }
+            }            
+        }
 
         foreach (Bomb bomb in Bombs)
         {
@@ -373,5 +390,18 @@ public class Player : MovingEntity
     public void AddScore()
     {
         ++this.Score;
+    }
+
+    /// <summary>
+    /// Check if all the bombs placed
+    /// </summary>
+    private bool AllTheBombsPlaced()
+    {
+        bool allTheBombsPlaced = true;
+        foreach(Bomb bomb in Bombs)
+        {
+            allTheBombsPlaced = allTheBombsPlaced && bomb.Placed;
+        }
+        return allTheBombsPlaced;
     }
 }
