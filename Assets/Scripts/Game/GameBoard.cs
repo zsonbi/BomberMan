@@ -42,20 +42,23 @@ namespace Bomberman
         [SerializeField]
         private ModalWindow modalWindow;
 
+
+
+        [SerializeField]
+        private GameObject CircleGameObject;
+
+        [SerializeField]
+        private Text BattleRoyaleTimerText;
+
         //How long it will take after one player is alive to the game over to happen
         private float gameOverTimer = Config.GAME_OVER_TIMER;
 
         //What monster type to force load only works when it is none
         private MonsterType forceMonsterType = MonsterType.None;
 
-        [SerializeField]
-        private GameObject CircleGameObject;
+        private float[] battleRoyaleTimers;
 
-        [SerializeField]
-        private GameObject TimerGameObject;
-
-        [SerializeField]
-        private Text timeText;
+        private int battleRoyaleTimerIndex = 0;
 
         /// <summary>
         /// The cells of the board
@@ -150,14 +153,20 @@ namespace Bomberman
             
             if (MainMenuConfig.BattleRoyale)
             {
-                if (DateTime.Now.Second % timeConst == 0)
+                if (battleRoyaleTimerIndex < battleRoyaleTimers.Length)
                 {
-                    WasBattleRoyaleMode = !MainMenuConfig.BattleRoyale;
-                } 
-                else if (MainMenuConfig.BattleRoyale)
+                    battleRoyaleTimers[battleRoyaleTimerIndex]-=Time.deltaTime;
+                    if (battleRoyaleTimers[battleRoyaleTimerIndex] < 0)
+                    {
+                        battleRoyaleTimerIndex++;
+                    }
+                    
+                }
+                if (battleRoyaleTimerIndex % 2 == 1)
                 {
                     DecreaseCircle();
                 }
+
                 CountDown();
             }
         }
@@ -166,7 +175,7 @@ namespace Bomberman
         private void Start()
         {
             CircleGameObject.SetActive(MainMenuConfig.BattleRoyale);
-            TimerGameObject.SetActive(MainMenuConfig.BattleRoyale);
+            BattleRoyaleTimerText.transform.parent.gameObject.SetActive(MainMenuConfig.BattleRoyale);
 
 
             if (CircleGameObject is null)
@@ -174,15 +183,11 @@ namespace Bomberman
                 throw new Exception("The battle royale circle object is not set");
             }
 
-            if (TimerGameObject is null)
+            if (BattleRoyaleTimerText is null)
             {
                 throw new Exception("The battle royale timer container object is not set");
             }
 
-            if (timeText is null)
-            {
-                throw new Exception("The battle royale timer text is not set");
-            }
 
             StartNextGame();
         }
@@ -326,11 +331,11 @@ namespace Bomberman
             Debug.Log("MainMenuConfig.BattleRoyale:" + MainMenuConfig.BattleRoyale);
             if (MainMenuConfig.BattleRoyale)
             {
-                timeText.text = "00:0" + (timeConst - DateTime.Now.Second % timeConst).ToString();
+                BattleRoyaleTimerText.text = "00:" +Mathf.RoundToInt(battleRoyaleTimers[battleRoyaleTimerIndex]).ToString();
             }
             else
             {
-                timeText.text = "00:00";
+                BattleRoyaleTimerText.text = "00:00";
             }
         }
 
@@ -426,6 +431,8 @@ namespace Bomberman
         {
             StartGameOverCounter = false;
             gameOverTimer = Config.GAME_OVER_TIMER;
+            battleRoyaleTimers = Config.BATTLE_ROYALE_TIMERS.Select(x => x).ToArray();
+            battleRoyaleTimerIndex = 0;
             //Reset the battle royale circle
             if (CircleGameObject is not null)
             {

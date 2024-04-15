@@ -67,5 +67,12 @@ public static class Config
     /// <summary>
     /// Global random for the program
     /// </summary>
-    public static System.Random RND = new System.Random();
+    public static readonly System.Random RND = new System.Random();
+
+    /// <summary>
+    /// The even indices how long the circle should stop shrinking
+    /// Odd indices how long the circle should shrink
+    /// </summary>
+    public static readonly float[] BATTLE_ROYALE_TIMERS = new float[]{10,20,20,20};
 }
+
