@@ -30,6 +30,7 @@ namespace Tests
         [TearDown]
         public void Shutdown()
         {
+            if(gameBoard is not null)
             GameObject.Destroy(this.gameBoard.gameObject);
         }
 
@@ -232,5 +233,35 @@ namespace Tests
 
             MainMenuConfig.Player3 = false;
         }
+
+        [UnityTest]
+        public IEnumerator Player1WinGameTest()
+        {
+            MainMenuConfig.Player3 = false;
+            
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
+
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+
+            for (int i = 0; i < MainMenuConfig.RequiredPoint; i++)
+            {
+                gameBoard.Players[1].InstantKill();
+
+                yield return new WaitForSeconds(Config.GAME_OVER_TIMER + 0.01f);
+                Assert.AreEqual(i+1, gameBoard.Players.First().Score);
+                gameBoard.StartNextGame();
+                gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+                gameBoard.Resume();
+                yield return null;
+            }
+
+            Assert.AreEqual(MainMenuConfig.RequiredPoint, gameBoard.Players.First().Score);
+
+
+            yield return null;
+        }
+
+
     }
 }

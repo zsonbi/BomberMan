@@ -160,7 +160,10 @@ namespace Bomberman
             }
         }
 
-        protected void InstantKill()
+        /// <summary>
+        /// Instantly kill the Entity
+        /// </summary>
+        public void InstantKill()
         {
             this.Hp = 0;
             immuneTime = 0f;
