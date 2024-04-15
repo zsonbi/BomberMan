@@ -150,24 +150,28 @@ namespace Bomberman
                     }
                 }
             }
-            
+
             if (MainMenuConfig.BattleRoyale)
             {
                 if (battleRoyaleTimerIndex < battleRoyaleTimers.Length)
                 {
-                    battleRoyaleTimers[battleRoyaleTimerIndex]-=Time.deltaTime;
+                    battleRoyaleTimers[battleRoyaleTimerIndex] -= Time.deltaTime;
                     if (battleRoyaleTimers[battleRoyaleTimerIndex] < 0)
                     {
                         battleRoyaleTimerIndex++;
                     }
-                    
+                    CountDown();
+                    if (battleRoyaleTimerIndex % 2 == 1)
+                    {
+                        DecreaseCircle();
+                    }
                 }
-                if (battleRoyaleTimerIndex % 2 == 1)
+                else
                 {
                     DecreaseCircle();
+
                 }
 
-                CountDown();
             }
         }
 
@@ -329,9 +333,10 @@ namespace Bomberman
         private void CountDown()
         {
             Debug.Log("MainMenuConfig.BattleRoyale:" + MainMenuConfig.BattleRoyale);
-            if (MainMenuConfig.BattleRoyale)
+            if (MainMenuConfig.BattleRoyale && battleRoyaleTimerIndex < battleRoyaleTimers.Length)
             {
-                BattleRoyaleTimerText.text = "00:" +Mathf.RoundToInt(battleRoyaleTimers[battleRoyaleTimerIndex]).ToString();
+                DateTime datetime = new DateTime((int)(TimeSpan.TicksPerSecond * battleRoyaleTimers[battleRoyaleTimerIndex]));
+                BattleRoyaleTimerText.text = datetime.ToString("mm:ss");
             }
             else
             {
