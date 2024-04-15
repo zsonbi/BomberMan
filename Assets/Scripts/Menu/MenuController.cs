@@ -25,10 +25,9 @@ namespace Bomberman
 
             private void Start()
             {
-            }
-
-            public void Update()
-            {
+                //Cap the fps to 60
+                Application.targetFrameRate = 60;
+                QualitySettings.vSyncCount = 0;
             }
 
             public void NewGame(List<Player> players)

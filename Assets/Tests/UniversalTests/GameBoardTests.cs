@@ -261,6 +261,36 @@ namespace Tests
             yield return null;
         }
 
+        [UnityTest]
+        public IEnumerator BattleRoyaleKillTest()
+        {
+            MainMenuConfig.Player3 = true;
+            MainMenuConfig.BattleRoyale = true;
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
+
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapStuckOnEdges");
+            gameBoard.OverrideBattleRoyaleTimers(new float[] {1 },1000);
+
+            yield return new WaitForSeconds(0.5f);
+            foreach (var item in gameBoard.Players)
+            {
+                Assert.IsTrue(item.Alive);
+            }
+            yield return new WaitForSeconds(1f);
+
+
+            foreach (var item in gameBoard.Players)
+            {
+                Assert.IsFalse(item.Alive);
+            }
+
+            MainMenuConfig.BattleRoyale = false;
+            MainMenuConfig.Player3 = false;
+
+            yield return null;
+        }
+
 
     }
 }
