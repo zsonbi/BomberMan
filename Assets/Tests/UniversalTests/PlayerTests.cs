@@ -30,8 +30,8 @@ namespace Tests
         [TearDown]
         public void Shutdown()
         {
-            if (this.gameBoard is not null)
-                GameObject.Destroy(this.gameBoard.gameObject);
+            
+            GameObject.Destroy(this.gameBoard.gameObject);
         }
 
         // Test if private the load private on startup is disabled as private it should be

@@ -55,6 +55,7 @@ public class Player : MovingEntity
 
     private void Awake()
     {
+
         if (playerId > 2)
         {
             Debug.LogError("PlayerId can't be higher than 2");

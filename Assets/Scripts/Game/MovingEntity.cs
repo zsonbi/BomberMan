@@ -161,7 +161,7 @@ namespace Bomberman
         }
 
         /// <summary>
-        /// Instantly kill the Entity
+        /// Instantly kill the entity it's health and immuneTime doesn't matter
         /// </summary>
         public void InstantKill()
         {
