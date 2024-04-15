@@ -270,10 +270,15 @@ namespace Tests
 
             gameBoard.StartNextGame();
             gameBoard.CreateBoard("Maps/TestMaps/testMapStuckOnEdges");
-            gameBoard.OverrideBattleRoyaleTimers(new float[] { },50);
+            gameBoard.OverrideBattleRoyaleTimers(new float[] {1 },1000);
 
-            yield return new WaitForSeconds(10);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(0.5f);
+            foreach (var item in gameBoard.Players)
+            {
+                Assert.IsTrue(item.Alive);
+            }
+            yield return new WaitForSeconds(1f);
+
 
             foreach (var item in gameBoard.Players)
             {

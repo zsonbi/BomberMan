@@ -324,6 +324,11 @@ namespace Bomberman
         /// </summary>
         private void DecreaseCircle()
         {
+            if (CircleGameObject.transform.localScale.x < 0)
+            {
+                return;
+            }
+
             Vector3 size = CircleGameObject.transform.localScale - Vector3.one * circleDecreaseRate * Time.deltaTime;
             size.z=0;
             CircleGameObject.transform.localScale = size;
