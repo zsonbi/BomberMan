@@ -147,7 +147,7 @@ pages:
     - mkdir public
     - mkdir public/docs
     - ls -la
-    - mv ./documentation/* public/docs
+    - mv ./documentation/* public/
 #    - mv ./ci/index.html public
   artifacts:
     paths:
