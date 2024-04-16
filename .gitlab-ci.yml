@@ -2,6 +2,7 @@ stages:
   - before
   - test
   - build
+  - documentation
   - deploy
 
 # If you are looking for a place where to add 'UNITY_LICENSE_FILE' and other secrets, please visit your project's gitlab page:
@@ -118,15 +119,40 @@ build-WebGL:
   variables:
     BUILD_TARGET: WebGL
     
+doxygen-generate:
+  stage: documentation
+  image: debian:latest
+  before_script:
+    # Install Doxygen and dependencies
+    - apt-get update && apt-get install -y doxygen graphviz
+  script:
+    # Generate Doxygen documentation
+    - doxygen ./DoxygenConf
+    # Move the generated documentation to the public/docs directory
+    - mkdir -p documentation
+    - mv ./docs/html/*  documentation
+  allow_failure: true
+  artifacts:
+    paths:
+      - documentation
+
+#Host the documentation instead of the webgl edition of the game
 pages:
   image: alpine:latest
   stage: deploy
+  dependencies:
+    - doxygen-generate
+
   script:
-    - mv "$UNITY_DIR/Builds/WebGL/${BUILD_NAME}" public
+    - mkdir public
+    - mkdir public/docs
+    - mv ./documentation/* public/docs
+    - mv ./ci/index.html public
   artifacts:
     paths:
       - public
   only:
+    - documentation
     - master
 
 workflow:
