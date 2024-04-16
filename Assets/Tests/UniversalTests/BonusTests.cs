@@ -138,6 +138,98 @@ namespace Tests
         }
 
         [UnityTest]
+        public IEnumerator TestSmallExplosion()
+        {
+            MainMenuConfig.Player3 = false;
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
+
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+            yield return null;
+            float originalTimeToMove = gameBoard.Players.First().timeToMove;
+            gameBoard.SpawnBonus(BonusType.SmallExplosion, gameBoard.Players.First().CurrentBoardPos);
+            float smallExplosionDuration = gameBoard.Entites[0].GetComponent<Bonus>().Duration;
+            gameBoard.SpawnBonus(BonusType.BombRange, gameBoard.Players.First().CurrentBoardPos);
+            gameBoard.SpawnBonus(BonusType.BombRange, gameBoard.Players.First().CurrentBoardPos);
+            gameBoard.SpawnBonus(BonusType.BombRange, gameBoard.Players.First().CurrentBoardPos);
+            yield return new WaitForFixedUpdate();
+
+            foreach (var control in gameBoard.Players[0].Controls)
+            {
+                if (control.Value.Method.Name == "PlaceBomb")
+                {
+                    control.Value.Method.Invoke(gameBoard.Players[0], null);
+                }
+            }
+
+            Assert.AreEqual(1,gameBoard.Players.First().Bombs[0].BlastRadius);
+
+            yield return new WaitForSeconds(Mathf.Max(new float[]{ smallExplosionDuration, Config.BOMBBLOWTIME }) + 0.1f);
+            foreach (var control in gameBoard.Players[0].Controls)
+            {
+                if (control.Value.Method.Name == "PlaceBomb")
+                {
+                    control.Value.Method.Invoke(gameBoard.Players[0], null);
+                }
+            }
+
+            Assert.AreEqual(4, gameBoard.Players.First().Bombs[0].BlastRadius);
+
+        }
+
+        [UnityTest]
+        public IEnumerator TestSlowness()
+        {
+            MainMenuConfig.Player3 = false;
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
+
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+            yield return null;
+            float originalTimeToMove = gameBoard.Players.First().timeToMove;
+            gameBoard.SpawnBonus(BonusType.Slowness, gameBoard.Players.First().CurrentBoardPos);
+            float slownessDuration = gameBoard.Entites[0].GetComponent<Bonus>().Duration;
+            yield return new WaitForFixedUpdate();
+
+            Assert.AreNotEqual(gameBoard.Players.First().timeToMove, originalTimeToMove);
+
+            yield return new WaitForSeconds(slownessDuration + 0.1f);
+
+            Assert.AreEqual(gameBoard.Players.First().timeToMove, originalTimeToMove);
+
+        }
+
+        [UnityTest]
+        public IEnumerator TestDecayingStack()
+        {
+            MainMenuConfig.Player3 = false;
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
+
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+            yield return null;
+            float originalTimeToMove = gameBoard.Players.First().timeToMove;
+            gameBoard.SpawnBonus(BonusType.Slowness, gameBoard.Players.First().CurrentBoardPos);
+            float slownessDuration = gameBoard.Entites[0].GetComponent<Bonus>().Duration;
+            yield return new WaitForFixedUpdate();
+
+            Assert.AreNotEqual(gameBoard.Players.First().timeToMove, originalTimeToMove);
+
+            yield return new WaitForSeconds(slownessDuration/2 + 0.1f);
+
+            Assert.AreNotEqual(gameBoard.Players.First().timeToMove, originalTimeToMove);
+            gameBoard.SpawnBonus(BonusType.Slowness, gameBoard.Players.First().CurrentBoardPos);
+           yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(slownessDuration/2 + 0.1f);
+
+            Assert.AreNotEqual(gameBoard.Players.First().timeToMove, originalTimeToMove);
+
+
+            yield return null;
+        }
+
+
+        [UnityTest]
         public IEnumerator TestInstantBombBonus()
         {
             MainMenuConfig.Player3 = false;
