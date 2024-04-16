@@ -129,7 +129,7 @@ public class PlayerInGameMenuHandler : MonoBehaviour
             {
                 bonus.Value.gameObject.SetActive(true);
             }
-            bonus.Value.transform.localPosition = new Vector2(-40 + (counter % 4) * 30, 20 + (counter / 4) * 30);
+            bonus.Value.transform.localPosition = new Vector2(-40 + (counter % 4) * 30, 20 - (counter / 4) * 30);
             counter++;
 
         }

@@ -56,6 +56,7 @@ public class Player : MovingEntity
     //When the script is loaded this method is called
     private void Awake()
     {
+
         if (playerId > 2)
         {
             Debug.LogError("PlayerId can't be higher than 2");

@@ -30,6 +30,7 @@ namespace Tests
         [TearDown]
         public void Shutdown()
         {
+            
             GameObject.Destroy(this.gameBoard.gameObject);
         }
 

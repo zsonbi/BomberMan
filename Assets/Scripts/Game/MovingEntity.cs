@@ -162,7 +162,10 @@ namespace Bomberman
             }
         }
 
-        protected void InstantKill()
+        /// <summary>
+        /// Instantly kill the entity it's health and immuneTime doesn't matter
+        /// </summary>
+        public void InstantKill()
         {
             this.Hp = 0;
             immuneTime = 0f;

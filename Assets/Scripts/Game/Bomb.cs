@@ -14,6 +14,9 @@ namespace Bomberman
         [SerializeField]
         private List<GameObject> blowUpVisuals = new List<GameObject>();
 
+
+        public AudioSource audioPlayer;
+
         /// <summary>
         /// The directions where the explosion is spreading
         /// </summary>
@@ -271,6 +274,9 @@ namespace Bomberman
         /// </summary>
         public void BlowUp()
         {
+            //Sound effect
+            audioPlayer.Play();
+
             bombBlowingUp = true;
             BombTimer = 0f;
 
