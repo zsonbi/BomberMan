@@ -113,11 +113,11 @@ build-StandaloneWindows64:
   variables:
     BUILD_TARGET: StandaloneWindows64
 
-# build-WebGL:
-#   <<: *build
-#   image: $IMAGE:$UNITY_VERSION-webgl-$IMAGE_VERSION
-#   variables:
-#     BUILD_TARGET: WebGL
+build-WebGL:
+  <<: *build
+  image: $IMAGE:$UNITY_VERSION-webgl-$IMAGE_VERSION
+  variables:
+    BUILD_TARGET: WebGL
     
 doxygen-generate:
   stage: documentation
