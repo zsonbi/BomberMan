@@ -1037,8 +1037,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 2052757999726270294}
+        m_TargetAssemblyTypeName: MainMenu, BomberManAssembly
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -2125,7 +2125,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4357308070782385052}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6024378789623196010}
+        m_TargetAssemblyTypeName: KeyBindScript, BomberManAssembly
+        m_MethodName: ResetSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1115622403562326666
 GameObject:
   m_ObjectHideFlags: 0
@@ -5245,6 +5257,9 @@ MonoBehaviour:
   - {fileID: 4611752580861785947}
   - {fileID: 1692756635169817684}
   - {fileID: 4786157595132616664}
+  requiredPointsText: {fileID: 115027610422741294}
+  isPlayer3: {fileID: 2301796338287029325}
+  isBattleRoyale: {fileID: 3422519779398281299}
 --- !u!1 &2933603204485105784
 GameObject:
   m_ObjectHideFlags: 0
@@ -8877,14 +8892,14 @@ MonoBehaviour:
       - m_Target: {fileID: 2052757999726270294}
         m_TargetAssemblyTypeName: MainMenu, BomberManAssembly
         m_MethodName: ReadMorePlayerOption
-        m_Mode: 6
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5397718278770980242}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
