@@ -53,6 +53,7 @@ public class Player : MovingEntity
     /// </summary>
     public EventHandler PlayerDiedEventHandler;
 
+    //When the script is loaded this method is called
     private void Awake()
     {
         if (playerId > 2)
@@ -152,6 +153,7 @@ public class Player : MovingEntity
                 }
                 switch (bonus.Type)
                 {
+                    //If this bonus is picked up it increases the player bomb count by one
                     case BonusType.BonusBomb:
 
                         if (Bonuses[bonus.Type].IncreaseTier())
@@ -161,29 +163,31 @@ public class Player : MovingEntity
                             this.Bombs.Add(bomb1);
                         }
                         break;
-
+                    //If this bonus is picked up it increases the player bombs range by one
                     case BonusType.BombRange:
                         Bonuses[bonus.Type].IncreaseTier();
                         break;
-
+                    //If this bonus is picked up the player slowes down
                     case BonusType.Slowness:
                         Debug.Log("Slowness effect started");
                         this.timeToMove = 1 / (float)(this.Speed * 0.6f);
                         //Missing: This effect lasts for a period of time
                         break;
-
+                    //If this bonus is picked up it decreases the player bombs range
                     case BonusType.SmallExplosion:
                         Debug.Log("SmallExplosion effect started");
                         //Missing: This effect lasts for a period of time
                         break;
-
+                    //If this bonus is picked up it is temporarily disables the bomb placement for the player
                     case BonusType.NoBomb:
                         Debug.Log("No bomb activated");
                         break;
-
+                    //If this bonus is picked up the player will place down all its bombs
                     case BonusType.InstantBomb:
                         Debug.Log("InstantBomb effect started");
                         break;
+                    //If this bonus is picked up the player will be able to detonate its bombs, however only after placing all of them and they dont
+                    //blow up with time
                     case BonusType.Detonator:
                         Debug.Log("Detonator bonus picked up");
                         foreach (Bomb bomb in Bombs)
@@ -191,10 +195,12 @@ public class Player : MovingEntity
                             bomb.Detonable = true;
                         }
                         break;
+                    //If this bonus is picked up the player speed will be increased
                     case BonusType.Skate:
                         Debug.Log("Skate bonus picked up");
                         this.timeToMove = 1 / (float)(this.Speed * 1.3f);
                         break;
+                    //If this bonus is picked up the player will be immune for damage for a short peroid of time
                     case BonusType.Immunity:
                         Debug.Log("Immunity bonus picked up");
                         break;
@@ -232,7 +238,7 @@ public class Player : MovingEntity
                 break;
         }
     }
-
+    //Check for collision with the battle royale circle, if collided it kills the player instant
     public void OnCollisionExit2D(Collision2D collision)
     {
         Debug.Log(collision.gameObject.tag);
@@ -325,7 +331,7 @@ public class Player : MovingEntity
 
         throw new System.NotImplementedException();
     }
-
+    //Initialize the player object with base values
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         base.Init(entityType, gameBoard, CurrentPos);
