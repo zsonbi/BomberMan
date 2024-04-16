@@ -115,9 +115,6 @@ build-StandaloneWindows64:
 
 build-WebGL:
   <<: *build
-  script:
-    - apt-get install --reinstall ca-certificates
-    - apt-get update -qq
 
   image: $IMAGE:$UNITY_VERSION-webgl-$IMAGE_VERSION
   variables:
