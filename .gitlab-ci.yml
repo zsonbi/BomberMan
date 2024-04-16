@@ -149,7 +149,7 @@ pages:
     - mkdir public/docs
     - ls -la
     - mv ./documentation/* public/
-    - mv "$UNITY_DIR/Builds/WebGL/${BUILD_NAME}" public/game/
+    # - mv "$UNITY_DIR/Builds/WebGL/${BUILD_NAME}" public/game/
 #    - mv ./ci/index.html public
   artifacts:
     paths:
