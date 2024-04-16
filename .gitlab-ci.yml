@@ -146,6 +146,7 @@ pages:
   script:
     - mkdir public
     - mkdir public/docs
+    - ls -la
     - mv ./documentation/* public/docs
     - mv ./ci/index.html public
   artifacts:
