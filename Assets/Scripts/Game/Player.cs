@@ -108,7 +108,14 @@ public class Player : MovingEntity
                     switch (bonus.Type)
                     {
                         case BonusType.Slowness:
-                            this.timeToMove = 1f / this.Speed;
+                            if (Bonuses.ContainsKey(BonusType.Skate))
+                            {
+                                this.timeToMove = 1 / (float)(this.Speed * 1.3f);
+                            }
+                            else
+                            {
+                                this.timeToMove = 1f / this.Speed;
+                            }
                             break;
                         case BonusType.Ghost:
                             if (GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].Placed)
@@ -320,13 +327,18 @@ public class Player : MovingEntity
     //The player places a bomb on the board if it has a wall available
     private void PlaceObstacle()
     {
-        if (actionCooldown > 0)
+        if (actionCooldown > 0 || !Bonuses.ContainsKey(BonusType.Obstacle))
         {
             return;
         }
         actionCooldown = Config.PLAYERACTIONCOOLDOWN;
 
-        throw new System.NotImplementedException();
+        if (!GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].Placed)
+        {
+            GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].Place(false);
+        }
+
+        //throw new System.NotImplementedException();
     }
 
     //The player detonates all of it's bombs
