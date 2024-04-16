@@ -426,11 +426,13 @@ public class Player : MovingEntity
     /// </summary>
     private bool AllTheBombsPlaced()
     {
-        bool allTheBombsPlaced = true;
         foreach(Bomb bomb in Bombs)
-        {    
-            allTheBombsPlaced = allTheBombsPlaced && bomb.Placed;
+        {
+            if (!bomb.Placed)
+            {
+                return false;
+            }
         }
-        return allTheBombsPlaced;
+        return true;
     }
 }
