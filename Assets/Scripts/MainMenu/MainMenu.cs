@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using TMPro;
+using Bomberman.Menu;
 
 public class MainMenu : MonoBehaviour
 {
@@ -13,6 +15,18 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private UnityEngine.UI.Image[] skinRenderers;
 
+    [SerializeField]
+    private TMP_InputField requiredPointsText;
+
+    [SerializeField]
+    private UnityEngine.UI.Toggle isPlayer3;
+
+    [SerializeField]
+    private UnityEngine.UI.Toggle isBattleRoyale;
+
+    [SerializeField]
+    private TMP_InputField[] playerNames=new TMP_InputField[0];
+
     /// <summary>
     /// Runs on first frame to load the necessary things
     /// </summary>
@@ -20,6 +34,23 @@ public class MainMenu : MonoBehaviour
     {
         playerSkins = Resources.LoadAll<Sprite>("PlayerSkins");
         skinIds = new int[3];
+
+        if (requiredPointsText is not null)
+            requiredPointsText.text=(MainMenuConfig.RequiredPoint.ToString());
+
+        if(isPlayer3 is not null)
+            isPlayer3.isOn = MainMenuConfig.Player3;
+
+        if(isBattleRoyale is not null)
+            isBattleRoyale.isOn= MainMenuConfig.BattleRoyale;
+
+        for (int i = 0; i < playerNames.Length; i++)
+        {
+            if (playerNames[i] is not null)
+            {
+                playerNames[i].text=(  MainMenuConfig.PlayerNames[i]);
+            }
+        }
 
         //Get which skin is which Id
         for (int i = 0; i < playerSkins.Length; i++)
@@ -42,11 +73,11 @@ public class MainMenu : MonoBehaviour
     /// <param name="parent">The image object to set the new skin for display</param>
     public void NextSkinButton(UnityEngine.UI.Image parent)
     {
-        int id=-1;
+        int id = -1;
         switch (parent.name)
         {
             case "Player1Skin":
-                id=0;
+                id = 0;
                 break;
 
             case "Player2Skin":
@@ -58,13 +89,13 @@ public class MainMenu : MonoBehaviour
                 id = 2;
                 break;
             default:
-                Debug.LogError("No such thing as: "+parent.name+" in the switch");
+                Debug.LogError("No such thing as: " + parent.name + " in the switch");
                 return;
         }
 
-        skinIds[id] = (skinIds[id]+1)%playerSkins.Length;
+        skinIds[id] = (skinIds[id] + 1) % playerSkins.Length;
 
-        parent.sprite=playerSkins[skinIds[id]];
+        parent.sprite = playerSkins[skinIds[id]];
         MainMenuConfig.PlayerSkins[id] = playerSkins[skinIds[id]].name;
 
     }
@@ -98,10 +129,10 @@ public class MainMenu : MonoBehaviour
         skinIds[id] = (skinIds[id] - 1);
         if (skinIds[id] < 0)
         {
-            skinIds[id] = playerSkins.Length-1;
+            skinIds[id] = playerSkins.Length - 1;
         }
         parent.sprite = playerSkins[skinIds[id]];
-        MainMenuConfig.PlayerSkins[id]= playerSkins[skinIds[id]].name;
+        MainMenuConfig.PlayerSkins[id] = playerSkins[skinIds[id]].name;
     }
 
 
@@ -199,7 +230,7 @@ public class MainMenu : MonoBehaviour
     {
         if (points == "")
         {
-            MainMenuConfig.RequiredPoint=3;
+            MainMenuConfig.RequiredPoint = 3;
             return;
         }
         MainMenuConfig.RequiredPoint = int.Parse(points);
