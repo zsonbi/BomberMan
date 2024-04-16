@@ -16,13 +16,16 @@ public class MainMenu : MonoBehaviour
     private UnityEngine.UI.Image[] skinRenderers;
 
     [SerializeField]
-    private TextMeshProUGUI requiredPointsText;
+    private TMP_InputField requiredPointsText;
 
     [SerializeField]
     private UnityEngine.UI.Toggle isPlayer3;
 
     [SerializeField]
     private UnityEngine.UI.Toggle isBattleRoyale;
+
+    [SerializeField]
+    private TMP_InputField[] playerNames=new TMP_InputField[0];
 
     /// <summary>
     /// Runs on first frame to load the necessary things
@@ -33,13 +36,21 @@ public class MainMenu : MonoBehaviour
         skinIds = new int[3];
 
         if (requiredPointsText is not null)
-            requiredPointsText.text = MainMenuConfig.RequiredPoint.ToString();
+            requiredPointsText.text=(MainMenuConfig.RequiredPoint.ToString());
 
         if(isPlayer3 is not null)
             isPlayer3.isOn = MainMenuConfig.Player3;
 
         if(isBattleRoyale is not null)
             isBattleRoyale.isOn= MainMenuConfig.BattleRoyale;
+
+        for (int i = 0; i < playerNames.Length; i++)
+        {
+            if (playerNames[i] is not null)
+            {
+                playerNames[i].text=(  MainMenuConfig.PlayerNames[i]);
+            }
+        }
 
         //Get which skin is which Id
         for (int i = 0; i < playerSkins.Length; i++)

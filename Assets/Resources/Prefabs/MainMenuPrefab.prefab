@@ -5257,9 +5257,13 @@ MonoBehaviour:
   - {fileID: 4611752580861785947}
   - {fileID: 1692756635169817684}
   - {fileID: 4786157595132616664}
-  requiredPointsText: {fileID: 115027610422741294}
+  requiredPointsText: {fileID: 527754842819779911}
   isPlayer3: {fileID: 2301796338287029325}
   isBattleRoyale: {fileID: 3422519779398281299}
+  playerNames:
+  - {fileID: 5154793895000794691}
+  - {fileID: 9066094900896112813}
+  - {fileID: 3658856616763105887}
 --- !u!1 &2933603204485105784
 GameObject:
   m_ObjectHideFlags: 0

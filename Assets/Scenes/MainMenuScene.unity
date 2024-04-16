@@ -123,28 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &415525970 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2301796338287029325, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-  m_PrefabInstance: {fileID: 1550955912}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &593504368 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 115027610422741294, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-  m_PrefabInstance: {fileID: 1550955912}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &737277442
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,17 +411,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1444189545 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3422519779398281299, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-  m_PrefabInstance: {fileID: 1550955912}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1550955912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -452,30 +419,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 75820208387450539, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 75820208387450539, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 75820208387450539, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 75820208387450539, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 75820208387450539, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 75820208387450539, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1725671201435615751, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -554,26 +497,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1725671201435615751, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2052757999726270294, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-      propertyPath: isPlayer3
-      value: 
-      objectReference: {fileID: 415525970}
-    - target: {fileID: 2052757999726270294, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-      propertyPath: isBattleRoyale
-      value: 
-      objectReference: {fileID: 1444189545}
-    - target: {fileID: 2052757999726270294, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-      propertyPath: requiredPointsText
-      value: 
-      objectReference: {fileID: 593504368}
-    - target: {fileID: 2301796338287029325, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2301796338287029325, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
-      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2886709818570019536, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
