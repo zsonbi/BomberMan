@@ -345,6 +345,8 @@ public class Player : MovingEntity
     {
         base.Init(entityType, gameBoard, CurrentPos);
 
+        this.SetGhost(false);
+
         //Reset the player's components
         while (Bombs.Count != 0)
         {
