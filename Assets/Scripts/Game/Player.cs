@@ -195,6 +195,9 @@ public class Player : MovingEntity
                         Debug.Log("Skate bonus picked up");
                         this.timeToMove = 1 / (float)(this.Speed * 1.3f);
                         break;
+                    case BonusType.Immunity:
+                        Debug.Log("Immunity bonus picked up");
+                        break;
                     default:
                         break;
                 }
@@ -365,6 +368,11 @@ public class Player : MovingEntity
     /// </summary>
     public override bool Kill()
     {
+        if (Bonuses.ContainsKey(BonusType.Immunity))
+        {
+            return false;
+        }
+
         bool tookDamage = base.Kill();
 
         if (!this.Alive)
@@ -372,7 +380,7 @@ public class Player : MovingEntity
             PlayerDiedEventHandler?.Invoke(this, EventArgs.Empty);
         }
         else
-        {
+        {   
             GameBoard.MenuController.RemoveHealth(this);
         }
 
@@ -403,7 +411,7 @@ public class Player : MovingEntity
     {
         bool allTheBombsPlaced = true;
         foreach(Bomb bomb in Bombs)
-        {
+        {    
             allTheBombsPlaced = allTheBombsPlaced && bomb.Placed;
         }
         return allTheBombsPlaced;

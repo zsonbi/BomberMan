@@ -127,6 +127,7 @@ MonoBehaviour:
   - {fileID: 2893851931354454646, guid: c9be3b1d815b3de45a543c94ddd4e775, type: 3}
   - {fileID: 2893851931354454646, guid: aaa771dfbff1c9d44a0957fa7f3a2a46, type: 3}
   - {fileID: 2893851931354454646, guid: 4cbc48e6bdd09fd4482010933938699e, type: 3}
+  - {fileID: 2893851931354454646, guid: 6d111e90b96161044ba7be29562d1a05, type: 3}
 --- !u!210 &-1947205429256782114
 SortingGroup:
   m_ObjectHideFlags: 0
