@@ -108,9 +108,14 @@ public class Player : MovingEntity
                     {
                         case BonusType.Slowness:
                             this.timeToMove = 1f / this.Speed;
-
                             break;
-
+                        case BonusType.Ghost:
+                            if (GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].Placed)
+                            {
+                                InstantKill();
+                            }
+                            this.SetGhost(false);
+                            break;
                         default:
                             break;
                     }
@@ -203,6 +208,9 @@ public class Player : MovingEntity
                     //If this bonus is picked up the player will be immune for damage for a short peroid of time
                     case BonusType.Immunity:
                         Debug.Log("Immunity bonus picked up");
+                        break;
+                    case BonusType.Ghost:
+                        this.SetGhost(true);
                         break;
                     default:
                         break;

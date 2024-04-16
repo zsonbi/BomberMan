@@ -62,6 +62,8 @@ namespace Bomberman
         /// </summary>
         public EventHandler ReachedTargetEvent;
 
+        private bool ghost = false;
+
         /// <summary>
         /// Inits the entity should be called right after creating the entity
         /// </summary>
@@ -241,7 +243,7 @@ namespace Bomberman
                     NewDirection = Direction.None;
                 }
 
-                if (DirectionPassable(CurrentDirection) || (EntityType == MapEntityType.Monster && ((Monster)this).Type == MonsterType.Ghost))
+                if (DirectionPassable(CurrentDirection) || ghost)
                 {
                     targetPos = GetNextTarget(CurrentDirection);
                     moveProgress = 0f;
@@ -293,6 +295,11 @@ namespace Bomberman
         public virtual void ChangedCell(int boardRow, int boardCol)
         {
             this.CurrentBoardPos.Change(boardRow, boardCol);
+        }
+
+        public void SetGhost(bool newValue)
+        {
+            ghost = newValue;
         }
     }
 }
