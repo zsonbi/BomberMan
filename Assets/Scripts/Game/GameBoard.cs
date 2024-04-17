@@ -426,9 +426,11 @@ namespace Bomberman
         public void SpawnBomb(Position whereToSpawn, int radius = Config.BOMBDEFAULTEXPLOSIONRANGE, bool permament = false)
         {
             Bomb bombToSpawn = Instantiate(Players[0].Bombs[0], this.transform).GetComponent<Bomb>();
-
             bombToSpawn.Init(MapEntityType.Bomb, this, whereToSpawn);
+            this.Cells[whereToSpawn.Row, whereToSpawn.Col].PlaceBomb(bombToSpawn);
+
             bombToSpawn.PlaceByGameBoard(whereToSpawn, radius, permament);
+
         }
 
         /// <summary>
