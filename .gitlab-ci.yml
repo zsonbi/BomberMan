@@ -135,6 +135,7 @@ doxygen-generate:
   artifacts:
     paths:
       - documentation
+    expire_in: 45 min
 
 #Host the documentation instead of the webgl edition of the game
 pages:
