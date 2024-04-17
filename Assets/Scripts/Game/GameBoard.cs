@@ -113,6 +113,7 @@ namespace Bomberman
         /// </summary>
         public int timeConst { get; private set; } = 5;
 
+
         //Called every frame
         private void Update()
         {
@@ -192,6 +193,8 @@ namespace Bomberman
             {
                 throw new Exception("The battle royale timer container object is not set");
             }
+
+            
 
 
             StartNextGame();
@@ -423,9 +426,11 @@ namespace Bomberman
         public void SpawnBomb(Position whereToSpawn, int radius = Config.BOMBDEFAULTEXPLOSIONRANGE, bool permament = false)
         {
             Bomb bombToSpawn = Instantiate(Players[0].Bombs[0], this.transform).GetComponent<Bomb>();
-
             bombToSpawn.Init(MapEntityType.Bomb, this, whereToSpawn);
+            this.Cells[whereToSpawn.Row, whereToSpawn.Col].PlaceBomb(bombToSpawn);
+
             bombToSpawn.PlaceByGameBoard(whereToSpawn, radius, permament);
+
         }
 
         /// <summary>
@@ -494,6 +499,7 @@ namespace Bomberman
                     CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
                 }
                 Resume();
+
             }
         }
     }

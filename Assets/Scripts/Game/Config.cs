@@ -40,6 +40,9 @@ public static class Config
     /// </summary>
     public const float BOMBBLOWTIME = 3f;
 
+    /// <summary>
+    /// How long the game waits before announcing the winner
+    /// </summary>
     public const float GAME_OVER_TIMER = 3f;
 
     /// <summary>
@@ -62,7 +65,7 @@ public static class Config
     /// </summary>
     public const float CIRCLE_DECREASE_RATE = 5f;
 
-    public static readonly KeyCode[,] PLAYERDEFAULTKEYS = new KeyCode[3, 7] { { KeyCode.W, KeyCode.S, KeyCode.D, KeyCode.A, KeyCode.Space, KeyCode.LeftAlt, KeyCode.X }, { KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow, KeyCode.LeftArrow, KeyCode.RightShift, KeyCode.RightControl, KeyCode.Return }, { KeyCode.Keypad8, KeyCode.Keypad5, KeyCode.Keypad6, KeyCode.Keypad4, KeyCode.KeypadPlus, KeyCode.KeypadEnter, KeyCode.KeypadMinus } };
+    public static readonly KeyCode[,] PLAYERDEFAULTKEYS = new KeyCode[3, 6] { { KeyCode.W, KeyCode.S, KeyCode.D, KeyCode.A, KeyCode.Space, KeyCode.LeftAlt }, { KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightArrow, KeyCode.LeftArrow, KeyCode.RightShift,  KeyCode.Return }, { KeyCode.Keypad8, KeyCode.Keypad5, KeyCode.Keypad6, KeyCode.Keypad4, KeyCode.KeypadPlus, KeyCode.KeypadEnter } };
 
     /// <summary>
     /// Global random for the program
@@ -73,7 +76,13 @@ public static class Config
     /// The even indices how long the circle should stop shrinking
     /// Odd indices how long the circle should shrink
     /// </summary>
-    //public static readonly float[] BATTLE_ROYALE_TIMERS = new float[]{10,20,20,20};
-    public static readonly float[] BATTLE_ROYALE_TIMERS = new float[]{10,20,1,10};
+    public static readonly float[] BATTLE_ROYALE_TIMERS = new float[]{10,20,20,20};
+
+    /// <summary>
+    /// The player's color when it picks up a ghost
+    /// </summary>
+    public readonly static Color GHOST_COLOR= new Color(1,1,1,0.5f);
+
+
 }
 

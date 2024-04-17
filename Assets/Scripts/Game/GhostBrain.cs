@@ -1,4 +1,5 @@
 using DataTypes;
+using System.Diagnostics;
 
 namespace Bomberman
 {
@@ -8,6 +9,7 @@ namespace Bomberman
     public class GhostBrain : MonsterBrain
     {
         private bool prevWall = false;
+        Obstacle obstacle;
 
         //Gets it the ghost is currently facing towards an outer wall
         private bool DirectionTotallyImpassable()
@@ -20,16 +22,17 @@ namespace Bomberman
             switch (body.CurrentDirection)
             {
                 case Direction.Left:
-                    return body.CurrentBoardPos.Col <= 1;
+
+                    return body.GameBoard.Cells[body.CurrentBoardPos.Row, body.CurrentBoardPos.Col - 1].HasBomb || body.CurrentBoardPos.Col <= 1;
 
                 case Direction.Up:
-                    return body.CurrentBoardPos.Row <= 1;
+                    return body.GameBoard.Cells[body.CurrentBoardPos.Row-1, body.CurrentBoardPos.Col ].HasBomb || body.CurrentBoardPos.Row <= 1;
 
                 case Direction.Right:
-                    return body.CurrentBoardPos.Col >= body.GameBoard.ColCount - 2;
+                    return body.GameBoard.Cells[body.CurrentBoardPos.Row, body.CurrentBoardPos.Col + 1].HasBomb || body.CurrentBoardPos.Col >= body.GameBoard.ColCount - 2;
 
                 case Direction.Down:
-                    return body.CurrentBoardPos.Row >= body.GameBoard.RowCount - 2;
+                    return body.GameBoard.Cells[body.CurrentBoardPos.Row+1, body.CurrentBoardPos.Col].HasBomb || body.CurrentBoardPos.Row >= body.GameBoard.RowCount - 2;
 
                 default:
                     return false;
@@ -48,13 +51,14 @@ namespace Bomberman
             }
             else
             {
+               
                 if (!body.DirectionPassable(body.CurrentDirection))
                 {
                     //Determine if the ghost should go through the wall
                     if (!DirectionTotallyImpassable() && (prevWall || Config.RND.NextDouble() <= Config.GHOSTPASSTHROUGHCHANCE))
                     {
                         prevWall = true;
-
+                        
                         return body.CurrentDirection;
                     }
 

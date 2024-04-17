@@ -14,15 +14,15 @@ public class KeyBindScript : MonoBehaviour
 
     [Header("Player 1 buttons")]
     [SerializeField]
-    private TextMeshProUGUI up, down, right, left, place, detonate, placeingObstacle;
+    private TextMeshProUGUI up, down, right, left, place, placeingObstacle;
     
     [Header("Player 2 buttons")]
     [SerializeField]
-    private TextMeshProUGUI up2, down2, right2, left2, place2, detonate2, placeingObstacle2;
+    private TextMeshProUGUI up2, down2, right2, left2, place2, placeingObstacle2;
     
     [Header("Player 3 buttons")]
     [SerializeField]
-    private TextMeshProUGUI up3, down3, right3, left3, place3, detonate3, placeingObstacle3;
+    private TextMeshProUGUI up3, down3, right3, left3, place3, placeingObstacle3;
 
 
     private GameObject currentKey;
@@ -40,8 +40,7 @@ public class KeyBindScript : MonoBehaviour
             keys.Add("RightButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton"+i, Config.PLAYERDEFAULTKEYS[i, 2].ToString())));
             keys.Add("LeftButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton"+i, Config.PLAYERDEFAULTKEYS[i, 3].ToString())));
             keys.Add("PlacingBombButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton"+i, Config.PLAYERDEFAULTKEYS[i, 4].ToString())));
-            keys.Add("DetonateButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DetonateButton"+i, Config.PLAYERDEFAULTKEYS[i, 5].ToString())));
-            keys.Add("PlacingObstacleButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton"+i, Config.PLAYERDEFAULTKEYS[i, 6].ToString())));
+            keys.Add("PlacingObstacleButton"+i, (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton"+i, Config.PLAYERDEFAULTKEYS[i, 5].ToString())));
 
         }
         UpdateLabels();
@@ -73,7 +72,6 @@ public class KeyBindScript : MonoBehaviour
         right.text = keys["RightButton0"].ToString();
         left.text = keys["LeftButton0"].ToString();
         place.text = keys["PlacingBombButton0"].ToString();
-        detonate.text = keys["DetonateButton0"].ToString();
         placeingObstacle.text = keys["PlacingObstacleButton0"].ToString();
 
         up2.text = keys["UpButton1"].ToString();
@@ -81,7 +79,6 @@ public class KeyBindScript : MonoBehaviour
         right2.text = keys["RightButton1"].ToString();
         left2.text = keys["LeftButton1"].ToString();
         place2.text = keys["PlacingBombButton1"].ToString();
-        detonate2.text = keys["DetonateButton1"].ToString();
         placeingObstacle2.text = keys["PlacingObstacleButton1"].ToString();
 
         up3.text = keys["UpButton2"].ToString();
@@ -89,7 +86,6 @@ public class KeyBindScript : MonoBehaviour
         right3.text = keys["RightButton2"].ToString();
         left3.text = keys["LeftButton2"].ToString();
         place3.text = keys["PlacingBombButton2"].ToString();
-        detonate3.text = keys["DetonateButton2"].ToString();
         placeingObstacle3.text = keys["PlacingObstacleButton2"].ToString();
     }
 
@@ -122,8 +118,7 @@ public class KeyBindScript : MonoBehaviour
             keys["RightButton"+i] = Config.PLAYERDEFAULTKEYS[i, 2];
             keys["LeftButton"+i] = Config.PLAYERDEFAULTKEYS[i, 3];
             keys["PlacingBombButton"+i] = Config.PLAYERDEFAULTKEYS[i, 4];
-            keys["DetonateButton"+i] = Config.PLAYERDEFAULTKEYS[i, 5];
-            keys["PlacingObstacleButton"+i] = Config.PLAYERDEFAULTKEYS[i, 6];
+            keys["PlacingObstacleButton"+i] = Config.PLAYERDEFAULTKEYS[i, 5];
         }
 
         UpdateLabels();

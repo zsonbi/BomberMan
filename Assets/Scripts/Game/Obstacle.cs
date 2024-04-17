@@ -1,8 +1,10 @@
 using Bomberman;
 using DataTypes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Obstacle : MapEntity
@@ -40,6 +42,8 @@ public class Obstacle : MapEntity
 
     public bool NotPassable { get => notPassable; private set => notPassable = value; }
 
+    public EventHandler BlownUp;
+
     private void Awake()
     {
         this.spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
@@ -65,10 +69,10 @@ public class Obstacle : MapEntity
         if (index < 0)
         {
             throw new System.Exception("No such bonus we can spawn!");
-            
+
         }
 
-        Debug.Log(bonusToSpawn.ToString()+index);
+        Debug.Log(bonusToSpawn.ToString() + index);
 
         Bonus bonus = Instantiate(bonusPrefabs[index], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
         bonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
@@ -78,8 +82,11 @@ public class Obstacle : MapEntity
 
     private void DropBonus()
     {
-        ContainingBonus.Show();
-        this.ContainingBonus = null;
+        if (ContainingBonus is not null)
+        {
+            ContainingBonus.Show();
+            this.ContainingBonus = null;
+        }
     }
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
@@ -129,6 +136,12 @@ public class Obstacle : MapEntity
         else if (dropBonus)
         {
             DropBonus();
+        }
+
+        if (BlownUp is not null)
+        {
+            BlownUp.Invoke(this, EventArgs.Empty);
+            BlownUp = null;
         }
 
         this.Placed = false;

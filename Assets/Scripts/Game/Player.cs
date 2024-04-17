@@ -48,11 +48,23 @@ public class Player : MovingEntity
 
     public int PlayerId { get => playerId; }
 
+    public int AvailableObstacle {  get; private set; }=0;
+
+    public float ImmunityMaxDuration { get; private set; }
+    public float GhostMaxDuration { get; private set; }
+
+
     /// <summary>
     /// Event to call when the player died
     /// </summary>
     public EventHandler PlayerDiedEventHandler;
 
+    /// <summary>
+    /// The player's display
+    /// </summary>
+    private SpriteRenderer spriteRenderer;
+
+    //When the script is loaded this method is called
     private void Awake()
     {
 
@@ -66,10 +78,9 @@ public class Player : MovingEntity
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("RightButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 2].ToString())), MoveRight);
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("LeftButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 3].ToString())), MoveLeft);
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingBombButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 4].ToString())), PlaceBomb);
-        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DetonateButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 5].ToString())), Detonate);
-        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 6].ToString())), PlaceObstacle);
+        Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 5].ToString())), PlaceObstacle);
 
-        SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
             spriteRenderer.sprite = Resources.Load<Sprite>("PlayerSkins/" + MainMenuConfig.PlayerSkins[playerId]);
@@ -107,8 +118,25 @@ public class Player : MovingEntity
                     switch (bonus.Type)
                     {
                         case BonusType.Slowness:
-                            this.timeToMove = 1f / this.Speed;
-
+                            if (Bonuses.ContainsKey(BonusType.Skate))
+                            {
+                                this.timeToMove = 1 / (float)(this.Speed * 1.3f);
+                            }
+                            else
+                            {
+                                this.timeToMove = 1f / this.Speed;
+                            }
+                            break;
+                        case BonusType.Ghost:
+                            if (GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].Placed && !GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].HasBomb)
+                            {
+                                InstantKill();
+                            }
+                            spriteRenderer.color= new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b,1);
+                            this.SetGhost(false);
+                            break;
+                        case BonusType.Immunity:
+                            spriteRenderer.color= new Color(1, 1, 1, spriteRenderer.color.a);
                             break;
 
                         default:
@@ -125,6 +153,16 @@ public class Player : MovingEntity
         {
             PlaceBomb();
         }
+        if (Bonuses.ContainsKey(BonusType.Immunity))
+        {
+            spriteRenderer.color = new Color(1,1- Bonuses[BonusType.Immunity].Duration / ImmunityMaxDuration,1- Bonuses[BonusType.Immunity].Duration / ImmunityMaxDuration, spriteRenderer.color.a);
+        }
+        if (Bonuses.ContainsKey(BonusType.Ghost))
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1- Bonuses[BonusType.Ghost].Duration / (GhostMaxDuration*2));
+
+        }
+
 
         HandleKeys();
         base.Update();
@@ -153,6 +191,7 @@ public class Player : MovingEntity
                 }
                 switch (bonus.Type)
                 {
+                    //If this bonus is picked up it increases the player bomb count by one
                     case BonusType.BonusBomb:
 
                         if (Bonuses[bonus.Type].IncreaseTier())
@@ -162,29 +201,59 @@ public class Player : MovingEntity
                             this.Bombs.Add(bomb1);
                         }
                         break;
-
+                    //If this bonus is picked up it increases the player bombs range by one
                     case BonusType.BombRange:
                         Bonuses[bonus.Type].IncreaseTier();
                         break;
-
+                    //If this bonus is picked up the player slowes down
                     case BonusType.Slowness:
                         Debug.Log("Slowness effect started");
                         this.timeToMove = 1 / (float)(this.Speed * 0.6f);
                         //Missing: This effect lasts for a period of time
                         break;
-
+                    //If this bonus is picked up it decreases the player bombs range
                     case BonusType.SmallExplosion:
                         Debug.Log("SmallExplosion effect started");
                         //Missing: This effect lasts for a period of time
                         break;
-
+                    //If this bonus is picked up it is temporarily disables the bomb placement for the player
                     case BonusType.NoBomb:
                         Debug.Log("No bomb activated");
                         break;
-
+                    //If this bonus is picked up the player will place down all its bombs
                     case BonusType.InstantBomb:
                         Debug.Log("InstantBomb effect started");
                         break;
+                    //If this bonus is picked up the player will be able to detonate its bombs, however only after placing all of them and they dont
+                    //blow up with time
+                    case BonusType.Detonator:
+                        Debug.Log("Detonator bonus picked up");
+                        foreach (Bomb bomb in Bombs)
+                        {
+                            bomb.Detonable = true;
+                        }
+                        break;
+                    //If this bonus is picked up the player speed will be increased
+                    case BonusType.Skate:
+                        Debug.Log("Skate bonus picked up");
+                        this.timeToMove = 1 / (float)(this.Speed * 1.3f);
+                        break;
+                    //If this bonus is picked up the player will be immune for damage for a short peroid of time
+                    case BonusType.Immunity:
+                        ImmunityMaxDuration = bonus.Duration;
+                        spriteRenderer.color = new Color(1, 0, 0, spriteRenderer.color.a);
+                        break;
+                    case BonusType.Ghost:
+                        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
+                        GhostMaxDuration=bonus.Duration;
+                        this.SetGhost(true);
+                        break;
+                    case BonusType.Obstacle:
+                        if (Bonuses[bonus.Type].IncreaseTier())
+                        {
+                            AvailableObstacle+=3;
+                        }
+                            break;
 
                     default:
                         break;
@@ -220,7 +289,7 @@ public class Player : MovingEntity
                 break;
         }
     }
-
+    //Check for collision with the battle royale circle, if collided it kills the player instant
     public void OnCollisionExit2D(Collision2D collision)
     {
         Debug.Log(collision.gameObject.tag);
@@ -250,12 +319,25 @@ public class Player : MovingEntity
             return;
         }
 
+        if (Bonuses.ContainsKey(BonusType.Detonator))
+        {
+            if (AllTheBombsPlaced())
+            {
+                foreach (Bomb bomb in Bombs)
+                {
+                    bomb.BlowUp();
+                }
+            }
+        }
+
         if (Bonuses.ContainsKey(BonusType.NoBomb) || GameBoard.Cells[this.CurrentBoardPos.Row, this.CurrentBoardPos.Col].Placed)
         {
             return;
         }
 
         actionCooldown = Config.PLAYERACTIONCOOLDOWN;
+
+
 
         foreach (Bomb bomb in Bombs)
         {
@@ -282,30 +364,33 @@ public class Player : MovingEntity
     //The player places a bomb on the board if it has a wall available
     private void PlaceObstacle()
     {
-        if (actionCooldown > 0)
+        if (actionCooldown > 0 || !Bonuses.ContainsKey(BonusType.Obstacle) || AvailableObstacle<=0)
         {
             return;
         }
         actionCooldown = Config.PLAYERACTIONCOOLDOWN;
 
-        throw new System.NotImplementedException();
+        Obstacle obstacle = GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col];
+        if (!obstacle.Placed)
+        {
+            AvailableObstacle--;
+            obstacle.Place(false);
+            obstacle.BlownUp= PlacedObstacleBlownUp;
+        }
     }
 
-    //The player detonates all of it's bombs
-    private void Detonate()
+    private void PlacedObstacleBlownUp(object obj, EventArgs args)
     {
-        if (actionCooldown > 0)
-        {
-            return;
-        }
-        actionCooldown = Config.PLAYERACTIONCOOLDOWN;
-
-        throw new System.NotImplementedException();
+        ++AvailableObstacle;
     }
 
+
+    //Initialize the player object with base values
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         base.Init(entityType, gameBoard, CurrentPos);
+
+        this.SetGhost(false);
 
         //Reset the player's components
         while (Bombs.Count != 0)
@@ -345,6 +430,11 @@ public class Player : MovingEntity
     /// </summary>
     public override bool Kill()
     {
+        if (Bonuses.ContainsKey(BonusType.Immunity))
+        {
+            return false;
+        }
+
         bool tookDamage = base.Kill();
 
         if (!this.Alive)
@@ -352,7 +442,7 @@ public class Player : MovingEntity
             PlayerDiedEventHandler?.Invoke(this, EventArgs.Empty);
         }
         else
-        {
+        {   
             GameBoard.MenuController.RemoveHealth(this);
         }
 
@@ -374,5 +464,20 @@ public class Player : MovingEntity
     public void AddScore()
     {
         ++this.Score;
+    }
+
+    /// <summary>
+    /// Check if all the bombs placed
+    /// </summary>
+    private bool AllTheBombsPlaced()
+    {
+        foreach(Bomb bomb in Bombs)
+        {
+            if (!bomb.Placed)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -24,6 +24,7 @@ namespace Bomberman
         {
             this.body = body;
             this.Accuracy = accuracy;
+
         }
 
         /// <summary>

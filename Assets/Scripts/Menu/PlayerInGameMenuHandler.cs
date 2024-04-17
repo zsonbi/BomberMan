@@ -97,7 +97,7 @@ public class PlayerInGameMenuHandler : MonoBehaviour
         rectTransform.anchorMin = new Vector2(0, 1f);
         rectTransform.anchorMax = new Vector2(0, 1f);
         rectTransform.localScale = Vector3.one;
-        rectTransform.localPosition = new Vector2(-40 + (bonuses.Count % 4) * 30, 20 + (bonuses.Count / 4) * 30);
+        rectTransform.localPosition = new Vector2(-40 + (bonuses.Count % 4) * 30, 20 - (bonuses.Count / 4) * 30);
         rectTransform.sizeDelta = new Vector2(30, 30);
         bonuses.Add(type, rectTransform);
         if (bonuses.Count > 8)

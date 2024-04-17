@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
     private UnityEngine.UI.Toggle isBattleRoyale;
 
     [SerializeField]
-    private TMP_InputField[] playerNames=new TMP_InputField[0];
+    private TMP_InputField[] playerNames = new TMP_InputField[0];
 
     /// <summary>
     /// Runs on first frame to load the necessary things

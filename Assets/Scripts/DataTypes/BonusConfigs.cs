@@ -1,3 +1,5 @@
+using System.ComponentModel.Design.Serialization;
+
 namespace DataTypes
 {
     public static class BonusConfigs
@@ -7,5 +9,7 @@ namespace DataTypes
         public const int EXTRA_BOMB_MAX_TIER = 3;
 
         public const int EXTRA_RANGE_MAX_TIER = 3;
+
+        public const int EXTRA_WALL_MAX_TIER = 3;
     }
 }
