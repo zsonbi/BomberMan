@@ -82,8 +82,10 @@ public class Obstacle : MapEntity
 
     private void DropBonus()
     {
+        if(ContainingBonus is not null) { 
         ContainingBonus.Show();
         this.ContainingBonus = null;
+        }
     }
 
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
