@@ -50,6 +50,8 @@ public class Player : MovingEntity
 
     public int AvailableObstacle {  get; private set; }=0;
 
+    public float ImmunityDuration { get; private set; }
+
     /// <summary>
     /// Event to call when the player died
     /// </summary>
@@ -133,7 +135,6 @@ public class Player : MovingEntity
                             break;
                         case BonusType.Immunity:
                             spriteRenderer.color= new Color(1, 1, 1, spriteRenderer.color.a);
-
                             break;
 
                         default:
@@ -150,6 +151,12 @@ public class Player : MovingEntity
         {
             PlaceBomb();
         }
+        if (Bonuses.ContainsKey(BonusType.Immunity))
+        {
+            spriteRenderer.color = new Color(Bonuses[BonusType.Immunity].Duration/ImmunityDuration, 0, 0, spriteRenderer.color.a);
+
+        }
+
 
         HandleKeys();
         base.Update();
@@ -227,6 +234,7 @@ public class Player : MovingEntity
                         break;
                     //If this bonus is picked up the player will be immune for damage for a short peroid of time
                     case BonusType.Immunity:
+                        ImmunityDuration = bonus.Duration;
                         spriteRenderer.color = new Color(1, 0, 0, spriteRenderer.color.a);
                         break;
                     case BonusType.Ghost:

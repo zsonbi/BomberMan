@@ -113,6 +113,7 @@ namespace Bomberman
         /// </summary>
         public int timeConst { get; private set; } = 5;
 
+
         //Called every frame
         private void Update()
         {
@@ -192,6 +193,8 @@ namespace Bomberman
             {
                 throw new Exception("The battle royale timer container object is not set");
             }
+
+            
 
 
             StartNextGame();
