@@ -159,7 +159,7 @@ public class Player : MovingEntity
         }
         if (Bonuses.ContainsKey(BonusType.Ghost))
         {
-            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1- Bonuses[BonusType.Ghost].Duration / GhostMaxDuration);
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1- Bonuses[BonusType.Ghost].Duration / (GhostMaxDuration*2));
 
         }
 
