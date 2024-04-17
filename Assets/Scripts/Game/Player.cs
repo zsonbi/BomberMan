@@ -48,6 +48,8 @@ public class Player : MovingEntity
 
     public int PlayerId { get => playerId; }
 
+    public int AvailableObstacle {  get; private set; }=0;
+
     /// <summary>
     /// Event to call when the player died
     /// </summary>
@@ -220,6 +222,13 @@ public class Player : MovingEntity
                     case BonusType.Ghost:
                         this.SetGhost(true);
                         break;
+                    case BonusType.Obstacle:
+                        if (Bonuses[bonus.Type].IncreaseTier())
+                        {
+                            AvailableObstacle+=3;
+                        }
+                            break;
+
                     default:
                         break;
                 }
@@ -327,18 +336,24 @@ public class Player : MovingEntity
     //The player places a bomb on the board if it has a wall available
     private void PlaceObstacle()
     {
-        if (actionCooldown > 0 || !Bonuses.ContainsKey(BonusType.Obstacle))
+        if (actionCooldown > 0 || !Bonuses.ContainsKey(BonusType.Obstacle) && AvailableObstacle>0)
         {
             return;
         }
         actionCooldown = Config.PLAYERACTIONCOOLDOWN;
 
-        if (!GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].Placed)
+        Obstacle obstacle = GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col];
+        if (!obstacle.Placed)
         {
-            GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].Place(false);
+            AvailableObstacle--;
+            obstacle.Place(false);
+            obstacle.BlownUp= PlacedObstacleBlownUp;
         }
+    }
 
-        //throw new System.NotImplementedException();
+    private void PlacedObstacleBlownUp(object obj, EventArgs args)
+    {
+        ++AvailableObstacle;
     }
 
     //The player detonates all of it's bombs

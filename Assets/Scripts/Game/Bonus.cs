@@ -88,6 +88,7 @@ namespace Bomberman
                     break;
 
                 case BonusType.Obstacle:
+                    maxTier=BonusConfigs.EXTRA_WALL_MAX_TIER;
                     break;
 
                 default:

@@ -1,8 +1,10 @@
 using Bomberman;
 using DataTypes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Obstacle : MapEntity
@@ -39,6 +41,8 @@ public class Obstacle : MapEntity
     public Bonus ContainingBonus { get; private set; }
 
     public bool NotPassable { get => notPassable; private set => notPassable = value; }
+
+    public EventHandler BlownUp;
 
     private void Awake()
     {
@@ -129,6 +133,12 @@ public class Obstacle : MapEntity
         else if (dropBonus)
         {
             DropBonus();
+        }
+
+        if(BlownUp is not null)
+        {
+            BlownUp.Invoke(this, EventArgs.Empty);
+            BlownUp = null;
         }
 
         this.Placed = false;
