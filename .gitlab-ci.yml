@@ -1,7 +1,7 @@
 stages:
   - before
-  - test
   - build
+  - test
   - documentation
   - deploy
 
@@ -67,6 +67,11 @@ get-activation-file:
         - "$UNITY_DIR/$TEST_PLATFORM-coverage/coverage.xml"
     expire_in: 2 weeks
   coverage: /<Linecoverage>(.*?)</Linecoverage>/
+  needs:
+    - build-StandaloneLinux64
+    - build-StandaloneOSX
+    - build-WebGL
+    - build-StandaloneWindows64
 
 test-playmode:
   <<: *test
@@ -91,10 +96,6 @@ test-editmode:
     expire_in: 45 min
     paths:
       - $UNITY_DIR/Builds/
-  needs:
-    - job: test-playmode
-    - job: test-editmode
-      artifacts: true
 
 build-StandaloneLinux64:
   <<: *build
@@ -115,7 +116,6 @@ build-StandaloneWindows64:
 
 build-WebGL:
   <<: *build
-
   image: $IMAGE:$UNITY_VERSION-webgl-$IMAGE_VERSION
   variables:
     BUILD_TARGET: WebGL
@@ -123,8 +123,6 @@ build-WebGL:
 doxygen-generate:
   stage: documentation
   image: debian:latest
-  dependencies:
-    - test-playmode
   before_script:
     # Install Doxygen and dependencies
     - apt-get update && apt-get install -y doxygen graphviz
@@ -134,10 +132,15 @@ doxygen-generate:
     # Move the generated documentation to the public/docs directory
     - mkdir -p documentation
     - mv ./docs/html/*  documentation
+    - ls -la
   allow_failure: true
   artifacts:
     paths:
       - documentation
+  needs:
+    - job: test-playmode
+    - job: test-editmode
+      artifacts : true
 
 #Host the documentation instead of the webgl edition of the game
 pages:
@@ -151,7 +154,6 @@ pages:
     - mkdir public/docs
     - ls -la
     - mv ./documentation/* public/
-    # - mv "$UNITY_DIR/Builds/WebGL/${BUILD_NAME}" public/game/
 #    - mv ./ci/index.html public
   artifacts:
     paths:
@@ -159,6 +161,11 @@ pages:
   only:
     - documentation
     - master
+  needs:
+    - job: test-playmode
+    - job: test-editmode
+    - job: doxygen-generate
+      artifacts : true
 
 workflow:
   rules:
