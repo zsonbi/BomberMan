@@ -202,10 +202,7 @@ namespace Bomberman
                     default:
                         return false;
                 }
-                if (edge)
-                {
-                    return false;
-                }
+                return !edge;
             }
 
             switch (dir)
@@ -233,7 +230,7 @@ namespace Bomberman
 
             if (obstacle.NotPassable || obstacle.Placed)
             {
-                return ghost || false ;
+                return  false ;
             }
             return true;
         }

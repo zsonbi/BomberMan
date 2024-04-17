@@ -50,7 +50,9 @@ public class Player : MovingEntity
 
     public int AvailableObstacle {  get; private set; }=0;
 
-    public float ImmunityDuration { get; private set; }
+    public float ImmunityMaxDuration { get; private set; }
+    public float GhostMaxDuration { get; private set; }
+
 
     /// <summary>
     /// Event to call when the player died
@@ -126,7 +128,7 @@ public class Player : MovingEntity
                             }
                             break;
                         case BonusType.Ghost:
-                            if (GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].Placed)
+                            if (GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].Placed && !GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].HasBomb)
                             {
                                 InstantKill();
                             }
@@ -153,7 +155,11 @@ public class Player : MovingEntity
         }
         if (Bonuses.ContainsKey(BonusType.Immunity))
         {
-            spriteRenderer.color = new Color(Bonuses[BonusType.Immunity].Duration/ImmunityDuration, 0, 0, spriteRenderer.color.a);
+            spriteRenderer.color = new Color(1,1- Bonuses[BonusType.Immunity].Duration / ImmunityMaxDuration,1- Bonuses[BonusType.Immunity].Duration / ImmunityMaxDuration, spriteRenderer.color.a);
+        }
+        if (Bonuses.ContainsKey(BonusType.Ghost))
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1- Bonuses[BonusType.Ghost].Duration / GhostMaxDuration);
 
         }
 
@@ -234,12 +240,12 @@ public class Player : MovingEntity
                         break;
                     //If this bonus is picked up the player will be immune for damage for a short peroid of time
                     case BonusType.Immunity:
-                        ImmunityDuration = bonus.Duration;
+                        ImmunityMaxDuration = bonus.Duration;
                         spriteRenderer.color = new Color(1, 0, 0, spriteRenderer.color.a);
                         break;
                     case BonusType.Ghost:
                         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
-
+                        GhostMaxDuration=bonus.Duration;
                         this.SetGhost(true);
                         break;
                     case BonusType.Obstacle:
