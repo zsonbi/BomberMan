@@ -62,6 +62,8 @@ namespace Bomberman
         /// </summary>
         public EventHandler ReachedTargetEvent;
 
+        private bool ghost = false;
+
         /// <summary>
         /// Inits the entity should be called right after creating the entity
         /// </summary>
@@ -178,6 +180,34 @@ namespace Bomberman
         public bool DirectionPassable(Direction dir)
         {
             Obstacle obstacle;
+
+            if (ghost)
+            {
+                bool edge =false;
+                switch (dir)
+                {
+                    case Direction.Left:
+                        edge= CurrentBoardPos.Col <= 1;
+                        break;
+                    case Direction.Up:
+                        edge= CurrentBoardPos.Row <= 1;
+                        break;
+                    case Direction.Right:
+                        edge= CurrentBoardPos.Col >= GameBoard.ColCount - 2;
+                        break;
+                    case Direction.Down:
+                        edge= CurrentBoardPos.Row >= GameBoard.RowCount - 2;
+                        break;
+
+                    default:
+                        return false;
+                }
+                if (edge)
+                {
+                    return false;
+                }
+            }
+
             switch (dir)
             {
                 case Direction.Left:
@@ -203,7 +233,7 @@ namespace Bomberman
 
             if (obstacle.NotPassable || obstacle.Placed)
             {
-                return false;
+                return ghost || false ;
             }
             return true;
         }
@@ -244,7 +274,7 @@ namespace Bomberman
                     NewDirection = Direction.None;
                 }
 
-                if (DirectionPassable(CurrentDirection) || (EntityType == MapEntityType.Monster && ((Monster)this).Type == MonsterType.Ghost))
+                if (DirectionPassable(CurrentDirection))
                 {
                     targetPos = GetNextTarget(CurrentDirection);
                     moveProgress = 0f;
@@ -296,6 +326,11 @@ namespace Bomberman
         public virtual void ChangedCell(int boardRow, int boardCol)
         {
             this.CurrentBoardPos.Change(boardRow, boardCol);
+        }
+
+        public void SetGhost(bool newValue)
+        {
+            ghost = newValue;
         }
     }
 }
