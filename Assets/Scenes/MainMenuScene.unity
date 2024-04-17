@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 737277444}
   - component: {fileID: 737277443}
+  - component: {fileID: 737277445}
   m_Layer: 0
   m_Name: Background music
   m_TagString: Untagged
@@ -251,6 +252,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &737277445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737277442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4359bdd652a996c44a345cd5b12e1157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Toggle: {fileID: 1272901213}
 --- !u!1 &979034776
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +357,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1272901213 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 562080135607382796, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
+  m_PrefabInstance: {fileID: 1550955912}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1274862716
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +438,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 175739969442672579, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 737277445}
     - target: {fileID: 1725671201435615751, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
       propertyPath: m_Pivot.x
       value: 0

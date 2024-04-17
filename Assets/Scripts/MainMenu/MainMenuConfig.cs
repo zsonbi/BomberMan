@@ -21,4 +21,9 @@ public static class MainMenuConfig
     /// Required points to win (default: 3)
     /// </summary>
     public static int RequiredPoint = 3;
+
+    /// <summary>
+    /// Is the sound muted (default: unmuted)
+    /// </summary>
+    public static bool SoundMuted = false;
 }
