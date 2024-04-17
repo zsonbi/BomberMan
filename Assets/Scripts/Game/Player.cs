@@ -55,6 +55,11 @@ public class Player : MovingEntity
     /// </summary>
     public EventHandler PlayerDiedEventHandler;
 
+    /// <summary>
+    /// The player's display
+    /// </summary>
+    private SpriteRenderer spriteRenderer;
+
     //When the script is loaded this method is called
     private void Awake()
     {
@@ -72,7 +77,7 @@ public class Player : MovingEntity
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("DetonateButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 5].ToString())), Detonate);
         Controls.Add((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("PlacingObstacleButton" + playerId, Config.PLAYERDEFAULTKEYS[playerId, 6].ToString())), PlaceObstacle);
 
-        SpriteRenderer spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
             spriteRenderer.sprite = Resources.Load<Sprite>("PlayerSkins/" + MainMenuConfig.PlayerSkins[playerId]);

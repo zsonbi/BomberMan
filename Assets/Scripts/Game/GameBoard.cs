@@ -494,7 +494,6 @@ namespace Bomberman
                     CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
                 }
                 Resume();
-                SpawnBonus(BonusType.Obstacle,Players.First().CurrentBoardPos);
             }
         }
     }
