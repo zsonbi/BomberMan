@@ -179,7 +179,6 @@ namespace Bomberman
         /// <returns>true-passable false-impassable</returns>
         public bool DirectionPassable(Direction dir)
         {
-            Obstacle obstacle;
 
             if (ghost)
             {
@@ -204,6 +203,7 @@ namespace Bomberman
                 }
                 return !edge;
             }
+            Obstacle obstacle;
 
             switch (dir)
             {
@@ -271,7 +271,7 @@ namespace Bomberman
                     NewDirection = Direction.None;
                 }
 
-                if (DirectionPassable(CurrentDirection))
+                if (DirectionPassable(CurrentDirection) ||( this.EntityType==MapEntityType.Monster && ((Monster)(this)).Type==MonsterType.Ghost))
                 {
                     targetPos = GetNextTarget(CurrentDirection);
                     moveProgress = 0f;
