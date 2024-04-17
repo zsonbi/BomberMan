@@ -129,8 +129,14 @@ public class Player : MovingEntity
                             {
                                 InstantKill();
                             }
+                            spriteRenderer.color= new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b,1);
                             this.SetGhost(false);
                             break;
+                        case BonusType.Immunity:
+                            spriteRenderer.color= new Color(1, 1, 1, spriteRenderer.color.a);
+
+                            break;
+
                         default:
                             break;
                     }
@@ -222,9 +228,11 @@ public class Player : MovingEntity
                         break;
                     //If this bonus is picked up the player will be immune for damage for a short peroid of time
                     case BonusType.Immunity:
-                        Debug.Log("Immunity bonus picked up");
+                        spriteRenderer.color = new Color(1, 0, 0, spriteRenderer.color.a);
                         break;
                     case BonusType.Ghost:
+                        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
+
                         this.SetGhost(true);
                         break;
                     case BonusType.Obstacle:
