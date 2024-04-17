@@ -123,6 +123,8 @@ build-WebGL:
 doxygen-generate:
   stage: documentation
   image: debian:latest
+  dependencies:
+    - test-playmode
   before_script:
     # Install Doxygen and dependencies
     - apt-get update && apt-get install -y doxygen graphviz
