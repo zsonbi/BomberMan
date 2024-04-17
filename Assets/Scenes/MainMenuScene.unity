@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 737277444}
   - component: {fileID: 737277443}
+  - component: {fileID: 737277445}
   m_Layer: 0
   m_Name: Background music
   m_TagString: Untagged
@@ -251,6 +252,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &737277445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737277442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4359bdd652a996c44a345cd5b12e1157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &979034776
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,14 +463,14 @@ PrefabInstance:
     - target: {fileID: 175739969442672579, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 737277445}
     - target: {fileID: 175739969442672579, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: MuteSound
       objectReference: {fileID: 0}
     - target: {fileID: 175739969442672579, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MainMenu, BomberManAssembly
+      value: SoundManage, BomberManAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 175739969442672579, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -543,9 +556,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2317007709970143732, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317007709970143732, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5bb3f2f2ba27aca4c9ea1f562c7e24d3, type: 3}
     - target: {fileID: 2886709818570019536, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
       propertyPath: m_Name
       value: MainMenuPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938169171589238415, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 212f86ae982eba44f8ce68a6563df26c, type: 3}
+    - target: {fileID: 3938169171589238415, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9924528
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938169171589238415, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9924528
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938169171589238415, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9924528
+      objectReference: {fileID: 0}
+    - target: {fileID: 8312162520833711971, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8312162520833711971, guid: a8619fc87b86b2d48808b24ff6bbd12a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
