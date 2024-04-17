@@ -495,7 +495,6 @@ namespace Bomberman
                 }
                 Resume();
 
-                SpawnBonus(BonusType.Immunity,Players.First().CurrentBoardPos);
             }
         }
     }

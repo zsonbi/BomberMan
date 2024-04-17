@@ -24,10 +24,7 @@ namespace Bomberman
         {
             this.body = body;
             this.Accuracy = accuracy;
-            if (body.Type == MonsterType.Ghost)
-            {
-                body.SetGhost(true);
-            }
+
         }
 
         /// <summary>

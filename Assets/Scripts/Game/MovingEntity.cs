@@ -180,6 +180,34 @@ namespace Bomberman
         public bool DirectionPassable(Direction dir)
         {
             Obstacle obstacle;
+
+            if (ghost)
+            {
+                bool edge =false;
+                switch (dir)
+                {
+                    case Direction.Left:
+                        edge= CurrentBoardPos.Col <= 1;
+                        break;
+                    case Direction.Up:
+                        edge= CurrentBoardPos.Row <= 1;
+                        break;
+                    case Direction.Right:
+                        edge= CurrentBoardPos.Col >= GameBoard.ColCount - 2;
+                        break;
+                    case Direction.Down:
+                        edge= CurrentBoardPos.Row >= GameBoard.RowCount - 2;
+                        break;
+
+                    default:
+                        return false;
+                }
+                if (edge)
+                {
+                    return false;
+                }
+            }
+
             switch (dir)
             {
                 case Direction.Left:
@@ -205,7 +233,7 @@ namespace Bomberman
 
             if (obstacle.NotPassable || obstacle.Placed)
             {
-                return false;
+                return ghost || false ;
             }
             return true;
         }
@@ -246,7 +274,7 @@ namespace Bomberman
                     NewDirection = Direction.None;
                 }
 
-                if (DirectionPassable(CurrentDirection) || ghost)
+                if (DirectionPassable(CurrentDirection))
                 {
                     targetPos = GetNextTarget(CurrentDirection);
                     moveProgress = 0f;
