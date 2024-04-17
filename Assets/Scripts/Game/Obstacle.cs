@@ -69,10 +69,10 @@ public class Obstacle : MapEntity
         if (index < 0)
         {
             throw new System.Exception("No such bonus we can spawn!");
-            
+
         }
 
-        Debug.Log(bonusToSpawn.ToString()+index);
+        Debug.Log(bonusToSpawn.ToString() + index);
 
         Bonus bonus = Instantiate(bonusPrefabs[index], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
         bonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
@@ -82,9 +82,10 @@ public class Obstacle : MapEntity
 
     private void DropBonus()
     {
-        if(ContainingBonus is not null) { 
-        ContainingBonus.Show();
-        this.ContainingBonus = null;
+        if (ContainingBonus is not null)
+        {
+            ContainingBonus.Show();
+            this.ContainingBonus = null;
         }
     }
 
@@ -137,7 +138,7 @@ public class Obstacle : MapEntity
             DropBonus();
         }
 
-        if(BlownUp is not null)
+        if (BlownUp is not null)
         {
             BlownUp.Invoke(this, EventArgs.Empty);
             BlownUp = null;

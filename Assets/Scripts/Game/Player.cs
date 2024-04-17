@@ -336,7 +336,7 @@ public class Player : MovingEntity
     //The player places a bomb on the board if it has a wall available
     private void PlaceObstacle()
     {
-        if (actionCooldown > 0 || !Bonuses.ContainsKey(BonusType.Obstacle) && AvailableObstacle>0)
+        if (actionCooldown > 0 || !Bonuses.ContainsKey(BonusType.Obstacle) || AvailableObstacle<=0)
         {
             return;
         }
