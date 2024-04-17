@@ -228,6 +228,133 @@ namespace Tests
             yield return null;
         }
 
+        [UnityTest]
+        public IEnumerator TestGhostBonus()
+        {
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+            Vector3 playerPos = gameBoard.Players.First().gameObject.transform.position;
+
+            yield return new WaitForSeconds(0.1f);
+            Assert.AreEqual(playerPos,gameBoard.Players.First().transform.position);
+
+            gameBoard.SpawnBonus(BonusType.Ghost,gameBoard.Players.First().CurrentBoardPos);
+            yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(0.1f);
+            Assert.AreNotEqual(playerPos, gameBoard.Players.First().transform.position);
+        }
+
+
+        [UnityTest]
+        public IEnumerator TestImmunityBonus()
+        {
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+            int playerHp = gameBoard.Players.First().Hp;
+            gameBoard.SpawnBonus(BonusType.Immunity, gameBoard.Players.First().CurrentBoardPos);
+            yield return new WaitForFixedUpdate();
+            gameBoard.SpawnBomb(gameBoard.Players.First().CurrentBoardPos);
+
+            yield return new WaitForSeconds(0.1f);
+            Assert.AreEqual(playerHp, gameBoard.Players.First().Hp);
+
+        }
+
+        [UnityTest]
+        public IEnumerator TestSkateBonus()
+        {
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testEveryOneCanMove");
+            float prevTimeToMove= gameBoard.Players.First().timeToMove;
+            gameBoard.SpawnBonus(BonusType.Skate,gameBoard.Players.First().CurrentBoardPos);
+            yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(0.2f);
+            
+            Assert.Less(gameBoard.Players.First().timeToMove, prevTimeToMove);
+        }
+
+        [UnityTest]
+        public IEnumerator TestObstacleBonus()
+        {
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testEveryOneCanMove");
+            Player firstPlayer = gameBoard.Players.First();
+            Action placeObstacleAction=null;
+            foreach (var control in firstPlayer.Controls)
+            {
+                if (control.Value.Method.Name == "PlaceObstacle")
+                {
+                   placeObstacleAction= control.Value;
+                }
+            }
+            if(placeObstacleAction is null)
+            {
+                Assert.Fail();
+            }
+
+            placeObstacleAction.Method.Invoke(firstPlayer,null);
+
+            Assert.IsFalse(gameBoard.Cells[firstPlayer.CurrentBoardPos.Row,firstPlayer.CurrentBoardPos.Col].Placed);
+           
+            Assert.AreEqual(0, firstPlayer.AvailableObstacle);
+            gameBoard.SpawnBonus(BonusType.Obstacle,firstPlayer.CurrentBoardPos);
+
+            yield return new WaitForFixedUpdate();
+            Assert.AreEqual(3, firstPlayer.AvailableObstacle);
+
+            placeObstacleAction.Method.Invoke(firstPlayer, null);
+            Assert.AreEqual(2, firstPlayer.AvailableObstacle);
+
+            Assert.IsTrue(gameBoard.Cells[firstPlayer.CurrentBoardPos.Row, firstPlayer.CurrentBoardPos.Col].Placed);
+
+            gameBoard.SpawnBonus(BonusType.Obstacle, gameBoard.Players.First().CurrentBoardPos);
+            yield return new WaitForFixedUpdate();
+            Assert.AreEqual(5, firstPlayer.AvailableObstacle);
+
+
+            gameBoard.SpawnBomb(new Position(firstPlayer.CurrentBoardPos.Row, firstPlayer.CurrentBoardPos.Col-1));
+            Assert.AreEqual(6, firstPlayer.AvailableObstacle);
+            Assert.AreEqual(1, gameBoard.Entites.Count);
+
+        }
+
+
+        [UnityTest]
+        public IEnumerator TestDetonator()
+        {
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testEveryOneCanMove");
+            Player firstPlayer = gameBoard.Players.First();
+            Action placeBombAction = null;
+            foreach (var control in firstPlayer.Controls)
+            {
+                if (control.Value.Method.Name == "PlaceBomb")
+                {
+                    placeBombAction = control.Value;
+                }
+            }
+            if (placeBombAction is null)
+            {
+                Assert.Fail();
+            }
+            gameBoard.SpawnBonus(BonusType.Detonator, firstPlayer.CurrentBoardPos);
+            yield return new WaitForFixedUpdate();
+            
+            
+            placeBombAction.Method.Invoke(firstPlayer, null);
+            
+            yield return new WaitForSeconds(firstPlayer.Bombs.First().TimeTillBlow+0.1f+Config.BOMBEXPLOSIONSPREADSPEED);
+
+            Assert.IsTrue(firstPlayer.Bombs.First().Placed);
+            placeBombAction.Method.Invoke(firstPlayer, null);
+
+            yield return new WaitForSeconds( 0.1f + Config.BOMBEXPLOSIONSPREADSPEED*(firstPlayer.Bombs.First().BlastRadius+1));
+
+            Assert.IsFalse(firstPlayer.Bombs.First().Placed);
+
+
+        }
+
 
         [UnityTest]
         public IEnumerator TestInstantBombBonus()

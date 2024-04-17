@@ -319,13 +319,6 @@ public class Player : MovingEntity
             return;
         }
 
-        if (Bonuses.ContainsKey(BonusType.NoBomb) || GameBoard.Cells[this.CurrentBoardPos.Row, this.CurrentBoardPos.Col].Placed)
-        {
-            return;
-        }
-
-        actionCooldown = Config.PLAYERACTIONCOOLDOWN;
-
         if (Bonuses.ContainsKey(BonusType.Detonator))
         {
             if (AllTheBombsPlaced())
@@ -334,8 +327,17 @@ public class Player : MovingEntity
                 {
                     bomb.BlowUp();
                 }
-            }            
+            }
         }
+
+        if (Bonuses.ContainsKey(BonusType.NoBomb) || GameBoard.Cells[this.CurrentBoardPos.Row, this.CurrentBoardPos.Col].Placed)
+        {
+            return;
+        }
+
+        actionCooldown = Config.PLAYERACTIONCOOLDOWN;
+
+
 
         foreach (Bomb bomb in Bombs)
         {
