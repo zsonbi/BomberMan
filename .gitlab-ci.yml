@@ -137,6 +137,8 @@ doxygen-generate:
   artifacts:
     paths:
       - documentation
+      - playmode-coverage
+    expire_in: 45 min
   needs:
     - job: test-playmode
     - job: test-editmode
