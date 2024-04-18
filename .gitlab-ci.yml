@@ -155,9 +155,9 @@ pages:
     - mkdir public
     - mkdir public/docs
     - ls -la
-    - mv ./documentation/* public/
-    - mv ./playmode-coverage/Report public/
-#    - mv ./ci/index.html public
+    - mv ./documentation public/documentation
+    - mv ./playmode-coverage/Report public/Report
+    - mv ./ci/index.html public
   artifacts:
     paths:
       - public
