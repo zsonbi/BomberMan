@@ -129,6 +129,7 @@ doxygen-generate:
   script:
     # Generate Doxygen documentation
     - doxygen -v
+    - doxygen -u DoxygenConf
     - doxygen ./DoxygenConf
     # Move the generated documentation to the public/docs directory
     - mkdir -p documentation
