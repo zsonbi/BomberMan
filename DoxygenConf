@@ -674,6 +674,9 @@ HTML_ALIGN_MEMBERS     = YES
 
 GENERATE_HTMLHELP      = NO
 
+#Makes the html default color style dark
+HTML_COLORSTYLE = TOGGLE_DARK
+
 # If the GENERATE_HTMLHELP tag is set to YES, the CHM_FILE tag can 
 # be used to specify the file name of the resulting .chm file. You 
 # can add a path in front of the file if the result should not be 
