@@ -128,6 +128,7 @@ doxygen-generate:
     - apt-get update && apt-get install -y doxygen graphviz
   script:
     # Generate Doxygen documentation
+    - doxygen -v
     - doxygen ./DoxygenConf
     # Move the generated documentation to the public/docs directory
     - mkdir -p documentation
@@ -158,6 +159,8 @@ pages:
     - mv ./documentation public/documentation
     - mv ./playmode-coverage/Report public/Report
     - mv ./ci/index.html public
+    - ls -la public/documentation/
+
   artifacts:
     paths:
       - public
