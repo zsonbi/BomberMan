@@ -128,13 +128,11 @@ doxygen-generate:
     - apt-get update && apt-get install -y doxygen graphviz
   script:
     # Generate Doxygen documentation
-    - doxygen -v
     - doxygen -u DoxygenConf
     - doxygen ./DoxygenConf
     # Move the generated documentation to the public/docs directory
     - mkdir -p documentation
     - mv ./docs/html/*  documentation
-    - ls -la
   allow_failure: true
   artifacts:
     paths:
@@ -156,11 +154,9 @@ pages:
   script:
     - mkdir public
     - mkdir public/docs
-    - ls -la
     - mv ./documentation public/documentation
     - mv ./playmode-coverage/Report public/Report
     - mv ./ci/index.html public
-    - ls -la public/documentation/
 
   artifacts:
     paths:
