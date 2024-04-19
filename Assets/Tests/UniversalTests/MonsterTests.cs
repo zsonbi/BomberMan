@@ -46,21 +46,22 @@ namespace Tests
             List<Vector3> monsterPositions = new List<Vector3>();
             foreach (var monster in gameBoard.Monsters)
             {
+
                 for (Direction i = 0; i <= Direction.Down; i++)
                 {
 
                     gameBoard.SpawnBomb(Position.CreateCopyAndMoveDir(monster.CurrentBoardPos, i), 1, true);
-                    monsterPositions.Add(new Vector3(monster.gameObject.transform.position.x, monster.gameObject.transform.position.y, monster.gameObject.transform.position.z));
 
                 }
+                monsterPositions.Add(new Vector3(monster.gameObject.transform.localPosition.x, monster.gameObject.transform.localPosition.y, monster.gameObject.transform.localPosition.z));
 
                 monster.Init(MapEntityType.Monster,gameBoard,monster.CurrentBoardPos);
-            }
+                }
 
             yield return new WaitForSeconds(5f);
             for (int i = 0; i < gameBoard.Monsters.Count; i++)
             {
-                Assert.AreEqual(gameBoard.Monsters[i].transform.position,monsterPositions[i]);
+                Assert.AreEqual(gameBoard.Monsters[i].gameObject.transform.localPosition, monsterPositions[i]);
             }
 
         }
