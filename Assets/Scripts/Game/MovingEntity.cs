@@ -235,8 +235,12 @@ namespace Bomberman
             return true;
         }
 
-        //What direction to move towards
-        private bool Move(Direction dir)
+        /// <summary>
+        /// What Moves the entity at the direction
+        /// </summary>
+        /// <param name="dir">The direction to move the entity</param>
+        /// <returns>true-if it could move, false-if it failed</returns>
+        protected virtual bool Move(Direction dir)
         {
             moveProgress += Time.deltaTime;
             if (targetPos is not null)
@@ -270,8 +274,8 @@ namespace Bomberman
 
                     NewDirection = Direction.None;
                 }
-
-                if (DirectionPassable(CurrentDirection) ||( this.EntityType==MapEntityType.Monster && ((Monster)(this)).Type==MonsterType.Ghost))
+                
+                if (DirectionPassable(CurrentDirection) || (this.EntityType == MapEntityType.Monster && ((Monster)(this)).Type == MonsterType.Ghost))
                 {
                     targetPos = GetNextTarget(CurrentDirection);
                     moveProgress = 0f;

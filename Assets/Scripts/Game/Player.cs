@@ -437,7 +437,7 @@ public class Player : MovingEntity
 
         bool tookDamage = base.Kill();
 
-        if (!this.Alive)
+        if (tookDamage && !this.Alive)
         {
             PlayerDiedEventHandler?.Invoke(this, EventArgs.Empty);
         }
