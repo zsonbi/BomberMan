@@ -63,9 +63,66 @@ namespace Tests
             {
                 Assert.AreEqual(gameBoard.Monsters[i].gameObject.transform.localPosition, monsterPositions[i]);
             }
-
         }
 
+        [UnityTest]
+        public IEnumerator MonsterDeath()
+        {
+            MainMenuConfig.Player3 = false;
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapMonstersFree");
+            foreach (var monster in gameBoard.Monsters)
+            {
+
+                for (Direction i = 0; i <= Direction.Down; i++)
+                {
+
+                    gameBoard.SpawnBomb(Position.CreateCopyAndMoveDir(monster.CurrentBoardPos, i), 1);
+
+                }
+
+            }
+
+            yield return new WaitForFixedUpdate();
+            for (int i = 0; i < gameBoard.Monsters.Count; i++)
+            {
+                Assert.IsFalse(gameBoard.Monsters[i].Alive);
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator PlayerAttackByStalker()
+        {
+            MainMenuConfig.Player3 = false;
+            gameBoard.StartNextGame();
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Stalker);
+            gameBoard.CreateBoard("Maps/TestMaps/LabirintForMonsters");
+            int[] originalHealths=gameBoard.Players.Select(x=>x.Hp).ToArray();
+            yield return new WaitForSeconds(15);
+            bool allEqual=true;
+            for (int i = 0; i < originalHealths.Length; i++)
+            {
+                allEqual=allEqual && originalHealths[i] == gameBoard.Players[i].Hp;
+            }
+            Assert.IsFalse(allEqual);
+        }
+
+        [UnityTest]
+        public IEnumerator PlayerAttackBySmarty()
+        {
+            MainMenuConfig.Player3 = false;
+            gameBoard.StartNextGame();
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Smarty);
+            gameBoard.CreateBoard("Maps/TestMaps/LabirintForMonsters");
+            int[] originalHealths = gameBoard.Players.Select(x => x.Hp).ToArray();
+            yield return new WaitForSeconds(15);
+            bool allEqual = true;
+            for (int i = 0; i < originalHealths.Length; i++)
+            {
+                allEqual = allEqual && originalHealths[i] == gameBoard.Players[i].Hp;
+            }
+            Assert.IsFalse(allEqual);
+        }
 
     }
 }

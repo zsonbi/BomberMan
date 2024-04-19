@@ -437,11 +437,11 @@ public class Player : MovingEntity
 
         bool tookDamage = base.Kill();
 
-        if (tookDamage && !this.Alive)
+        if ( !this.Alive)
         {
             PlayerDiedEventHandler?.Invoke(this, EventArgs.Empty);
         }
-        else
+        else if(tookDamage)
         {   
             GameBoard.MenuController.RemoveHealth(this);
         }
