@@ -301,9 +301,9 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestSkateAndSlownessBonus()
         {
-            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Stalker);
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
             gameBoard.StartNextGame();
-            gameBoard.CreateBoard("Maps/TestMaps/testEveryOneCanMove");
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
             float prevTimeToMove = gameBoard.Players.First().timeToMove;
             gameBoard.SpawnBonus(BonusType.Skate, gameBoard.Players.First().CurrentBoardPos);
             yield return new WaitForFixedUpdate();
