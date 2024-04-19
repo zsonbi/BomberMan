@@ -124,6 +124,7 @@ namespace Tests
                 {
                     control.Value.Method.Invoke(gameBoard.Players[0], null);
                     Assert.AreEqual(gameBoard.Players[0].Bombs.Count, gameBoard.Players[0].Bombs.Count(x => !x.Placed));
+                    break;
                 }
             }
             yield return new WaitForSeconds(noBombLength + 0.1f);
@@ -133,9 +134,30 @@ namespace Tests
                 {
                     control.Value.Method.Invoke(gameBoard.Players[0], null);
                     Assert.AreNotEqual(gameBoard.Players[0].Bombs.Count, gameBoard.Players[0].Bombs.Count(x => !x.Placed));
+                    break;
                 }
             }
         }
+
+        [EdgeCase]
+        [UnityTest]
+        public IEnumerator TestNoBombAndInstantBombBonus()
+        {
+            MainMenuConfig.Player3 = false;
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Basic);
+
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testMapEveryOneStuck2");
+            yield return null;
+            gameBoard.SpawnBonus(BonusType.NoBomb, gameBoard.Players.First().CurrentBoardPos);
+            gameBoard.SpawnBonus(BonusType.InstantBomb, gameBoard.Players.First().CurrentBoardPos);
+            float noBombLength = gameBoard.Entites[0].GetComponent<Bonus>().Duration;
+            yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(1f);
+       
+            Assert.IsTrue(gameBoard.Players.First().Bombs.All(x=>!x.Placed));
+        }
+
 
         [UnityTest]
         public IEnumerator TestSmallExplosion()
@@ -159,6 +181,7 @@ namespace Tests
                 if (control.Value.Method.Name == "PlaceBomb")
                 {
                     control.Value.Method.Invoke(gameBoard.Players[0], null);
+                    break;
                 }
             }
 
@@ -170,6 +193,7 @@ namespace Tests
                 if (control.Value.Method.Name == "PlaceBomb")
                 {
                     control.Value.Method.Invoke(gameBoard.Players[0], null);
+                    break;
                 }
             }
 
@@ -273,6 +297,74 @@ namespace Tests
             Assert.Less(gameBoard.Players.First().timeToMove, prevTimeToMove);
         }
 
+        [EdgeCase]
+        [UnityTest]
+        public IEnumerator TestSkateAndSlownessBonus()
+        {
+            gameBoard.ForceSpecificMobTypeOnLoad(MonsterType.Stalker);
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testEveryOneCanMove");
+            float prevTimeToMove = gameBoard.Players.First().timeToMove;
+            gameBoard.SpawnBonus(BonusType.Skate, gameBoard.Players.First().CurrentBoardPos);
+            yield return new WaitForFixedUpdate();
+            Assert.Less(gameBoard.Players.First().timeToMove, prevTimeToMove);
+            float skateMoveTime = gameBoard.Players.First().timeToMove;
+            gameBoard.SpawnBonus(BonusType.Slowness, gameBoard.Players.First().CurrentBoardPos);
+            gameBoard.SpawnBonus(BonusType.Immunity, gameBoard.Players.First().CurrentBoardPos);
+            gameBoard.SpawnBonus(BonusType.Immunity, gameBoard.Players[1].CurrentBoardPos);
+            yield return new WaitForFixedUpdate();
+            Assert.Less( prevTimeToMove, gameBoard.Players.First().timeToMove);
+            yield return new WaitForSeconds(gameBoard.Players.First().Bonuses[BonusType.Slowness].Duration/2+0.1f);
+            gameBoard.SpawnBonus(BonusType.Immunity, gameBoard.Players.First().CurrentBoardPos);
+            gameBoard.SpawnBonus(BonusType.Immunity, gameBoard.Players[1].CurrentBoardPos);
+            yield return new WaitForSeconds(gameBoard.Players.First().Bonuses[BonusType.Slowness].Duration+0.1f );
+            Assert.AreEqual(gameBoard.Players.First().timeToMove, skateMoveTime);
+        }
+
+        [EdgeCase]
+        [UnityTest]
+        public IEnumerator TestObstacleBonusAndPlaceBomb()
+        {
+            gameBoard.StartNextGame();
+            gameBoard.CreateBoard("Maps/TestMaps/testEveryOneCanMove");
+            Player firstPlayer = gameBoard.Players.First();
+            Action placeObstacleAction = null;
+            Action placeBomb=null;
+            foreach (var control in firstPlayer.Controls)
+            {
+                if (control.Value.Method.Name == "PlaceObstacle")
+                {
+                    placeObstacleAction = control.Value;
+                }
+                else if(control.Value.Method.Name == "PlaceBomb")
+                {
+                    placeBomb = control.Value;
+                }
+            }
+            if (placeObstacleAction is null || placeBomb is null)
+            {
+                Assert.Fail();
+            }
+
+            placeObstacleAction.Method.Invoke(firstPlayer, null);
+
+            Assert.IsFalse(gameBoard.Cells[firstPlayer.CurrentBoardPos.Row, firstPlayer.CurrentBoardPos.Col].Placed);
+
+            Assert.AreEqual(0, firstPlayer.AvailableObstacle);
+            gameBoard.SpawnBonus(BonusType.Obstacle, firstPlayer.CurrentBoardPos);
+
+            yield return new WaitForFixedUpdate();
+            Assert.AreEqual(3, firstPlayer.AvailableObstacle);
+
+            placeObstacleAction.Method.Invoke(firstPlayer, null);
+            Assert.AreEqual(2, firstPlayer.AvailableObstacle);
+            placeBomb.Method.Invoke(firstPlayer, null);
+
+            Assert.IsTrue(firstPlayer.Bombs.All(x=>!x.Placed));
+
+
+        }
+
         [UnityTest]
         public IEnumerator TestObstacleBonus()
         {
@@ -285,6 +377,7 @@ namespace Tests
                 if (control.Value.Method.Name == "PlaceObstacle")
                 {
                    placeObstacleAction= control.Value;
+                    break;
                 }
             }
             if(placeObstacleAction is null)
@@ -331,6 +424,7 @@ namespace Tests
                 if (control.Value.Method.Name == "PlaceBomb")
                 {
                     placeBombAction = control.Value;
+                    break;
                 }
             }
             if (placeBombAction is null)
