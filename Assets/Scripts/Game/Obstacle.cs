@@ -1,5 +1,6 @@
 using Bomberman;
 using DataTypes;
+using Persistance;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ public class Obstacle : MapEntity
     private Sprite spriteWhenBlownUp;
 
     [SerializeField]
-    private List<GameObject> bonusPrefabs;
+    public List<GameObject> bonusPrefabs;
 
     private SpriteRenderer spriteRenderer;
 
@@ -93,6 +94,37 @@ public class Obstacle : MapEntity
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
     {
         base.Init(entityType, gameBoard, CurrentPos);
+    }
+
+    public void ObstacleLoad(ObstacleSave obstacleSave)
+    {
+        if (obstacleSave.Placed)
+        {
+            Place(false);
+        }
+        this.placed = obstacleSave.Placed;
+        this.Destructible = obstacleSave.Destructible;
+        this.notPassable = obstacleSave.NotPassable;
+        if (obstacleSave.ContainingBonusType != null)
+        {
+            int index = -1;
+            for (int i = 0; i < bonusPrefabs.Count; i++)
+            {
+                if (bonusPrefabs[i].GetComponent<Bonus>().Type == obstacleSave.ContainingBonusType)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            if (index < 0)
+            {
+                throw new System.Exception("No such bonus we can spawn!");
+            }
+            Bonus bonus = Instantiate(bonusPrefabs[index], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
+            bonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
+            bonus.Init(MapEntityType.Bonus, this.GameBoard, new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));
+            this.ContainingBonus = bonus;
+        }
     }
 
     public bool Place(bool containBonus, int placerId = -1)

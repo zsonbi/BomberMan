@@ -5,6 +5,7 @@ using System;
 using Bomberman;
 using DataTypes;
 using System.Linq;
+using Persistance;
 
 public class Player : MovingEntity
 {
@@ -407,6 +408,60 @@ public class Player : MovingEntity
         Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
         bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
         Bombs.Add(bomb1);
+    }
+
+    public void LoadPlayer(PlayerSave playerSave, GameBoard gameBoard)
+    {
+        //Reset the player's components
+        while (Bombs.Count != 0)
+        {
+            Destroy(Bombs[0].gameObject);
+            Bombs.RemoveAt(0);
+        }
+        foreach (BonusType bonus in Enum.GetValues(typeof(BonusType)))
+        {
+            if (Bonuses.ContainsKey(bonus))
+            {
+                Bonuses.Remove(bonus);
+            }
+        }
+        base.Init(MapEntityType.Player, gameBoard, playerSave.CurrentBoardPos);
+        this.SetGhost(false);
+
+        foreach (var item in playerSave.Bonuses)
+        {
+            switch (item.Type)
+            {
+                case BonusType.Immunity:
+                    break;
+
+                case BonusType.Ghost:
+                    this.SetGhost(true);
+                    break;
+
+                default:
+                    break;
+            }
+
+            //int index = -1;
+            //for (int i = 0; i < bonusPrefabs.Count; i++)
+            //{
+            //    if (gameBoard.Cells[CurrentBoardPos.Row,CurrentBoardPos.Col].bonusPrefabs[i].GetComponent<Bonus>().Type == item.Type)
+            //    {
+            //        Bonus bonus = Instantiate(bonusPrefabs[index], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
+            //        bonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
+            //        bonus.Init(MapEntityType.Bonus, this.GameBoard, new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));
+            //        this.ContainingBonus = bonus;
+
+            //        Bonuses.Add(item,)
+            //        break;
+            //    }
+            //}
+            //if (index < 0)
+            //{
+            //    throw new System.Exception("No such bonus we can spawn!");
+            //}
+        }
     }
 
     /// <summary>

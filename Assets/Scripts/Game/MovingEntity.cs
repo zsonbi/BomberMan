@@ -42,7 +42,7 @@ namespace Bomberman
         /// <summary>
         /// The current moving direction of the entity
         /// </summary>
-        public Direction CurrentDirection { get; private set; } = Direction.Left;
+        public Direction CurrentDirection { get; protected set; } = Direction.Left;
 
         //What will be the entity's new moving direction after it changed tiles
         protected Direction NewDirection = Direction.None;

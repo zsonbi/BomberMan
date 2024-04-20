@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using DataTypes;
+using Persistance;
 
 namespace Bomberman
 {
@@ -20,7 +21,6 @@ namespace Bomberman
         //Called on every frame
         private new void Update()
         {
-            
             if (!Alive || GameBoard.Paused)
             {
                 return;
@@ -81,8 +81,21 @@ namespace Bomberman
                     return false;
                 }
             }
-           
+
             return base.Move(dir);
+        }
+
+        /// <summary>
+        /// Loads the monster
+        /// </summary>
+        /// <param name="monsterSave">The saved monster data</param>
+        public void LoadMonster(MonsterSave monsterSave, GameBoard gameBoard)
+        {
+            this.Type = monsterSave.Type;
+            this.Alive = monsterSave.Alive;
+            this.CurrentDirection = monsterSave.CurrentDirection;
+
+            Init(MapEntityType.Monster, gameBoard, monsterSave.CurrentBoardPos);
         }
 
         /// <summary>

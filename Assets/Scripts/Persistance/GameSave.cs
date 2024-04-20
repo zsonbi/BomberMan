@@ -11,7 +11,7 @@ namespace Persistance
         public float GameOverTimer;
 
         public float[] BattleRoyaleTimers;
-        public float BattleRoyaleTimerIndex;
+        public int BattleRoyaleTimerIndex;
         public int RowCount;
         public int ColCount;
         public bool Paused;

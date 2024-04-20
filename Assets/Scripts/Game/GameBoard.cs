@@ -11,6 +11,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using Persistance;
 using Newtonsoft.Json;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 namespace Bomberman
 {
@@ -519,11 +520,57 @@ namespace Bomberman
         /// Loads the game according to the file
         /// </summary>
         /// <param name="savePath">The path to the saveFile</param>
-        public void LoadState(string savePath = "save1")
+        public void LoadState(string savePath)
         {
             string json = File.ReadAllText(savePath);
 
             GameSave gameSave = JsonConvert.DeserializeObject<GameSave>(json);
+
+            this.gameOverTimer = gameSave.GameOverTimer;
+            this.BattleRoyaleTimers = gameSave.BattleRoyaleTimers;
+            this.BattleRoyaleTimerIndex = gameSave.BattleRoyaleTimerIndex;
+            this.RowCount = gameSave.RowCount;
+            this.ColCount = gameSave.ColCount;
+            this.Paused = gameSave.Paused;
+            this.StartGameOverCounter = gameSave.StartGameOverCounter;
+            MainMenuConfig.BattleRoyale = gameSave.BattleRoyaleMode;
+            MainMenuConfig.RequiredPoint = gameSave.RequiredPoints;
+
+            this.Cells = new Obstacle[RowCount, ColCount];
+
+            for (int i = 0; i < RowCount; i++)
+            {
+                for (int j = 0; j < ColCount; j++)
+                {
+                    Obstacle obstacle = Instantiate(destructibleWallPrefab, this.gameObject.transform).GetComponent<Obstacle>();
+                    obstacle.Init(MapEntityType.Obstacle, this, gameSave.Cells[i * RowCount + j].CurrentBoardPos);
+                    obstacle.gameObject.transform.localPosition = new Vector3(j * Config.CELLSIZE, -2.5f - i * Config.CELLSIZE, 1);
+                    obstacle.ObstacleLoad(gameSave.Cells[i * RowCount + j]);
+
+                    Cells[i, j] = obstacle;
+                }
+            }
+
+            for (int i = 0; i < gameSave.Players.Count; i++)
+            {
+            }
+
+            //Delete the monsters so they are still random
+            while (Monsters.Count != 0)
+            {
+                Destroy(Monsters[0].gameObject);
+                Monsters.RemoveAt(0);
+            }
+
+            for (int i = 0; i < gameSave.Monsters.Count; i++)
+            {
+                Monsters.Add(Instantiate(monsterPrefabs[(int)gameSave.Monsters[i].Type], this.transform).GetComponent<Monster>());
+
+                Monsters[i].Init(MapEntityType.Monster, this, gameSave.Monsters[i].CurrentBoardPos);
+                Monsters[i].gameObject.transform.localPosition = new Vector3(Monsters[i].CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - Monsters[i].CurrentBoardPos.Row * Config.CELLSIZE, 2);
+            }
+
+            this.MenuController.NewGame(Players);
 
             MainMenuConfig.mapPathToLoad = "";
         }
