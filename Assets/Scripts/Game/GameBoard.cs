@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 using Bomberman.Menu;
 using UnityEngine.UI;
 
+using System.Text.Json;
+
 namespace Bomberman
 {
     /// <summary>
@@ -42,15 +44,12 @@ namespace Bomberman
         [SerializeField]
         private ModalWindow modalWindow;
 
-
-
         [SerializeField]
         private GameObject CircleGameObject;
 
         [SerializeField]
         private Text BattleRoyaleTimerText;
 
-        //How long it will take after one player is alive to the game over to happen
         private float gameOverTimer = Config.GAME_OVER_TIMER;
 
         //What monster type to force load only works when it is none
@@ -58,10 +57,11 @@ namespace Bomberman
 
         //The timers for the battle royale circle (even index stay, odd index decrease)
         private float[] battleRoyaleTimers;
+
         //What index to use in the timers
         private int battleRoyaleTimerIndex = 0;
 
-        private float circleDecreaseRate=Config.CIRCLE_DECREASE_RATE;
+        private float circleDecreaseRate = Config.CIRCLE_DECREASE_RATE;
 
         /// <summary>
         /// The cells of the board
@@ -102,17 +102,6 @@ namespace Bomberman
         /// The game over counter is started
         /// </summary>
         public bool StartGameOverCounter { get; private set; } = false;
-
-        /// <summary>
-        /// The MainMenuConfig.BattleRoyale value will change, this won't
-        /// </summary>
-        public bool WasBattleRoyaleMode { get; private set; } = MainMenuConfig.BattleRoyale;
-
-        /// <summary>
-        /// Amount of time to wait between two shrinking
-        /// </summary>
-        public int timeConst { get; private set; } = 5;
-
 
         //Called every frame
         private void Update()
@@ -173,17 +162,13 @@ namespace Bomberman
                 else
                 {
                     DecreaseCircle();
-
                 }
-
             }
         }
 
         // Start is called before the first frame update
         private void Start()
         {
-
-
             if (CircleGameObject is null)
             {
                 throw new Exception("The battle royale circle object is not set");
@@ -193,9 +178,6 @@ namespace Bomberman
             {
                 throw new Exception("The battle royale timer container object is not set");
             }
-
-            
-
 
             StartNextGame();
         }
@@ -333,7 +315,7 @@ namespace Bomberman
             }
 
             Vector3 size = CircleGameObject.transform.localScale - Vector3.one * circleDecreaseRate * Time.deltaTime;
-            size.z=0;
+            size.z = 0;
             CircleGameObject.transform.localScale = size;
         }
 
@@ -404,9 +386,9 @@ namespace Bomberman
         /// Overrides the battle royale timers for testing only
         /// </summary>
         /// <param name="newTimers">The new timers to use</param>
-        public void OverrideBattleRoyaleTimers(float[] newTimers, float newRate=Config.CIRCLE_DECREASE_RATE)
+        public void OverrideBattleRoyaleTimers(float[] newTimers, float newRate = Config.CIRCLE_DECREASE_RATE)
         {
-            this.battleRoyaleTimers=newTimers;
+            this.battleRoyaleTimers = newTimers;
             circleDecreaseRate = newRate;
         }
 
@@ -430,7 +412,6 @@ namespace Bomberman
             this.Cells[whereToSpawn.Row, whereToSpawn.Col].PlaceBomb(bombToSpawn);
 
             bombToSpawn.PlaceByGameBoard(whereToSpawn, radius, permament);
-
         }
 
         /// <summary>
@@ -499,8 +480,9 @@ namespace Bomberman
                     CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
                 }
                 Resume();
-
             }
+            string jsonString = JsonUtility.ToJson(this);
+            Debug.Log(jsonString);
         }
     }
 }
