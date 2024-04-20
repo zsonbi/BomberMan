@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Persistance
 {
-    public abstract class ObstacleSave : MapEntitySave
+    public class ObstacleSave : MapEntitySave
     {
         public bool Placed { get; private set; }
 

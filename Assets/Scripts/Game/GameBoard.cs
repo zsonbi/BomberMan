@@ -50,16 +50,16 @@ namespace Bomberman
         [SerializeField]
         private Text BattleRoyaleTimerText;
 
-        private float gameOverTimer = Config.GAME_OVER_TIMER;
+        public float gameOverTimer { get; private set; } = Config.GAME_OVER_TIMER;
 
         //What monster type to force load only works when it is none
         private MonsterType forceMonsterType = MonsterType.None;
 
         //The timers for the battle royale circle (even index stay, odd index decrease)
-        private float[] battleRoyaleTimers;
+        public float[] BattleRoyaleTimers { get; private set; }
 
         //What index to use in the timers
-        private int battleRoyaleTimerIndex = 0;
+        public int BattleRoyaleTimerIndex { get; private set; } = 0;
 
         private float circleDecreaseRate = Config.CIRCLE_DECREASE_RATE;
 
@@ -146,15 +146,15 @@ namespace Bomberman
 
             if (MainMenuConfig.BattleRoyale)
             {
-                if (battleRoyaleTimerIndex < battleRoyaleTimers.Length)
+                if (BattleRoyaleTimerIndex < BattleRoyaleTimers.Length)
                 {
-                    battleRoyaleTimers[battleRoyaleTimerIndex] -= Time.deltaTime;
-                    if (battleRoyaleTimers[battleRoyaleTimerIndex] < 0)
+                    BattleRoyaleTimers[BattleRoyaleTimerIndex] -= Time.deltaTime;
+                    if (BattleRoyaleTimers[BattleRoyaleTimerIndex] < 0)
                     {
-                        battleRoyaleTimerIndex++;
+                        BattleRoyaleTimerIndex++;
                     }
                     CountDown();
-                    if (battleRoyaleTimerIndex % 2 == 1)
+                    if (BattleRoyaleTimerIndex % 2 == 1)
                     {
                         DecreaseCircle();
                     }
@@ -325,9 +325,9 @@ namespace Bomberman
         private void CountDown()
         {
             Debug.Log("MainMenuConfig.BattleRoyale:" + MainMenuConfig.BattleRoyale);
-            if (MainMenuConfig.BattleRoyale && battleRoyaleTimerIndex < battleRoyaleTimers.Length)
+            if (MainMenuConfig.BattleRoyale && BattleRoyaleTimerIndex < BattleRoyaleTimers.Length)
             {
-                DateTime datetime = new DateTime((int)(TimeSpan.TicksPerSecond * battleRoyaleTimers[battleRoyaleTimerIndex]));
+                DateTime datetime = new DateTime((int)(TimeSpan.TicksPerSecond * BattleRoyaleTimers[BattleRoyaleTimerIndex]));
                 BattleRoyaleTimerText.text = datetime.ToString("mm:ss");
             }
             else
@@ -388,7 +388,7 @@ namespace Bomberman
         /// <param name="newTimers">The new timers to use</param>
         public void OverrideBattleRoyaleTimers(float[] newTimers, float newRate = Config.CIRCLE_DECREASE_RATE)
         {
-            this.battleRoyaleTimers = newTimers;
+            this.BattleRoyaleTimers = newTimers;
             circleDecreaseRate = newRate;
         }
 
@@ -443,8 +443,8 @@ namespace Bomberman
             //Reset the battle royale components
             CircleGameObject.SetActive(MainMenuConfig.BattleRoyale);
             BattleRoyaleTimerText.transform.parent.gameObject.SetActive(MainMenuConfig.BattleRoyale);
-            battleRoyaleTimers = Config.BATTLE_ROYALE_TIMERS.Select(x => x).ToArray();
-            battleRoyaleTimerIndex = 0;
+            BattleRoyaleTimers = Config.BATTLE_ROYALE_TIMERS.Select(x => x).ToArray();
+            BattleRoyaleTimerIndex = 0;
             //Reset the battle royale circle
             if (CircleGameObject is not null)
             {

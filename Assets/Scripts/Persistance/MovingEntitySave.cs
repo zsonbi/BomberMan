@@ -33,7 +33,7 @@ namespace Persistance
         /// </summary>
         public Direction CurrentDirection { get; private set; }
 
-        public void SaveMovingEntity(MovingEntity entity)
+        protected void SaveMovingEntity(MovingEntity entity)
         {
             this.Speed = entity.Speed;
             this.Hp = entity.Hp;

@@ -18,7 +18,7 @@ namespace Persistance
         /// </summary>
         public MapEntityType EntityType { get; protected set; }
 
-        public void Save(MapEntity mapEntity)
+        protected void Save(MapEntity mapEntity)
         {
             this.CurrentBoardPos = mapEntity.CurrentBoardPos;
             this.EntityType = mapEntity.EntityType;
