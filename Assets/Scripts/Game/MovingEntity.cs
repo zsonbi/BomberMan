@@ -22,7 +22,7 @@ namespace Bomberman
         private Vector3? startPos;
 
         //Immunity counter if it been killed
-        private float immuneTime = 0f;
+        public float ImmuneTime { get; protected set; } = 0f;
 
         /// <summary>
         /// Speed of the entity (how fast it will move on the board)
@@ -97,9 +97,9 @@ namespace Bomberman
                 return;
             }
 
-            if (immuneTime > 0f)
+            if (ImmuneTime > 0f)
             {
-                immuneTime -= Time.deltaTime;
+                ImmuneTime -= Time.deltaTime;
             }
 
             Move(CurrentDirection);
@@ -140,7 +140,7 @@ namespace Bomberman
         /// </summary>
         public virtual bool Kill()
         {
-            if (immuneTime > 0)
+            if (ImmuneTime > 0)
             {
                 return false;
             }
@@ -150,7 +150,7 @@ namespace Bomberman
                 if (Hp > 0)
                 {
                     Hp--;
-                    immuneTime = Config.IMMUNETIME;
+                    ImmuneTime = Config.IMMUNETIME;
                 }
                 else
                 {
@@ -168,7 +168,7 @@ namespace Bomberman
         public void InstantKill()
         {
             this.Hp = 0;
-            immuneTime = 0f;
+            ImmuneTime = 0f;
             this.Kill();
         }
 
@@ -179,23 +179,25 @@ namespace Bomberman
         /// <returns>true-passable false-impassable</returns>
         public bool DirectionPassable(Direction dir)
         {
-
             if (ghost)
             {
-                bool edge =false;
+                bool edge = false;
                 switch (dir)
                 {
                     case Direction.Left:
-                        edge= CurrentBoardPos.Col <= 1;
+                        edge = CurrentBoardPos.Col <= 1;
                         break;
+
                     case Direction.Up:
-                        edge= CurrentBoardPos.Row <= 1;
+                        edge = CurrentBoardPos.Row <= 1;
                         break;
+
                     case Direction.Right:
-                        edge= CurrentBoardPos.Col >= GameBoard.ColCount - 2;
+                        edge = CurrentBoardPos.Col >= GameBoard.ColCount - 2;
                         break;
+
                     case Direction.Down:
-                        edge= CurrentBoardPos.Row >= GameBoard.RowCount - 2;
+                        edge = CurrentBoardPos.Row >= GameBoard.RowCount - 2;
                         break;
 
                     default:
@@ -230,7 +232,7 @@ namespace Bomberman
 
             if (obstacle.NotPassable || obstacle.Placed)
             {
-                return  false ;
+                return false;
             }
             return true;
         }
@@ -274,7 +276,7 @@ namespace Bomberman
 
                     NewDirection = Direction.None;
                 }
-                
+
                 if (DirectionPassable(CurrentDirection) || (this.EntityType == MapEntityType.Monster && ((Monster)(this)).Type == MonsterType.Ghost))
                 {
                     targetPos = GetNextTarget(CurrentDirection);

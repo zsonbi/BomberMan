@@ -18,10 +18,10 @@ namespace Persistance
         /// </summary>
         public MapEntityType EntityType { get; protected set; }
 
-        public MapEntitySave(Position currentBoardPos, MapEntityType mapEntityType)
+        public void Save(MapEntity mapEntity)
         {
-            this.CurrentBoardPos = currentBoardPos;
-            this.EntityType = mapEntityType;
+            this.CurrentBoardPos = mapEntity.CurrentBoardPos;
+            this.EntityType = mapEntity.EntityType;
         }
     }
 }

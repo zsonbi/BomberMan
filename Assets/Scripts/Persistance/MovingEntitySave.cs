@@ -33,23 +33,15 @@ namespace Persistance
         /// </summary>
         public Direction CurrentDirection { get; private set; }
 
-        /// <summary>
-        /// How is the move progressing (0.0-1.0)
-        /// </summary>
-        public float moveProgress { get; private set; }
-
-        /// <summary>
-        /// How long does the movement take
-        /// </summary>
-        public float timeToMove { get; protected set; } = 1f;
-
-        /// <summary>
-        /// The current position's of the entity
-        /// </summary>
-        public Vector3 CurrentLocalPosition { get; private set; }
-
-        public MovingEntitySave(Position currentBoardPos, MapEntityType mapEntityType) : base(currentBoardPos, mapEntityType)
+        public void SaveMovingEntity(MovingEntity entity)
         {
+            this.Speed = entity.Speed;
+            this.Hp = entity.Hp;
+            this.ImmuneTime = entity.ImmuneTime;
+            this.CurrentDirection = entity.CurrentDirection;
+            this.Alive = entity.Alive;
+
+            Save(entity);
         }
     }
 }
