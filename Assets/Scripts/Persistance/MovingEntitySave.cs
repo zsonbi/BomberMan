@@ -11,27 +11,27 @@ namespace Persistance
         /// <summary>
         /// Speed of the entity (how fast it will move on the board)
         /// </summary>
-        public float Speed { get; protected set; }
+        public float Speed;
 
         /// <summary>
         /// How many times can the entity be "killed"
         /// </summary>
-        public int Hp { get; protected set; }
+        public int Hp;
 
         /// <summary>
         /// The entity's immuneTime
         /// </summary>
-        public float ImmuneTime { get; protected set; }
+        public float ImmuneTime;
 
         /// <summary>
         /// Is the entity alive
         /// </summary>
-        public bool Alive { get; protected set; }
+        public bool Alive;
 
         /// <summary>
         /// The current moving direction of the entity
         /// </summary>
-        public Direction CurrentDirection { get; private set; }
+        public Direction CurrentDirection;
 
         protected void SaveMovingEntity(MovingEntity entity)
         {

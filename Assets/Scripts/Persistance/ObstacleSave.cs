@@ -9,13 +9,13 @@ namespace Persistance
 {
     public class ObstacleSave : MapEntitySave
     {
-        public bool Placed { get; private set; }
+        public bool Placed;
 
-        public bool Destructible { get; private set; }
+        public bool Destructible;
 
-        public BonusType? ContainingBonusType { get; private set; } = null;
+        public BonusType? ContainingBonusType = null;
 
-        public bool NotPassable { get; private set; }
+        public bool NotPassable;
 
         public void SaveObstacle(Obstacle obstacleToSave)
         {

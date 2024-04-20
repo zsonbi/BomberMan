@@ -8,10 +8,7 @@ namespace Persistance
 {
     public class MonsterSave : MovingEntitySave
     {
-        public MonsterType Type { get; private set; }
-
-        //The monster's brain for the pathfinding
-        private MonsterBrain Brain;
+        public MonsterType Type;
 
         public void SaveMonster(Monster monsterToSave)
         {

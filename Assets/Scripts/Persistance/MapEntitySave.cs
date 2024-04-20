@@ -11,12 +11,12 @@ namespace Persistance
         /// <summary>
         /// The entity's current position on the Board's grid
         /// </summary>
-        public Position CurrentBoardPos { get; protected set; }
+        public Position CurrentBoardPos;
 
         /// <summary>
         /// The type of the entity
         /// </summary>
-        public MapEntityType EntityType { get; protected set; }
+        public MapEntityType EntityType;
 
         protected void Save(MapEntity mapEntity)
         {

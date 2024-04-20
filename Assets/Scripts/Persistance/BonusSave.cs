@@ -8,15 +8,15 @@ namespace Persistance
 {
     public class BonusSave : MapEntitySave
     {
-        public int Tier { get; private set; }
+        public int Tier;
 
-        public BonusType Type { get; private set; }
+        public BonusType Type;
 
-        public float Duration { get; private set; }
+        public float Duration;
 
-        public bool Decaying { get; private set; }
+        public bool Decaying;
 
-        public Vector3 Position { get; private set; }
+        public Vector3 Position;
 
         public void SaveBonus(Bonus bonusToSave)
         {

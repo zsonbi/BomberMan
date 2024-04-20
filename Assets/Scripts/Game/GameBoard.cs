@@ -8,9 +8,10 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 using Bomberman.Menu;
 using UnityEngine.UI;
-
+using UnityEditor;
 using Persistance;
 using Unity.Plastic.Newtonsoft.Json;
+using Codice.CM.Client.Differences.Graphic;
 
 namespace Bomberman
 {
@@ -50,6 +51,9 @@ namespace Bomberman
 
         [SerializeField]
         private Text BattleRoyaleTimerText;
+
+        [SerializeField]
+        private SavesMenu SavesMenu;
 
         public float gameOverTimer { get; private set; } = Config.GAME_OVER_TIMER;
 
@@ -489,21 +493,30 @@ namespace Bomberman
         /// <summary>
         /// Saves the gameBoards state
         /// </summary>
-        public void SaveState(string saveId = "save1")
+        public void SaveState(string saveId = "gameSaves\\save1.json")
         {
             if (!Directory.Exists("gameSaves"))
             {
                 Directory.CreateDirectory("gameSaves");
             }
+            string[] files = Directory.GetFiles("gameSaves");
+            if (saveId == "")
+            {
+                saveId = "gameSaves/" + DateTime.Now.ToString("yyyy_MM_DD_HH_mm_ss") + ".json";
+            }
 
             GameSave gameSave = new GameSave(this);
             string jsonString = JsonConvert.SerializeObject(gameSave, formatting: Formatting.Indented);
             Debug.Log(jsonString);
-            File.WriteAllText("./gameSaves/" + saveId + ".json", jsonString);
+            Debug.Log(saveId);
+            File.WriteAllText(saveId, jsonString);
         }
 
-        public void LoadState()
+        public void LoadState(string saveId = "save1")
         {
+            string json = File.ReadAllText("./gameSaves/" + saveId + ".json");
+
+            GameSave gameSave = JsonConvert.DeserializeObject<GameSave>(json);
         }
     }
 }

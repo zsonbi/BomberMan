@@ -7,22 +7,23 @@ namespace Persistance
 {
     public class GameSave
     {
-        [SerializeField]
-        public ObstacleSave[] Cells { get; private set; }
+        public ObstacleSave[] Cells;
+        public float GameOverTimer;
 
-        [SerializeField]
-        public float GameOverTimer { get; private set; }
+        public float[] BattleRoyaleTimers;
+        public float BattleRoyaleTimerIndex;
+        public int RowCount;
+        public int ColCount;
+        public bool Paused;
+        public bool StartGameOverCounter;
+        public bool BattleRoyaleMode;
+        public int RequiredPoints;
+        public List<PlayerSave> Players = new List<PlayerSave>();
+        public List<MonsterSave> Monsters = new List<MonsterSave>();
 
-        public float[] BattleRoyaleTimers { get; private set; }
-        public float BattleRoyaleTimerIndex { get; private set; }
-        public int RowCount { get; private set; }
-        public int ColCount { get; private set; }
-        public bool Paused { get; private set; }
-        public bool StartGameOverCounter { get; private set; }
-        public bool BattleRoyaleMode { get; private set; }
-        public int RequiredPoints { get; private set; }
-        public List<PlayerSave> Players { get; private set; } = new List<PlayerSave>();
-        public List<MonsterSave> Monsters { get; private set; } = new List<MonsterSave>();
+        public GameSave()
+        {
+        }
 
         public GameSave(GameBoard gameBoardToSave)
         {

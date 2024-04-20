@@ -11,27 +11,27 @@ namespace Persistance
         /// <summary>
         /// How far does the bomb is blasting
         /// </summary>
-        public int BlastRadius { get; private set; }
+        public int BlastRadius;
 
         /// <summary>
         /// Is the bomb is currently placed and active
         /// </summary>
-        public bool Placed { get; private set; }
+        public bool Placed;
 
         /// <summary>
         /// The bomb's internal timer
         /// </summary>
-        public float BombTimer { get; private set; }
+        public float BombTimer;
 
         /// <summary>
         /// How long does the bomb take to blow up
         /// </summary>
-        public float TimeTillBlow { get; private set; } = Config.BOMBBLOWTIME;
+        public float TimeTillBlow = Config.BOMBBLOWTIME;
 
         /// <summary>
         /// Is the bomb detonable
         /// </summary>
-        public bool Detonable { get; set; } = false;
+        public bool Detonable = false;
 
         public void SaveBomb(Bomb bombToSave)
         {

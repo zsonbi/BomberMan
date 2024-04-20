@@ -8,35 +8,35 @@ namespace Persistance
     public class PlayerSave : MovingEntitySave
     {
         //The id of the player (set it in the editor)
-        public int PlayerId { get; private set; }
+        public int PlayerId;
 
         /// <summary>
         /// The player's name
         /// </summary>
-        public string PlayerName { get; private set; }
+        public string PlayerName;
 
         /// <summary>
         /// The bomb's of the player
         /// </summary>
-        public List<BombSave> Bombs { get; private set; } = new List<BombSave>();
+        public List<BombSave> Bombs = new List<BombSave>();
 
         /// <summary>
         /// The bonuses active for the player
         /// </summary>
-        public List<BonusSave> Bonuses { get; private set; } = new List<BonusSave>();
+        public List<BonusSave> Bonuses = new List<BonusSave>();
 
         /// <summary>
         /// The current score of the player
         /// </summary>
-        public int Score { get; private set; } = 0;
+        public int Score = 0;
 
         /// <summary>
         /// How many Obstacle can the player can still place
         /// </summary>
-        public int AvailableObstacle { get; private set; } = 0;
+        public int AvailableObstacle = 0;
 
-        public float ImmunityMaxDuration { get; private set; }
-        public float GhostMaxDuration { get; private set; }
+        public float ImmunityMaxDuration;
+        public float GhostMaxDuration;
 
         public string SkinName { get; private set; }
 
