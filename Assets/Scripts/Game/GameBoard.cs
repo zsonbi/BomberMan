@@ -10,6 +10,7 @@ using Bomberman.Menu;
 using UnityEngine.UI;
 
 using Persistance;
+using Unity.Plastic.Newtonsoft.Json;
 
 namespace Bomberman
 {
@@ -488,11 +489,21 @@ namespace Bomberman
         /// <summary>
         /// Saves the gameBoards state
         /// </summary>
-        public void SaveState(string path = "")
+        public void SaveState(string saveId = "save1")
         {
-            GameSave gameSave = new GameSave(this);
+            if (!Directory.Exists("gameSaves"))
+            {
+                Directory.CreateDirectory("gameSaves");
+            }
 
-            Debug.Log(JsonUtility.ToJson(gameSave));
+            GameSave gameSave = new GameSave(this);
+            string jsonString = JsonConvert.SerializeObject(gameSave, formatting: Formatting.Indented);
+            Debug.Log(jsonString);
+            File.WriteAllText("./gameSaves/" + saveId + ".json", jsonString);
+        }
+
+        public void LoadState()
+        {
         }
     }
 }
