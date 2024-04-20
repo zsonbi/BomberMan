@@ -3,17 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class SavesMenu : MonoBehaviour
 {
     private string[] files;
 
     [SerializeField]
-    private Button buttonPrefab;
+    private UnityEngine.UI.Button buttonPrefab;
 
     public EventHandler LoadFileEventHandler;
-    private List<Button> buttons = new List<Button>();
+    private List<UnityEngine.UI.Button> buttons = new List<UnityEngine.UI.Button>();
 
     private void ResetButtons()
     {
@@ -33,6 +35,7 @@ public class SavesMenu : MonoBehaviour
         files = Directory.GetFiles("gameSaves");
 
         this.gameObject.transform.parent.transform.parent.gameObject.SetActive(true);
+        AddButtons();
     }
 
     public void Hide()
@@ -46,13 +49,15 @@ public class SavesMenu : MonoBehaviour
 
         for (int i = 0; i < buttons.Count; i++)
         {
-            if (buttons[i] == gameObjectClicked)
+            if (buttons[i].gameObject == gameObjectClicked)
             {
                 index = i; break;
             }
         }
 
-        LoadFileEventHandler.Invoke(index, EventArgs.Empty);
+        MainMenuConfig.mapPathToLoad = buttons[index].GetComponentInChildren<TMPro.TMP_Text>().text;
+
+        SceneManager.LoadSceneAsync("BombermanScene");
     }
 
     private void AddButtons()
@@ -61,9 +66,10 @@ public class SavesMenu : MonoBehaviour
 
         foreach (var file in files)
         {
-            Button button = Instantiate(buttonPrefab, this.gameObject.transform).GetComponent<Button>();
+            UnityEngine.UI.Button button = Instantiate(buttonPrefab, this.gameObject.transform).GetComponent<UnityEngine.UI.Button>();
 
-            button.GetComponentInChildren<Text>().text = file;
+            button.GetComponentInChildren<TMPro.TMP_Text>().text = file;
+            button.gameObject.SetActive(true);
             buttons.Add(button);
         }
     }

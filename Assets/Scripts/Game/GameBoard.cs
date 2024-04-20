@@ -441,52 +441,56 @@ namespace Bomberman
         /// </summary>
         public void StartNextGame()
         {
-            StartGameOverCounter = false;
-            gameOverTimer = Config.GAME_OVER_TIMER;
-
-            //Reset the battle royale components
-            CircleGameObject.SetActive(MainMenuConfig.BattleRoyale);
-            BattleRoyaleTimerText.transform.parent.gameObject.SetActive(MainMenuConfig.BattleRoyale);
-            BattleRoyaleTimers = Config.BATTLE_ROYALE_TIMERS.Select(x => x).ToArray();
-            BattleRoyaleTimerIndex = 0;
-            //Reset the battle royale circle
-            if (CircleGameObject is not null)
+            if (MainMenuConfig.mapPathToLoad != "")
             {
-                CircleGameObject.transform.localScale = new Vector3(1000, 1000);
+                LoadState(MainMenuConfig.mapPathToLoad);
             }
-            if (Cells is not null)
+            else
             {
-                //Cleare out the previous game's entities
-                for (int i = 0; i < Cells.GetLength(0); i++)
+                StartGameOverCounter = false;
+                gameOverTimer = Config.GAME_OVER_TIMER;
+                //Reset the battle royale components
+                CircleGameObject.SetActive(MainMenuConfig.BattleRoyale);
+                BattleRoyaleTimerText.transform.parent.gameObject.SetActive(MainMenuConfig.BattleRoyale);
+                BattleRoyaleTimers = Config.BATTLE_ROYALE_TIMERS.Select(x => x).ToArray();
+                BattleRoyaleTimerIndex = 0;
+                //Reset the battle royale circle
+                if (CircleGameObject is not null)
                 {
-                    for (int j = 0; j < Cells.GetLength(1); j++)
+                    CircleGameObject.transform.localScale = new Vector3(1000, 1000);
+                }
+                if (Cells is not null)
+                {
+                    //Cleare out the previous game's entities
+                    for (int i = 0; i < Cells.GetLength(0); i++)
                     {
-                        Destroy(Cells[i, j].gameObject);
+                        for (int j = 0; j < Cells.GetLength(1); j++)
+                        {
+                            Destroy(Cells[i, j].gameObject);
+                        }
+                    }
+                    while (Entites.Count > 0)
+                    {
+                        Destroy(Entites[0].gameObject);
+                        Entites.RemoveAt(0);
                     }
                 }
-                while (Entites.Count > 0)
+                if (loadMapOnStartUp)
                 {
-                    Destroy(Entites[0].gameObject);
-                    Entites.RemoveAt(0);
+                    if (mapAssetPath != "")
+                    {
+                        CreateBoard(mapAssetPath);
+                    }
+                    else
+                    {
+                        //Not efficient, but can't do it other way
+                        TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
+
+                        CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
+                    }
+                    Resume();
                 }
             }
-            if (loadMapOnStartUp)
-            {
-                if (mapAssetPath != "")
-                {
-                    CreateBoard(mapAssetPath);
-                }
-                else
-                {
-                    //Not efficient, but can't do it other way
-                    TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
-
-                    CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
-                }
-                Resume();
-            }
-
-            SaveState();
         }
 
         /// <summary>
@@ -511,11 +515,17 @@ namespace Bomberman
             File.WriteAllText(saveId, jsonString);
         }
 
-        public void LoadState(string saveId = "save1")
+        /// <summary>
+        /// Loads the game according to the file
+        /// </summary>
+        /// <param name="savePath">The path to the saveFile</param>
+        public void LoadState(string savePath = "save1")
         {
-            string json = File.ReadAllText("./gameSaves/" + saveId + ".json");
+            string json = File.ReadAllText(savePath);
 
             GameSave gameSave = JsonConvert.DeserializeObject<GameSave>(json);
+
+            MainMenuConfig.mapPathToLoad = "";
         }
     }
 }
