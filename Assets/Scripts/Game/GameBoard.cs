@@ -10,8 +10,7 @@ using Bomberman.Menu;
 using UnityEngine.UI;
 using UnityEditor;
 using Persistance;
-using Unity.Plastic.Newtonsoft.Json;
-using Codice.CM.Client.Differences.Graphic;
+using Newtonsoft.Json;
 
 namespace Bomberman
 {
