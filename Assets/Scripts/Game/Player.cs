@@ -48,11 +48,10 @@ public class Player : MovingEntity
 
     public int PlayerId { get => playerId; }
 
-    public int AvailableObstacle {  get; private set; }=0;
+    public int AvailableObstacle { get; private set; } = 0;
 
     public float ImmunityMaxDuration { get; private set; }
     public float GhostMaxDuration { get; private set; }
-
 
     /// <summary>
     /// Event to call when the player died
@@ -67,7 +66,6 @@ public class Player : MovingEntity
     //When the script is loaded this method is called
     private void Awake()
     {
-
         if (playerId > 2)
         {
             Debug.LogError("PlayerId can't be higher than 2");
@@ -127,16 +125,18 @@ public class Player : MovingEntity
                                 this.timeToMove = 1f / this.Speed;
                             }
                             break;
+
                         case BonusType.Ghost:
                             if (GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].Placed && !GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].HasBomb)
                             {
                                 InstantKill();
                             }
-                            spriteRenderer.color= new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b,1);
+                            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1);
                             this.SetGhost(false);
                             break;
+
                         case BonusType.Immunity:
-                            spriteRenderer.color= new Color(1, 1, 1, spriteRenderer.color.a);
+                            spriteRenderer.color = new Color(1, 1, 1, spriteRenderer.color.a);
                             break;
 
                         default:
@@ -155,14 +155,12 @@ public class Player : MovingEntity
         }
         if (Bonuses.ContainsKey(BonusType.Immunity))
         {
-            spriteRenderer.color = new Color(1,1- Bonuses[BonusType.Immunity].Duration / ImmunityMaxDuration,1- Bonuses[BonusType.Immunity].Duration / ImmunityMaxDuration, spriteRenderer.color.a);
+            spriteRenderer.color = new Color(1, 1 - Bonuses[BonusType.Immunity].Duration / ImmunityMaxDuration, 1 - Bonuses[BonusType.Immunity].Duration / ImmunityMaxDuration, spriteRenderer.color.a);
         }
         if (Bonuses.ContainsKey(BonusType.Ghost))
         {
-            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1- Bonuses[BonusType.Ghost].Duration / (GhostMaxDuration*2));
-
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1 - Bonuses[BonusType.Ghost].Duration / (GhostMaxDuration * 2));
         }
-
 
         HandleKeys();
         base.Update();
@@ -243,17 +241,19 @@ public class Player : MovingEntity
                         ImmunityMaxDuration = bonus.Duration;
                         spriteRenderer.color = new Color(1, 0, 0, spriteRenderer.color.a);
                         break;
+
                     case BonusType.Ghost:
                         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
-                        GhostMaxDuration=bonus.Duration;
+                        GhostMaxDuration = bonus.Duration;
                         this.SetGhost(true);
                         break;
+
                     case BonusType.Obstacle:
                         if (Bonuses[bonus.Type].IncreaseTier())
                         {
-                            AvailableObstacle+=3;
+                            AvailableObstacle += 3;
                         }
-                            break;
+                        break;
 
                     default:
                         break;
@@ -289,6 +289,7 @@ public class Player : MovingEntity
                 break;
         }
     }
+
     //Check for collision with the battle royale circle, if collided it kills the player instant
     public void OnCollisionExit2D(Collision2D collision)
     {
@@ -337,8 +338,6 @@ public class Player : MovingEntity
 
         actionCooldown = Config.PLAYERACTIONCOOLDOWN;
 
-
-
         foreach (Bomb bomb in Bombs)
         {
             if (!bomb.Placed)
@@ -364,7 +363,7 @@ public class Player : MovingEntity
     //The player places a bomb on the board if it has a wall available
     private void PlaceObstacle()
     {
-        if (actionCooldown > 0 || !Bonuses.ContainsKey(BonusType.Obstacle) || AvailableObstacle<=0)
+        if (actionCooldown > 0 || !Bonuses.ContainsKey(BonusType.Obstacle) || AvailableObstacle <= 0)
         {
             return;
         }
@@ -374,8 +373,8 @@ public class Player : MovingEntity
         if (!obstacle.Placed)
         {
             AvailableObstacle--;
-            obstacle.Place(false);
-            obstacle.BlownUp= PlacedObstacleBlownUp;
+            obstacle.Place(false, playerId);
+            obstacle.BlownUp = PlacedObstacleBlownUp;
         }
     }
 
@@ -383,7 +382,6 @@ public class Player : MovingEntity
     {
         ++AvailableObstacle;
     }
-
 
     //Initialize the player object with base values
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
@@ -437,12 +435,12 @@ public class Player : MovingEntity
 
         bool tookDamage = base.Kill();
 
-        if ( !this.Alive)
+        if (!this.Alive)
         {
             PlayerDiedEventHandler?.Invoke(this, EventArgs.Empty);
         }
-        else if(tookDamage)
-        {   
+        else if (tookDamage)
+        {
             GameBoard.MenuController.RemoveHealth(this);
         }
 
@@ -471,7 +469,7 @@ public class Player : MovingEntity
     /// </summary>
     private bool AllTheBombsPlaced()
     {
-        foreach(Bomb bomb in Bombs)
+        foreach (Bomb bomb in Bombs)
         {
             if (!bomb.Placed)
             {

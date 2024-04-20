@@ -6,7 +6,19 @@ using UnityEngine;
 
 namespace Persistance
 {
-    public abstract class MonsterSave : MovingEntitySave
+    public class MonsterSave : MovingEntitySave
     {
+        public MonsterType Type { get; private set; }
+
+        //The monster's brain for the pathfinding
+        private MonsterBrain Brain;
+
+        public void SaveMonster(Monster monsterToSave)
+        {
+            this.Type = monsterToSave.Type;
+
+            base.SaveMovingEntity(monsterToSave);
+            base.Save(monsterToSave);
+        }
     }
 }

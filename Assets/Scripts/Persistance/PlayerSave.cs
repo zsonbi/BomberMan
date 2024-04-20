@@ -5,7 +5,12 @@ using UnityEngine;
 
 namespace Persistance
 {
-    public class PlayerSave
+    public class PlayerSave : MovingEntitySave
     {
+        public void SavePlayer(Player playerToSave)
+        {
+            base.SaveMovingEntity(playerToSave);
+            base.Save(playerToSave);
+        }
     }
 }

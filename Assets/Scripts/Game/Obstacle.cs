@@ -42,6 +42,8 @@ public class Obstacle : MapEntity
 
     public bool NotPassable { get => notPassable; private set => notPassable = value; }
 
+    public int ownerId { get; private set; } = -1;
+
     public EventHandler BlownUp;
 
     private void Awake()
@@ -69,7 +71,6 @@ public class Obstacle : MapEntity
         if (index < 0)
         {
             throw new System.Exception("No such bonus we can spawn!");
-
         }
 
         Debug.Log(bonusToSpawn.ToString() + index);
@@ -94,14 +95,14 @@ public class Obstacle : MapEntity
         base.Init(entityType, gameBoard, CurrentPos);
     }
 
-    public bool Place(bool containBonus)
+    public bool Place(bool containBonus, int placerId = -1)
     {
         if (this.Placed)
         {
             return false;
         }
         this.Placed = true;
-
+        this.ownerId = placerId;
         if (spriteWhenPlaced is not null)
         {
             spriteRenderer.sprite = spriteWhenPlaced;
