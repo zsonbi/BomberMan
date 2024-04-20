@@ -18,9 +18,8 @@ namespace Persistance
         /// </summary>
         public MapEntityType EntityType { get; protected set; }
 
-        public ObstacleSave(Position currentBoardPos)
+        public ObstacleSave(Position currentBoardPos, MapEntityType mapEntityType) : base(currentBoardPos, mapEntityType)
         {
-            this.CurrentBoardPos = currentBoardPos;
         }
     }
 }

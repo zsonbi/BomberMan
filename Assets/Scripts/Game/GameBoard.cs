@@ -481,8 +481,6 @@ namespace Bomberman
                 }
                 Resume();
             }
-            string jsonString = JsonUtility.ToJson(this);
-            Debug.Log(jsonString);
         }
     }
 }
