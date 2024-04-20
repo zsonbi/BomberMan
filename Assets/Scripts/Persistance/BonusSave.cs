@@ -18,7 +18,7 @@ namespace Persistance
 
         public Vector3 Position { get; private set; }
 
-        public void InitBonusSave(Bonus bonusToSave)
+        public void SaveBonus(Bonus bonusToSave)
         {
             this.Tier = bonusToSave.Tier;
             this.Type = bonusToSave.Type;
