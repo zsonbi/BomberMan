@@ -13,7 +13,7 @@ namespace Persistance
 
         public bool Destructible { get; private set; }
 
-        public BonusType ContainingBonusType { get; private set; }
+        public BonusType? ContainingBonusType { get; private set; } = null;
 
         public bool NotPassable { get; private set; }
 
@@ -21,7 +21,10 @@ namespace Persistance
         {
             this.Placed = obstacleToSave.Placed;
             this.Destructible = obstacleToSave.Destructible;
-            this.ContainingBonusType = obstacleToSave.ContainingBonus.Type;
+            if (obstacleToSave.ContainingBonus is not null)
+            {
+                this.ContainingBonusType = obstacleToSave.ContainingBonus.Type;
+            }
             this.NotPassable = obstacleToSave.NotPassable;
 
             base.Save(obstacleToSave);

@@ -7,8 +7,12 @@ namespace Persistance
 {
     public class GameSave
     {
+        [SerializeField]
         public ObstacleSave[] Cells { get; private set; }
+
+        [SerializeField]
         public float GameOverTimer { get; private set; }
+
         public float[] BattleRoyaleTimers { get; private set; }
         public float BattleRoyaleTimerIndex { get; private set; }
         public int RowCount { get; private set; }
@@ -20,7 +24,7 @@ namespace Persistance
         public List<PlayerSave> Players { get; private set; } = new List<PlayerSave>();
         public List<MonsterSave> Monsters { get; private set; } = new List<MonsterSave>();
 
-        public void SaveGameBoard(GameBoard gameBoardToSave)
+        public GameSave(GameBoard gameBoardToSave)
         {
             this.GameOverTimer = gameBoardToSave.gameOverTimer;
             this.RowCount = gameBoardToSave.RowCount;

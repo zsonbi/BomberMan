@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using Bomberman.Menu;
 using UnityEngine.UI;
 
-using System.Text.Json;
+using Persistance;
 
 namespace Bomberman
 {
@@ -481,6 +481,18 @@ namespace Bomberman
                 }
                 Resume();
             }
+
+            SaveState();
+        }
+
+        /// <summary>
+        /// Saves the gameBoards state
+        /// </summary>
+        public void SaveState(string path = "")
+        {
+            GameSave gameSave = new GameSave(this);
+
+            Debug.Log(JsonUtility.ToJson(gameSave));
         }
     }
 }
