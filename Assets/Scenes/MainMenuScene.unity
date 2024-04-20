@@ -599,37 +599,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1550955913}
     m_Modifications:
-    - target: {fileID: 1770477038116851929, guid: 7f86083422b4e764295fe22a719306ee, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 1770477038116851929, guid: 7f86083422b4e764295fe22a719306ee, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -30
-      objectReference: {fileID: 0}
-    - target: {fileID: 3368285951631769171, guid: 7f86083422b4e764295fe22a719306ee, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -80
-      objectReference: {fileID: 0}
-    - target: {fileID: 3368285951631769171, guid: 7f86083422b4e764295fe22a719306ee, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -30
-      objectReference: {fileID: 0}
     - target: {fileID: 5083670472075008867, guid: 7f86083422b4e764295fe22a719306ee, type: 3}
       propertyPath: m_Name
       value: LoadPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 5083670472075008867, guid: 7f86083422b4e764295fe22a719306ee, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7185226010153741899, guid: 7f86083422b4e764295fe22a719306ee, type: 3}
-      propertyPath: m_fontSize
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 7185226010153741899, guid: 7f86083422b4e764295fe22a719306ee, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8161596304387292324, guid: 7f86083422b4e764295fe22a719306ee, type: 3}
       propertyPath: m_Pivot.x
