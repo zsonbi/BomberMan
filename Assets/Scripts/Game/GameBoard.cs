@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using UnityEngine;
 using DataTypes;
 using System.Linq;
 using UnityEngine.SceneManagement;
-using Bomberman.Menu;
+using Menu;
 using UnityEngine.UI;
 using UnityEditor;
 using Persistance;
@@ -532,9 +531,10 @@ namespace Bomberman
         public void LoadState(string savePath)
         {
             string json = File.ReadAllText(savePath);
-
+            //Load it
             GameSave gameSave = JsonConvert.DeserializeObject<GameSave>(json);
 
+            //Change the gameboard's field and MenuConfig to match the save's fields
             this.gameOverTimer = gameSave.GameOverTimer;
             this.BattleRoyaleTimers = gameSave.BattleRoyaleTimers;
             this.BattleRoyaleTimerIndex = gameSave.BattleRoyaleTimerIndex;
@@ -546,11 +546,12 @@ namespace Bomberman
             MainMenuConfig.RequiredPoint = gameSave.RequiredPoints;
             CircleGameObject.SetActive(MainMenuConfig.BattleRoyale);
             BattleRoyaleTimerText.transform.parent.gameObject.SetActive(MainMenuConfig.BattleRoyale);
-
+            //Change the battle royale circle's size
             if (CircleGameObject is not null)
             {
                 CircleGameObject.transform.localScale = new Vector3(gameSave.BattleRoyaleCircle.Col, gameSave.BattleRoyaleCircle.Row);
             }
+            //Delete the old gameObjects
             if (Cells is not null)
             {
                 //Cleare out the previous game's entities
@@ -571,13 +572,15 @@ namespace Bomberman
                 }
             }
 
+            //Load the game's state
             this.Cells = new Obstacle[RowCount, ColCount];
+            //This is for the obstacle bonus
             Dictionary<int, List<Obstacle>> playerObstacles = new Dictionary<int, List<Obstacle>>();
             for (int i = 0; i < 3; i++)
             {
                 playerObstacles.Add(i, new List<Obstacle>());
             }
-
+            //Create the cells
             for (int i = 0; i < RowCount; i++)
             {
                 for (int j = 0; j < ColCount; j++)
@@ -604,7 +607,7 @@ namespace Bomberman
                     Cells[i, j] = obstacle;
                 }
             }
-
+            //Load the players
             for (int i = 0; i < gameSave.Players.Count; i++)
             {
                 MainMenuConfig.PlayerNames[i] = gameSave.Players[i].SkinName;
@@ -628,7 +631,7 @@ namespace Bomberman
                 Destroy(Monsters[0].gameObject);
                 Monsters.RemoveAt(0);
             }
-
+            //Load the monsters
             for (int i = 0; i < gameSave.Monsters.Count; i++)
             {
                 Monsters.Add(Instantiate(monsterPrefabs[(int)gameSave.Monsters[i].Type], this.transform).GetComponent<Monster>());
@@ -636,14 +639,14 @@ namespace Bomberman
 
                 Monsters[i].LoadMonster(gameSave.Monsters[i], this);
             }
-
+            //And spawn the currently visible bonuses
             foreach (var item in gameSave.droppedBonusSaves)
             {
                 this.SpawnBonus(item.Type, item.CurrentBoardPos);
             }
 
             this.MenuController.NewGame(Players);
-
+            //Update the in game menu to display the new gamestate
             foreach (var item in this.Players)
             {
                 foreach (var bonus in item.Bonuses)
@@ -653,7 +656,9 @@ namespace Bomberman
             }
 
             this.Resume();
+            //Clear this load request
             MainMenuConfig.mapPathToLoad = "";
+            //Check if it is a 3 player game
             MainMenuConfig.Player3 = gameSave.Players.Count == 3;
         }
     }
