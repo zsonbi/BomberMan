@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -64,7 +65,7 @@ public class SavesMenu : MonoBehaviour
     {
         ResetButtons();
 
-        foreach (var file in files)
+        foreach (var file in files.Skip(files.Length-7))
         {
             UnityEngine.UI.Button button = Instantiate(buttonPrefab, this.gameObject.transform).GetComponent<UnityEngine.UI.Button>();
 
