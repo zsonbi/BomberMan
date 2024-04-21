@@ -1,10 +1,10 @@
-using Bomberman;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Persistance
 {
+    /// <summary>
+    /// A container to save the players
+    /// </summary>
     public class PlayerSave : MovingEntitySave
     {
         //The id of the player (set it in the editor)
@@ -35,11 +35,24 @@ namespace Persistance
         /// </summary>
         public int AvailableObstacle = 0;
 
+        /// <summary>
+        /// How long does the ImmunityBonus lasts
+        /// </summary>
         public float ImmunityMaxDuration;
+        /// <summary>
+        /// How long does the GhostDuration lasts
+        /// </summary>
         public float GhostMaxDuration;
 
+        /// <summary>
+        /// The name of the player's skin
+        /// </summary>
         public string SkinName { get; private set; }
 
+        /// <summary>
+        /// Saves the player
+        /// </summary>
+        /// <param name="playerToSave"></param>
         public void SavePlayer(Player playerToSave)
         {
             this.PlayerId = playerToSave.PlayerId;
@@ -50,6 +63,7 @@ namespace Persistance
             this.GhostMaxDuration = playerToSave.GhostMaxDuration;
             this.SkinName = MainMenuConfig.PlayerSkins[this.PlayerId];
 
+            //Save the bombs
             foreach (var bomb in playerToSave.Bombs)
             {
                 BombSave bombSave = new BombSave();
@@ -57,15 +71,15 @@ namespace Persistance
                 Bombs.Add(bombSave);
             }
 
+            //Save the bonuses
             foreach (var item in playerToSave.Bonuses)
             {
                 BonusSave bombSave = new BonusSave();
                 bombSave.SaveBonus(item.Value);
                 this.Bonuses.Add(bombSave);
             }
-
+            //Save the MovingEntityComponent
             base.SaveMovingEntity(playerToSave);
-            base.Save(playerToSave);
         }
     }
 }

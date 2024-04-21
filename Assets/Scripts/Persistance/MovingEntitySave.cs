@@ -6,15 +6,18 @@ using UnityEngine;
 
 namespace Persistance
 {
+    /// <summary>
+    /// An abstract container to save the MovingEntities
+    /// </summary>
     public class MovingEntitySave : MapEntitySave
     {
         /// <summary>
-        /// Speed of the entity (how fast it will move on the board)
+        /// The spped of the saved entity
         /// </summary>
         public float Speed;
 
         /// <summary>
-        /// How many times can the entity be "killed"
+        /// How many extra health does the saved entity has
         /// </summary>
         public int Hp;
 
@@ -33,6 +36,10 @@ namespace Persistance
         /// </summary>
         public Direction CurrentDirection;
 
+        /// <summary>
+        /// Saves the entity's MovingEntity compontents
+        /// </summary>
+        /// <param name="entity">The entity to save</param>
         protected void SaveMovingEntity(MovingEntity entity)
         {
             this.Speed = entity.Speed;
@@ -40,7 +47,7 @@ namespace Persistance
             this.ImmuneTime = entity.ImmuneTime;
             this.CurrentDirection = entity.CurrentDirection;
             this.Alive = entity.Alive;
-
+            //Save the MapEntity
             Save(entity);
         }
     }
