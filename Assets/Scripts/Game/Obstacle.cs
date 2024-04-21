@@ -43,7 +43,7 @@ public class Obstacle : MapEntity
 
     public bool NotPassable { get => notPassable; private set => notPassable = value; }
 
-    public int ownerId { get; private set; } = -1;
+    public int OwnerId { get; private set; } = -1;
 
     public EventHandler BlownUp;
 
@@ -105,6 +105,7 @@ public class Obstacle : MapEntity
         this.placed = obstacleSave.Placed;
         this.Destructible = obstacleSave.Destructible;
         this.notPassable = obstacleSave.NotPassable;
+        this.OwnerId = obstacleSave.OwnerId;
         if (obstacleSave.ContainingBonusType != null)
         {
             int index = -1;
@@ -134,7 +135,7 @@ public class Obstacle : MapEntity
             return false;
         }
         this.Placed = true;
-        this.ownerId = placerId;
+        this.OwnerId = placerId;
         if (spriteWhenPlaced is not null)
         {
             spriteRenderer.sprite = spriteWhenPlaced;
@@ -175,6 +176,7 @@ public class Obstacle : MapEntity
         {
             BlownUp.Invoke(this, EventArgs.Empty);
             BlownUp = null;
+            this.OwnerId = -1;
         }
 
         this.Placed = false;

@@ -108,6 +108,8 @@ namespace Bomberman
         /// </summary>
         public bool StartGameOverCounter { get; private set; } = false;
 
+        internal Dictionary<BonusType, GameObject> BonusPrefabs { get; private set; }
+
         //Called every frame
         private void Update()
         {
@@ -182,6 +184,12 @@ namespace Bomberman
             if (BattleRoyaleTimerText is null)
             {
                 throw new Exception("The battle royale timer container object is not set");
+            }
+
+            foreach (var item in destructibleWallPrefab.GetComponent<Obstacle>().bonusPrefabs)
+            {
+                Bonus bonus = item.GetComponent<Bonus>();
+                BonusPrefabs.Add(bonus.Type, item);
             }
 
             StartNextGame();
@@ -537,15 +545,26 @@ namespace Bomberman
             MainMenuConfig.RequiredPoint = gameSave.RequiredPoints;
 
             this.Cells = new Obstacle[RowCount, ColCount];
+            Dictionary<int, List<Obstacle>> playerObstacles = new Dictionary<int, List<Obstacle>>();
+            for (int i = 0; i < 3; i++)
+            {
+                playerObstacles.Add(i, new List<Obstacle>());
+            }
 
             for (int i = 0; i < RowCount; i++)
             {
                 for (int j = 0; j < ColCount; j++)
                 {
+                    ObstacleSave obstacleSave = gameSave.Cells[i * RowCount + j];
                     Obstacle obstacle = Instantiate(destructibleWallPrefab, this.gameObject.transform).GetComponent<Obstacle>();
-                    obstacle.Init(MapEntityType.Obstacle, this, gameSave.Cells[i * RowCount + j].CurrentBoardPos);
+                    obstacle.Init(MapEntityType.Obstacle, this, obstacleSave.CurrentBoardPos);
                     obstacle.gameObject.transform.localPosition = new Vector3(j * Config.CELLSIZE, -2.5f - i * Config.CELLSIZE, 1);
-                    obstacle.ObstacleLoad(gameSave.Cells[i * RowCount + j]);
+                    obstacle.ObstacleLoad(obstacleSave);
+
+                    if (obstacleSave.OwnerId != -1)
+                    {
+                        playerObstacles[obstacleSave.OwnerId].Add(obstacle);
+                    }
 
                     Cells[i, j] = obstacle;
                 }
@@ -553,6 +572,14 @@ namespace Bomberman
 
             for (int i = 0; i < gameSave.Players.Count; i++)
             {
+                Players.Add(Instantiate(playerPrefabs[i], this.transform).GetComponent<Player>());
+                Players[i].LoadPlayer(gameSave.Players[i], this, playerObstacles[i]);
+                Players[i].gameObject.transform.localPosition = new Vector3(gameSave.Players[i].CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - gameSave.Players[i].CurrentBoardPos.Row * Config.CELLSIZE, 2);
+
+                Players[i].PlayerDiedEventHandler = CheckGameOverEvent;
+                Players[i].gameObject.SetActive(true);
+
+                MainMenuConfig.PlayerNames[i] = gameSave.Players[i].PlayerName;
             }
 
             //Delete the monsters so they are still random
@@ -573,6 +600,7 @@ namespace Bomberman
             this.MenuController.NewGame(Players);
 
             MainMenuConfig.mapPathToLoad = "";
+            MainMenuConfig.Player3 = gameSave.Players.Count == 3;
         }
     }
 }

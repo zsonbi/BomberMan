@@ -235,7 +235,8 @@ public class Player : MovingEntity
                     //If this bonus is picked up the player speed will be increased
                     case BonusType.Skate:
                         Debug.Log("Skate bonus picked up");
-                        this.timeToMove = 1 / (float)(this.Speed * 1.3f);
+                        if (!Bonuses.ContainsKey(BonusType.Slowness))
+                            this.timeToMove = 1 / (float)(this.Speed * 1.3f);
                         break;
                     //If this bonus is picked up the player will be immune for damage for a short peroid of time
                     case BonusType.Immunity:
@@ -410,7 +411,7 @@ public class Player : MovingEntity
         Bombs.Add(bomb1);
     }
 
-    public void LoadPlayer(PlayerSave playerSave, GameBoard gameBoard)
+    public void LoadPlayer(PlayerSave playerSave, GameBoard gameBoard, List<Obstacle> playerObstacles)
     {
         //Reset the player's components
         while (Bombs.Count != 0)
@@ -427,6 +428,11 @@ public class Player : MovingEntity
         }
         base.Init(MapEntityType.Player, gameBoard, playerSave.CurrentBoardPos);
         this.SetGhost(false);
+        this.Score = playerSave.Score;
+        this.Alive = playerSave.Alive;
+        this.Hp = playerSave.Hp;
+        this.ImmuneTime = playerSave.ImmuneTime;
+        this.CurrentDirection = playerSave.CurrentDirection;
 
         foreach (var item in playerSave.Bonuses)
         {
@@ -439,28 +445,48 @@ public class Player : MovingEntity
                     this.SetGhost(true);
                     break;
 
+                case BonusType.Skate:
+                    if (!Bonuses.ContainsKey(BonusType.Slowness))
+                    {
+                        this.timeToMove = 1 / (float)(this.Speed * 1.3f);
+                    }
+                    break;
+
+                case BonusType.Slowness:
+                    this.timeToMove = 1 / (float)(this.Speed * 0.6f);
+                    break;
+
                 default:
                     break;
             }
 
-            //int index = -1;
-            //for (int i = 0; i < bonusPrefabs.Count; i++)
-            //{
-            //    if (gameBoard.Cells[CurrentBoardPos.Row,CurrentBoardPos.Col].bonusPrefabs[i].GetComponent<Bonus>().Type == item.Type)
-            //    {
-            //        Bonus bonus = Instantiate(bonusPrefabs[index], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
-            //        bonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
-            //        bonus.Init(MapEntityType.Bonus, this.GameBoard, new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));
-            //        this.ContainingBonus = bonus;
+            Bonus bonus = Instantiate(gameBoard.BonusPrefabs[item.Type], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
+            bonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
+            bonus.Init(MapEntityType.Bonus, this.GameBoard, new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));
+            bonus.LoadBonus(item);
+            Bonuses.Add(item.Type, bonus);
 
-            //        Bonuses.Add(item,)
-            //        break;
-            //    }
-            //}
-            //if (index < 0)
-            //{
-            //    throw new System.Exception("No such bonus we can spawn!");
-            //}
+            break;
+        }
+
+        foreach (var item in playerSave.Bombs)
+        {
+            Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
+            bomb1.Init(MapEntityType.Bomb, this.GameBoard, item.CurrentBoardPos);
+            bomb1.LoadBomb(item);
+
+            Bombs.Add(bomb1);
+        }
+
+        spriteRenderer.sprite = Resources.Load<Sprite>("PlayerSkins/" + playerSave.SkinName);
+        MainMenuConfig.PlayerNames[playerId] = playerSave.SkinName;
+        this.GhostMaxDuration = playerSave.GhostMaxDuration;
+        this.ImmunityMaxDuration = playerSave.ImmunityMaxDuration;
+        this.AvailableObstacle = playerSave.AvailableObstacle;
+
+        foreach (var item in playerObstacles)
+        {
+            item.BlownUp = this.PlacedObstacleBlownUp;
         }
     }
 

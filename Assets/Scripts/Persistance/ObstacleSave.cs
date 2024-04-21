@@ -17,6 +17,8 @@ namespace Persistance
 
         public bool NotPassable;
 
+        public int OwnerId;
+
         public void SaveObstacle(Obstacle obstacleToSave)
         {
             this.Placed = obstacleToSave.Placed;
@@ -26,7 +28,7 @@ namespace Persistance
                 this.ContainingBonusType = obstacleToSave.ContainingBonus.Type;
             }
             this.NotPassable = obstacleToSave.NotPassable;
-
+            this.OwnerId = obstacleToSave.OwnerId;
             base.Save(obstacleToSave);
         }
     }
