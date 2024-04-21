@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Bomberman
 {
+    /// <summary>
+    /// The brain specified to control the monsters
+    /// </summary>
     public abstract class MonsterBrain
     {
         /// <summary>
