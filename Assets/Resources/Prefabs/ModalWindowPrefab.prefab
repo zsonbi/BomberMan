@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 5011779821344112440}
   - component: {fileID: 3783703360366904846}
   m_Layer: 5
-  m_Name: ModalWindow
+  m_Name: ModalWindowPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
