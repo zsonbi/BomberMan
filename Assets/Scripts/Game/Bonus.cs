@@ -4,6 +4,9 @@ using Persistance;
 
 namespace Bomberman
 {
+    /// <summary>
+    /// Contains the methods and datas of the bonuses
+    /// </summary>
     public class Bonus : MapEntity
     {
         [SerializeField]
@@ -18,24 +21,45 @@ namespace Bomberman
         [SerializeField]
         private bool decaying = false;
 
+        /// <summary>
+        /// The bonus's tier property
+        /// </summary>
         public int Tier { get => tier; private set => tier = value; }
 
+        /// <summary>
+        /// The type of the bonus
+        /// </summary>
         public BonusType Type { get => type; private set => type = value; }
 
+        /// <summary>
+        /// How much the bonus is active
+        /// </summary>
         public float Duration { get => duration; private set => duration = value; }
-
+        
+        /// <summary>
+        /// Is the bonus is decaying type or not
+        /// </summary>
         public bool Decaying { get => decaying; private set => decaying = value; }
-
+        
+        /// <summary>
+        /// If this is called, the bonus will be shown on the gameboard
+        /// </summary>
         public void Show()
         {
             this.gameObject.SetActive(true);
         }
-
+       
+        /// <summary>
+        /// If this is called, the bonus will be hidden on the gameboard
+        /// </summary>
         public void Hide()
         {
             this.gameObject.SetActive(false);
         }
-
+        
+        /// <summary>
+        /// Initialize the bonus
+        /// </summary>
         public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
         {
             base.Init(entityType, gameBoard, CurrentPos);
@@ -67,12 +91,16 @@ namespace Bomberman
             this.Duration -= amount;
             return this.Duration <= 0;
         }
-
+        /// <summary>
+        /// Resets the decaying type bonus duration to base duration (helpfull when a decaying bonus picked up when its already active)
+        /// </summary>
         public void ResetDecayingBonus(float baseDuration)
         {
             this.Duration = baseDuration;
         }
-
+        /// <summary>
+        /// Increases the tier of thee bonus
+        /// </summary>
         public bool IncreaseTier()
         {
             int maxTier = 1;

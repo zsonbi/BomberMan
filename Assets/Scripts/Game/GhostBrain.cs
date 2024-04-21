@@ -10,7 +10,11 @@ namespace Bomberman
         private bool prevWall = false;
         Obstacle obstacle;
 
-        //Gets it the ghost is currently facing towards an outer wall
+
+
+        /// <summary>
+        /// Gets it the ghost is currently facing towards an outer wall
+        /// </summary>
         private bool DirectionTotallyImpassable()
         {
             if (body.GameBoard.Cells[body.CurrentBoardPos.Row, body.CurrentBoardPos.Col].HasBomb)

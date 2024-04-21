@@ -10,6 +10,9 @@ using Menu;
 
 namespace Bomberman
 {
+    /// <summary>
+    /// Every player will be derived from this class
+    /// </summary>
     public class Player : MovingEntity
     {
         //How long should the player wait between actions
@@ -50,11 +53,24 @@ namespace Bomberman
         /// </summary>
         public int Score { get; private set; } = 0;
 
+        /// <summary>
+        /// The id of the player
+        /// </summary>
         public int PlayerId { get => playerId; }
 
+        /// <summary>
+        /// How much placeable obstacle does the player has
+        /// </summary>
         public int AvailableObstacle { get; private set; } = 0;
 
+        /// <summary>
+        /// The max duration of the players immunity
+        /// </summary>
         public float ImmunityMaxDuration { get; private set; }
+
+        /// <summary>
+        /// The max duration of how much time the player can be a ghost
+        /// </summary>
         public float GhostMaxDuration { get; private set; }
 
         /// <summary>
@@ -67,7 +83,9 @@ namespace Bomberman
         /// </summary>
         private SpriteRenderer spriteRenderer;
 
-        //When the script is loaded this method is called
+        /// <summary>
+        /// When the script is loaded this method is called
+        /// </summary>
         private void Awake()
         {
             if (playerId > 2)
@@ -93,12 +111,16 @@ namespace Bomberman
             }
         }
 
-        // Start is called before the first frame update
+        /// <summary>
+        /// Start is called before the first frame update
+        /// </summary>
         private void Start()
         {
         }
 
-        // Update is called once per frame
+        /// <summary>
+        /// Update is called once per frame
+        /// </summary>
         private new void Update()
         {
             if (GameBoard.Paused)
@@ -307,7 +329,9 @@ namespace Bomberman
             }
         }
 
-        //Check for collision with the battle royale circle, if collided it kills the player instant
+        /// <summary>
+        /// Check for collision with the battle royale circle, if collided it kills the player instant
+        /// </summary>
         public void OnCollisionExit2D(Collision2D collision)
         {
             Debug.Log(collision.gameObject.tag);
@@ -317,19 +341,29 @@ namespace Bomberman
             }
         }
 
-        //Changes the player's direction to left
+        /// <summary>
+        /// Changes the player's direction to left
+        /// </summary>
         private void MoveLeft() => base.ChangeDir(Direction.Left);
 
-        //Changes the player's direction to up
+        /// <summary>
+        /// Changes the player's direction to up
+        /// </summary>
         private void MoveUp() => base.ChangeDir(Direction.Up);
 
-        //Changes the player's direction to right
+        /// <summary>
+        /// Changes the player's direction to right
+        /// </summary>
         private void MoveRight() => base.ChangeDir(Direction.Right);
 
-        //Changes the player's direction to down
+        /// <summary>
+        /// Changes the player's direction to down
+        /// </summary>
         private void MoveDown() => base.ChangeDir(Direction.Down);
 
-        //The player places a bomb on the board if it has a bomb available
+        /// <summary>
+        /// The player places a bomb on the board if it has a bomb available
+        /// </summary>
         private void PlaceBomb()
         {
             if (actionCooldown > 0)
@@ -377,7 +411,9 @@ namespace Bomberman
             //throw new System.NotImplementedException();
         }
 
-        //The player places a bomb on the board if it has a wall available
+        /// <summary>
+        /// The player places a bomb on the board if it has a wall available
+        /// </summary>
         private void PlaceObstacle()
         {
             if (actionCooldown > 0 || !Bonuses.ContainsKey(BonusType.Obstacle) || AvailableObstacle <= 0)
@@ -395,12 +431,17 @@ namespace Bomberman
             }
         }
 
+        /// <summary>
+        /// This methid is called when someone blows up one of the players obstacles
+        /// </summary>
         private void PlacedObstacleBlownUp(object obj, EventArgs args)
         {
             ++AvailableObstacle;
         }
 
-        //Initialize the player object with base values
+        /// <summary>
+        /// Initialize the player object with base values
+        /// </summary>
         public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
         {
             base.Init(entityType, gameBoard, CurrentPos);

@@ -7,6 +7,9 @@ using Persistance;
 
 namespace Bomberman
 {
+    /// <summary>
+    /// Controls how the bomb behaves in the game
+    /// </summary>
     public class Bomb : MapEntity
     {
         /// <summary>
