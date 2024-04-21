@@ -520,7 +520,7 @@ namespace Bomberman
                 saveId = "gameSaves/" + DateTime.Now.ToString("yyyy_MM_DD_HH_mm_ss") + ".json";
             }
 
-            GameSave gameSave = new GameSave(this);
+            GameSave gameSave = new GameSave(this, CircleGameObject.transform.localScale);
             string jsonString = JsonConvert.SerializeObject(gameSave, formatting: Formatting.Indented);
             Debug.Log(jsonString);
             Debug.Log(saveId);
@@ -546,6 +546,32 @@ namespace Bomberman
             this.StartGameOverCounter = gameSave.StartGameOverCounter;
             MainMenuConfig.BattleRoyale = gameSave.BattleRoyaleMode;
             MainMenuConfig.RequiredPoint = gameSave.RequiredPoints;
+            CircleGameObject.SetActive(MainMenuConfig.BattleRoyale);
+            BattleRoyaleTimerText.transform.parent.gameObject.SetActive(MainMenuConfig.BattleRoyale);
+
+            if (CircleGameObject is not null)
+            {
+                CircleGameObject.transform.localScale = new Vector3(gameSave.BattleRoyaleCircle.Col, gameSave.BattleRoyaleCircle.Row);
+            }
+            if (Cells is not null)
+            {
+                //Cleare out the previous game's entities
+                for (int i = 0; i < Cells.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Cells.GetLength(1); j++)
+                    {
+                        Destroy(Cells[i, j].gameObject);
+                    }
+                }
+                while (Entites.Count > 0)
+                {
+                    if (Entites[0] != null)
+                    {
+                        Destroy(Entites[0].gameObject);
+                    }
+                    Entites.RemoveAt(0);
+                }
+            }
 
             this.Cells = new Obstacle[RowCount, ColCount];
             Dictionary<int, List<Obstacle>> playerObstacles = new Dictionary<int, List<Obstacle>>();
@@ -586,7 +612,11 @@ namespace Bomberman
                 MainMenuConfig.PlayerNames[i] = gameSave.Players[i].SkinName;
 
                 MainMenuConfig.PlayerNames[i] = gameSave.Players[i].PlayerName;
-                Players.Add(Instantiate(playerPrefabs[i], this.transform).GetComponent<Player>());
+                if (Players.Count <= i)
+                {
+                    Players.Add(Instantiate(playerPrefabs[i], this.transform).GetComponent<Player>());
+                }
+
                 Players[i].LoadPlayer(gameSave.Players[i], this, playerObstacles[i]);
                 Players[i].gameObject.transform.localPosition = new Vector3(gameSave.Players[i].CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - gameSave.Players[i].CurrentBoardPos.Row * Config.CELLSIZE, 2);
 
@@ -606,7 +636,7 @@ namespace Bomberman
                 Monsters.Add(Instantiate(monsterPrefabs[(int)gameSave.Monsters[i].Type], this.transform).GetComponent<Monster>());
                 Monsters[i].gameObject.transform.localPosition = new Vector3(gameSave.Monsters[i].CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - gameSave.Monsters[i].CurrentBoardPos.Row * Config.CELLSIZE, 2);
 
-                Monsters[i].LoadMonster(gameSave.Monsters[i],this);
+                Monsters[i].LoadMonster(gameSave.Monsters[i], this);
             }
 
             foreach (var item in gameSave.droppedBonusSaves)

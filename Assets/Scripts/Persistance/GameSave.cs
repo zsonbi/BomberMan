@@ -1,4 +1,5 @@
 using Bomberman;
+using DataTypes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,11 +24,13 @@ namespace Persistance
 
         public List<BonusSave> droppedBonusSaves = new List<BonusSave>();
 
+        public Position BattleRoyaleCircle;
+
         public GameSave()
         {
         }
 
-        public GameSave(GameBoard gameBoardToSave)
+        public GameSave(GameBoard gameBoardToSave, Vector3 battleRoyaleCircle)
         {
             this.GameOverTimer = gameBoardToSave.gameOverTimer;
             this.RowCount = gameBoardToSave.RowCount;
@@ -75,6 +78,7 @@ namespace Persistance
                     droppedBonusSaves.Add(bonusSave);
                 }
             }
+            BattleRoyaleCircle = new Position((int)battleRoyaleCircle.y, (int)battleRoyaleCircle.x);
         }
     }
 }
