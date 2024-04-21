@@ -1,7 +1,7 @@
 stages:
   - before
-  - build
   - test
+  - build
   - documentation
   - deploy
 
@@ -67,11 +67,6 @@ get-activation-file:
         - "$UNITY_DIR/$TEST_PLATFORM-coverage/coverage.xml"
     expire_in: 2 weeks
   coverage: /<Linecoverage>(.*?)</Linecoverage>/
-  needs:
-    - build-StandaloneLinux64
-    - build-StandaloneOSX
-    - build-WebGL
-    - build-StandaloneWindows64
 
 test-playmode:
   <<: *test
@@ -139,6 +134,9 @@ doxygen-generate:
       - documentation
       - playmode-coverage
     expire_in: 45 min
+  only:
+    - documentation
+    - master
   needs:
     - job: test-playmode
     - job: test-editmode
