@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Bomberman
 {
+    /// <summary>
+    /// This is where the game's settings is stored
+    /// </summary>
     public static class Config
     {
         public const char CSVDELIMITER = ';';
