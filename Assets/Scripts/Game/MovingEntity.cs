@@ -4,6 +4,9 @@ using DataTypes;
 
 namespace Bomberman
 {
+    /// <summary>
+    /// Everything that will be moving will be derived from this class
+    /// </summary>
     public abstract class MovingEntity : MapEntity
     {
         [SerializeField]
@@ -81,7 +84,9 @@ namespace Bomberman
             this.timeToMove = 1f / this.Speed;
         }
 
-        //Called every frame update
+        /// <summary>
+        /// Called every frame update
+        /// </summary>
         protected void Update()
         {
             if (GameBoard.Paused)
@@ -102,7 +107,9 @@ namespace Bomberman
             Move(CurrentDirection);
         }
 
-        //Get the next target determined by the direction
+        /// <summary>
+        /// Get the next target determined by the direction
+        /// </summary>
         private Vector3 GetNextTarget(Direction dir)
         {
             Obstacle obstacle;
@@ -328,6 +335,9 @@ namespace Bomberman
             this.CurrentBoardPos.Change(boardRow, boardCol);
         }
 
+        /// <summary>
+        /// Called when we want to set this moving entity type to ghost or not ghost
+        /// </summary>
         public void SetGhost(bool newValue)
         {
             ghost = newValue;
