@@ -73,7 +73,7 @@ namespace Bomberman
 
         public bool IncreaseTier()
         {
-            int maxTier = -1;
+            int maxTier = 1;
             switch (Type)
             {
                 case BonusType.BonusBomb:

@@ -21,6 +21,8 @@ namespace Persistance
         public List<PlayerSave> Players = new List<PlayerSave>();
         public List<MonsterSave> Monsters = new List<MonsterSave>();
 
+        public List<BonusSave> droppedBonusSaves = new List<BonusSave>();
+
         public GameSave()
         {
         }
@@ -61,6 +63,16 @@ namespace Persistance
                     obstacleSave.SaveObstacle(gameBoardToSave.Cells[i, j]);
 
                     Cells[i * ColCount + j] = obstacleSave;
+                }
+            }
+
+            foreach (var item in gameBoardToSave.Entites)
+            {
+                if (item != null && item.gameObject.activeSelf && item is Bonus)
+                {
+                    BonusSave bonusSave = new BonusSave();
+                    bonusSave.SaveBonus((Bonus)item);
+                    droppedBonusSaves.Add(bonusSave);
                 }
             }
         }

@@ -206,26 +206,31 @@ public class Player : MovingEntity
                         break;
                     //If this bonus is picked up the player slowes down
                     case BonusType.Slowness:
+                        Bonuses[bonus.Type].IncreaseTier();
                         Debug.Log("Slowness effect started");
                         this.timeToMove = 1 / (float)(this.Speed * 0.6f);
                         //Missing: This effect lasts for a period of time
                         break;
                     //If this bonus is picked up it decreases the player bombs range
                     case BonusType.SmallExplosion:
+                        Bonuses[bonus.Type].IncreaseTier();
                         Debug.Log("SmallExplosion effect started");
                         //Missing: This effect lasts for a period of time
                         break;
                     //If this bonus is picked up it is temporarily disables the bomb placement for the player
                     case BonusType.NoBomb:
+                        Bonuses[bonus.Type].IncreaseTier();
                         Debug.Log("No bomb activated");
                         break;
                     //If this bonus is picked up the player will place down all its bombs
                     case BonusType.InstantBomb:
+                        Bonuses[bonus.Type].IncreaseTier();
                         Debug.Log("InstantBomb effect started");
                         break;
                     //If this bonus is picked up the player will be able to detonate its bombs, however only after placing all of them and they dont
                     //blow up with time
                     case BonusType.Detonator:
+                        Bonuses[bonus.Type].IncreaseTier();
                         Debug.Log("Detonator bonus picked up");
                         foreach (Bomb bomb in Bombs)
                         {
@@ -234,23 +239,27 @@ public class Player : MovingEntity
                         break;
                     //If this bonus is picked up the player speed will be increased
                     case BonusType.Skate:
+                        Bonuses[bonus.Type].IncreaseTier();
                         Debug.Log("Skate bonus picked up");
                         if (!Bonuses.ContainsKey(BonusType.Slowness))
                             this.timeToMove = 1 / (float)(this.Speed * 1.3f);
                         break;
                     //If this bonus is picked up the player will be immune for damage for a short peroid of time
                     case BonusType.Immunity:
+                        Bonuses[bonus.Type].IncreaseTier();
                         ImmunityMaxDuration = bonus.Duration;
                         spriteRenderer.color = new Color(1, 0, 0, spriteRenderer.color.a);
                         break;
 
                     case BonusType.Ghost:
+                        Bonuses[bonus.Type].IncreaseTier();
                         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
                         GhostMaxDuration = bonus.Duration;
                         this.SetGhost(true);
                         break;
 
                     case BonusType.Obstacle:
+
                         if (Bonuses[bonus.Type].IncreaseTier())
                         {
                             AvailableObstacle += 3;
@@ -266,6 +275,8 @@ public class Player : MovingEntity
 
                     if (bonus != Bonuses[bonus.Type])
                     {
+                        this.GameBoard.Entites.Remove(bonus);
+
                         Destroy(bonus.gameObject);
                     }
                     else
@@ -281,6 +292,7 @@ public class Player : MovingEntity
                 }
                 else
                 {
+                    bonus.Hide();
                     this.GameBoard.Entites.Remove(bonus);
                     Destroy(bonus.gameObject);
                 }
@@ -465,8 +477,6 @@ public class Player : MovingEntity
             bonus.Init(MapEntityType.Bonus, this.GameBoard, new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));
             bonus.LoadBonus(item);
             Bonuses.Add(item.Type, bonus);
-
-            break;
         }
 
         foreach (var item in playerSave.Bombs)
@@ -478,8 +488,6 @@ public class Player : MovingEntity
             Bombs.Add(bomb1);
         }
 
-        spriteRenderer.sprite = Resources.Load<Sprite>("PlayerSkins/" + playerSave.SkinName);
-        MainMenuConfig.PlayerNames[playerId] = playerSave.SkinName;
         this.GhostMaxDuration = playerSave.GhostMaxDuration;
         this.ImmunityMaxDuration = playerSave.ImmunityMaxDuration;
         this.AvailableObstacle = playerSave.AvailableObstacle;

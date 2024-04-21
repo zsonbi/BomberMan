@@ -93,9 +93,14 @@ namespace Bomberman
         {
             this.Type = monsterSave.Type;
             this.Alive = monsterSave.Alive;
+
             this.CurrentDirection = monsterSave.CurrentDirection;
 
             Init(MapEntityType.Monster, gameBoard, monsterSave.CurrentBoardPos);
+            if (!monsterSave.Alive)
+            {
+                this.InstantKill();
+            }
         }
 
         /// <summary>

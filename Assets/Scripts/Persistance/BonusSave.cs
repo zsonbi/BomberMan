@@ -16,15 +16,13 @@ namespace Persistance
 
         public bool Decaying;
 
-        public Vector3 Position;
-
         public void SaveBonus(Bonus bonusToSave)
         {
+            base.Save(bonusToSave);
             this.Tier = bonusToSave.Tier;
             this.Type = bonusToSave.Type;
             this.Duration = bonusToSave.Duration;
             this.Decaying = bonusToSave.Decaying;
-            this.Position = bonusToSave.gameObject.transform.localPosition;
         }
     }
 }

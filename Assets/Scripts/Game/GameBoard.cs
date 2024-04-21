@@ -185,7 +185,7 @@ namespace Bomberman
             {
                 throw new Exception("The battle royale timer container object is not set");
             }
-
+            BonusPrefabs = new Dictionary<BonusType, GameObject>();
             foreach (var item in destructibleWallPrefab.GetComponent<Obstacle>().bonusPrefabs)
             {
                 Bonus bonus = item.GetComponent<Bonus>();
@@ -480,7 +480,10 @@ namespace Bomberman
                     }
                     while (Entites.Count > 0)
                     {
-                        Destroy(Entites[0].gameObject);
+                        if (Entites[0] != null)
+                        {
+                            Destroy(Entites[0].gameObject);
+                        }
                         Entites.RemoveAt(0);
                     }
                 }
@@ -556,7 +559,15 @@ namespace Bomberman
                 for (int j = 0; j < ColCount; j++)
                 {
                     ObstacleSave obstacleSave = gameSave.Cells[i * RowCount + j];
-                    Obstacle obstacle = Instantiate(destructibleWallPrefab, this.gameObject.transform).GetComponent<Obstacle>();
+                    Obstacle obstacle;
+                    if (obstacleSave.NotPassable)
+                    {
+                        obstacle = Instantiate(indestructibleWallPrefab, this.gameObject.transform).GetComponent<Obstacle>();
+                    }
+                    else
+                    {
+                        obstacle = Instantiate(destructibleWallPrefab, this.gameObject.transform).GetComponent<Obstacle>();
+                    }
                     obstacle.Init(MapEntityType.Obstacle, this, obstacleSave.CurrentBoardPos);
                     obstacle.gameObject.transform.localPosition = new Vector3(j * Config.CELLSIZE, -2.5f - i * Config.CELLSIZE, 1);
                     obstacle.ObstacleLoad(obstacleSave);
@@ -572,14 +583,15 @@ namespace Bomberman
 
             for (int i = 0; i < gameSave.Players.Count; i++)
             {
+                MainMenuConfig.PlayerNames[i] = gameSave.Players[i].SkinName;
+
+                MainMenuConfig.PlayerNames[i] = gameSave.Players[i].PlayerName;
                 Players.Add(Instantiate(playerPrefabs[i], this.transform).GetComponent<Player>());
                 Players[i].LoadPlayer(gameSave.Players[i], this, playerObstacles[i]);
                 Players[i].gameObject.transform.localPosition = new Vector3(gameSave.Players[i].CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - gameSave.Players[i].CurrentBoardPos.Row * Config.CELLSIZE, 2);
 
                 Players[i].PlayerDiedEventHandler = CheckGameOverEvent;
                 Players[i].gameObject.SetActive(true);
-
-                MainMenuConfig.PlayerNames[i] = gameSave.Players[i].PlayerName;
             }
 
             //Delete the monsters so they are still random
@@ -592,13 +604,27 @@ namespace Bomberman
             for (int i = 0; i < gameSave.Monsters.Count; i++)
             {
                 Monsters.Add(Instantiate(monsterPrefabs[(int)gameSave.Monsters[i].Type], this.transform).GetComponent<Monster>());
+                Monsters[i].gameObject.transform.localPosition = new Vector3(gameSave.Monsters[i].CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - gameSave.Monsters[i].CurrentBoardPos.Row * Config.CELLSIZE, 2);
 
-                Monsters[i].Init(MapEntityType.Monster, this, gameSave.Monsters[i].CurrentBoardPos);
-                Monsters[i].gameObject.transform.localPosition = new Vector3(Monsters[i].CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - Monsters[i].CurrentBoardPos.Row * Config.CELLSIZE, 2);
+                Monsters[i].LoadMonster(gameSave.Monsters[i],this);
+            }
+
+            foreach (var item in gameSave.droppedBonusSaves)
+            {
+                this.SpawnBonus(item.Type, item.CurrentBoardPos);
             }
 
             this.MenuController.NewGame(Players);
 
+            foreach (var item in this.Players)
+            {
+                foreach (var bonus in item.Bonuses)
+                {
+                    MenuController.AddBonus(bonus.Key, item);
+                }
+            }
+
+            this.Resume();
             MainMenuConfig.mapPathToLoad = "";
             MainMenuConfig.Player3 = gameSave.Players.Count == 3;
         }

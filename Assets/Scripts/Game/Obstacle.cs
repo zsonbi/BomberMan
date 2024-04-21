@@ -194,12 +194,17 @@ public class Obstacle : MapEntity
 
     public void PlaceBomb(Bomb bombToPlace)
     {
+        //bandaid
+        spriteRenderer.sprite = spriteWhenBlownUp;
+
         this.placedBomb = bombToPlace;
         this.Placed = true;
     }
 
     public void EraseBomb()
     {
+        //bandaid
+        spriteRenderer.sprite = spriteWhenBlownUp;
         this.placedBomb = null;
         this.Placed = false;
     }
