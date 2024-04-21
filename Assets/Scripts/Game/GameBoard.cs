@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using Persistance;
 using Newtonsoft.Json;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 namespace Bomberman
 {
@@ -53,15 +54,22 @@ namespace Bomberman
         [SerializeField]
         private SavesMenu SavesMenu;
 
+        /// <summary>
+        /// This is where the gameOverTimer stored
+        /// </summary>
         public float gameOverTimer { get; private set; } = Config.GAME_OVER_TIMER;
 
         //What monster type to force load only works when it is none
         private MonsterType forceMonsterType = MonsterType.None;
 
-        //The timers for the battle royale circle (even index stay, odd index decrease)
+        /// <summary>
+        /// The timers for the battle royale circle (even index stay, odd index decrease)
+        /// </summary>
         public float[] BattleRoyaleTimers { get; private set; }
 
-        //What index to use in the timers
+        /// <summary>
+        /// What index to use in the timers
+        /// </summary>
         public int BattleRoyaleTimerIndex { get; private set; } = 0;
 
         private float circleDecreaseRate = Config.CIRCLE_DECREASE_RATE;
@@ -108,7 +116,9 @@ namespace Bomberman
 
         internal Dictionary<BonusType, GameObject> BonusPrefabs { get; private set; }
 
-        //Called every frame
+        /// <summary>
+        /// Called every frame
+        /// </summary>
         private void Update()
         {
             if (Paused)
@@ -171,7 +181,9 @@ namespace Bomberman
             }
         }
 
-        // Start is called before the first frame update
+        /// <summary>
+        /// Start is called before the first frame update
+        /// </summary>
         private void Start()
         {
             if (CircleGameObject is null)
@@ -193,12 +205,17 @@ namespace Bomberman
             StartNextGame();
         }
 
+        /// <summary>
+        /// If called the map loading will be handled manually
+        /// </summary>
         public void MakeMapLoadManual()
         {
             this.loadMapOnStartUp = false;
         }
-
-        //Creates a new board specified by the given file's layout
+   
+        /// <summary>
+        /// Creates a new board specified by the given file's layout
+        /// </summary>
         public void CreateBoard(string mapLayoutResourcePath)
         {
             //lines
