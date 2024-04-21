@@ -5,6 +5,9 @@ using Persistance;
 
 namespace Bomberman
 {
+    /// <summary>
+    /// The monsters class which defines their behavior
+    /// </summary>
     public class Monster : MovingEntity
     {
         [SerializeField]
@@ -15,10 +18,14 @@ namespace Bomberman
         /// </summary>
         public MonsterType Type { get => monsterType; private set => monsterType = value; }
 
-        //The monster's brain for the pathfinding
+        /// <summary>
+        /// The type of the monster
+        /// </summary>
         private MonsterBrain Brain;
 
-        //Called on every frame
+        /// <summary>
+        /// The type of the monster
+        /// </summary>
         private new void Update()
         {
             if (!Alive || GameBoard.Paused)
@@ -71,6 +78,9 @@ namespace Bomberman
             base.ChangeDir(Brain.ChangedCell());
         }
 
+        /// <summary>
+        /// Controls the movement of the monster
+        /// </summary>
         protected override bool Move(Direction dir)
         {
             if (Type == MonsterType.Ghost)
