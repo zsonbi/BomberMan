@@ -1,11 +1,11 @@
 using Bomberman;
 using DataTypes;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Persistance
 {
+    /// <summary>
+    /// An abstract container to save the MapEntities
+    /// </summary>
     public abstract class MapEntitySave
     {
         /// <summary>
@@ -18,6 +18,10 @@ namespace Persistance
         /// </summary>
         public MapEntityType EntityType;
 
+        /// <summary>
+        /// Saves the Mapentity
+        /// </summary>
+        /// <param name="mapEntity">The MapentityToSave</param>
         protected void Save(MapEntity mapEntity)
         {
             this.CurrentBoardPos = mapEntity.CurrentBoardPos;

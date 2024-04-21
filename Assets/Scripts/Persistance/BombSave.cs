@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Persistance
 {
+    /// <summary>
+    /// A save container for the Bomb
+    /// </summary>
     public class BombSave : MapEntitySave
     {
         /// <summary>
@@ -33,6 +36,10 @@ namespace Persistance
         /// </summary>
         public bool Detonable = false;
 
+        /// <summary>
+        /// Saves the bomb's values
+        /// </summary>
+        /// <param name="bombToSave">The bomb object to save</param>
         public void SaveBomb(Bomb bombToSave)
         {
             this.BlastRadius = bombToSave.BlastRadius;
@@ -40,7 +47,7 @@ namespace Persistance
             this.BombTimer = bombToSave.BombTimer;
             this.TimeTillBlow = bombToSave.TimeTillBlow;
             this.Detonable = bombToSave.Detonable;
-
+            //Call the MapEntitySave
             base.Save(bombToSave);
         }
     }

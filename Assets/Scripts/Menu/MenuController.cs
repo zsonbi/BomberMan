@@ -1,12 +1,8 @@
 using DataTypes;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering;
+using Bomberman;
 
-namespace Bomberman
-{
     namespace Menu
     {
         public class MenuController : MonoBehaviour
@@ -64,4 +60,3 @@ namespace Bomberman
             }
         }
     }
-}

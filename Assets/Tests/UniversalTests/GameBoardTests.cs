@@ -1,15 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Bomberman;
 using DataTypes;
 using NUnit.Framework;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
+using Menu;
 
 namespace Tests
 {
@@ -270,7 +268,7 @@ namespace Tests
 
             gameBoard.StartNextGame();
             gameBoard.CreateBoard("Maps/TestMaps/testMapStuckOnEdges");
-            gameBoard.OverrideBattleRoyaleTimers(new float[] {1 },1000);
+            gameBoard.OverrideBattleRoyaleTimers(new float[] { 1 }, 1000);
 
             yield return new WaitForSeconds(0.5f);
             foreach (var item in gameBoard.Players)

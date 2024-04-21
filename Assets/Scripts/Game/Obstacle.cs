@@ -2,11 +2,9 @@ using Bomberman;
 using DataTypes;
 using Persistance;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+namespace Bomberman { 
 
 public class Obstacle : MapEntity
 {
@@ -58,25 +56,9 @@ public class Obstacle : MapEntity
     /// </summary>
     public void SpawnBonus(BonusType bonusToSpawn)
     {
-        int index = -1;
+   
 
-        for (int i = 0; i < bonusPrefabs.Count; i++)
-        {
-            if (bonusPrefabs[i].GetComponent<Bonus>().Type == bonusToSpawn)
-            {
-                index = i;
-                break;
-            }
-        }
-
-        if (index < 0)
-        {
-            throw new System.Exception("No such bonus we can spawn!");
-        }
-
-        Debug.Log(bonusToSpawn.ToString() + index);
-
-        Bonus bonus = Instantiate(bonusPrefabs[index], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
+        Bonus bonus = Instantiate(GameBoard.BonusPrefabs[bonusToSpawn], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
         bonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
         bonus.Init(MapEntityType.Bonus, this.GameBoard, new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));
         bonus.Show();
@@ -96,6 +78,10 @@ public class Obstacle : MapEntity
         base.Init(entityType, gameBoard, CurrentPos);
     }
 
+    /// <summary>
+    /// Loads in the obstacle
+    /// </summary>
+    /// <param name="obstacleSave"></param>
     public void ObstacleLoad(ObstacleSave obstacleSave)
     {
         if (obstacleSave.Placed)
@@ -106,22 +92,10 @@ public class Obstacle : MapEntity
         this.Destructible = obstacleSave.Destructible;
         this.notPassable = obstacleSave.NotPassable;
         this.OwnerId = obstacleSave.OwnerId;
+        //Create a new bonus which it contains
         if (obstacleSave.ContainingBonusType != null)
         {
-            int index = -1;
-            for (int i = 0; i < bonusPrefabs.Count; i++)
-            {
-                if (bonusPrefabs[i].GetComponent<Bonus>().Type == obstacleSave.ContainingBonusType)
-                {
-                    index = i;
-                    break;
-                }
-            }
-            if (index < 0)
-            {
-                throw new System.Exception("No such bonus we can spawn!");
-            }
-            Bonus bonus = Instantiate(bonusPrefabs[index], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
+            Bonus bonus = Instantiate(GameBoard.BonusPrefabs[obstacleSave.ContainingBonusType.Value], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
             bonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
             bonus.Init(MapEntityType.Bonus, this.GameBoard, new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));
             this.ContainingBonus = bonus;
@@ -208,4 +182,5 @@ public class Obstacle : MapEntity
         this.placedBomb = null;
         this.Placed = false;
     }
+}
 }

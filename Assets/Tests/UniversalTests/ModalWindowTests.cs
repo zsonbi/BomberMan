@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TestTools;
-
+using Menu;
 public class ModalWindowTests : MonoBehaviour
 {
     private GameObject modalWindowPrefab = Resources.Load<GameObject>("Prefabs/ModalWindowPrefab");
