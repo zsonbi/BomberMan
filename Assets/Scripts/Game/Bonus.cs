@@ -42,11 +42,13 @@ namespace Bomberman
             this.GameBoard.Entites.Add(this);
         }
 
+        /// <summary>
+        /// Loads the bonus's paramenters
+        /// </summary>
+        /// <param name="bonusSave">The bonus to load</param>
         public void LoadBonus(BonusSave bonusSave)
         {
             this.Tier = bonusSave.Tier;
-            this.Type = bonusSave.Type;
-            this.decaying = bonusSave.Decaying;
             this.Duration = bonusSave.Duration;
         }
 
