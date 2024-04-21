@@ -445,6 +445,7 @@ public class Player : MovingEntity
         this.Hp = playerSave.Hp;
         this.ImmuneTime = playerSave.ImmuneTime;
         this.CurrentDirection = playerSave.CurrentDirection;
+        this.playerName= playerSave.PlayerName;
 
         foreach (var item in playerSave.Bonuses)
         {
