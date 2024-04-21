@@ -5,6 +5,7 @@ using System;
 using Bomberman;
 using DataTypes;
 using System.Linq;
+using Persistance;
 
 public class Player : MovingEntity
 {
@@ -48,11 +49,10 @@ public class Player : MovingEntity
 
     public int PlayerId { get => playerId; }
 
-    public int AvailableObstacle {  get; private set; }=0;
+    public int AvailableObstacle { get; private set; } = 0;
 
     public float ImmunityMaxDuration { get; private set; }
     public float GhostMaxDuration { get; private set; }
-
 
     /// <summary>
     /// Event to call when the player died
@@ -67,7 +67,6 @@ public class Player : MovingEntity
     //When the script is loaded this method is called
     private void Awake()
     {
-
         if (playerId > 2)
         {
             Debug.LogError("PlayerId can't be higher than 2");
@@ -127,16 +126,18 @@ public class Player : MovingEntity
                                 this.timeToMove = 1f / this.Speed;
                             }
                             break;
+
                         case BonusType.Ghost:
                             if (GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].Placed && !GameBoard.Cells[CurrentBoardPos.Row, CurrentBoardPos.Col].HasBomb)
                             {
                                 InstantKill();
                             }
-                            spriteRenderer.color= new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b,1);
+                            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1);
                             this.SetGhost(false);
                             break;
+
                         case BonusType.Immunity:
-                            spriteRenderer.color= new Color(1, 1, 1, spriteRenderer.color.a);
+                            spriteRenderer.color = new Color(1, 1, 1, spriteRenderer.color.a);
                             break;
 
                         default:
@@ -155,14 +156,12 @@ public class Player : MovingEntity
         }
         if (Bonuses.ContainsKey(BonusType.Immunity))
         {
-            spriteRenderer.color = new Color(1,1- Bonuses[BonusType.Immunity].Duration / ImmunityMaxDuration,1- Bonuses[BonusType.Immunity].Duration / ImmunityMaxDuration, spriteRenderer.color.a);
+            spriteRenderer.color = new Color(1, 1 - Bonuses[BonusType.Immunity].Duration / ImmunityMaxDuration, 1 - Bonuses[BonusType.Immunity].Duration / ImmunityMaxDuration, spriteRenderer.color.a);
         }
         if (Bonuses.ContainsKey(BonusType.Ghost))
         {
-            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1- Bonuses[BonusType.Ghost].Duration / (GhostMaxDuration*2));
-
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1 - Bonuses[BonusType.Ghost].Duration / (GhostMaxDuration * 2));
         }
-
 
         HandleKeys();
         base.Update();
@@ -207,26 +206,31 @@ public class Player : MovingEntity
                         break;
                     //If this bonus is picked up the player slowes down
                     case BonusType.Slowness:
+                        Bonuses[bonus.Type].IncreaseTier();
                         Debug.Log("Slowness effect started");
                         this.timeToMove = 1 / (float)(this.Speed * 0.6f);
                         //Missing: This effect lasts for a period of time
                         break;
                     //If this bonus is picked up it decreases the player bombs range
                     case BonusType.SmallExplosion:
+                        Bonuses[bonus.Type].IncreaseTier();
                         Debug.Log("SmallExplosion effect started");
                         //Missing: This effect lasts for a period of time
                         break;
                     //If this bonus is picked up it is temporarily disables the bomb placement for the player
                     case BonusType.NoBomb:
+                        Bonuses[bonus.Type].IncreaseTier();
                         Debug.Log("No bomb activated");
                         break;
                     //If this bonus is picked up the player will place down all its bombs
                     case BonusType.InstantBomb:
+                        Bonuses[bonus.Type].IncreaseTier();
                         Debug.Log("InstantBomb effect started");
                         break;
                     //If this bonus is picked up the player will be able to detonate its bombs, however only after placing all of them and they dont
                     //blow up with time
                     case BonusType.Detonator:
+                        Bonuses[bonus.Type].IncreaseTier();
                         Debug.Log("Detonator bonus picked up");
                         foreach (Bomb bomb in Bombs)
                         {
@@ -235,25 +239,32 @@ public class Player : MovingEntity
                         break;
                     //If this bonus is picked up the player speed will be increased
                     case BonusType.Skate:
+                        Bonuses[bonus.Type].IncreaseTier();
                         Debug.Log("Skate bonus picked up");
-                        this.timeToMove = 1 / (float)(this.Speed * 1.3f);
+                        if (!Bonuses.ContainsKey(BonusType.Slowness))
+                            this.timeToMove = 1 / (float)(this.Speed * 1.3f);
                         break;
                     //If this bonus is picked up the player will be immune for damage for a short peroid of time
                     case BonusType.Immunity:
+                        Bonuses[bonus.Type].IncreaseTier();
                         ImmunityMaxDuration = bonus.Duration;
                         spriteRenderer.color = new Color(1, 0, 0, spriteRenderer.color.a);
                         break;
+
                     case BonusType.Ghost:
+                        Bonuses[bonus.Type].IncreaseTier();
                         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
-                        GhostMaxDuration=bonus.Duration;
+                        GhostMaxDuration = bonus.Duration;
                         this.SetGhost(true);
                         break;
+
                     case BonusType.Obstacle:
+
                         if (Bonuses[bonus.Type].IncreaseTier())
                         {
-                            AvailableObstacle+=3;
+                            AvailableObstacle += 3;
                         }
-                            break;
+                        break;
 
                     default:
                         break;
@@ -264,6 +275,8 @@ public class Player : MovingEntity
 
                     if (bonus != Bonuses[bonus.Type])
                     {
+                        this.GameBoard.Entites.Remove(bonus);
+
                         Destroy(bonus.gameObject);
                     }
                     else
@@ -279,6 +292,7 @@ public class Player : MovingEntity
                 }
                 else
                 {
+                    bonus.Hide();
                     this.GameBoard.Entites.Remove(bonus);
                     Destroy(bonus.gameObject);
                 }
@@ -289,6 +303,7 @@ public class Player : MovingEntity
                 break;
         }
     }
+
     //Check for collision with the battle royale circle, if collided it kills the player instant
     public void OnCollisionExit2D(Collision2D collision)
     {
@@ -337,8 +352,6 @@ public class Player : MovingEntity
 
         actionCooldown = Config.PLAYERACTIONCOOLDOWN;
 
-
-
         foreach (Bomb bomb in Bombs)
         {
             if (!bomb.Placed)
@@ -364,7 +377,7 @@ public class Player : MovingEntity
     //The player places a bomb on the board if it has a wall available
     private void PlaceObstacle()
     {
-        if (actionCooldown > 0 || !Bonuses.ContainsKey(BonusType.Obstacle) || AvailableObstacle<=0)
+        if (actionCooldown > 0 || !Bonuses.ContainsKey(BonusType.Obstacle) || AvailableObstacle <= 0)
         {
             return;
         }
@@ -374,8 +387,8 @@ public class Player : MovingEntity
         if (!obstacle.Placed)
         {
             AvailableObstacle--;
-            obstacle.Place(false);
-            obstacle.BlownUp= PlacedObstacleBlownUp;
+            obstacle.Place(false, playerId);
+            obstacle.BlownUp = PlacedObstacleBlownUp;
         }
     }
 
@@ -383,7 +396,6 @@ public class Player : MovingEntity
     {
         ++AvailableObstacle;
     }
-
 
     //Initialize the player object with base values
     public override void Init(MapEntityType entityType, GameBoard gameBoard, Position CurrentPos)
@@ -409,6 +421,81 @@ public class Player : MovingEntity
         Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
         bomb1.Init(MapEntityType.Bomb, this.GameBoard, this.CurrentBoardPos);
         Bombs.Add(bomb1);
+    }
+
+    public void LoadPlayer(PlayerSave playerSave, GameBoard gameBoard, List<Obstacle> playerObstacles)
+    {
+        //Reset the player's components
+        while (Bombs.Count != 0)
+        {
+            Destroy(Bombs[0].gameObject);
+            Bombs.RemoveAt(0);
+        }
+        foreach (BonusType bonus in Enum.GetValues(typeof(BonusType)))
+        {
+            if (Bonuses.ContainsKey(bonus))
+            {
+                Bonuses.Remove(bonus);
+            }
+        }
+        base.Init(MapEntityType.Player, gameBoard, playerSave.CurrentBoardPos);
+        this.SetGhost(false);
+        this.Score = playerSave.Score;
+        this.Alive = playerSave.Alive;
+        this.Hp = playerSave.Hp;
+        this.ImmuneTime = playerSave.ImmuneTime;
+        this.CurrentDirection = playerSave.CurrentDirection;
+
+        foreach (var item in playerSave.Bonuses)
+        {
+            switch (item.Type)
+            {
+                case BonusType.Immunity:
+                    break;
+
+                case BonusType.Ghost:
+                    this.SetGhost(true);
+                    break;
+
+                case BonusType.Skate:
+                    if (!Bonuses.ContainsKey(BonusType.Slowness))
+                    {
+                        this.timeToMove = 1 / (float)(this.Speed * 1.3f);
+                    }
+                    break;
+
+                case BonusType.Slowness:
+                    this.timeToMove = 1 / (float)(this.Speed * 0.6f);
+                    break;
+
+                default:
+                    break;
+            }
+
+            Bonus bonus = Instantiate(gameBoard.BonusPrefabs[item.Type], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
+            bonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
+            bonus.Init(MapEntityType.Bonus, this.GameBoard, new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));
+            bonus.LoadBonus(item);
+            Bonuses.Add(item.Type, bonus);
+        }
+
+        foreach (var item in playerSave.Bombs)
+        {
+            Bomb bomb1 = Instantiate(bombPrefab, this.GameBoard.gameObject.transform).GetComponent<Bomb>();
+            bomb1.Init(MapEntityType.Bomb, this.GameBoard, item.CurrentBoardPos);
+            bomb1.LoadBomb(item);
+
+            Bombs.Add(bomb1);
+        }
+
+        this.GhostMaxDuration = playerSave.GhostMaxDuration;
+        this.ImmunityMaxDuration = playerSave.ImmunityMaxDuration;
+        this.AvailableObstacle = playerSave.AvailableObstacle;
+
+        foreach (var item in playerObstacles)
+        {
+            item.BlownUp = this.PlacedObstacleBlownUp;
+        }
     }
 
     /// <summary>
@@ -441,8 +528,8 @@ public class Player : MovingEntity
         {
             PlayerDiedEventHandler?.Invoke(this, EventArgs.Empty);
         }
-        else if(tookDamage)
-        {   
+        else if (tookDamage)
+        {
             GameBoard.MenuController.RemoveHealth(this);
         }
 
@@ -471,7 +558,7 @@ public class Player : MovingEntity
     /// </summary>
     private bool AllTheBombsPlaced()
     {
-        foreach(Bomb bomb in Bombs)
+        foreach (Bomb bomb in Bombs)
         {
             if (!bomb.Placed)
             {

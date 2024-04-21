@@ -9,9 +9,9 @@ using Bomberman.Menu;
 
 public class MainMenu : MonoBehaviour
 {
-
     private Sprite[] playerSkins;
     private int[] skinIds;
+
     [SerializeField]
     private UnityEngine.UI.Image[] skinRenderers;
 
@@ -36,19 +36,19 @@ public class MainMenu : MonoBehaviour
         skinIds = new int[3];
 
         if (requiredPointsText is not null)
-            requiredPointsText.text=(MainMenuConfig.RequiredPoint.ToString());
+            requiredPointsText.text = (MainMenuConfig.RequiredPoint.ToString());
 
-        if(isPlayer3 is not null)
+        if (isPlayer3 is not null)
             isPlayer3.isOn = MainMenuConfig.Player3;
 
-        if(isBattleRoyale is not null)
-            isBattleRoyale.isOn= MainMenuConfig.BattleRoyale;
+        if (isBattleRoyale is not null)
+            isBattleRoyale.isOn = MainMenuConfig.BattleRoyale;
 
         for (int i = 0; i < playerNames.Length; i++)
         {
             if (playerNames[i] is not null)
             {
-                playerNames[i].text=(  MainMenuConfig.PlayerNames[i]);
+                playerNames[i].text = (MainMenuConfig.PlayerNames[i]);
             }
         }
 
@@ -65,7 +65,6 @@ public class MainMenu : MonoBehaviour
             }
         }
     }
-
 
     /// <summary>
     /// Select the next skin
@@ -84,10 +83,10 @@ public class MainMenu : MonoBehaviour
                 id = 1;
                 break;
 
-
             case "Player3Skin":
                 id = 2;
                 break;
+
             default:
                 Debug.LogError("No such thing as: " + parent.name + " in the switch");
                 return;
@@ -97,7 +96,6 @@ public class MainMenu : MonoBehaviour
 
         parent.sprite = playerSkins[skinIds[id]];
         MainMenuConfig.PlayerSkins[id] = playerSkins[skinIds[id]].name;
-
     }
 
     /// <summary>
@@ -117,10 +115,10 @@ public class MainMenu : MonoBehaviour
                 id = 1;
                 break;
 
-
             case "Player3Skin":
                 id = 2;
                 break;
+
             default:
                 Debug.LogError("No such thing as: " + parent.name + " in the switch");
                 return;
@@ -135,7 +133,6 @@ public class MainMenu : MonoBehaviour
         MainMenuConfig.PlayerSkins[id] = playerSkins[skinIds[id]].name;
     }
 
-
     /// <summary>
     /// Starting the game by switching between the two scene
     /// </summary>
@@ -145,7 +142,6 @@ public class MainMenu : MonoBehaviour
         if (MainMenuConfig.RequiredPoint > 0)
         {
             SceneManager.LoadSceneAsync("BombermanScene");
-
         }
         else
         {
@@ -201,8 +197,6 @@ public class MainMenu : MonoBehaviour
         MainMenuConfig.PlayerNames[2] = name;
         Debug.Log("Player 3 name: " + MainMenuConfig.PlayerNames[2]);
     }
-
-
 
     /// <summary>
     /// Read if Battle Royale game mode is choosen or not

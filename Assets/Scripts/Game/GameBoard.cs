@@ -8,6 +8,9 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 using Bomberman.Menu;
 using UnityEngine.UI;
+using UnityEditor;
+using Persistance;
+using Newtonsoft.Json;
 
 namespace Bomberman
 {
@@ -42,26 +45,27 @@ namespace Bomberman
         [SerializeField]
         private ModalWindow modalWindow;
 
-
-
         [SerializeField]
         private GameObject CircleGameObject;
 
         [SerializeField]
         private Text BattleRoyaleTimerText;
 
-        //How long it will take after one player is alive to the game over to happen
-        private float gameOverTimer = Config.GAME_OVER_TIMER;
+        [SerializeField]
+        private SavesMenu SavesMenu;
+
+        public float gameOverTimer { get; private set; } = Config.GAME_OVER_TIMER;
 
         //What monster type to force load only works when it is none
         private MonsterType forceMonsterType = MonsterType.None;
 
         //The timers for the battle royale circle (even index stay, odd index decrease)
-        private float[] battleRoyaleTimers;
-        //What index to use in the timers
-        private int battleRoyaleTimerIndex = 0;
+        public float[] BattleRoyaleTimers { get; private set; }
 
-        private float circleDecreaseRate=Config.CIRCLE_DECREASE_RATE;
+        //What index to use in the timers
+        public int BattleRoyaleTimerIndex { get; private set; } = 0;
+
+        private float circleDecreaseRate = Config.CIRCLE_DECREASE_RATE;
 
         /// <summary>
         /// The cells of the board
@@ -103,16 +107,7 @@ namespace Bomberman
         /// </summary>
         public bool StartGameOverCounter { get; private set; } = false;
 
-        /// <summary>
-        /// The MainMenuConfig.BattleRoyale value will change, this won't
-        /// </summary>
-        public bool WasBattleRoyaleMode { get; private set; } = MainMenuConfig.BattleRoyale;
-
-        /// <summary>
-        /// Amount of time to wait between two shrinking
-        /// </summary>
-        public int timeConst { get; private set; } = 5;
-
+        internal Dictionary<BonusType, GameObject> BonusPrefabs { get; private set; }
 
         //Called every frame
         private void Update()
@@ -157,15 +152,15 @@ namespace Bomberman
 
             if (MainMenuConfig.BattleRoyale)
             {
-                if (battleRoyaleTimerIndex < battleRoyaleTimers.Length)
+                if (BattleRoyaleTimerIndex < BattleRoyaleTimers.Length)
                 {
-                    battleRoyaleTimers[battleRoyaleTimerIndex] -= Time.deltaTime;
-                    if (battleRoyaleTimers[battleRoyaleTimerIndex] < 0)
+                    BattleRoyaleTimers[BattleRoyaleTimerIndex] -= Time.deltaTime;
+                    if (BattleRoyaleTimers[BattleRoyaleTimerIndex] < 0)
                     {
-                        battleRoyaleTimerIndex++;
+                        BattleRoyaleTimerIndex++;
                     }
                     CountDown();
-                    if (battleRoyaleTimerIndex % 2 == 1)
+                    if (BattleRoyaleTimerIndex % 2 == 1)
                     {
                         DecreaseCircle();
                     }
@@ -173,17 +168,13 @@ namespace Bomberman
                 else
                 {
                     DecreaseCircle();
-
                 }
-
             }
         }
 
         // Start is called before the first frame update
         private void Start()
         {
-
-
             if (CircleGameObject is null)
             {
                 throw new Exception("The battle royale circle object is not set");
@@ -193,9 +184,12 @@ namespace Bomberman
             {
                 throw new Exception("The battle royale timer container object is not set");
             }
-
-            
-
+            BonusPrefabs = new Dictionary<BonusType, GameObject>();
+            foreach (var item in destructibleWallPrefab.GetComponent<Obstacle>().bonusPrefabs)
+            {
+                Bonus bonus = item.GetComponent<Bonus>();
+                BonusPrefabs.Add(bonus.Type, item);
+            }
 
             StartNextGame();
         }
@@ -333,7 +327,7 @@ namespace Bomberman
             }
 
             Vector3 size = CircleGameObject.transform.localScale - Vector3.one * circleDecreaseRate * Time.deltaTime;
-            size.z=0;
+            size.z = 0;
             CircleGameObject.transform.localScale = size;
         }
 
@@ -343,9 +337,9 @@ namespace Bomberman
         private void CountDown()
         {
             Debug.Log("MainMenuConfig.BattleRoyale:" + MainMenuConfig.BattleRoyale);
-            if (MainMenuConfig.BattleRoyale && battleRoyaleTimerIndex < battleRoyaleTimers.Length)
+            if (MainMenuConfig.BattleRoyale && BattleRoyaleTimerIndex < BattleRoyaleTimers.Length)
             {
-                DateTime datetime = new DateTime((int)(TimeSpan.TicksPerSecond * battleRoyaleTimers[battleRoyaleTimerIndex]));
+                DateTime datetime = new DateTime((int)(TimeSpan.TicksPerSecond * BattleRoyaleTimers[BattleRoyaleTimerIndex]));
                 BattleRoyaleTimerText.text = datetime.ToString("mm:ss");
             }
             else
@@ -404,9 +398,9 @@ namespace Bomberman
         /// Overrides the battle royale timers for testing only
         /// </summary>
         /// <param name="newTimers">The new timers to use</param>
-        public void OverrideBattleRoyaleTimers(float[] newTimers, float newRate=Config.CIRCLE_DECREASE_RATE)
+        public void OverrideBattleRoyaleTimers(float[] newTimers, float newRate = Config.CIRCLE_DECREASE_RATE)
         {
-            this.battleRoyaleTimers=newTimers;
+            this.BattleRoyaleTimers = newTimers;
             circleDecreaseRate = newRate;
         }
 
@@ -430,7 +424,6 @@ namespace Bomberman
             this.Cells[whereToSpawn.Row, whereToSpawn.Col].PlaceBomb(bombToSpawn);
 
             bombToSpawn.PlaceByGameBoard(whereToSpawn, radius, permament);
-
         }
 
         /// <summary>
@@ -456,18 +449,107 @@ namespace Bomberman
         /// </summary>
         public void StartNextGame()
         {
-            StartGameOverCounter = false;
-            gameOverTimer = Config.GAME_OVER_TIMER;
+            if (MainMenuConfig.mapPathToLoad != "")
+            {
+                LoadState(MainMenuConfig.mapPathToLoad);
+            }
+            else
+            {
+                StartGameOverCounter = false;
+                gameOverTimer = Config.GAME_OVER_TIMER;
+                //Reset the battle royale components
+                CircleGameObject.SetActive(MainMenuConfig.BattleRoyale);
+                BattleRoyaleTimerText.transform.parent.gameObject.SetActive(MainMenuConfig.BattleRoyale);
+                BattleRoyaleTimers = Config.BATTLE_ROYALE_TIMERS.Select(x => x).ToArray();
+                BattleRoyaleTimerIndex = 0;
+                //Reset the battle royale circle
+                if (CircleGameObject is not null)
+                {
+                    CircleGameObject.transform.localScale = new Vector3(1000, 1000);
+                }
+                if (Cells is not null)
+                {
+                    //Cleare out the previous game's entities
+                    for (int i = 0; i < Cells.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < Cells.GetLength(1); j++)
+                        {
+                            Destroy(Cells[i, j].gameObject);
+                        }
+                    }
+                    while (Entites.Count > 0)
+                    {
+                        if (Entites[0] != null)
+                        {
+                            Destroy(Entites[0].gameObject);
+                        }
+                        Entites.RemoveAt(0);
+                    }
+                }
+                if (loadMapOnStartUp)
+                {
+                    if (mapAssetPath != "")
+                    {
+                        CreateBoard(mapAssetPath);
+                    }
+                    else
+                    {
+                        //Not efficient, but can't do it other way
+                        TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
 
-            //Reset the battle royale components
+                        CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
+                    }
+                    Resume();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Saves the gameBoards state
+        /// </summary>
+        public void SaveState(string saveId = "gameSaves\\save1.json")
+        {
+            if (!Directory.Exists("gameSaves"))
+            {
+                Directory.CreateDirectory("gameSaves");
+            }
+            string[] files = Directory.GetFiles("gameSaves");
+            if (saveId == "")
+            {
+                saveId = "gameSaves/" + DateTime.Now.ToString("yyyy_MM_DD_HH_mm_ss") + ".json";
+            }
+
+            GameSave gameSave = new GameSave(this, CircleGameObject.transform.localScale);
+            string jsonString = JsonConvert.SerializeObject(gameSave, formatting: Formatting.Indented);
+
+            File.WriteAllText(saveId, jsonString);
+        }
+
+        /// <summary>
+        /// Loads the game according to the file
+        /// </summary>
+        /// <param name="savePath">The path to the saveFile</param>
+        public void LoadState(string savePath)
+        {
+            string json = File.ReadAllText(savePath);
+
+            GameSave gameSave = JsonConvert.DeserializeObject<GameSave>(json);
+
+            this.gameOverTimer = gameSave.GameOverTimer;
+            this.BattleRoyaleTimers = gameSave.BattleRoyaleTimers;
+            this.BattleRoyaleTimerIndex = gameSave.BattleRoyaleTimerIndex;
+            this.RowCount = gameSave.RowCount;
+            this.ColCount = gameSave.ColCount;
+            this.Paused = gameSave.Paused;
+            this.StartGameOverCounter = gameSave.StartGameOverCounter;
+            MainMenuConfig.BattleRoyale = gameSave.BattleRoyaleMode;
+            MainMenuConfig.RequiredPoint = gameSave.RequiredPoints;
             CircleGameObject.SetActive(MainMenuConfig.BattleRoyale);
             BattleRoyaleTimerText.transform.parent.gameObject.SetActive(MainMenuConfig.BattleRoyale);
-            battleRoyaleTimers = Config.BATTLE_ROYALE_TIMERS.Select(x => x).ToArray();
-            battleRoyaleTimerIndex = 0;
-            //Reset the battle royale circle
+
             if (CircleGameObject is not null)
             {
-                CircleGameObject.transform.localScale = new Vector3(1000, 1000);
+                CircleGameObject.transform.localScale = new Vector3(gameSave.BattleRoyaleCircle.Col, gameSave.BattleRoyaleCircle.Row);
             }
             if (Cells is not null)
             {
@@ -481,26 +563,98 @@ namespace Bomberman
                 }
                 while (Entites.Count > 0)
                 {
-                    Destroy(Entites[0].gameObject);
+                    if (Entites[0] != null)
+                    {
+                        Destroy(Entites[0].gameObject);
+                    }
                     Entites.RemoveAt(0);
                 }
             }
-            if (loadMapOnStartUp)
+
+            this.Cells = new Obstacle[RowCount, ColCount];
+            Dictionary<int, List<Obstacle>> playerObstacles = new Dictionary<int, List<Obstacle>>();
+            for (int i = 0; i < 3; i++)
             {
-                if (mapAssetPath != "")
-                {
-                    CreateBoard(mapAssetPath);
-                }
-                else
-                {
-                    //Not efficient, but can't do it other way
-                    TextAsset[] maps = Resources.LoadAll<TextAsset>("Maps/GameMaps/");
-
-                    CreateBoard("Maps/GameMaps/" + maps[Config.RND.Next(0, maps.Length)].name);
-                }
-                Resume();
-
+                playerObstacles.Add(i, new List<Obstacle>());
             }
+
+            for (int i = 0; i < RowCount; i++)
+            {
+                for (int j = 0; j < ColCount; j++)
+                {
+                    ObstacleSave obstacleSave = gameSave.Cells[i * RowCount + j];
+                    Obstacle obstacle;
+                    if (obstacleSave.NotPassable)
+                    {
+                        obstacle = Instantiate(indestructibleWallPrefab, this.gameObject.transform).GetComponent<Obstacle>();
+                    }
+                    else
+                    {
+                        obstacle = Instantiate(destructibleWallPrefab, this.gameObject.transform).GetComponent<Obstacle>();
+                    }
+                    obstacle.Init(MapEntityType.Obstacle, this, obstacleSave.CurrentBoardPos);
+                    obstacle.gameObject.transform.localPosition = new Vector3(j * Config.CELLSIZE, -2.5f - i * Config.CELLSIZE, 1);
+                    obstacle.ObstacleLoad(obstacleSave);
+
+                    if (obstacleSave.OwnerId != -1)
+                    {
+                        playerObstacles[obstacleSave.OwnerId].Add(obstacle);
+                    }
+
+                    Cells[i, j] = obstacle;
+                }
+            }
+
+            for (int i = 0; i < gameSave.Players.Count; i++)
+            {
+                MainMenuConfig.PlayerNames[i] = gameSave.Players[i].SkinName;
+
+                MainMenuConfig.PlayerNames[i] = gameSave.Players[i].PlayerName;
+                if (Players.Count <= i)
+                {
+                    Players.Add(Instantiate(playerPrefabs[i], this.transform).GetComponent<Player>());
+                }
+
+                Players[i].LoadPlayer(gameSave.Players[i], this, playerObstacles[i]);
+                Players[i].gameObject.transform.localPosition = new Vector3(gameSave.Players[i].CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - gameSave.Players[i].CurrentBoardPos.Row * Config.CELLSIZE, 2);
+
+                Players[i].PlayerDiedEventHandler = CheckGameOverEvent;
+                Players[i].gameObject.SetActive(true);
+            }
+
+            //Delete the monsters so they are still random
+            while (Monsters.Count != 0)
+            {
+                Destroy(Monsters[0].gameObject);
+                Monsters.RemoveAt(0);
+            }
+
+            for (int i = 0; i < gameSave.Monsters.Count; i++)
+            {
+                Monsters.Add(Instantiate(monsterPrefabs[(int)gameSave.Monsters[i].Type], this.transform).GetComponent<Monster>());
+                Monsters[i].gameObject.transform.localPosition = new Vector3(gameSave.Monsters[i].CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - gameSave.Monsters[i].CurrentBoardPos.Row * Config.CELLSIZE, 2);
+
+                Monsters[i].LoadMonster(gameSave.Monsters[i], this);
+            }
+
+            foreach (var item in gameSave.droppedBonusSaves)
+            {
+                this.SpawnBonus(item.Type, item.CurrentBoardPos);
+            }
+
+            this.MenuController.NewGame(Players);
+
+            foreach (var item in this.Players)
+            {
+                foreach (var bonus in item.Bonuses)
+                {
+                    MenuController.AddBonus(bonus.Key, item);
+                }
+            }
+
+            this.Resume();
+            MainMenuConfig.mapPathToLoad = "";
+            MainMenuConfig.Player3 = gameSave.Players.Count == 3;
         }
     }
 }

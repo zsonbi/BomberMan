@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json;
 
 namespace DataTypes
 {
@@ -7,6 +8,7 @@ namespace DataTypes
         public int Row { get; private set; }
         public int Col { get; private set; }
 
+        [JsonConstructor()]
         public Position(int row, int col)
         {
             Row = row;
@@ -40,7 +42,7 @@ namespace DataTypes
             return MathF.Sqrt(MathF.Pow(otherPos.Row - this.Row, 2) + MathF.Pow(otherPos.Col - this.Col, 2));
         }
 
-        public static Position CreateCopyAndMoveDir(Position pos,Direction dir)
+        public static Position CreateCopyAndMoveDir(Position pos, Direction dir)
         {
             Position newPos = new Position(pos);
             newPos.AddToDir(dir);
@@ -54,17 +56,22 @@ namespace DataTypes
                 case Direction.Left:
                     this.Col--;
                     break;
+
                 case Direction.Up:
                     this.Row--;
                     break;
+
                 case Direction.Right:
                     this.Col++;
                     break;
+
                 case Direction.Down:
                     this.Row++;
                     break;
+
                 case Direction.None:
                     break;
+
                 default:
                     break;
             }
@@ -88,10 +95,10 @@ namespace DataTypes
 
             return false;
         }
+
         public override int GetHashCode()
         {
-            return Row*100+Col;
+            return Row * 100 + Col;
         }
-
     }
 }

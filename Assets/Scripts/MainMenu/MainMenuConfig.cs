@@ -26,4 +26,6 @@ public static class MainMenuConfig
     /// Is the sound muted (default: unmuted)
     /// </summary>
     public static bool SoundMuted = false;
+
+    public static string mapPathToLoad = "";
 }
