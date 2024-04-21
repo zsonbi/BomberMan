@@ -97,6 +97,7 @@ namespace Bomberman
             this.CurrentDirection = monsterSave.CurrentDirection;
 
             Init(MapEntityType.Monster, gameBoard, monsterSave.CurrentBoardPos);
+            //Kill it if it is already dead
             if (!monsterSave.Alive)
             {
                 this.InstantKill();
