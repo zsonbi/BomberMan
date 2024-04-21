@@ -522,8 +522,7 @@ namespace Bomberman
 
             GameSave gameSave = new GameSave(this, CircleGameObject.transform.localScale);
             string jsonString = JsonConvert.SerializeObject(gameSave, formatting: Formatting.Indented);
-            Debug.Log(jsonString);
-            Debug.Log(saveId);
+
             File.WriteAllText(saveId, jsonString);
         }
 
