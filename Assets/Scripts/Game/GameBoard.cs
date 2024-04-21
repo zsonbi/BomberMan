@@ -11,7 +11,6 @@ using UnityEngine.UI;
 using UnityEditor;
 using Persistance;
 using Newtonsoft.Json;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 namespace Bomberman
 {
