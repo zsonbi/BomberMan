@@ -11,7 +11,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
-
+using Menu;
 namespace Tests
 {
     public class MainMenuTests

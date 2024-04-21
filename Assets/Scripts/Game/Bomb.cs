@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using DataTypes;
+using Persistance;
 
 namespace Bomberman
 {
@@ -13,7 +14,6 @@ namespace Bomberman
         /// </summary>
         [SerializeField]
         private List<GameObject> blowUpVisuals = new List<GameObject>();
-
 
         public AudioSource audioPlayer;
 
@@ -56,7 +56,6 @@ namespace Bomberman
         /// </summary>
         public bool Detonable { get; set; } = false;
 
-
         // Called when the script is loaded
         private void Awake()
         {
@@ -77,7 +76,7 @@ namespace Bomberman
             //If the bomb is active
             if (Placed)
             {
-                BombTimer += Time.deltaTime;                
+                BombTimer += Time.deltaTime;
                 //If the bomb is blowing up expand it's destruction
                 if (bombBlowingUp)
                 {
@@ -245,16 +244,32 @@ namespace Bomberman
         }
 
         /// <summary>
+        /// Loads the bombSave
+        /// </summary>
+        public void LoadBomb(BombSave bombSave)
+        {
+            if (bombSave.Placed)
+            {
+                this.Place(bombSave.CurrentBoardPos, bombSave.BlastRadius);
+                GameBoard.Cells[this.CurrentBoardPos.Row, this.CurrentBoardPos.Col].PlaceBomb(this);
+            }
+
+            this.BombTimer = bombSave.BombTimer;
+            this.TimeTillBlow = bombSave.TimeTillBlow;
+            this.Detonable = bombSave.Detonable;
+        }
+
+        /// <summary>
         /// Place a bomb which blows up instantly
         /// </summary>
         /// <param name="whereToPlace">Where to place the bomb</param>
         /// <param name="radius">The size of the explosion</param>
-        public void PlaceByGameBoard(Position whereToPlace, int radius,bool endless=false)
+        public void PlaceByGameBoard(Position whereToPlace, int radius, bool endless = false)
         {
-            Place(whereToPlace,radius);
+            Place(whereToPlace, radius);
             if (endless)
             {
-                TimeTillBlow=float.MaxValue;
+                TimeTillBlow = float.MaxValue;
                 return;
             }
 
@@ -267,7 +282,6 @@ namespace Bomberman
             BlownUp();
             Destroy(this.gameObject);
         }
-
 
         /// <summary>
         /// Singnals the bomb to start blowing up

@@ -1,11 +1,10 @@
 using Bomberman;
 using DataTypes;
+using Persistance;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+namespace Bomberman { 
 
 public class Obstacle : MapEntity
 {
@@ -30,7 +29,7 @@ public class Obstacle : MapEntity
     private Sprite spriteWhenBlownUp;
 
     [SerializeField]
-    private List<GameObject> bonusPrefabs;
+    public List<GameObject> bonusPrefabs;
 
     private SpriteRenderer spriteRenderer;
 
@@ -41,6 +40,8 @@ public class Obstacle : MapEntity
     public Bonus ContainingBonus { get; private set; }
 
     public bool NotPassable { get => notPassable; private set => notPassable = value; }
+
+    public int OwnerId { get; private set; } = -1;
 
     public EventHandler BlownUp;
 
@@ -55,26 +56,9 @@ public class Obstacle : MapEntity
     /// </summary>
     public void SpawnBonus(BonusType bonusToSpawn)
     {
-        int index = -1;
+   
 
-        for (int i = 0; i < bonusPrefabs.Count; i++)
-        {
-            if (bonusPrefabs[i].GetComponent<Bonus>().Type == bonusToSpawn)
-            {
-                index = i;
-                break;
-            }
-        }
-
-        if (index < 0)
-        {
-            throw new System.Exception("No such bonus we can spawn!");
-
-        }
-
-        Debug.Log(bonusToSpawn.ToString() + index);
-
-        Bonus bonus = Instantiate(bonusPrefabs[index], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
+        Bonus bonus = Instantiate(GameBoard.BonusPrefabs[bonusToSpawn], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
         bonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
         bonus.Init(MapEntityType.Bonus, this.GameBoard, new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));
         bonus.Show();
@@ -94,14 +78,38 @@ public class Obstacle : MapEntity
         base.Init(entityType, gameBoard, CurrentPos);
     }
 
-    public bool Place(bool containBonus)
+    /// <summary>
+    /// Loads in the obstacle
+    /// </summary>
+    /// <param name="obstacleSave"></param>
+    public void ObstacleLoad(ObstacleSave obstacleSave)
+    {
+        if (obstacleSave.Placed)
+        {
+            Place(false);
+        }
+        this.placed = obstacleSave.Placed;
+        this.Destructible = obstacleSave.Destructible;
+        this.notPassable = obstacleSave.NotPassable;
+        this.OwnerId = obstacleSave.OwnerId;
+        //Create a new bonus which it contains
+        if (obstacleSave.ContainingBonusType != null)
+        {
+            Bonus bonus = Instantiate(GameBoard.BonusPrefabs[obstacleSave.ContainingBonusType.Value], this.GameBoard.gameObject.transform).GetComponent<Bonus>();
+            bonus.gameObject.transform.transform.localPosition = new Vector3(CurrentBoardPos.Col * Config.CELLSIZE, -2.5f - CurrentBoardPos.Row * Config.CELLSIZE, 1);
+            bonus.Init(MapEntityType.Bonus, this.GameBoard, new Position(this.CurrentBoardPos.Row, this.CurrentBoardPos.Col));
+            this.ContainingBonus = bonus;
+        }
+    }
+
+    public bool Place(bool containBonus, int placerId = -1)
     {
         if (this.Placed)
         {
             return false;
         }
         this.Placed = true;
-
+        this.OwnerId = placerId;
         if (spriteWhenPlaced is not null)
         {
             spriteRenderer.sprite = spriteWhenPlaced;
@@ -142,6 +150,7 @@ public class Obstacle : MapEntity
         {
             BlownUp.Invoke(this, EventArgs.Empty);
             BlownUp = null;
+            this.OwnerId = -1;
         }
 
         this.Placed = false;
@@ -159,13 +168,19 @@ public class Obstacle : MapEntity
 
     public void PlaceBomb(Bomb bombToPlace)
     {
+        //bandaid
+        spriteRenderer.sprite = spriteWhenBlownUp;
+
         this.placedBomb = bombToPlace;
         this.Placed = true;
     }
 
     public void EraseBomb()
     {
+        //bandaid
+        spriteRenderer.sprite = spriteWhenBlownUp;
         this.placedBomb = null;
         this.Placed = false;
     }
+}
 }

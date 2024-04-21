@@ -1,35 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SoundManage : MonoBehaviour
+namespace Menu
 {
-    /// <summary>
-    /// Set the toggle is on parameter
-    /// </summary>
-    public GameObject Toggle;
+    public class SoundManage : MonoBehaviour
+    {
+        /// <summary>
+        /// Set the toggle is on parameter
+        /// </summary>
+        public GameObject Toggle;
 
-    private void Start()
-    {
-        Toggle.GetComponent<Toggle>().isOn = MainMenuConfig.SoundMuted;
-    }
-    /// <summary>
-    /// Mute and unmute the background sound
-    /// </summary>
-    /// <param name="muted"></param>
-    public void MuteSound(bool muted)
-    {
-        if (muted)
+        private void Start()
         {
-            MainMenuConfig.SoundMuted = true;
-            AudioListener.volume = 0;
+            Toggle.GetComponent<Toggle>().isOn = MainMenuConfig.SoundMuted;
         }
-        else
+        /// <summary>
+        /// Mute and unmute the background sound
+        /// </summary>
+        /// <param name="muted"></param>
+        public void MuteSound(bool muted)
         {
-            MainMenuConfig.SoundMuted = false;
-            AudioListener.volume = 0.2f;
+            if (muted)
+            {
+                MainMenuConfig.SoundMuted = true;
+                AudioListener.volume = 0;
+            }
+            else
+            {
+                MainMenuConfig.SoundMuted = false;
+                AudioListener.volume = 0.2f;
+            }
+            Toggle.GetComponent<Toggle>().isOn = MainMenuConfig.SoundMuted;
         }
-        Toggle.GetComponent<Toggle>().isOn = MainMenuConfig.SoundMuted;
     }
 }

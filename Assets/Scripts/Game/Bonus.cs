@@ -1,5 +1,6 @@
 using UnityEngine;
 using DataTypes;
+using Persistance;
 
 namespace Bomberman
 {
@@ -42,6 +43,16 @@ namespace Bomberman
         }
 
         /// <summary>
+        /// Loads the bonus's paramenters
+        /// </summary>
+        /// <param name="bonusSave">The bonus to load</param>
+        public void LoadBonus(BonusSave bonusSave)
+        {
+            this.Tier = bonusSave.Tier;
+            this.Duration = bonusSave.Duration;
+        }
+
+        /// <summary>
         /// Decrease it's duration if it's duration hit's 0 or less return true
         /// </summary>
         /// <param name="amount">How much to decrease</param>
@@ -64,7 +75,7 @@ namespace Bomberman
 
         public bool IncreaseTier()
         {
-            int maxTier = -1;
+            int maxTier = 1;
             switch (Type)
             {
                 case BonusType.BonusBomb:
@@ -88,7 +99,7 @@ namespace Bomberman
                     break;
 
                 case BonusType.Obstacle:
-                    maxTier=BonusConfigs.EXTRA_WALL_MAX_TIER;
+                    maxTier = BonusConfigs.EXTRA_WALL_MAX_TIER;
                     break;
 
                 default:

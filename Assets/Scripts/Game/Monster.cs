@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using DataTypes;
+using Persistance;
 
 namespace Bomberman
 {
@@ -20,7 +21,6 @@ namespace Bomberman
         //Called on every frame
         private new void Update()
         {
-            
             if (!Alive || GameBoard.Paused)
             {
                 return;
@@ -69,6 +69,39 @@ namespace Bomberman
             this.Brain.InitBrain(this, 0.9f);
             ReachedTargetEvent = ReachedTarget;
             base.ChangeDir(Brain.ChangedCell());
+        }
+
+        protected override bool Move(Direction dir)
+        {
+            if (Type == MonsterType.Ghost)
+            {
+                Position possibleDir = Position.CreateCopyAndMoveDir(this.CurrentBoardPos, this.CurrentDirection);
+                if (this.GameBoard.Cells[possibleDir.Row, possibleDir.Col].HasBomb)
+                {
+                    return false;
+                }
+            }
+
+            return base.Move(dir);
+        }
+
+        /// <summary>
+        /// Loads the monster
+        /// </summary>
+        /// <param name="monsterSave">The saved monster data</param>
+        public void LoadMonster(MonsterSave monsterSave, GameBoard gameBoard)
+        {
+            this.Type = monsterSave.Type;
+            this.Alive = monsterSave.Alive;
+
+            this.CurrentDirection = monsterSave.CurrentDirection;
+
+            Init(MapEntityType.Monster, gameBoard, monsterSave.CurrentBoardPos);
+            //Kill it if it is already dead
+            if (!monsterSave.Alive)
+            {
+                this.InstantKill();
+            }
         }
 
         /// <summary>
