@@ -71,6 +71,20 @@ namespace Bomberman
             base.ChangeDir(Brain.ChangedCell());
         }
 
+        protected override bool Move(Direction dir)
+        {
+            if (Type == MonsterType.Ghost)
+            {
+                Position possibleDir = Position.CreateCopyAndMoveDir(this.CurrentBoardPos, this.CurrentDirection);
+                if (this.GameBoard.Cells[possibleDir.Row, possibleDir.Col].HasBomb)
+                {
+                    return false;
+                }
+            }
+           
+            return base.Move(dir);
+        }
+
         /// <summary>
         /// Event for when the monster reached the target, so it can change dir if needed
         /// </summary>

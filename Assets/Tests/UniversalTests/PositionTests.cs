@@ -53,5 +53,52 @@ namespace Tests
 
             Assert.AreEqual(firstDistance, secondDistance);
         }
+
+        [Test]
+        public void PositionDirectionTest()
+        {
+            Position pos1 = new Position(1, 1);
+
+            Position movedPos1 = Position.CreateCopyAndMoveDir(pos1,Direction.Left);
+
+            Assert.AreEqual(pos1.Col-1, movedPos1.Col);
+            Assert.IsFalse(pos1==movedPos1);
+
+            Position pos2 = new Position(1, 6);
+
+            Position movedPos2 = Position.CreateCopyAndMoveDir(pos2, Direction.Up);
+
+            Assert.AreEqual(pos1.Row - 1, movedPos2.Row);
+
+            Position movedPos3 = Position.CreateCopyAndMoveDir(pos1, Direction.Right);
+
+            Assert.AreEqual(pos1.Col + 1, movedPos3.Col);
+
+            Position movedPos4 = Position.CreateCopyAndMoveDir(pos1, Direction.Down);
+            Assert.AreEqual(pos1.Row + 1, movedPos4.Row);
+        }
+
+        [Test]
+        public void PositionDirectionTest2()
+        {
+            Position pos1 = new Position(1, 1);
+
+            Position pos2 = new Position(pos1);
+
+            Assert.AreEqual(pos1,pos2);
+
+            Assert.IsFalse(pos1==pos2);
+
+            pos1.Change(0,0);
+
+            Assert.AreNotEqual(pos1,pos2);
+
+            pos1.AddToDir(Direction.Right);
+            pos1.AddToDir(Direction.Down);
+            Assert.AreEqual(pos1, pos2);
+
+
+
+        }
     }
 }

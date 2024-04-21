@@ -75,7 +75,7 @@ public class ModalWindow : MonoBehaviour
     {
         if (onCancelAction is not null)
         {
-            onOkAction();
+            onCancelAction();
         }
 
         Hide();
