@@ -24,7 +24,9 @@ namespace Bomberman
             this.pathFinder = new BFS(body.GameBoard.Cells);
         }
 
-        //Gets what direction to move to get to the nearest player
+        /// <summary>
+        /// Gets what direction to move to get to the nearest player
+        /// </summary>
         private Direction NearestPlayerDir()
         {
             //Get the path to the player
