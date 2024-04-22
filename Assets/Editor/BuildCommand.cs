@@ -178,6 +178,7 @@ internal static class BuildCommand
     private static void PerformBuild()
     {
         var buildTarget = GetBuildTarget();
+        PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
 
         Console.WriteLine(":: Performing build");
         if (TryGetEnv(VERSION_NUMBER_VAR, out var bundleVersionNumber))
