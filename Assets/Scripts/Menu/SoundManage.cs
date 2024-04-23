@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace Menu
 {
+    /// <summary>
+    /// Manages the game's sound settings
+    /// </summary>
     public class SoundManage : MonoBehaviour
     {
         /// <summary>
@@ -11,6 +14,9 @@ namespace Menu
         /// </summary>
         public GameObject Toggle;
 
+        /// <summary>
+        /// Runs on the first frame
+        /// </summary>
         private void Start()
         {
             Toggle.GetComponent<Toggle>().isOn = MainMenuConfig.SoundMuted;
@@ -31,6 +37,7 @@ namespace Menu
                 MainMenuConfig.SoundMuted = false;
                 AudioListener.volume = 0.2f;
             }
+            //Update the button's state
             Toggle.GetComponent<Toggle>().isOn = MainMenuConfig.SoundMuted;
         }
     }
