@@ -3,6 +3,9 @@ using DataTypes;
 
 namespace PathFinding
 {
+    /// <summary>
+    /// Interface for the pathfindings
+    /// </summary>
     public interface PathFindingInterface
     {
         /// <summary>
