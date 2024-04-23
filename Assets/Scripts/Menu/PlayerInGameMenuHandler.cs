@@ -9,34 +9,67 @@ using UnityEngine.UI;
 
 namespace Menu
 {
-
+    /// <summary>
+    /// Handles the player ingame menus
+    /// </summary>
     public class PlayerInGameMenuHandler : MonoBehaviour
     {
-
+        /// <summary>
+        /// The sprite of the health icons
+        /// </summary>
         [SerializeField]
         Sprite healthSprite;
 
+        /// <summary>
+        /// Where to put the health icons
+        /// </summary>
         [SerializeField]
         GameObject healthBarContainer;
 
+        /// <summary>
+        /// Where to put the bonus icons
+        /// </summary>
         [SerializeField]
         GameObject bonusesContainer;
 
+        /// <summary>
+        /// Player skin display
+        /// </summary>
         [SerializeField]
         UnityEngine.UI.Image playerIconImage;
 
+        /// <summary>
+        /// Player name display
+        /// </summary>
         [SerializeField]
         TMP_Text playerName;
 
+        /// <summary>
+        /// Player score display
+        /// </summary>
         [SerializeField]
         TMP_Text ScoreText;
 
-
+        /// <summary>
+        /// The current health which are displayed
+        /// </summary>
         private int currentHealth = 0;
-        Dictionary<BonusType, RectTransform> bonuses = new Dictionary<BonusType, RectTransform>();
 
-        List<GameObject> healthIcons = new List<GameObject>();
+        /// <summary>
+        /// The bonuses which are displayed
+        /// </summary>
+        private Dictionary<BonusType, RectTransform> bonuses = new Dictionary<BonusType, RectTransform>();
 
+        /// <summary>
+        /// The health icons which are displayed right now
+        /// </summary>
+        private List<GameObject> healthIcons = new List<GameObject>();
+
+        /// <summary>
+        /// Displays the player with it's current health
+        /// Should be used for reseting only!
+        /// </summary>
+        /// <param name="player">The player to display</param>
         public void SetUpPanel(Player player)
         {
             playerName.text = player.PlayerName;
@@ -59,7 +92,9 @@ namespace Menu
 
         }
 
-
+        /// <summary>
+        /// Add a new health icon to the display
+        /// </summary>
         private void AddHealth()
         {
             currentHealth++;
@@ -76,6 +111,10 @@ namespace Menu
             healthIcons.Add(healthGameObject);
         }
 
+        /// <summary>
+        /// Remove a health from the display
+        /// </summary>
+        /// <exception cref="NullReferenceException"></exception>
         public void RemoveHealth()
         {
             if (currentHealth <= 0)
@@ -89,7 +128,11 @@ namespace Menu
 
         }
 
-
+        /// <summary>
+        /// Adds a new bonus to the display
+        /// </summary>
+        /// <param name="type">The type of the bonus to display</param>
+        /// <param name="bonusImage">The bonus's image to display</param>
         public void AddBonus(BonusType type, Sprite bonusImage)
         {
             GameObject bonusGameObject = new GameObject("bonusIcon" + type.ToString(), typeof(UnityEngine.UI.Image));
@@ -111,6 +154,10 @@ namespace Menu
             //bonuses.Add(type);
         }
 
+        /// <summary>
+        /// Removes a bonus from the display
+        /// </summary>
+        /// <param name="type">The bonus type to remove</param>
         public void RemoveBonus(BonusType type)
         {
 
@@ -118,6 +165,9 @@ namespace Menu
             ReorganizeBonuses();
         }
 
+        /// <summary>
+        /// Reorganizes the bonuses positions
+        /// </summary>
         private void ReorganizeBonuses()
         {
             int counter = 0;
@@ -138,6 +188,10 @@ namespace Menu
             }
         }
 
+        /// <summary>
+        /// Removes a bonus without reorganizing the displays
+        /// </summary>
+        /// <param name="type">The bonus to remove</param>
         private void RemoveBonusWithoutReorganize(BonusType type)
         {
             Destroy(bonuses[type].gameObject);

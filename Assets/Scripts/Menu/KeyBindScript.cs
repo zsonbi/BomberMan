@@ -7,32 +7,60 @@ using Bomberman;
 
 namespace Menu
 {
+
+    /// <summary>
+    /// Handles the player's key assignments
+    /// </summary>
     public class KeyBindScript : MonoBehaviour
     {
-        // Start is called before the first frame update
+        /// <summary>
+        /// Start is called before the first frame update
+        /// </summary>
         [SerializeField]
         private Dictionary<string, TextMeshProUGUI> buttons;
-
+        /// <summary>
+        /// The keys which are binded to the buttons
+        /// </summary>
         private Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();
 
+        /// <summary>
+        /// Reference to the player1's buttons
+        /// </summary>
         [Header("Player 1 buttons")]
         [SerializeField]
         private TextMeshProUGUI up, down, right, left, place, placeingObstacle;
-
+       
+        /// <summary>
+        /// Reference to the player2's buttons
+        /// </summary>
         [Header("Player 2 buttons")]
         [SerializeField]
         private TextMeshProUGUI up2, down2, right2, left2, place2, placeingObstacle2;
 
+        /// <summary>
+        /// Reference to the player3's buttons
+        /// </summary>
         [Header("Player 3 buttons")]
         [SerializeField]
         private TextMeshProUGUI up3, down3, right3, left3, place3, placeingObstacle3;
 
-
+        /// <summary>
+        /// The currently pressed button
+        /// </summary>
         private GameObject currentKey;
 
+        /// <summary>
+        /// The normal color of the button's
+        /// </summary>
         private Color32 normal = new Color32(255, 255, 255, 255);
+        /// <summary>
+        /// The button's color when it is selected
+        /// </summary>
         private Color32 selected = new Color32(114, 112, 112, 255);
 
+        /// <summary>
+        /// Runs on the first frame
+        /// </summary>
         private void Start()
         {
 
@@ -47,12 +75,13 @@ namespace Menu
 
             }
             UpdateLabels();
-
-
         }
 
 
 
+        /// <summary>
+        /// Handle the gui update
+        /// </summary>
         private void OnGUI()
         {
             if (currentKey != null)
@@ -68,6 +97,9 @@ namespace Menu
             }
         }
 
+        /// <summary>
+        /// Update the button's labes
+        /// </summary>
         private void UpdateLabels()
         {
             up.text = keys["UpButton0"].ToString();
@@ -92,6 +124,10 @@ namespace Menu
             placeingObstacle3.text = keys["PlacingObstacleButton2"].ToString();
         }
 
+        /// <summary>
+        /// Changes the selected contor's key
+        /// </summary>
+        /// <param name="clicked">Which control (button) to change</param>
         public void ChangeKey(GameObject clicked)
         {
             if (currentKey != null)
@@ -103,6 +139,9 @@ namespace Menu
             currentKey.GetComponent<Image>().color = selected;
         }
 
+        /// <summary>
+        /// Saves the keys to the PlayerPrefs
+        /// </summary>
         public void SaveKeys()
         {
             foreach (var key in keys)
@@ -112,6 +151,9 @@ namespace Menu
             PlayerPrefs.Save();
         }
 
+        /// <summary>
+        /// Reset the keys (need the player to save to take effect)
+        /// </summary>
         public void ResetSettings()
         {
             for (int i = 0; i < 3; i++)

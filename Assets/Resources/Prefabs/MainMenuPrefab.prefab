@@ -1195,6 +1195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8542720000981143014}
   - component: {fileID: 175739969442672579}
+  - component: {fileID: 2841576228124342676}
   m_Layer: 5
   m_Name: MuteToggle
   m_TagString: Untagged
@@ -1270,8 +1271,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SoundManage, BomberManAssembly
+      - m_Target: {fileID: 2841576228124342676}
+        m_TargetAssemblyTypeName: Menu.SoundManage, BomberManAssembly
         m_MethodName: MuteSound
         m_Mode: 0
         m_Arguments:
@@ -1283,6 +1284,19 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
+--- !u!114 &2841576228124342676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562080135607382796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4359bdd652a996c44a345cd5b12e1157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Toggle: {fileID: 562080135607382796}
 --- !u!1 &720943710733034243
 GameObject:
   m_ObjectHideFlags: 0
