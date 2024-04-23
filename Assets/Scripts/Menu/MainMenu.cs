@@ -8,6 +8,9 @@ using TMPro;
 
 namespace Menu
 {
+    /// <summary>
+    /// Handles the game's main menu
+    /// </summary>
     public class MainMenu : MonoBehaviour
     {
         private Sprite[] playerSkins;
@@ -178,21 +181,29 @@ namespace Menu
         }
 
         /// <summary>
-        /// Readning the player's name
+        /// Reads in the player1's name
         /// </summary>
-        /// <param name = "name" ></ param >
+        /// <param name="name">The name of the player</param>
         public void ReadPlayer1Name(string name)
         {
             MainMenuConfig.PlayerNames[0] = name;
             Debug.Log("Player 1 name: " + MainMenuConfig.PlayerNames[0]);
         }
 
+        /// <summary>
+        /// Reads in the player2's name
+        /// </summary>
+        /// <param name="name">The name of the player</param>
         public void ReadPlayer2Name(string name)
         {
             MainMenuConfig.PlayerNames[1] = name;
             Debug.Log("Player 2 name: " + MainMenuConfig.PlayerNames[1]);
         }
 
+        /// <summary>
+        /// Reads in the player3's name
+        /// </summary>
+        /// <param name="name">The name of the player</param>
         public void ReadPlayer3Name(string name)
         {
             MainMenuConfig.PlayerNames[2] = name;

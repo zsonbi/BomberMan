@@ -465,9 +465,9 @@ namespace Bomberman
         /// </summary>
         public void StartNextGame()
         {
-            if (MainMenuConfig.mapPathToLoad != "")
+            if (MainMenuConfig.saveFilePath != "")
             {
-                LoadState(MainMenuConfig.mapPathToLoad);
+                LoadState(MainMenuConfig.saveFilePath);
             }
             else
             {
@@ -674,7 +674,7 @@ namespace Bomberman
 
             this.Resume();
             //Clear this load request
-            MainMenuConfig.mapPathToLoad = "";
+            MainMenuConfig.saveFilePath = "";
             //Check if it is a 3 player game
             MainMenuConfig.Player3 = gameSave.Players.Count == 3;
         }

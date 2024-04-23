@@ -760,6 +760,7 @@ MonoBehaviour:
   ModalTitleText: {fileID: 7185226010153741899}
   ModalContentText: {fileID: 6319853499623949360}
   ConfirmButtonText: {fileID: 4284814029231715875}
+  CancelButton: {fileID: 3396549166913391730}
 --- !u!1 &6999640473399271471
 GameObject:
   m_ObjectHideFlags: 0
