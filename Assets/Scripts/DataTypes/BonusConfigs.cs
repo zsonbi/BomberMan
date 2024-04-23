@@ -1,14 +1,24 @@
 
 namespace DataTypes
 {
+    /// <summary>
+    /// What is the max tier of the bonuses
+    /// </summary>
     public static class BonusConfigs
     {
-        public const float BONUS_CHANCE = 0.5f;
-
+        /// <summary>
+        /// The max tier for the extra bomb bonus
+        /// </summary>
         public const int EXTRA_BOMB_MAX_TIER = 3;
 
+        /// <summary>
+        /// The max tier for the extra bomb range bonus
+        /// </summary>
         public const int EXTRA_RANGE_MAX_TIER = 3;
 
-        public const int EXTRA_WALL_MAX_TIER = 3;
+        /// <summary>
+        /// The max tier for the extra wall bonus
+        /// </summary>
+        public const int OBSTACLE_BONUS_MAX_TIER = 3;
     }
 }
