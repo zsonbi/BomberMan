@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>04/24/2024 - 22:20:50</Generatedon>
+    <Generatedon>04/24/2024 - 22:36:23</Generatedon>
     <Parser>MultiReportParser (3x OpenCoverParser)</Parser>
     <Assemblies>3</Assemblies>
     <Classes>44</Classes>
     <Files>44</Files>
-    <Coveredlines>2798</Coveredlines>
-    <Uncoveredlines>494</Uncoveredlines>
+    <Coveredlines>2802</Coveredlines>
+    <Uncoveredlines>490</Uncoveredlines>
     <Coverablelines>3292</Coverablelines>
     <Totallines>6810</Totallines>
-    <Linecoverage>84.9</Linecoverage>
+    <Linecoverage>85.1</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
     <Coveredmethods>341</Coveredmethods>
@@ -21,7 +21,7 @@
     <Assembly name="Assembly-CSharp-Editor" classes="1" coverage="0" coveredlines="0" coverablelines="196" totallines="310" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="15" methodcoverage="0">
       <Class name="BuildCommand" coverage="0" coveredlines="0" coverablelines="196" totallines="310" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="15" methodcoverage="0" />
     </Assembly>
-    <Assembly name="BomberManAssembly" classes="34" coverage="86.8" coveredlines="1890" coverablelines="2177" totallines="4973" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="267" totalmethods="285" methodcoverage="93.6">
+    <Assembly name="BomberManAssembly" classes="34" coverage="87" coveredlines="1894" coverablelines="2177" totallines="4973" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="267" totalmethods="285" methodcoverage="93.6">
       <Class name="Bomberman.BasicBrain" coverage="100" coveredlines="11" coverablelines="11" totallines="33" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
       <Class name="Bomberman.Bomb" coverage="93.9" coveredlines="172" coverablelines="183" totallines="321" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="19" totalmethods="19" methodcoverage="100" />
       <Class name="Bomberman.Bonus" coverage="95.9" coveredlines="47" coverablelines="49" totallines="145" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="16" totalmethods="16" methodcoverage="100" />
@@ -34,8 +34,8 @@
       <Class name="Bomberman.MovingEntity" coverage="84.4" coveredlines="141" coverablelines="167" totallines="346" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="25" totalmethods="25" methodcoverage="100" />
       <Class name="Bomberman.Obstacle" coverage="82.6" coveredlines="86" coverablelines="104" totallines="224" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="21" totalmethods="21" methodcoverage="100" />
       <Class name="Bomberman.Player" coverage="91.4" coveredlines="321" coverablelines="351" totallines="625" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="33" totalmethods="37" methodcoverage="89.1" />
-      <Class name="Bomberman.SmartyBrain" coverage="94.4" coveredlines="34" coverablelines="36" totallines="91" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
-      <Class name="Bomberman.StalkerBrain" coverage="89.6" coveredlines="52" coverablelines="58" totallines="122" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="Bomberman.SmartyBrain" coverage="100" coveredlines="36" coverablelines="36" totallines="91" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="Bomberman.StalkerBrain" coverage="93.1" coveredlines="54" coverablelines="58" totallines="122" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
       <Class name="DataTypes.Position" coverage="94.7" coveredlines="54" coverablelines="57" totallines="166" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="15" totalmethods="15" methodcoverage="100" />
       <Class name="HideInWebGL" coverage="100" coveredlines="2" coverablelines="2" totallines="24" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
       <Class name="Menu.KeyBindScript" coverage="46.6" coveredlines="35" coverablelines="75" totallines="172" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="7" methodcoverage="42.8" />

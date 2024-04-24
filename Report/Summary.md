@@ -1,16 +1,16 @@
 ﻿# Summary
 |||
 |:---|:---|
-| Generated on: | 04/24/2024 - 22:20:50 |
+| Generated on: | 04/24/2024 - 22:36:23 |
 | Parser: | MultiReportParser (3x OpenCoverParser) |
 | Assemblies: | 3 |
 | Classes: | 44 |
 | Files: | 44 |
-| Covered lines: | 2798 |
-| Uncovered lines: | 494 |
+| Covered lines: | 2802 |
+| Uncovered lines: | 490 |
 | Coverable lines: | 3292 |
 | Total lines: | 6810 |
-| Line coverage: | 84.9% (2798 of 3292) |
+| Line coverage: | 85.1% (2802 of 3292) |
 | Covered branches: | 0 |
 | Total branches: | 0 |
 | Covered methods: | 341 |
@@ -21,7 +21,7 @@
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 |**Assembly-CSharp-Editor**|**0**|**196**|**196**|**310**|**0%**|**0**|**0**|****|**0**|**15**|**0%**|
 |BuildCommand|0|196|196|310|0%|0|0||0|15|0%|
-|**BomberManAssembly**|**1890**|**287**|**2177**|**4973**|**86.8%**|**0**|**0**|****|**267**|**285**|**93.6%**|
+|**BomberManAssembly**|**1894**|**283**|**2177**|**4973**|**87%**|**0**|**0**|****|**267**|**285**|**93.6%**|
 |Bomberman.BasicBrain|11|0|11|33|100%|0|0||1|1|100%|
 |Bomberman.Bomb|172|11|183|321|93.9%|0|0||19|19|100%|
 |Bomberman.Bonus|47|2|49|145|95.9%|0|0||16|16|100%|
@@ -34,8 +34,8 @@
 |Bomberman.MovingEntity|141|26|167|346|84.4%|0|0||25|25|100%|
 |Bomberman.Obstacle|86|18|104|224|82.6%|0|0||21|21|100%|
 |Bomberman.Player|321|30|351|625|91.4%|0|0||33|37|89.1%|
-|Bomberman.SmartyBrain|34|2|36|91|94.4%|0|0||3|3|100%|
-|Bomberman.StalkerBrain|52|6|58|122|89.6%|0|0||3|3|100%|
+|Bomberman.SmartyBrain|36|0|36|91|100%|0|0||3|3|100%|
+|Bomberman.StalkerBrain|54|4|58|122|93.1%|0|0||3|3|100%|
 |DataTypes.Position|54|3|57|166|94.7%|0|0||15|15|100%|
 |HideInWebGL|2|0|2|24|100%|0|0||1|1|100%|
 |Menu.KeyBindScript|35|40|75|172|46.6%|0|0||3|7|42.8%|
