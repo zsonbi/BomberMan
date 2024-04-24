@@ -1,0 +1,12 @@
+<map id="Bomberman.GameBoard.CreateBoard" name="Bomberman.GameBoard.CreateBoard">
+<area shape="rect" id="node1" title="Creates a new board specified by the given file&#39;s layout" alt="" coords="5,89,236,131"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1GameBoard.html#ac0dcc230d34698ccd94ce36853bf05ff" title="Check if the game over timer should be started" alt="" coords="287,5,514,47"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Obstacle.html#a8bc2a7e5477b365dc7ff97022b9f0aa4" title="Initializes the obstacle" alt="" coords="307,71,495,98"/>
+<area shape="rect" id="node4" href="$classMenu_1_1MenuController.html#a78563e491cabf2062d4969553034cdd2" title="Call it when new game is started Resets the game UI" alt="" coords="284,122,517,149"/>
+<area shape="rect" id="node9" href="$classBomberman_1_1Obstacle.html#abe4353f303346633fc82507a51087f03" title="This method controls the placing of the obstacle" alt="" coords="299,174,502,201"/>
+<area shape="rect" id="node5" href="$classMenu_1_1PlayerInGameMenuHandler.html#a58cda5bd50d66da836d230a6fa6998bd" title="Displays the player with it&#39;s current health Should be used for reseting only!" alt="" coords="565,112,809,153"/>
+<area shape="rect" id="node6" href="$classMenu_1_1PlayerInGameMenuHandler.html#a55e1618d896b3ea864c3f52b13463f68" title="Add a new health icon to the display" alt="" coords="857,47,1101,88"/>
+<area shape="rect" id="node7" href="$classMenu_1_1PlayerInGameMenuHandler.html#a54b4326ed05e764c2f28b408a4d4e71f" title="Removes a bonus without reorganizing the displays" alt="" coords="857,112,1101,153"/>
+<area shape="rect" id="node8" href="$classMenu_1_1PlayerInGameMenuHandler.html#ab2c1adcee8e64f3e593a16875e1e2dff" title="Remove a health from the display" alt="" coords="857,177,1101,219"/>
+<area shape="rect" id="node10" href="$classBomberman_1_1Bonus.html#af777c89d532d88163f9572e52383305a" title="Initialize the bonus" alt="" coords="602,178,773,205"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Bomberman.MovingEntity.ChangedCell" name="Bomberman.MovingEntity.ChangedCell">
+<area shape="rect" id="node1" title="Called when an entity changed it&#39;s cell on the board" alt="" coords="5,5,281,32"/>
+<area shape="rect" id="node2" href="$classDataTypes_1_1Position.html#a2485dcd2a9fdbc6c7a021379b770aad7" title="Changes the position&#39;s row and column at the same time" alt="" coords="329,5,528,32"/>
+</map>

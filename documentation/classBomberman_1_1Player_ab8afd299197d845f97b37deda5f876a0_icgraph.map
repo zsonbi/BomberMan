@@ -1,0 +1,4 @@
+<map id="Bomberman.Player.Kill" name="Bomberman.Player.Kill">
+<area shape="rect" id="node1" title="Override the kill event so we can check for game over" alt="" coords="277,13,448,39"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Player.html#a2ba3b35aa859cea0477104b4c1ab8cdc" title="Check for collision with the elements" alt="" coords="5,5,229,47"/>
+</map>

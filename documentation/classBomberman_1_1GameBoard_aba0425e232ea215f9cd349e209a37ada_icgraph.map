@@ -1,0 +1,4 @@
+<map id="Bomberman.GameBoard.CountDown" name="Bomberman.GameBoard.CountDown">
+<area shape="rect" id="node1" title="Count down waiting and shringing time" alt="" coords="288,5,551,32"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1GameBoard.html#ab5751b89c02492eb2532859cd928105f" title="Called every frame" alt="" coords="5,5,240,32"/>
+</map>

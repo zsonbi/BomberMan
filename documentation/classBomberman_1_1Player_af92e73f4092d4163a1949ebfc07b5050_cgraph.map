@@ -1,0 +1,6 @@
+<map id="Bomberman.Player.PlaceObstacle" name="Bomberman.Player.PlaceObstacle">
+<area shape="rect" id="node1" title="The player places a bomb on the board if it has a wall available" alt="" coords="5,35,248,61"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Obstacle.html#abe4353f303346633fc82507a51087f03" title="This method controls the placing of the obstacle" alt="" coords="320,5,523,32"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1Player.html#a43619610505dd79f35041f8815ec961e" title="This methid is called when someone blows up one of the players obstacles" alt="" coords="296,57,547,98"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Bonus.html#af777c89d532d88163f9572e52383305a" title="Initialize the bonus" alt="" coords="595,5,765,32"/>
+</map>

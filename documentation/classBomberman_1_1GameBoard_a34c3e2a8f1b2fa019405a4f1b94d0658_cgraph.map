@@ -1,0 +1,22 @@
+<map id="Bomberman.GameBoard.Start" name="Bomberman.GameBoard.Start">
+<area shape="rect" id="node1" title="Start is called before the first frame update" alt="" coords="5,221,224,247"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1GameBoard.html#a142ad3a8126395ec96993e7b66971ec7" title="Start the next game" alt="" coords="272,213,491,255"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1GameBoard.html#af4864d1b0aac7a9341e4365647da351c" title="Creates a new board specified by the given file&#39;s layout" alt="" coords="539,112,769,153"/>
+<area shape="rect" id="node13" href="$classBomberman_1_1GameBoard.html#a76e7ee1361a8188705d16d2ff683eb18" title="Loads the game according to the file" alt="" coords="545,213,763,255"/>
+<area shape="rect" id="node17" href="$classBomberman_1_1GameBoard.html#aebc3a87673eb575b720915dc6d8e6517" title="Make the game unpaused" alt="" coords="825,389,1065,415"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1GameBoard.html#ac0dcc230d34698ccd94ce36853bf05ff" title="Check if the game over timer should be started" alt="" coords="831,53,1058,95"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1Obstacle.html#a8bc2a7e5477b365dc7ff97022b9f0aa4" title="Initializes the obstacle" alt="" coords="851,170,1039,197"/>
+<area shape="rect" id="node6" href="$classMenu_1_1MenuController.html#a78563e491cabf2062d4969553034cdd2" title="Call it when new game is started Resets the game UI" alt="" coords="828,119,1061,146"/>
+<area shape="rect" id="node11" href="$classBomberman_1_1Obstacle.html#abe4353f303346633fc82507a51087f03" title="This method controls the placing of the obstacle" alt="" coords="1141,170,1343,197"/>
+<area shape="rect" id="node7" href="$classMenu_1_1PlayerInGameMenuHandler.html#a58cda5bd50d66da836d230a6fa6998bd" title="Displays the player with it&#39;s current health Should be used for reseting only!" alt="" coords="1120,99,1364,140"/>
+<area shape="rect" id="node8" href="$classMenu_1_1PlayerInGameMenuHandler.html#a55e1618d896b3ea864c3f52b13463f68" title="Add a new health icon to the display" alt="" coords="1412,28,1656,69"/>
+<area shape="rect" id="node9" href="$classMenu_1_1PlayerInGameMenuHandler.html#a54b4326ed05e764c2f28b408a4d4e71f" title="Removes a bonus without reorganizing the displays" alt="" coords="1412,93,1656,135"/>
+<area shape="rect" id="node10" href="$classMenu_1_1PlayerInGameMenuHandler.html#ab2c1adcee8e64f3e593a16875e1e2dff" title="Remove a health from the display" alt="" coords="1412,159,1656,200"/>
+<area shape="rect" id="node12" href="$classBomberman_1_1Bonus.html#af777c89d532d88163f9572e52383305a" title="Initialize the bonus" alt="" coords="1449,225,1619,251"/>
+<area shape="rect" id="node14" href="$classMenu_1_1MenuController.html#a3efc93ac33c2479f68792780457d39d5" title="Adds a bonus icon to the player&#39;s ui display" alt="" coords="829,338,1060,365"/>
+<area shape="rect" id="node16" href="$classBomberman_1_1Obstacle.html#a1918d7a8f3e42973405364f7362b9069" title="Loads in the obstacle" alt="" coords="817,221,1072,247"/>
+<area shape="rect" id="node18" href="$classBomberman_1_1GameBoard.html#a5e1e6349ff229c62532a095e7329ec78" title="Spawn a bonus at a specific coordinate" alt="" coords="829,272,1060,313"/>
+<area shape="rect" id="node15" href="$classMenu_1_1PlayerInGameMenuHandler.html#a5b9ff8c00cef795320fb83d2fea3279a" title="Adds a new bonus to the display" alt="" coords="1120,337,1364,379"/>
+<area shape="rect" id="node19" href="$classBomberman_1_1Obstacle.html#ac87c87e44af538138c809ba993e0cbe2" title="This function is for testing purposes only!!! Spawn a specific bonus at the obstacle&#39;s position" alt="" coords="1137,272,1347,313"/>
+<area shape="rect" id="node20" href="$classBomberman_1_1Bonus.html#acff56229655c7bc14f8858d1d7a8e16f" title="If this is called, the bonus will be shown on the gameboard" alt="" coords="1441,279,1627,306"/>
+</map>

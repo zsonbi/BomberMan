@@ -1,0 +1,6 @@
+<map id="Bomberman.Player.PlacedObstacleBlownUp" name="Bomberman.Player.PlacedObstacleBlownUp">
+<area shape="rect" id="node1" title="This methid is called when someone blows up one of the players obstacles" alt="" coords="537,23,788,65"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Player.html#a09cad276146478900fc2db80067f57c1" title="Loads in the player" alt="" coords="257,5,479,32"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Player.html#af92e73f4092d4163a1949ebfc07b5050" title="The player places a bomb on the board if it has a wall available" alt="" coords="247,56,489,83"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1Player.html#a5ec330129cf24741ca48a26672890595" title="When the script is loaded this method is called" alt="" coords="5,56,199,83"/>
+</map>

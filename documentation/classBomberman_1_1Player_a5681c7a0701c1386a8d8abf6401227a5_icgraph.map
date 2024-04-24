@@ -1,0 +1,4 @@
+<map id="Bomberman.Player.MoveUp" name="Bomberman.Player.MoveUp">
+<area shape="rect" id="node1" title="Changes the player&#39;s direction to up" alt="" coords="247,5,451,32"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Player.html#a5ec330129cf24741ca48a26672890595" title="When the script is loaded this method is called" alt="" coords="5,5,199,32"/>
+</map>

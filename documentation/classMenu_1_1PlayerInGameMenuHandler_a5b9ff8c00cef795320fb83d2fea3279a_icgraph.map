@@ -1,0 +1,9 @@
+<map id="Menu.PlayerInGameMenuHandler.AddBonus" name="Menu.PlayerInGameMenuHandler.AddBonus">
+<area shape="rect" id="node1" title="Adds a new bonus to the display" alt="" coords="1105,57,1349,98"/>
+<area shape="rect" id="node2" href="$classMenu_1_1MenuController.html#a3efc93ac33c2479f68792780457d39d5" title="Adds a bonus icon to the player&#39;s ui display" alt="" coords="827,64,1057,91"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1GameBoard.html#a76e7ee1361a8188705d16d2ff683eb18" title="Loads the game according to the file" alt="" coords="557,23,776,65"/>
+<area shape="rect" id="node7" href="$classBomberman_1_1Player.html#a2ba3b35aa859cea0477104b4c1ab8cdc" title="Check for collision with the elements" alt="" coords="555,89,779,130"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1GameBoard.html#a142ad3a8126395ec96993e7b66971ec7" title="Start the next game" alt="" coords="288,23,507,65"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1GameBoard.html#a34c3e2a8f1b2fa019405a4f1b94d0658" title="Start is called before the first frame update" alt="" coords="13,5,232,32"/>
+<area shape="rect" id="node6" href="$classBomberman_1_1GameBoard.html#ab5751b89c02492eb2532859cd928105f" title="Called every frame" alt="" coords="5,56,240,83"/>
+</map>

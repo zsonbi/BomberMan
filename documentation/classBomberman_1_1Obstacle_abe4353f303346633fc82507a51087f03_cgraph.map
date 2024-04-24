@@ -1,0 +1,4 @@
+<map id="Bomberman.Obstacle.Place" name="Bomberman.Obstacle.Place">
+<area shape="rect" id="node1" title="This method controls the placing of the obstacle" alt="" coords="5,5,208,32"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Bonus.html#af777c89d532d88163f9572e52383305a" title="Initialize the bonus" alt="" coords="256,5,427,32"/>
+</map>

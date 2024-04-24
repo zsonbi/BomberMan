@@ -1,0 +1,6 @@
+<map id="Menu.PlayerInGameMenuHandler.ReorganizeBonuses" name="Menu.PlayerInGameMenuHandler.ReorganizeBonuses">
+<area shape="rect" id="node1" title="Reorganizes the bonuses positions" alt="" coords="809,5,1053,47"/>
+<area shape="rect" id="node2" href="$classMenu_1_1PlayerInGameMenuHandler.html#a3dfe36326f4e5cb633ac783a16c414af" title="Removes a bonus from the display" alt="" coords="517,5,761,47"/>
+<area shape="rect" id="node3" href="$classMenu_1_1MenuController.html#afd03c50e796844e879f0e2fabb34df4f" title="Removes a bonus icon to the player&#39;s ui display" alt="" coords="251,5,469,47"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1Player.html#abc33e8c239404a19250c2c708216292f" title="Update is called once per frame" alt="" coords="5,13,203,39"/>
+</map>

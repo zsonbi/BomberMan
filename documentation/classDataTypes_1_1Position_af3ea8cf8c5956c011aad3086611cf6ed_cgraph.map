@@ -1,0 +1,5 @@
+<map id="DataTypes.Position.CreateCopyAndMoveDir" name="DataTypes.Position.CreateCopyAndMoveDir">
+<area shape="rect" id="node1" title="Creates a copy of the position with modified row and col according to the move direction" alt="" coords="5,23,199,65"/>
+<area shape="rect" id="node2" href="$classDataTypes_1_1Position.html#a2281c630fa89f23bfb48df6ff7131c19" title="Moves the position with modified row and col according to the move direction" alt="" coords="247,5,455,32"/>
+<area shape="rect" id="node3" href="$classDataTypes_1_1Position.html#a04eed9506bb743009d8a39a53f772e29" title="Creates a new position" alt="" coords="249,56,452,83"/>
+</map>

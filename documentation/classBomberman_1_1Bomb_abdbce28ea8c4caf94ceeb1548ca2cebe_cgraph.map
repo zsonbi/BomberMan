@@ -1,0 +1,11 @@
+<map id="Bomberman.Bomb.PlaceByGameBoard" name="Bomberman.Bomb.PlaceByGameBoard">
+<area shape="rect" id="node1" title="Place a bomb which blows up instantly" alt="" coords="5,74,244,115"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Bomb.html#af50dcc3a1905e3cb7dd8620cd7492519" title=" " alt="" coords="318,5,525,32"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1Bomb.html#af050f3b7f57ec5b8fe68ff48d34550c9" title="Singnals the bomb to start blowing up" alt="" coords="908,56,1107,83"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1Bomb.html#ad1f01ef18a95a5518c4e98ddc38c9bda" title=" " alt="" coords="292,107,551,133"/>
+<area shape="rect" id="node9" href="$classBomberman_1_1Bomb.html#af439423592bf44bf6754f1af57678524" title="Places the bomb at the given place" alt="" coords="330,157,513,184"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Obstacle.html#af07717a4f07a1b3cde765c84535a618d" title="Erases a bomb" alt="" coords="599,5,840,32"/>
+<area shape="rect" id="node6" href="$classBomberman_1_1Obstacle.html#a705cc6d5ca26d015f13aabb55636a7af" title="This method controls the blowing up of the obstacle" alt="" coords="611,107,828,133"/>
+<area shape="rect" id="node7" href="$classBomberman_1_1Obstacle.html#a1baaa0fc9e56ef63f406484840200836" title=" " alt="" coords="888,107,1127,133"/>
+<area shape="rect" id="node8" href="$classBomberman_1_1Bonus.html#acff56229655c7bc14f8858d1d7a8e16f" title="If this is called, the bonus will be shown on the gameboard" alt="" coords="1175,107,1360,133"/>
+</map>

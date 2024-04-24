@@ -1,0 +1,11 @@
+<map id="Bomberman.Player.OnCollisionEnter2D" name="Bomberman.Player.OnCollisionEnter2D">
+<area shape="rect" id="node1" title="Check for collision with the elements" alt="" coords="5,107,229,148"/>
+<area shape="rect" id="node2" href="$classMenu_1_1MenuController.html#a3efc93ac33c2479f68792780457d39d5" title="Adds a bonus icon to the player&#39;s ui display" alt="" coords="277,13,508,39"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1Bonus.html#a9a40e60f643201f987e00c38107a3270" title="If this is called, the bonus will be hidden on the gameboard" alt="" coords="303,63,483,90"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1MapEntity.html#abcd4cf3000998bed810b166943dcb4d6" title="Inits the entity should be called right after creating the entity" alt="" coords="295,114,490,141"/>
+<area shape="rect" id="node6" href="$classBomberman_1_1Player.html#ab8afd299197d845f97b37deda5f876a0" title="Override the kill event so we can check for game over" alt="" coords="307,165,478,191"/>
+<area shape="rect" id="node9" href="$classBomberman_1_1MovingEntity.html#a550cfa12201d0d42cbcb482503e383ec" title="Called when we want to set this moving entity type to ghost or not ghost" alt="" coords="285,216,500,257"/>
+<area shape="rect" id="node3" href="$classMenu_1_1PlayerInGameMenuHandler.html#a5b9ff8c00cef795320fb83d2fea3279a" title="Adds a new bonus to the display" alt="" coords="556,5,800,47"/>
+<area shape="rect" id="node7" href="$classMenu_1_1MenuController.html#ac471bb61a7202e300480ae1bec30a0fa" title="Remove a health icon from the player" alt="" coords="569,157,787,199"/>
+<area shape="rect" id="node8" href="$classMenu_1_1PlayerInGameMenuHandler.html#ab2c1adcee8e64f3e593a16875e1e2dff" title="Remove a health from the display" alt="" coords="848,157,1092,199"/>
+</map>

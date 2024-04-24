@@ -1,0 +1,6 @@
+<map id="Bomberman.GhostBrain.ChangedCell" name="Bomberman.GhostBrain.ChangedCell">
+<area shape="rect" id="node1" title="What direction to move towards when changed cells" alt="" coords="5,33,269,60"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MovingEntity.html#a28d2334090854060799f1541d4ee35e4" title="Checks if the given direction is passable for the entity" alt="" coords="607,30,860,71"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1GhostBrain.html#a9d8b4f6eac5b3f9d714c04ffc47e3bb1" title="Gets it the ghost is currently facing towards an outer wall" alt="" coords="317,26,559,67"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1MonsterBrain.html#a264e7e163b84ef7689d3d9318dbdc835" title="Gets the next target direction" alt="" coords="324,91,552,133"/>
+</map>

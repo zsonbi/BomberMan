@@ -1,0 +1,4 @@
+<map id="Bomberman.Player.HandleKeys" name="Bomberman.Player.HandleKeys">
+<area shape="rect" id="node1" title="Handles the keypresses" alt="" coords="251,5,477,32"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Player.html#abc33e8c239404a19250c2c708216292f" title="Update is called once per frame" alt="" coords="5,5,203,32"/>
+</map>

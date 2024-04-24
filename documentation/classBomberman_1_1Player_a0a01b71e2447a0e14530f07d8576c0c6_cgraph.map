@@ -1,0 +1,5 @@
+<map id="Bomberman.Player.OnCollisionExit2D" name="Bomberman.Player.OnCollisionExit2D">
+<area shape="rect" id="node1" title="Check for collision with the battle royale circle, if collided it kills the player instant" alt="" coords="5,5,229,47"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MovingEntity.html#a83ecc82752737b2866f44a8b3466e885" title="Instantly kill the entity it&#39;s health and immuneTime doesn&#39;t matter" alt="" coords="277,13,537,39"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1MovingEntity.html#a823082622d50b50d4b113739ecf81473" title="Kills the entity if it isn&#39;t immune and have 0 Health kill it" alt="" coords="585,13,800,39"/>
+</map>

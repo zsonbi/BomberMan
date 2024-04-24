@@ -1,0 +1,5 @@
+<map id="Menu.ModalWindow.Hide" name="Menu.ModalWindow.Hide">
+<area shape="rect" id="node1" title="Hides the modalwindow" alt="" coords="261,35,448,61"/>
+<area shape="rect" id="node2" href="$classMenu_1_1ModalWindow.html#aeb88908212a227b8528afd633ce13b8c" title="Cancels the modalwindow" alt="" coords="9,5,210,32"/>
+<area shape="rect" id="node3" href="$classMenu_1_1ModalWindow.html#af0ddeb3f36489632f286b6067269b8da" title="Confirm button event" alt="" coords="5,57,213,98"/>
+</map>

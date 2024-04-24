@@ -1,0 +1,7 @@
+<map id="Bomberman.Obstacle.ObstacleLoad" name="Bomberman.Obstacle.ObstacleLoad">
+<area shape="rect" id="node1" title="Loads in the obstacle" alt="" coords="821,31,1076,57"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1GameBoard.html#a76e7ee1361a8188705d16d2ff683eb18" title="Loads the game according to the file" alt="" coords="555,23,773,65"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1GameBoard.html#a142ad3a8126395ec96993e7b66971ec7" title="Start the next game" alt="" coords="288,23,507,65"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1GameBoard.html#a34c3e2a8f1b2fa019405a4f1b94d0658" title="Start is called before the first frame update" alt="" coords="13,5,232,32"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1GameBoard.html#ab5751b89c02492eb2532859cd928105f" title="Called every frame" alt="" coords="5,56,240,83"/>
+</map>

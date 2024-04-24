@@ -1,0 +1,5 @@
+<map id="Bomberman.Player.PlaceBomb" name="Bomberman.Player.PlaceBomb">
+<area shape="rect" id="node1" title="The player places a bomb on the board if it has a bomb available" alt="" coords="251,31,473,57"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Player.html#a5ec330129cf24741ca48a26672890595" title="When the script is loaded this method is called" alt="" coords="7,5,201,32"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Player.html#abc33e8c239404a19250c2c708216292f" title="Update is called once per frame" alt="" coords="5,56,203,83"/>
+</map>

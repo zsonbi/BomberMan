@@ -1,0 +1,4 @@
+<map id="Bomberman.SmartyBrain.NearestPlayerDir" name="Bomberman.SmartyBrain.NearestPlayerDir">
+<area shape="rect" id="node1" title="Gets what direction to move to get to the nearest player" alt="" coords="327,5,569,47"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1SmartyBrain.html#a4984d6afe9de0592dc3890789d3c2a56" title="What direction to move towards when changed cells" alt="" coords="5,13,279,39"/>
+</map>

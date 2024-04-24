@@ -1,0 +1,5 @@
+<map id="Menu.SavesMenu.Show" name="Menu.SavesMenu.Show">
+<area shape="rect" id="node1" title="Show the save menu" alt="" coords="5,5,181,32"/>
+<area shape="rect" id="node2" href="$classMenu_1_1SavesMenu.html#a4c0d1b1e6dd8d07856b77fa6a8f149b5" title="Adds the buttons Only the latest 7 saves will be displayed" alt="" coords="229,5,445,32"/>
+<area shape="rect" id="node3" href="$classMenu_1_1SavesMenu.html#a5938457fe0e321ad0fba47707d611e4b" title="Reset the buttons" alt="" coords="493,5,721,32"/>
+</map>

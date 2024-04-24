@@ -1,0 +1,10 @@
+<map id="Bomberman.StalkerBrain" name="Bomberman.StalkerBrain">
+<area shape="rect" id="node1" title="The stalker monster&#39;s brain" alt="" coords="416,1399,675,1535"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MonsterBrain.html" title="The brain specified to control the monsters" alt="" coords="5,1200,261,1336"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Monster.html" title="The monsters class which defines their behavior" alt="" coords="213,884,456,1137"/>
+<area shape="rect" id="node7" href="$classBomberman_1_1MonsterBrain.html" title="The brain specified to control the monsters" alt="" coords="285,1200,541,1336"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1MovingEntity.html" title="Everything that will be moving will be derived from this class" alt="" coords="213,317,456,835"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1MapEntity.html" title="Everything which will be placed on the board should be derived from this class" alt="" coords="214,132,455,268"/>
+<area shape="rect" id="node6" title=" " alt="" coords="273,5,397,83"/>
+<area shape="rect" id="node8" href="$interfacePathFinding_1_1PathFindingInterface.html" title="Interface for the pathfindings" alt="" coords="565,1207,800,1329"/>
+</map>

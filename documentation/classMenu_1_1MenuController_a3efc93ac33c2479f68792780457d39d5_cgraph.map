@@ -1,0 +1,4 @@
+<map id="Menu.MenuController.AddBonus" name="Menu.MenuController.AddBonus">
+<area shape="rect" id="node1" title="Adds a bonus icon to the player&#39;s ui display" alt="" coords="5,13,236,39"/>
+<area shape="rect" id="node2" href="$classMenu_1_1PlayerInGameMenuHandler.html#a5b9ff8c00cef795320fb83d2fea3279a" title="Adds a new bonus to the display" alt="" coords="284,5,528,47"/>
+</map>

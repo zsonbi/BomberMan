@@ -1,0 +1,9 @@
+<map id="Persistance.MapEntitySave" name="Persistance.MapEntitySave">
+<area shape="rect" id="node1" title="An abstract container to save the MapEntities" alt="" coords="317,5,522,112"/>
+<area shape="rect" id="node2" href="$classPersistance_1_1BombSave.html" title="A save container for the Bomb" alt="" coords="5,160,188,311"/>
+<area shape="rect" id="node3" href="$classPersistance_1_1BonusSave.html" title="A save container for the bonus" alt="" coords="213,167,399,303"/>
+<area shape="rect" id="node4" href="$classPersistance_1_1MovingEntitySave.html" title="An abstract container to save the MovingEntities" alt="" coords="423,160,642,311"/>
+<area shape="rect" id="node7" href="$classPersistance_1_1ObstacleSave.html" title="A container to save the Obstacles" alt="" coords="666,160,925,311"/>
+<area shape="rect" id="node5" href="$classPersistance_1_1MonsterSave.html" title="A container to save the monsters" alt="" coords="305,417,517,509"/>
+<area shape="rect" id="node6" href="$classPersistance_1_1PlayerSave.html" title="A container to save the players" alt="" coords="542,359,763,568"/>
+</map>

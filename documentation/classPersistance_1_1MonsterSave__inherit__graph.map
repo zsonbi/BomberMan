@@ -1,0 +1,5 @@
+<map id="Persistance.MonsterSave" name="Persistance.MonsterSave">
+<area shape="rect" id="node1" title="A container to save the monsters" alt="" coords="5,359,217,451"/>
+<area shape="rect" id="node2" href="$classPersistance_1_1MovingEntitySave.html" title="An abstract container to save the MovingEntities" alt="" coords="8,160,215,311"/>
+<area shape="rect" id="node3" href="$classPersistance_1_1MapEntitySave.html" title="An abstract container to save the MapEntities" alt="" coords="9,5,214,112"/>
+</map>

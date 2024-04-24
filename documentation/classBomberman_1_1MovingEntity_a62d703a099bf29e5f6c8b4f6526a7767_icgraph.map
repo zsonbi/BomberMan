@@ -1,0 +1,4 @@
+<map id="Bomberman.MovingEntity.Move" name="Bomberman.MovingEntity.Move">
+<area shape="rect" id="node1" title="What Moves the entity at the direction" alt="" coords="295,5,525,32"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MovingEntity.html#a6ec9497716e6aa2038821d526b7de92d" title="Called every frame update" alt="" coords="5,5,247,32"/>
+</map>

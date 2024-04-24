@@ -1,0 +1,4 @@
+<map id="Bomberman.Bonus.LoadBonus" name="Bomberman.Bonus.LoadBonus">
+<area shape="rect" id="node1" title="Loads the bonus&#39;s paramenters" alt="" coords="276,5,497,32"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Player.html#a09cad276146478900fc2db80067f57c1" title="Loads in the player" alt="" coords="5,5,228,32"/>
+</map>

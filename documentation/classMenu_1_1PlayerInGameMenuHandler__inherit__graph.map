@@ -1,0 +1,4 @@
+<map id="Menu.PlayerInGameMenuHandler" name="Menu.PlayerInGameMenuHandler">
+<area shape="rect" id="node1" title="Handles the player ingame menus" alt="" coords="5,131,287,516"/>
+<area shape="rect" id="node2" title=" " alt="" coords="84,5,208,83"/>
+</map>

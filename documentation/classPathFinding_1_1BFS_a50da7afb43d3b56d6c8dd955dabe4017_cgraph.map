@@ -1,0 +1,6 @@
+<map id="PathFinding.BFS.GetPathToSearched" name="PathFinding.BFS.GetPathToSearched">
+<area shape="rect" id="node1" title="Gets the path to the targets returns when it found one of the targets" alt="" coords="5,23,200,65"/>
+<area shape="rect" id="node2" href="$classPathFinding_1_1BFS.html#a47b2fe2b89216bcf7971ab2a8c54900f" title="Resets the BFS search grid table" alt="" coords="248,5,441,32"/>
+<area shape="rect" id="node4" href="$classPathFinding_1_1BFSCell.html#aaf04118a325d458584a6b5446da207d9" title="Visit the cell" alt="" coords="253,56,436,83"/>
+<area shape="rect" id="node3" href="$classPathFinding_1_1BFSCell.html#ae77801c507cc536814cc115148fb9d8d" title="Resets the cell&#39;s parent and step to base state" alt="" coords="489,5,680,32"/>
+</map>

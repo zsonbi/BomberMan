@@ -1,0 +1,4 @@
+<map id="Bomberman.StalkerBrain.NearestPlayerDir" name="Bomberman.StalkerBrain.NearestPlayerDir">
+<area shape="rect" id="node1" title="Gets what direction to move to get to the nearest player" alt="" coords="324,5,564,47"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1StalkerBrain.html#a2b896ab1eaf566caa9587901ca047c72" title="What direction to move towards when changed cells" alt="" coords="5,13,276,39"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Bomberman.Monster.ReachedTarget" name="Bomberman.Monster.ReachedTarget">
+<area shape="rect" id="node1" title="Event for when the monster reached the target, so it can change dir if needed" alt="" coords="531,5,749,47"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Monster.html#a897b269dc66611cdb9768eb778dc748a" title="Inits the entity should be called right after creating the entity" alt="" coords="300,13,483,39"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Monster.html#a1420bfffe07f7f37ad8ab98fad4ec3fc" title="Loads the monster" alt="" coords="5,13,252,39"/>
+</map>

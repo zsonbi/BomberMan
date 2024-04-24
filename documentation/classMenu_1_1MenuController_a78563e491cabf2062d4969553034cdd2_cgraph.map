@@ -1,0 +1,7 @@
+<map id="Menu.MenuController.NewGame" name="Menu.MenuController.NewGame">
+<area shape="rect" id="node1" title="Call it when new game is started Resets the game UI" alt="" coords="5,78,239,105"/>
+<area shape="rect" id="node2" href="$classMenu_1_1PlayerInGameMenuHandler.html#a58cda5bd50d66da836d230a6fa6998bd" title="Displays the player with it&#39;s current health Should be used for reseting only!" alt="" coords="287,71,531,112"/>
+<area shape="rect" id="node3" href="$classMenu_1_1PlayerInGameMenuHandler.html#a55e1618d896b3ea864c3f52b13463f68" title="Add a new health icon to the display" alt="" coords="579,5,823,47"/>
+<area shape="rect" id="node4" href="$classMenu_1_1PlayerInGameMenuHandler.html#a54b4326ed05e764c2f28b408a4d4e71f" title="Removes a bonus without reorganizing the displays" alt="" coords="579,71,823,112"/>
+<area shape="rect" id="node5" href="$classMenu_1_1PlayerInGameMenuHandler.html#ab2c1adcee8e64f3e593a16875e1e2dff" title="Remove a health from the display" alt="" coords="579,136,823,177"/>
+</map>

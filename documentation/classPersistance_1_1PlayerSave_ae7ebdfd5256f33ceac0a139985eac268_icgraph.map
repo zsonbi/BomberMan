@@ -1,0 +1,4 @@
+<map id="Persistance.PlayerSave.SavePlayer" name="Persistance.PlayerSave.SavePlayer">
+<area shape="rect" id="node1" title="Saves the player" alt="" coords="300,5,511,47"/>
+<area shape="rect" id="node2" href="$classPersistance_1_1GameSave.html#acb175e215e8e1778389a427d665127f3" title="Creates a new GameSave" alt="" coords="5,13,252,39"/>
+</map>

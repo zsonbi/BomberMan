@@ -1,0 +1,6 @@
+<map id="Bomberman.Monster.Move" name="Bomberman.Monster.Move">
+<area shape="rect" id="node1" title="Controls the movement of the monster" alt="" coords="5,31,204,57"/>
+<area shape="rect" id="node2" href="$classDataTypes_1_1Position.html#af3ea8cf8c5956c011aad3086611cf6ed" title="Creates a copy of the position with modified row and col according to the move direction" alt="" coords="252,23,445,65"/>
+<area shape="rect" id="node3" href="$classDataTypes_1_1Position.html#a2281c630fa89f23bfb48df6ff7131c19" title="Moves the position with modified row and col according to the move direction" alt="" coords="493,5,701,32"/>
+<area shape="rect" id="node4" href="$classDataTypes_1_1Position.html#a04eed9506bb743009d8a39a53f772e29" title="Creates a new position" alt="" coords="496,56,699,83"/>
+</map>

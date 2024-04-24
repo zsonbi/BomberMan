@@ -1,0 +1,15 @@
+<map id="Bomberman.Bonus.Init" name="Bomberman.Bonus.Init">
+<area shape="rect" id="node1" title="Initialize the bonus" alt="" coords="1407,93,1577,120"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Player.html#a09cad276146478900fc2db80067f57c1" title="Loads in the player" alt="" coords="1136,5,1359,32"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Obstacle.html#a1918d7a8f3e42973405364f7362b9069" title="Loads in the obstacle" alt="" coords="833,123,1088,149"/>
+<area shape="rect" id="node8" href="$classBomberman_1_1Obstacle.html#abe4353f303346633fc82507a51087f03" title="This method controls the placing of the obstacle" alt="" coords="1146,173,1349,200"/>
+<area shape="rect" id="node12" href="$classBomberman_1_1Obstacle.html#ac87c87e44af538138c809ba993e0cbe2" title="This function is for testing purposes only!!! Spawn a specific bonus at the obstacle&#39;s position" alt="" coords="1142,57,1353,98"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1GameBoard.html#a76e7ee1361a8188705d16d2ff683eb18" title="Loads the game according to the file" alt="" coords="561,98,779,139"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1GameBoard.html#a142ad3a8126395ec96993e7b66971ec7" title="Start the next game" alt="" coords="288,131,507,173"/>
+<area shape="rect" id="node6" href="$classBomberman_1_1GameBoard.html#a34c3e2a8f1b2fa019405a4f1b94d0658" title="Start is called before the first frame update" alt="" coords="13,113,232,140"/>
+<area shape="rect" id="node7" href="$classBomberman_1_1GameBoard.html#ab5751b89c02492eb2532859cd928105f" title="Called every frame" alt="" coords="5,164,240,191"/>
+<area shape="rect" id="node9" href="$classBomberman_1_1GameBoard.html#af4864d1b0aac7a9341e4365647da351c" title="Creates a new board specified by the given file&#39;s layout" alt="" coords="555,163,785,205"/>
+<area shape="rect" id="node10" href="$classBomberman_1_1Player.html#af92e73f4092d4163a1949ebfc07b5050" title="The player places a bomb on the board if it has a wall available" alt="" coords="839,225,1082,252"/>
+<area shape="rect" id="node11" href="$classBomberman_1_1Player.html#a5ec330129cf24741ca48a26672890595" title="When the script is loaded this method is called" alt="" coords="573,229,767,256"/>
+<area shape="rect" id="node13" href="$classBomberman_1_1GameBoard.html#a5e1e6349ff229c62532a095e7329ec78" title="Spawn a bonus at a specific coordinate" alt="" coords="845,57,1076,98"/>
+</map>

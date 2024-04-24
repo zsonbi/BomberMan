@@ -1,0 +1,5 @@
+<map id="Bomberman.Monster.Update" name="Bomberman.Monster.Update">
+<area shape="rect" id="node1" title="The type of the monster" alt="" coords="5,35,215,61"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MonsterBrain.html#a17fb4f6e21d5172331ecaddda6df4250" title="What direction to move towards when changed cells" alt="" coords="263,5,541,32"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1MovingEntity.html#a28d2334090854060799f1541d4ee35e4" title="Checks if the given direction is passable for the entity" alt="" coords="275,57,529,98"/>
+</map>

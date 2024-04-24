@@ -1,0 +1,5 @@
+<map id="Menu.MainMenu" name="Menu.MainMenu">
+<area shape="rect" id="node1" title="Handles the game&#39;s main menu" alt="" coords="8,175,263,589"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,129,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="154,5,255,83"/>
+</map>

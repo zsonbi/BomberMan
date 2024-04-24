@@ -1,0 +1,4 @@
+<map id="HideInWebGL" name="HideInWebGL">
+<area shape="rect" id="node1" title="A class for hiding the game object if the project is builded for WebGL" alt="" coords="13,131,122,208"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,129,83"/>
+</map>

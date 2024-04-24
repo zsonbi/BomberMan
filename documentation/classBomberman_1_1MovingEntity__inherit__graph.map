@@ -1,0 +1,7 @@
+<map id="Bomberman.MovingEntity" name="Bomberman.MovingEntity">
+<area shape="rect" id="node1" title="Everything that will be moving will be derived from this class" alt="" coords="144,315,387,832"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1Monster.html" title="The monsters class which defines their behavior" alt="" coords="5,1107,248,1375"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1Player.html" title="Every player will be derived from this class" alt="" coords="272,880,539,1603"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MapEntity.html" title="Everything which will be placed on the board should be derived from this class" alt="" coords="145,131,386,267"/>
+<area shape="rect" id="node3" title=" " alt="" coords="203,5,327,83"/>
+</map>

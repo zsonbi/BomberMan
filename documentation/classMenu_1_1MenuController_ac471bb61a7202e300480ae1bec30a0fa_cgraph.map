@@ -1,0 +1,4 @@
+<map id="Menu.MenuController.RemoveHealth" name="Menu.MenuController.RemoveHealth">
+<area shape="rect" id="node1" title="Remove a health icon from the player" alt="" coords="5,5,224,47"/>
+<area shape="rect" id="node2" href="$classMenu_1_1PlayerInGameMenuHandler.html#ab2c1adcee8e64f3e593a16875e1e2dff" title="Remove a health from the display" alt="" coords="272,5,516,47"/>
+</map>

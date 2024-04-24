@@ -1,0 +1,6 @@
+<map id="Bomberman.Bomb.ExpandExplosion" name="Bomberman.Bomb.ExpandExplosion">
+<area shape="rect" id="node1" title=" " alt="" coords="608,42,867,69"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Bomb.html#abdbce28ea8c4caf94ceeb1548ca2cebe" title="Place a bomb which blows up instantly" alt="" coords="321,5,560,47"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1Bomb.html#a3e76a351d33e295ae84165bc2a7c1e07" title=" " alt="" coords="343,71,538,98"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1GameBoard.html#a95d9e76c2f72b4ce43646cc3f08e2279" title="Spawn a bomb at the given position" alt="" coords="5,13,273,39"/>
+</map>

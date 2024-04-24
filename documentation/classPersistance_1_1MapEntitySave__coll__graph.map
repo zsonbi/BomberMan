@@ -1,0 +1,4 @@
+<map id="Persistance.MapEntitySave" name="Persistance.MapEntitySave">
+<area shape="rect" id="node1" title="An abstract container to save the MapEntities" alt="" coords="23,409,229,501"/>
+<area shape="rect" id="node2" href="$classDataTypes_1_1Position.html" title="Personal 2d vector object" alt="" coords="5,5,247,347"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Bomberman.BasicBrain" name="Bomberman.BasicBrain">
+<area shape="rect" id="node1" title="The basic monster&#39;s brain" alt="" coords="46,204,221,296"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MonsterBrain.html" title="The brain specified to control the monsters" alt="" coords="5,5,261,156"/>
+</map>

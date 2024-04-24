@@ -1,0 +1,4 @@
+<map id="Persistance.BonusSave" name="Persistance.BonusSave">
+<area shape="rect" id="node1" title="A save container for the bonus" alt="" coords="15,160,201,296"/>
+<area shape="rect" id="node2" href="$classPersistance_1_1MapEntitySave.html" title="An abstract container to save the MapEntities" alt="" coords="5,5,211,112"/>
+</map>

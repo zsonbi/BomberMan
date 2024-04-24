@@ -1,0 +1,4 @@
+<map id="Menu.ModalWindow.Show" name="Menu.ModalWindow.Show">
+<area shape="rect" id="node1" title="Displays the modalwindow which modified values Also this hides the cancel button" alt="" coords="5,5,197,32"/>
+<area shape="rect" id="node2" href="$classMenu_1_1ModalWindow.html#a3948f80c4621ac27e9c804f105e97ff4" title="Display the modalwindow without modifying anything" alt="" coords="245,5,437,32"/>
+</map>

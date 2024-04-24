@@ -1,0 +1,4 @@
+<map id="Bomberman.MapEntity" name="Bomberman.MapEntity">
+<area shape="rect" id="node1" title="Everything which will be placed on the board should be derived from this class" alt="" coords="5,131,247,267"/>
+<area shape="rect" id="node2" title=" " alt="" coords="64,5,188,83"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Bomberman.Player.Init" name="Bomberman.Player.Init">
+<area shape="rect" id="node1" title="Initialize the player object with base values" alt="" coords="5,35,176,61"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MapEntity.html#abcd4cf3000998bed810b166943dcb4d6" title="Inits the entity should be called right after creating the entity" alt="" coords="234,5,429,32"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1MovingEntity.html#a550cfa12201d0d42cbcb482503e383ec" title="Called when we want to set this moving entity type to ghost or not ghost" alt="" coords="224,57,439,98"/>
+</map>

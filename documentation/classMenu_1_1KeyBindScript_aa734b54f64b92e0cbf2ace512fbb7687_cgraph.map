@@ -1,0 +1,4 @@
+<map id="Menu.KeyBindScript.Start" name="Menu.KeyBindScript.Start">
+<area shape="rect" id="node1" title="Runs on the first frame" alt="" coords="5,13,192,39"/>
+<area shape="rect" id="node2" href="$classMenu_1_1KeyBindScript.html#a37a1e57a9b499dec6004d005f9277be2" title="Update the button&#39;s labes" alt="" coords="240,5,443,47"/>
+</map>

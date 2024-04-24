@@ -1,0 +1,4 @@
+<map id="Persistance.MovingEntitySave.SaveMovingEntity" name="Persistance.MovingEntitySave.SaveMovingEntity">
+<area shape="rect" id="node1" title="Saves the entity&#39;s MovingEntity compontents" alt="" coords="5,5,192,47"/>
+<area shape="rect" id="node2" href="$classPersistance_1_1MapEntitySave.html#a31ba8d8cc77586efdf733069e08fa116" title="Saves the Mapentity" alt="" coords="240,13,475,39"/>
+</map>

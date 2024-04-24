@@ -1,0 +1,7 @@
+<map id="Bomberman.MonsterBrain" name="Bomberman.MonsterBrain">
+<area shape="rect" id="node1" title="The brain specified to control the monsters" alt="" coords="341,5,597,156"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1BasicBrain.html" title="The basic monster&#39;s brain" alt="" coords="5,233,180,325"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1GhostBrain.html" title="The ghost monster&#39;s brain" alt="" coords="205,219,455,340"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1SmartyBrain.html" title="The smarty monster&#39;s brain" alt="" coords="479,204,738,355"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1StalkerBrain.html" title="The stalker monster&#39;s brain" alt="" coords="762,204,1021,355"/>
+</map>

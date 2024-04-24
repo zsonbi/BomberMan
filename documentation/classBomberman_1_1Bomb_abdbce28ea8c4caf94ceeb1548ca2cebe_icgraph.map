@@ -1,0 +1,4 @@
+<map id="Bomberman.Bomb.PlaceByGameBoard" name="Bomberman.Bomb.PlaceByGameBoard">
+<area shape="rect" id="node1" title="Place a bomb which blows up instantly" alt="" coords="321,5,560,47"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1GameBoard.html#a95d9e76c2f72b4ce43646cc3f08e2279" title="Spawn a bomb at the given position" alt="" coords="5,13,273,39"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Bomberman.Bomb.BlownUp" name="Bomberman.Bomb.BlownUp">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,212,32"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Obstacle.html#af07717a4f07a1b3cde765c84535a618d" title="Erases a bomb" alt="" coords="260,5,501,32"/>
+</map>

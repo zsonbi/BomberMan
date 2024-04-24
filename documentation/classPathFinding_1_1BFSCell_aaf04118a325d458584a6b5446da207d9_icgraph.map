@@ -1,0 +1,4 @@
+<map id="PathFinding.BFSCell.Visit" name="PathFinding.BFSCell.Visit">
+<area shape="rect" id="node1" title="Visit the cell" alt="" coords="248,13,431,39"/>
+<area shape="rect" id="node2" href="$classPathFinding_1_1BFS.html#a50da7afb43d3b56d6c8dd955dabe4017" title="Gets the path to the targets returns when it found one of the targets" alt="" coords="5,5,200,47"/>
+</map>

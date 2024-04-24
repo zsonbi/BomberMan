@@ -1,0 +1,7 @@
+<map id="Bomberman.MovingEntity.Move" name="Bomberman.MovingEntity.Move">
+<area shape="rect" id="node1" title="What Moves the entity at the direction" alt="" coords="5,64,236,91"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MovingEntity.html#a2cff4f29015126c77ce2dbabdf09c50c" title="Called when an entity changed it&#39;s cell on the board" alt="" coords="284,5,560,32"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1MovingEntity.html#a28d2334090854060799f1541d4ee35e4" title="Checks if the given direction is passable for the entity" alt="" coords="295,57,549,98"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1MovingEntity.html#a655e8026620529b8c61b828c493fbb08" title="Get the next target determined by the direction" alt="" coords="313,122,531,163"/>
+<area shape="rect" id="node3" href="$classDataTypes_1_1Position.html#a2485dcd2a9fdbc6c7a021379b770aad7" title="Changes the position&#39;s row and column at the same time" alt="" coords="608,5,807,32"/>
+</map>

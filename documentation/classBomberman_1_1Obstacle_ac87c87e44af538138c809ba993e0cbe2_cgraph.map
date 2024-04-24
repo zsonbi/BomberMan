@@ -1,0 +1,5 @@
+<map id="Bomberman.Obstacle.SpawnBonus" name="Bomberman.Obstacle.SpawnBonus">
+<area shape="rect" id="node1" title="This function is for testing purposes only!!! Spawn a specific bonus at the obstacle&#39;s position" alt="" coords="5,23,216,65"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Bonus.html#af777c89d532d88163f9572e52383305a" title="Initialize the bonus" alt="" coords="271,5,442,32"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Bonus.html#acff56229655c7bc14f8858d1d7a8e16f" title="If this is called, the bonus will be shown on the gameboard" alt="" coords="264,56,449,83"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Bomberman.Obstacle.BlowUp" name="Bomberman.Obstacle.BlowUp">
+<area shape="rect" id="node1" title="This method controls the blowing up of the obstacle" alt="" coords="5,31,223,57"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Bomb.html#af050f3b7f57ec5b8fe68ff48d34550c9" title="Singnals the bomb to start blowing up" alt="" coords="291,5,489,32"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Obstacle.html#a1baaa0fc9e56ef63f406484840200836" title=" " alt="" coords="271,56,509,83"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1Bonus.html#acff56229655c7bc14f8858d1d7a8e16f" title="If this is called, the bonus will be shown on the gameboard" alt="" coords="557,56,743,83"/>
+</map>

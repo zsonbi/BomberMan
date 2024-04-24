@@ -1,0 +1,4 @@
+<map id="Bomberman.Player.PlaceObstacle" name="Bomberman.Player.PlaceObstacle">
+<area shape="rect" id="node1" title="The player places a bomb on the board if it has a wall available" alt="" coords="247,5,489,32"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Player.html#a5ec330129cf24741ca48a26672890595" title="When the script is loaded this method is called" alt="" coords="5,5,199,32"/>
+</map>

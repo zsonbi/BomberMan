@@ -1,0 +1,9 @@
+<map id="Bomberman.GameBoard" name="Bomberman.GameBoard">
+<area shape="rect" id="node1" title="Controls the game" alt="" coords="65,1309,364,2193"/>
+<area shape="rect" id="node2" title=" " alt="" coords="198,5,322,83"/>
+<area shape="rect" id="node3" href="$classMenu_1_1ModalWindow.html" title="Modal window controller" alt="" coords="28,525,257,999"/>
+<area shape="rect" id="node4" href="$classMenu_1_1MenuController.html" title="Manages the in game UI" alt="" coords="270,1023,508,1247"/>
+<area shape="rect" id="node5" href="$classMenu_1_1PlayerInGameMenuHandler.html" title="Handles the player ingame menus" alt="" coords="298,145,579,501"/>
+<area shape="rect" id="node7" href="$classMenu_1_1SavesMenu.html" title="Handles the saves display" alt="" coords="604,233,838,413"/>
+<area shape="rect" id="node6" title=" " alt="" coords="529,5,630,83"/>
+</map>

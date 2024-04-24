@@ -1,0 +1,11 @@
+<map id="Bomberman.Player.LoadPlayer" name="Bomberman.Player.LoadPlayer">
+<area shape="rect" id="node1" title="Loads in the player" alt="" coords="5,132,228,159"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Bonus.html#af777c89d532d88163f9572e52383305a" title="Initialize the bonus" alt="" coords="316,5,487,32"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1MapEntity.html#abcd4cf3000998bed810b166943dcb4d6" title="Inits the entity should be called right after creating the entity" alt="" coords="304,56,499,83"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1Bomb.html#a8c4339a941b57999e1f9bcdfef1dbabc" title="Loads the bombSave" alt="" coords="293,107,510,133"/>
+<area shape="rect" id="node7" href="$classBomberman_1_1Bonus.html#abd1297af2772df53826b4795776a444c" title="Loads the bonus&#39;s paramenters" alt="" coords="291,157,512,184"/>
+<area shape="rect" id="node8" href="$classBomberman_1_1Player.html#a43619610505dd79f35041f8815ec961e" title="This methid is called when someone blows up one of the players obstacles" alt="" coords="276,209,527,250"/>
+<area shape="rect" id="node9" href="$classBomberman_1_1MovingEntity.html#a550cfa12201d0d42cbcb482503e383ec" title="Called when we want to set this moving entity type to ghost or not ghost" alt="" coords="294,274,509,315"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1Bomb.html#af439423592bf44bf6754f1af57678524" title="Places the bomb at the given place" alt="" coords="603,81,786,108"/>
+<area shape="rect" id="node6" href="$classBomberman_1_1Obstacle.html#adc5cd4e50a74428e01133430c5c00893" title="Places a bomb" alt="" coords="575,132,815,159"/>
+</map>

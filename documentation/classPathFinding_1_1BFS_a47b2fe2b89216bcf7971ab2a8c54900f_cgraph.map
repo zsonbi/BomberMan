@@ -1,0 +1,4 @@
+<map id="PathFinding.BFS.ResetGrid" name="PathFinding.BFS.ResetGrid">
+<area shape="rect" id="node1" title="Resets the BFS search grid table" alt="" coords="5,5,199,32"/>
+<area shape="rect" id="node2" href="$classPathFinding_1_1BFSCell.html#ae77801c507cc536814cc115148fb9d8d" title="Resets the cell&#39;s parent and step to base state" alt="" coords="247,5,437,32"/>
+</map>

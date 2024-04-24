@@ -1,0 +1,4 @@
+<map id="Bomberman.GhostBrain.DirectionTotallyImpassable" name="Bomberman.GhostBrain.DirectionTotallyImpassable">
+<area shape="rect" id="node1" title="Gets it the ghost is currently facing towards an outer wall" alt="" coords="317,5,559,47"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1GhostBrain.html#a5b42a2626faa623de48b7df7a2a9f6b5" title="What direction to move towards when changed cells" alt="" coords="5,13,269,39"/>
+</map>

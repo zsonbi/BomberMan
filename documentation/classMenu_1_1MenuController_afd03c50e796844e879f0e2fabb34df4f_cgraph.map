@@ -1,0 +1,6 @@
+<map id="Menu.MenuController.RemoveBonus" name="Menu.MenuController.RemoveBonus">
+<area shape="rect" id="node1" title="Removes a bonus icon to the player&#39;s ui display" alt="" coords="5,39,224,80"/>
+<area shape="rect" id="node2" href="$classMenu_1_1PlayerInGameMenuHandler.html#a3dfe36326f4e5cb633ac783a16c414af" title="Removes a bonus from the display" alt="" coords="272,39,516,80"/>
+<area shape="rect" id="node3" href="$classMenu_1_1PlayerInGameMenuHandler.html#a54b4326ed05e764c2f28b408a4d4e71f" title="Removes a bonus without reorganizing the displays" alt="" coords="564,5,808,47"/>
+<area shape="rect" id="node4" href="$classMenu_1_1PlayerInGameMenuHandler.html#a425fc2eb6d4b075acf06b284b45cbccf" title="Reorganizes the bonuses positions" alt="" coords="564,71,808,112"/>
+</map>

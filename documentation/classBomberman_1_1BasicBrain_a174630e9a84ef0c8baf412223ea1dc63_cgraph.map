@@ -1,0 +1,5 @@
+<map id="Bomberman.BasicBrain.ChangedCell" name="Bomberman.BasicBrain.ChangedCell">
+<area shape="rect" id="node1" title="What direction to move towards when changed cells" alt="" coords="5,13,267,39"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MovingEntity.html#a28d2334090854060799f1541d4ee35e4" title="Checks if the given direction is passable for the entity" alt="" coords="591,5,844,47"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1MonsterBrain.html#a264e7e163b84ef7689d3d9318dbdc835" title="Gets the next target direction" alt="" coords="315,35,543,76"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Menu.KeyBindScript.ResetSettings" name="Menu.KeyBindScript.ResetSettings">
+<area shape="rect" id="node1" title="Reset the keys (need the player to save to take effect)" alt="" coords="5,5,199,47"/>
+<area shape="rect" id="node2" href="$classMenu_1_1KeyBindScript.html#a37a1e57a9b499dec6004d005f9277be2" title="Update the button&#39;s labes" alt="" coords="247,5,449,47"/>
+</map>

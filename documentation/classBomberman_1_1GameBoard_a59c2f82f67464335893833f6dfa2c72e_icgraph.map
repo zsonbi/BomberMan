@@ -1,0 +1,4 @@
+<map id="Bomberman.GameBoard.BackToMainMenu" name="Bomberman.GameBoard.BackToMainMenu">
+<area shape="rect" id="node1" title="Change to the main menu scene" alt="" coords="288,5,507,47"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1GameBoard.html#ab5751b89c02492eb2532859cd928105f" title="Called every frame" alt="" coords="5,13,240,39"/>
+</map>

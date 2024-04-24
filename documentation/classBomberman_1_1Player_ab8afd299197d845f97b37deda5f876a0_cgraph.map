@@ -1,0 +1,5 @@
+<map id="Bomberman.Player.Kill" name="Bomberman.Player.Kill">
+<area shape="rect" id="node1" title="Override the kill event so we can check for game over" alt="" coords="5,13,176,39"/>
+<area shape="rect" id="node2" href="$classMenu_1_1MenuController.html#ac471bb61a7202e300480ae1bec30a0fa" title="Remove a health icon from the player" alt="" coords="224,5,443,47"/>
+<area shape="rect" id="node3" href="$classMenu_1_1PlayerInGameMenuHandler.html#ab2c1adcee8e64f3e593a16875e1e2dff" title="Remove a health from the display" alt="" coords="491,5,735,47"/>
+</map>

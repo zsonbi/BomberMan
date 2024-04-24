@@ -1,0 +1,5 @@
+<map id="Menu.ModalWindow.Show" name="Menu.ModalWindow.Show">
+<area shape="rect" id="node1" title="Display the modalwindow without modifying anything" alt="" coords="288,31,480,57"/>
+<area shape="rect" id="node2" href="$classMenu_1_1ModalWindow.html#a94c653e27289edecc61e69affa7420cc" title="Displays the modalwindow which modified values Also this hides the cancel button" alt="" coords="27,5,219,32"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1GameBoard.html#ab5751b89c02492eb2532859cd928105f" title="Called every frame" alt="" coords="5,56,240,83"/>
+</map>

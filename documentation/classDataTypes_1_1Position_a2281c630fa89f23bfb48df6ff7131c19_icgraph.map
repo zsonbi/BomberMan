@@ -1,0 +1,5 @@
+<map id="DataTypes.Position.AddToDir" name="DataTypes.Position.AddToDir">
+<area shape="rect" id="node1" title="Moves the position with modified row and col according to the move direction" alt="" coords="493,13,701,39"/>
+<area shape="rect" id="node2" href="$classDataTypes_1_1Position.html#af3ea8cf8c5956c011aad3086611cf6ed" title="Creates a copy of the position with modified row and col according to the move direction" alt="" coords="252,5,445,47"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Monster.html#a9d87f95d54af5f967f31abb84ec30e23" title="Controls the movement of the monster" alt="" coords="5,13,204,39"/>
+</map>

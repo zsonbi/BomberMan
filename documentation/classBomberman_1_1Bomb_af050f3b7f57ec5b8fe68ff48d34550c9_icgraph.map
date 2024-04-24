@@ -1,0 +1,11 @@
+<map id="Bomberman.Bomb.BlowUp" name="Bomberman.Bomb.BlowUp">
+<area shape="rect" id="node1" title="Singnals the bomb to start blowing up" alt="" coords="1185,78,1384,105"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Obstacle.html#a705cc6d5ca26d015f13aabb55636a7af" title="This method controls the blowing up of the obstacle" alt="" coords="917,53,1135,79"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1Bomb.html#abdbce28ea8c4caf94ceeb1548ca2cebe" title="Place a bomb which blows up instantly" alt="" coords="321,5,560,47"/>
+<area shape="rect" id="node6" href="$classBomberman_1_1Bomb.html#a3e76a351d33e295ae84165bc2a7c1e07" title=" " alt="" coords="343,82,538,109"/>
+<area shape="rect" id="node7" href="$classBomberman_1_1Player.html#aec21fd53d42216e05d73b1ddb6698e91" title="The player places a bomb on the board if it has a bomb available" alt="" coords="915,154,1137,181"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Bomb.html#ad1f01ef18a95a5518c4e98ddc38c9bda" title=" " alt="" coords="608,53,867,79"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1GameBoard.html#a95d9e76c2f72b4ce43646cc3f08e2279" title="Spawn a bomb at the given position" alt="" coords="5,13,273,39"/>
+<area shape="rect" id="node8" href="$classBomberman_1_1Player.html#a5ec330129cf24741ca48a26672890595" title="When the script is loaded this method is called" alt="" coords="641,205,834,231"/>
+<area shape="rect" id="node9" href="$classBomberman_1_1Player.html#abc33e8c239404a19250c2c708216292f" title="Update is called once per frame" alt="" coords="639,154,836,181"/>
+</map>

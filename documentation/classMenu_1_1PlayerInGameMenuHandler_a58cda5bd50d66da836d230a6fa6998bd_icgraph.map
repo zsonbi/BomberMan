@@ -1,0 +1,9 @@
+<map id="Menu.PlayerInGameMenuHandler.SetUpPanel" name="Menu.PlayerInGameMenuHandler.SetUpPanel">
+<area shape="rect" id="node1" title="Displays the player with it&#39;s current health Should be used for reseting only!" alt="" coords="1115,39,1359,80"/>
+<area shape="rect" id="node2" href="$classMenu_1_1MenuController.html#a78563e491cabf2062d4969553034cdd2" title="Call it when new game is started Resets the game UI" alt="" coords="833,46,1067,73"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1GameBoard.html#af4864d1b0aac7a9341e4365647da351c" title="Creates a new board specified by the given file&#39;s layout" alt="" coords="555,5,785,47"/>
+<area shape="rect" id="node7" href="$classBomberman_1_1GameBoard.html#a76e7ee1361a8188705d16d2ff683eb18" title="Loads the game according to the file" alt="" coords="561,71,779,112"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1GameBoard.html#a142ad3a8126395ec96993e7b66971ec7" title="Start the next game" alt="" coords="288,39,507,80"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1GameBoard.html#a34c3e2a8f1b2fa019405a4f1b94d0658" title="Start is called before the first frame update" alt="" coords="13,21,232,47"/>
+<area shape="rect" id="node6" href="$classBomberman_1_1GameBoard.html#ab5751b89c02492eb2532859cd928105f" title="Called every frame" alt="" coords="5,71,240,98"/>
+</map>

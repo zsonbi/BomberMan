@@ -1,0 +1,4 @@
+<map id="Bomberman.MovingEntity.InstantKill" name="Bomberman.MovingEntity.InstantKill">
+<area shape="rect" id="node1" title="Instantly kill the entity it&#39;s health and immuneTime doesn&#39;t matter" alt="" coords="5,5,265,32"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MovingEntity.html#a823082622d50b50d4b113739ecf81473" title="Kills the entity if it isn&#39;t immune and have 0 Health kill it" alt="" coords="313,5,528,32"/>
+</map>

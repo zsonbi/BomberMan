@@ -1,0 +1,9 @@
+<map id="Bomberman.Obstacle.PlaceBomb" name="Bomberman.Obstacle.PlaceBomb">
+<area shape="rect" id="node1" title="Places a bomb" alt="" coords="592,56,832,83"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Bomb.html#a8c4339a941b57999e1f9bcdfef1dbabc" title="Loads the bombSave" alt="" coords="301,5,519,32"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1Player.html#aec21fd53d42216e05d73b1ddb6698e91" title="The player places a bomb on the board if it has a bomb available" alt="" coords="299,56,521,83"/>
+<area shape="rect" id="node7" href="$classBomberman_1_1GameBoard.html#a95d9e76c2f72b4ce43646cc3f08e2279" title="Spawn a bomb at the given position" alt="" coords="276,107,544,133"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Player.html#a09cad276146478900fc2db80067f57c1" title="Loads in the player" alt="" coords="5,5,228,32"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1Player.html#a5ec330129cf24741ca48a26672890595" title="When the script is loaded this method is called" alt="" coords="20,56,213,83"/>
+<area shape="rect" id="node6" href="$classBomberman_1_1Player.html#abc33e8c239404a19250c2c708216292f" title="Update is called once per frame" alt="" coords="18,107,215,133"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Bomberman.Bomb.LoadBomb" name="Bomberman.Bomb.LoadBomb">
+<area shape="rect" id="node1" title="Loads the bombSave" alt="" coords="5,31,223,57"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Bomb.html#af439423592bf44bf6754f1af57678524" title="Places the bomb at the given place" alt="" coords="299,5,482,32"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Obstacle.html#adc5cd4e50a74428e01133430c5c00893" title="Places a bomb" alt="" coords="271,56,511,83"/>
+</map>

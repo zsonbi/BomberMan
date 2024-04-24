@@ -1,0 +1,9 @@
+<map id="Bomberman.Monster.LoadMonster" name="Bomberman.Monster.LoadMonster">
+<area shape="rect" id="node1" title="Loads the monster" alt="" coords="5,97,252,124"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Monster.html#a897b269dc66611cdb9768eb778dc748a" title="Inits the entity should be called right after creating the entity" alt="" coords="339,68,521,94"/>
+<area shape="rect" id="node6" href="$classBomberman_1_1MovingEntity.html#a83ecc82752737b2866f44a8b3466e885" title="Instantly kill the entity it&#39;s health and immuneTime doesn&#39;t matter" alt="" coords="300,122,560,149"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1MonsterBrain.html#a17fb4f6e21d5172331ecaddda6df4250" title="What direction to move towards when changed cells" alt="" coords="875,38,1153,65"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1MonsterBrain.html#aee27a2422872eb65cfce02f395233787" title="Inits the brain" alt="" coords="608,27,827,68"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1Monster.html#a229a4859a5ef25e6630806996d1f4172" title="Event for when the monster reached the target, so it can change dir if needed" alt="" coords="608,92,827,134"/>
+<area shape="rect" id="node7" href="$classBomberman_1_1MovingEntity.html#a823082622d50b50d4b113739ecf81473" title="Kills the entity if it isn&#39;t immune and have 0 Health kill it" alt="" coords="610,158,825,185"/>
+</map>

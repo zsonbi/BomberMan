@@ -1,0 +1,4 @@
+<map id="Bomberman.Bonus.Hide" name="Bomberman.Bonus.Hide">
+<area shape="rect" id="node1" title="If this is called, the bonus will be hidden on the gameboard" alt="" coords="277,13,457,39"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Player.html#a2ba3b35aa859cea0477104b4c1ab8cdc" title="Check for collision with the elements" alt="" coords="5,5,229,47"/>
+</map>

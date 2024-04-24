@@ -1,0 +1,4 @@
+<map id="PathFinding.BFS" name="PathFinding.BFS">
+<area shape="rect" id="node1" title="Algoritm for bfs pathfinding" alt="" coords="5,175,212,355"/>
+<area shape="rect" id="node2" href="$interfacePathFinding_1_1PathFindingInterface.html" title="Interface for the pathfindings" alt="" coords="5,5,212,127"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="DataTypes.Position.Change" name="DataTypes.Position.Change">
+<area shape="rect" id="node1" title="Changes the position&#39;s row and column at the same time" alt="" coords="897,5,1096,32"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MovingEntity.html#a2cff4f29015126c77ce2dbabdf09c50c" title="Called when an entity changed it&#39;s cell on the board" alt="" coords="573,5,849,32"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1MovingEntity.html#a62d703a099bf29e5f6c8b4f6526a7767" title="What Moves the entity at the direction" alt="" coords="295,5,525,32"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1MovingEntity.html#a6ec9497716e6aa2038821d526b7de92d" title="Called every frame update" alt="" coords="5,5,247,32"/>
+</map>

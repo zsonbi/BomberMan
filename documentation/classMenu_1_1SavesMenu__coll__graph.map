@@ -1,0 +1,5 @@
+<map id="Menu.SavesMenu" name="Menu.SavesMenu">
+<area shape="rect" id="node1" title="Handles the saves display" alt="" coords="18,145,253,325"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,129,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="154,5,255,83"/>
+</map>

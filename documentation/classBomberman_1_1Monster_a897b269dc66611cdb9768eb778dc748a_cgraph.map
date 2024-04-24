@@ -1,0 +1,6 @@
+<map id="Bomberman.Monster.Init" name="Bomberman.Monster.Init">
+<area shape="rect" id="node1" title="Inits the entity should be called right after creating the entity" alt="" coords="5,33,188,60"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MonsterBrain.html#a17fb4f6e21d5172331ecaddda6df4250" title="What direction to move towards when changed cells" alt="" coords="503,37,781,64"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1MonsterBrain.html#aee27a2422872eb65cfce02f395233787" title="Inits the brain" alt="" coords="236,26,455,67"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1Monster.html#a229a4859a5ef25e6630806996d1f4172" title="Event for when the monster reached the target, so it can change dir if needed" alt="" coords="236,91,455,133"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Bomberman.Monster.ReachedTarget" name="Bomberman.Monster.ReachedTarget">
+<area shape="rect" id="node1" title="Event for when the monster reached the target, so it can change dir if needed" alt="" coords="5,5,224,47"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1MonsterBrain.html#a17fb4f6e21d5172331ecaddda6df4250" title="What direction to move towards when changed cells" alt="" coords="272,13,551,39"/>
+</map>

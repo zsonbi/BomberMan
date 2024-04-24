@@ -1,0 +1,17 @@
+<map id="Bomberman.Player.Update" name="Bomberman.Player.Update">
+<area shape="rect" id="node1" title="Update is called once per frame" alt="" coords="5,147,203,174"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1Bonus.html#ace84dc76cb5391bd6c260aee9c0f878b" title="Decrease it&#39;s duration if it&#39;s duration hit&#39;s 0 or less return true" alt="" coords="275,5,486,47"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1Player.html#a4e820445f968dcf520a53197494174be" title="Handles the keypresses" alt="" coords="267,71,494,98"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1MovingEntity.html#a83ecc82752737b2866f44a8b3466e885" title="Instantly kill the entity it&#39;s health and immuneTime doesn&#39;t matter" alt="" coords="251,122,511,149"/>
+<area shape="rect" id="node6" href="$classBomberman_1_1Player.html#aec21fd53d42216e05d73b1ddb6698e91" title="The player places a bomb on the board if it has a bomb available" alt="" coords="269,173,492,199"/>
+<area shape="rect" id="node11" href="$classMenu_1_1MenuController.html#afd03c50e796844e879f0e2fabb34df4f" title="Removes a bonus icon to the player&#39;s ui display" alt="" coords="271,224,490,265"/>
+<area shape="rect" id="node15" href="$classBomberman_1_1MovingEntity.html#a550cfa12201d0d42cbcb482503e383ec" title="Called when we want to set this moving entity type to ghost or not ghost" alt="" coords="273,289,488,331"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1MovingEntity.html#a823082622d50b50d4b113739ecf81473" title="Kills the entity if it isn&#39;t immune and have 0 Health kill it" alt="" coords="573,30,788,57"/>
+<area shape="rect" id="node7" href="$classBomberman_1_1Player.html#af4ec12728d22bf78268eb0e5e2f0d63d" title="Check if all the bombs placed" alt="" coords="563,81,799,123"/>
+<area shape="rect" id="node8" href="$classBomberman_1_1Bomb.html#af050f3b7f57ec5b8fe68ff48d34550c9" title="Singnals the bomb to start blowing up" alt="" coords="581,147,780,174"/>
+<area shape="rect" id="node9" href="$classBomberman_1_1Bomb.html#af439423592bf44bf6754f1af57678524" title="Places the bomb at the given place" alt="" coords="589,198,772,225"/>
+<area shape="rect" id="node10" href="$classBomberman_1_1Obstacle.html#adc5cd4e50a74428e01133430c5c00893" title="Places a bomb" alt="" coords="561,249,801,275"/>
+<area shape="rect" id="node12" href="$classMenu_1_1PlayerInGameMenuHandler.html#a3dfe36326f4e5cb633ac783a16c414af" title="Removes a bonus from the display" alt="" coords="559,300,803,341"/>
+<area shape="rect" id="node13" href="$classMenu_1_1PlayerInGameMenuHandler.html#a54b4326ed05e764c2f28b408a4d4e71f" title="Removes a bonus without reorganizing the displays" alt="" coords="851,267,1095,308"/>
+<area shape="rect" id="node14" href="$classMenu_1_1PlayerInGameMenuHandler.html#a425fc2eb6d4b075acf06b284b45cbccf" title="Reorganizes the bonuses positions" alt="" coords="851,332,1095,373"/>
+</map>

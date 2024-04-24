@@ -1,0 +1,5 @@
+<map id="Persistance.ObstacleSave" name="Persistance.ObstacleSave">
+<area shape="rect" id="node1" title="A container to save the Obstacles" alt="" coords="5,551,264,701"/>
+<area shape="rect" id="node2" href="$classPersistance_1_1MapEntitySave.html" title="An abstract container to save the MapEntities" alt="" coords="32,409,237,501"/>
+<area shape="rect" id="node3" href="$classDataTypes_1_1Position.html" title="Personal 2d vector object" alt="" coords="14,5,255,347"/>
+</map>

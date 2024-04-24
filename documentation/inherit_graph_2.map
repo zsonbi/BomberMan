@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classBomberman_1_1MonsterBrain.html" title="The brain specified to control the monsters" alt="" coords="5,81,199,108"/>
+<area shape="rect" id="node2" href="$classBomberman_1_1BasicBrain.html" title="The basic monster&#39;s brain" alt="" coords="253,5,427,32"/>
+<area shape="rect" id="node3" href="$classBomberman_1_1GhostBrain.html" title="The ghost monster&#39;s brain" alt="" coords="251,56,429,83"/>
+<area shape="rect" id="node4" href="$classBomberman_1_1SmartyBrain.html" title="The smarty monster&#39;s brain" alt="" coords="247,107,433,133"/>
+<area shape="rect" id="node5" href="$classBomberman_1_1StalkerBrain.html" title="The stalker monster&#39;s brain" alt="" coords="247,157,433,184"/>
+</map>
