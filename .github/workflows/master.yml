@@ -67,7 +67,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: Test results (all modes)
-          path: ${{ steps.testRunner.outputs.artifactsPath }}
+          path: "artifacts"
           retention-days: 1
 
 
