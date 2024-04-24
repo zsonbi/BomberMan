@@ -80,7 +80,9 @@ jobs:
           - uses: actions/download-artifact@v3
             with:
               name: Coverage_results
-              path: ./release/
+              path: release/
+              merge-multiple: true
+              githubToken: ${{ secrets.GITHUB_TOKEN }}
           - name: "Create docs"
             run: 
               sudo apt-get update && sudo apt-get install -y doxygen graphviz;
