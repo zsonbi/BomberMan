@@ -178,8 +178,8 @@ jobs:
               sudo mkdir -p release/game;
               sudo mkdir -p release/Report;
               sudo mkdir -p release/documentation;
-              mv build/WebGL/WebGLWebGL release/game;
-              mv ci/index.html ./release/index.html;
+              sudo mv build/WebGL/WebGLWebGL release/game;
+              sudo mv ci/index.html ./release/index.html;
           - uses: actions/download-artifact@master
             with:
               name: Coverage results
