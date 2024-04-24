@@ -234,7 +234,7 @@ var assemblies = [
       { "name": "Bomberman.Bonus", "rp": "BomberManAssembly_Bonus.html", "cl": 47, "ucl": 2, "cal": 49, "tl": 145, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "Bomberman.Config", "rp": "BomberManAssembly_Config.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 94, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "Bomberman.GameBoard", "rp": "BomberManAssembly_GameBoard.html", "cl": 354, "ucl": 43, "cal": 397, "tl": 682, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "Bomberman.GhostBrain", "rp": "BomberManAssembly_GhostBrain.html", "cl": 23, "ucl": 5, "cal": 28, "tl": 78, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Bomberman.GhostBrain", "rp": "BomberManAssembly_GhostBrain.html", "cl": 22, "ucl": 6, "cal": 28, "tl": 78, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "Bomberman.MapEntity", "rp": "BomberManAssembly_MapEntity.html", "cl": 8, "ucl": 0, "cal": 8, "tl": 39, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "Bomberman.Monster", "rp": "BomberManAssembly_Monster.html", "cl": 47, "ucl": 4, "cal": 51, "tl": 125, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "Bomberman.MonsterBrain", "rp": "BomberManAssembly_MonsterBrain.html", "cl": 19, "ucl": 0, "cal": 19, "tl": 63, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
@@ -242,7 +242,7 @@ var assemblies = [
       { "name": "Bomberman.Obstacle", "rp": "BomberManAssembly_Obstacle.html", "cl": 86, "ucl": 18, "cal": 104, "tl": 224, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "Bomberman.Player", "rp": "BomberManAssembly_Player.html", "cl": 321, "ucl": 30, "cal": 351, "tl": 625, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "Bomberman.SmartyBrain", "rp": "BomberManAssembly_SmartyBrain.html", "cl": 36, "ucl": 0, "cal": 36, "tl": 91, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "Bomberman.StalkerBrain", "rp": "BomberManAssembly_StalkerBrain.html", "cl": 54, "ucl": 4, "cal": 58, "tl": 122, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Bomberman.StalkerBrain", "rp": "BomberManAssembly_StalkerBrain.html", "cl": 52, "ucl": 6, "cal": 58, "tl": 122, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "DataTypes.Position", "rp": "BomberManAssembly_Position.html", "cl": 54, "ucl": 3, "cal": 57, "tl": 166, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "HideInWebGL", "rp": "BomberManAssembly_HideInWebGL.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 24, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "Menu.KeyBindScript", "rp": "BomberManAssembly_KeyBindScript.html", "cl": 35, "ucl": 40, "cal": 75, "tl": 172, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
@@ -288,6 +288,13 @@ var riskHotspotMetrics = [
 ];
 
 var riskHotspots = [
+  {
+    "assembly": "BomberManAssembly", "class": "Bomberman.GhostBrain", "reportPath": "BomberManAssembly_GhostBrain.html", "methodName": "System.Boolean Bomberman.GhostBrain::DirectionTotallyImpassable()", "methodShortName": "DirectionTotallyImpassable()", "fileIndex": 0, "line": 19,
+    "metrics": [
+      { "value": 11, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 30.64, "exceeded": true },
+    ]},
   {
     "assembly": "BomberManAssembly", "class": "PathFinding.BFS", "reportPath": "BomberManAssembly_BFS.html", "methodName": "System.Collections.Generic.Stack[BFSCell] PathFinding.BFS::GetPathToSearched(DataTypes.Position, System.Collections.Generic.IEnumerable[Position])", "methodShortName": "GetPathToSearched(...)", "fileIndex": 0, "line": 66,
     "metrics": [
