@@ -795,6 +795,7 @@ GameObject:
   - component: {fileID: 7686192254373989654}
   - component: {fileID: 3739096140367362769}
   - component: {fileID: 4003338722177267201}
+  - component: {fileID: 9182978258365395134}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -916,6 +917,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &9182978258365395134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469411706431340786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0ac51d26a955141856a7a34a1fef15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &518579285318970430
 GameObject:
   m_ObjectHideFlags: 0

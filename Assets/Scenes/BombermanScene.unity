@@ -135,10 +135,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameBoardPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 6176414726443181824, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 130
-      objectReference: {fileID: 0}
     - target: {fileID: 6649390919642674505, guid: ab2be118097ddba43b1e42ca1c2886aa, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
