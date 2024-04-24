@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageReport scope="Summary">
+  <Summary>
+    <Generatedon>04/24/2024 - 22:20:50</Generatedon>
+    <Parser>MultiReportParser (3x OpenCoverParser)</Parser>
+    <Assemblies>3</Assemblies>
+    <Classes>44</Classes>
+    <Files>44</Files>
+    <Coveredlines>2798</Coveredlines>
+    <Uncoveredlines>494</Uncoveredlines>
+    <Coverablelines>3292</Coverablelines>
+    <Totallines>6810</Totallines>
+    <Linecoverage>84.9</Linecoverage>
+    <Coveredbranches>0</Coveredbranches>
+    <Totalbranches>0</Totalbranches>
+    <Coveredmethods>341</Coveredmethods>
+    <Totalmethods>374</Totalmethods>
+    <Methodcoverage>91.1</Methodcoverage>
+  </Summary>
+  <Coverage>
+    <Assembly name="Assembly-CSharp-Editor" classes="1" coverage="0" coveredlines="0" coverablelines="196" totallines="310" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="15" methodcoverage="0">
+      <Class name="BuildCommand" coverage="0" coveredlines="0" coverablelines="196" totallines="310" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="15" methodcoverage="0" />
+    </Assembly>
+    <Assembly name="BomberManAssembly" classes="34" coverage="86.8" coveredlines="1890" coverablelines="2177" totallines="4973" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="267" totalmethods="285" methodcoverage="93.6">
+      <Class name="Bomberman.BasicBrain" coverage="100" coveredlines="11" coverablelines="11" totallines="33" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Bomberman.Bomb" coverage="93.9" coveredlines="172" coverablelines="183" totallines="321" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="19" totalmethods="19" methodcoverage="100" />
+      <Class name="Bomberman.Bonus" coverage="95.9" coveredlines="47" coverablelines="49" totallines="145" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="16" totalmethods="16" methodcoverage="100" />
+      <Class name="Bomberman.Config" coverage="100" coveredlines="6" coverablelines="6" totallines="94" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Bomberman.GameBoard" coverage="89.1" coveredlines="354" coverablelines="397" totallines="682" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="41" totalmethods="43" methodcoverage="95.3" />
+      <Class name="Bomberman.GhostBrain" coverage="82.1" coveredlines="23" coverablelines="28" totallines="78" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="Bomberman.MapEntity" coverage="100" coveredlines="8" coverablelines="8" totallines="39" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="7" methodcoverage="100" />
+      <Class name="Bomberman.Monster" coverage="92.1" coveredlines="47" coverablelines="51" totallines="125" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="8" methodcoverage="100" />
+      <Class name="Bomberman.MonsterBrain" coverage="100" coveredlines="19" coverablelines="19" totallines="63" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
+      <Class name="Bomberman.MovingEntity" coverage="84.4" coveredlines="141" coverablelines="167" totallines="346" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="25" totalmethods="25" methodcoverage="100" />
+      <Class name="Bomberman.Obstacle" coverage="82.6" coveredlines="86" coverablelines="104" totallines="224" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="21" totalmethods="21" methodcoverage="100" />
+      <Class name="Bomberman.Player" coverage="91.4" coveredlines="321" coverablelines="351" totallines="625" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="33" totalmethods="37" methodcoverage="89.1" />
+      <Class name="Bomberman.SmartyBrain" coverage="94.4" coveredlines="34" coverablelines="36" totallines="91" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="Bomberman.StalkerBrain" coverage="89.6" coveredlines="52" coverablelines="58" totallines="122" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
+      <Class name="DataTypes.Position" coverage="94.7" coveredlines="54" coverablelines="57" totallines="166" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="15" totalmethods="15" methodcoverage="100" />
+      <Class name="HideInWebGL" coverage="100" coveredlines="2" coverablelines="2" totallines="24" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Menu.KeyBindScript" coverage="46.6" coveredlines="35" coverablelines="75" totallines="172" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="7" methodcoverage="42.8" />
+      <Class name="Menu.MainMenu" coverage="76.9" coveredlines="90" coverablelines="117" totallines="246" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="10" totalmethods="12" methodcoverage="83.3" />
+      <Class name="Menu.MainMenuConfig" coverage="100" coveredlines="7" coverablelines="7" totallines="43" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Menu.MenuController" coverage="89.2" coveredlines="25" coverablelines="28" totallines="97" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="5" methodcoverage="100" />
+      <Class name="Menu.ModalWindow" coverage="100" coveredlines="52" coverablelines="52" totallines="177" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="8" methodcoverage="100" />
+      <Class name="Menu.PlayerInGameMenuHandler" coverage="90.2" coveredlines="74" coverablelines="82" totallines="202" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="8" methodcoverage="100" />
+      <Class name="Menu.SavesMenu" coverage="2.4" coveredlines="1" coverablelines="41" totallines="106" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="6" methodcoverage="16.6" />
+      <Class name="Menu.SoundManage" coverage="20" coveredlines="3" coverablelines="15" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="2" methodcoverage="50" />
+      <Class name="PathFinding.BFS" coverage="97.8" coveredlines="89" coverablelines="91" totallines="143" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
+      <Class name="PathFinding.BFSCell" coverage="90" coveredlines="18" coverablelines="20" totallines="68" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="11" totalmethods="11" methodcoverage="100" />
+      <Class name="Persistance.BombSave" coverage="100" coveredlines="10" coverablelines="10" totallines="54" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="Persistance.BonusSave" coverage="100" coveredlines="7" coverablelines="7" totallines="45" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Persistance.GameSave" coverage="100" coveredlines="50" coverablelines="50" totallines="140" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="Persistance.MapEntitySave" coverage="100" coveredlines="4" coverablelines="4" totallines="31" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Persistance.MonsterSave" coverage="100" coveredlines="4" coverablelines="4" totallines="31" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Persistance.MovingEntitySave" coverage="100" coveredlines="8" coverablelines="8" totallines="54" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Persistance.ObstacleSave" coverage="75" coveredlines="9" coverablelines="12" totallines="55" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="2" totalmethods="2" methodcoverage="100" />
+      <Class name="Persistance.PlayerSave" coverage="100" coveredlines="27" coverablelines="27" totallines="87" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
+    </Assembly>
+    <Assembly name="UniversalTests" classes="9" coverage="98.8" coveredlines="908" coverablelines="919" totallines="1527" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="74" totalmethods="74" methodcoverage="100">
+      <Class name="ModalWindowTests" coverage="100" coveredlines="49" coverablelines="49" totallines="98" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="9" totalmethods="9" methodcoverage="100" />
+      <Class name="Tests.BonusTests" coverage="97.1" coveredlines="306" coverablelines="315" totallines="467" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="19" totalmethods="19" methodcoverage="100" />
+      <Class name="Tests.EdgeCaseAttribute" coverage="100" coveredlines="3" coverablelines="3" totallines="16" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="Tests.GameBoardTests" coverage="98.9" coveredlines="184" coverablelines="186" totallines="294" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="14" totalmethods="14" methodcoverage="100" />
+      <Class name="Tests.MainMenuTests" coverage="100" coveredlines="48" coverablelines="48" totallines="103" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="7" methodcoverage="100" />
+      <Class name="Tests.MonsterTests" coverage="100" coveredlines="75" coverablelines="75" totallines="129" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="7" methodcoverage="100" />
+      <Class name="Tests.PersistanceTest" coverage="100" coveredlines="105" coverablelines="105" totallines="167" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="Tests.PlayerTests" coverage="100" coveredlines="89" coverablelines="89" totallines="149" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="6" totalmethods="6" methodcoverage="100" />
+      <Class name="Tests.PositionTests" coverage="100" coveredlines="49" coverablelines="49" totallines="104" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="5" methodcoverage="100" />
+    </Assembly>
+  </Coverage>
+</CoverageReport>
