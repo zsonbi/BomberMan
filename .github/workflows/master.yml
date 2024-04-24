@@ -174,12 +174,12 @@ jobs:
               buildMethod: BuildCommand.PerformBuild
               buildName: WebGL
           - run: 
-              mkdir -p release
-              mkdir -p release/game
-              mkdir -p release/Report
-              mkdir -p release/documentation
-              mv build/WebGL/WebGLWebG release/game
-              mv ci/index.html ./release/
+              sudo mkdir -p release
+              sudo mkdir -p release/game
+              sudo mkdir -p release/Report
+              sudo mkdir -p release/documentation
+              sudo mv build/WebGL/WebGLWebG release/game
+              sudo mv ci/index.html ./release/
           - uses: actions/download-artifact@master
             with:
               name: Coverage results
@@ -188,7 +188,7 @@ jobs:
             run: 
               sudo apt-get update && sudo apt-get install -y doxygen graphviz;
               doxygen ./DoxygenConf;
-              mv ./docs/html/*  ./release/documentation;
+              sudo mv ./docs/html/*  ./release/documentation;
               ls -la
  
           # - uses: actions/upload-artifact@v3
