@@ -73,7 +73,7 @@ jobs:
           retention-days: 4hr
       - uses: actions/upload-artifact@v4
         with:
-          name: Coverage results
+          name: Coverage_results
           path: ${{ steps.testRunner.outputs.coveragePath }}
           retention-days: 4hr
 
@@ -182,7 +182,7 @@ jobs:
               sudo mv ci/index.html ./release/index.html;
           - uses: actions/download-artifact@v4
             with:
-              name: Coverage results
+              name: Coverage_results
               path: ./release/Report
           - name: "Create docs"
             run: 
