@@ -58,7 +58,7 @@ jobs:
           key: Library-test
       - name: "Create docs"
         run: 
-          sudo apt-get update && apt-get install -y doxygen graphviz;
+          sudo apt-get update && sudo apt-get install -y doxygen graphviz;
           doxygen ./DoxygenConf;
           mkdir -p documentation;
           mv ./docs/html/*  documentation;
