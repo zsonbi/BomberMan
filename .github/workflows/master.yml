@@ -174,17 +174,21 @@ jobs:
               buildMethod: BuildCommand.PerformBuild
               buildName: WebGL
           - run: 
-              mkdir -p coverage
+              mkdir -p release
+              mkdir -p release/game
+              mkdir -p release/Report
+              mkdir -p release/documentation
+              mv build/WebGL/WebGLWebG release/game
+              mv ci/index.html ./release/
           - uses: actions/download-artifact@master
             with:
               name: Coverage results
-              path: ./coverage
+              path: ./release/Report
           - name: "Create docs"
             run: 
               sudo apt-get update && sudo apt-get install -y doxygen graphviz;
               doxygen ./DoxygenConf;
-              mkdir -p documentation;
-              mv ./docs/html/*  documentation;
+              mv ./docs/html/*  ./release/documentation;
               ls -la
  
           # - uses: actions/upload-artifact@v3
