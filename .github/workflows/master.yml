@@ -176,15 +176,17 @@ jobs:
           - run: 
               sudo mkdir -p release;
               sudo mkdir -p release/game;
-              sudo mkdir -p release/Report;
               sudo mkdir -p release/documentation;
+              sudo mkdir -p Report
               sudo chmod -R 777 release;
-              sudo mv build/WebGL/WebGLWebGL release/game;
+              sudo chmod -R 777 Report;
+              sudo mv build/WebGL/WebGLWebGL/* release/game/;
+              sudo mv Report/Report release/;
               sudo mv ci/index.html ./release/index.html;
           - uses: actions/download-artifact@v3
             with:
               name: Coverage_results
-              path: ./release/Report
+              path: ./Report
           - name: "Create docs"
             run: 
               sudo apt-get update && sudo apt-get install -y doxygen graphviz;
