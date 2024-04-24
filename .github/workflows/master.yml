@@ -56,18 +56,7 @@ jobs:
         with:
           path: Library
           key: Library-test
-      - name: "Create docs"
-        run: 
-          sudo apt-get update && sudo apt-get install -y doxygen graphviz;
-          doxygen ./DoxygenConf;
-          mkdir -p documentation;
-          mv ./docs/html/*  documentation;
-          ls -la
-      - uses: actions/upload-artifact@v3
-        with:
-          name: Documentation
-          path: "./documentation"
-          retention-days: 4hr
+
         
       - uses: game-ci/unity-test-runner@v4.1.1
         id: testRunner
@@ -159,7 +148,7 @@ jobs:
 
   buildForWebGL:
         needs: test
-        if: contains(github.ref, 'master')
+        if: contains(github.ref, 'master') || contains(github.ref, 'workflow-setup')
         name: Build for ${{ matrix.targetPlatform }}
         runs-on: ubuntu-latest
         strategy:
@@ -184,6 +173,20 @@ jobs:
               targetPlatform: ${{ matrix.targetPlatform }}
               buildMethod: BuildCommand.PerformBuild
               buildName: WebGL
+          - run: 
+              mkdir -p coverage
+          - uses: actions/download-artifact@master
+            with:
+              name: Coverage results
+              path: ./coverage
+          - name: "Create docs"
+            run: 
+              sudo apt-get update && sudo apt-get install -y doxygen graphviz;
+              doxygen ./DoxygenConf;
+              mkdir -p documentation;
+              mv ./docs/html/*  documentation;
+              ls -la
+ 
           # - uses: actions/upload-artifact@v3
           #   with:
           #     name: Build-${{ matrix.targetPlatform }}
