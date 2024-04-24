@@ -72,7 +72,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: Coverage results
-          path: ${{ steps.myTestStep.outputs.coveragePath }}
+          path: ${{ steps.testRunner.outputs.coveragePath }}
           retention-days: 4hr
 
   build:
