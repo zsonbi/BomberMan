@@ -71,7 +71,7 @@ jobs:
           name: Test results (all modes)
           path: ${{ steps.testRunner.outputs.artifactsPath }}
           retention-days: 4hr
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v3
         with:
           name: Coverage_results
           path: ${{ steps.testRunner.outputs.coveragePath }}
@@ -180,7 +180,7 @@ jobs:
               sudo mkdir -p release/documentation;
               sudo mv build/WebGL/WebGLWebGL release/game;
               sudo mv ci/index.html ./release/index.html;
-          - uses: actions/download-artifact@v4.1.7
+          - uses: actions/download-artifact@v3
             with:
               name: Coverage_results
               path: ./release/Report
