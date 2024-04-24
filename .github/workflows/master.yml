@@ -74,6 +74,18 @@ jobs:
           name: Coverage results
           path: ${{ steps.testRunner.outputs.coveragePath }}
           retention-days: 4hr
+      - name: "Create docs"
+        run: 
+          apt-get update && apt-get install -y doxygen graphviz;
+          doxygen ./DoxygenConf;
+          mkdir -p documentation;
+          mv ./docs/html/*  documentation;
+          ls -la
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Documentation
+          path: "./documentation"
+          retention-days: 4hr
 
   build:
     needs: test
@@ -107,6 +119,8 @@ jobs:
           path: build
           retention-days: 1
 
+      
+        
 
   buildForWindows:
     if: contains(github.ref, 'master')
