@@ -177,7 +177,7 @@ jobs:
               sudo mkdir -p release;
               sudo mkdir -p release/game;
               sudo mkdir -p release/documentation;
-              sudo mkdir -p Report
+              sudo mkdir -p Report;
               sudo chmod -R 777 release;
               sudo chmod -R 777 Report;
               sudo mv build/WebGL/WebGLWebGL/* release/game/;
