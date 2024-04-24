@@ -68,8 +68,12 @@ jobs:
         with:
           name: Test results (all modes)
           path: ${{ steps.testRunner.outputs.artifactsPath }}
-          retention-days: 1
-
+          retention-days: 4hr
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Coverage results
+          path: ${{ steps.myTestStep.outputs.coveragePath }}
+          retention-days: 4hr
 
   build:
     needs: test
