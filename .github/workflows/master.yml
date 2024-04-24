@@ -195,7 +195,7 @@ jobs:
             run: 
               sudo mv build/WebGL/WebGLWebGL/* release/game/;
               sudo mv Report/Report/ release/;
-              sudo mv ci/index.html ./release/index.html;
+              sudo mv .github/index.html ./release/index.html;
  
           # - uses: actions/upload-artifact@v3
           #   with:
