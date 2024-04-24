@@ -56,6 +56,19 @@ jobs:
         with:
           path: Library
           key: Library-test
+      - name: "Create docs"
+        run: 
+          sudo apt-get update && apt-get install -y doxygen graphviz;
+          doxygen ./DoxygenConf;
+          mkdir -p documentation;
+          mv ./docs/html/*  documentation;
+          ls -la
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Documentation
+          path: "./documentation"
+          retention-days: 4hr
+        
       - uses: game-ci/unity-test-runner@v4.1.1
         id: testRunner
         env:
@@ -74,18 +87,7 @@ jobs:
           name: Coverage results
           path: ${{ steps.testRunner.outputs.coveragePath }}
           retention-days: 4hr
-      - name: "Create docs"
-        run: 
-          apt-get update && apt-get install -y doxygen graphviz;
-          doxygen ./DoxygenConf;
-          mkdir -p documentation;
-          mv ./docs/html/*  documentation;
-          ls -la
-      - uses: actions/upload-artifact@v3
-        with:
-          name: Documentation
-          path: "./documentation"
-          retention-days: 4hr
+
 
   build:
     needs: test
