@@ -1,12 +1,12 @@
 {
   "summary": {
-    "generatedon": "2024-04-25T09:05:46Z",
+    "generatedon": "2024-05-27T12:34:29Z",
     "parser": "MultiReportParser (3x OpenCoverParser)",
     "assemblies": 3,
     "classes": 44,
     "files": 44,
-    "coveredlines": 2802,
-    "uncoveredlines": 490,
+    "coveredlines": 2804,
+    "uncoveredlines": 488,
     "coverablelines": 3292,
     "totallines": 6810,
     "linecoverage": 85.1,
@@ -20,7 +20,7 @@
     "assemblies": [
       { "name": "Assembly-CSharp-Editor", "classes": 1, "coverage": 0, "coveredlines": 0, "coverablelines": 196, "totallines": 310, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 15, "classesinassembly": [
         { "name": "BuildCommand", "coverage": 0, "coveredlines": 0, "coverablelines": 196, "totallines": 310, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 15 } ] },
-      { "name": "BomberManAssembly", "classes": 34, "coverage": 87, "coveredlines": 1894, "coverablelines": 2177, "totallines": 4973, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 93.6, "coveredmethods": 267, "totalmethods": 285, "classesinassembly": [
+      { "name": "BomberManAssembly", "classes": 34, "coverage": 87, "coveredlines": 1896, "coverablelines": 2177, "totallines": 4973, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 93.6, "coveredmethods": 267, "totalmethods": 285, "classesinassembly": [
         { "name": "Bomberman.BasicBrain", "coverage": 100, "coveredlines": 11, "coverablelines": 11, "totallines": 33, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 1, "totalmethods": 1 },
         { "name": "Bomberman.Bomb", "coverage": 93.9, "coveredlines": 172, "coverablelines": 183, "totallines": 321, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 19, "totalmethods": 19 },
         { "name": "Bomberman.Bonus", "coverage": 95.9, "coveredlines": 47, "coverablelines": 49, "totallines": 145, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 16, "totalmethods": 16 },
@@ -34,7 +34,7 @@
         { "name": "Bomberman.Obstacle", "coverage": 82.6, "coveredlines": 86, "coverablelines": 104, "totallines": 224, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 21, "totalmethods": 21 },
         { "name": "Bomberman.Player", "coverage": 91.4, "coveredlines": 321, "coverablelines": 351, "totallines": 625, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 89.1, "coveredmethods": 33, "totalmethods": 37 },
         { "name": "Bomberman.SmartyBrain", "coverage": 100, "coveredlines": 36, "coverablelines": 36, "totallines": 91, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 3, "totalmethods": 3 },
-        { "name": "Bomberman.StalkerBrain", "coverage": 93.1, "coveredlines": 54, "coverablelines": 58, "totallines": 122, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 3, "totalmethods": 3 },
+        { "name": "Bomberman.StalkerBrain", "coverage": 96.5, "coveredlines": 56, "coverablelines": 58, "totallines": 122, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 3, "totalmethods": 3 },
         { "name": "DataTypes.Position", "coverage": 94.7, "coveredlines": 54, "coverablelines": 57, "totallines": 166, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 15, "totalmethods": 15 },
         { "name": "HideInWebGL", "coverage": 100, "coveredlines": 2, "coverablelines": 2, "totallines": 24, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 1, "totalmethods": 1 },
         { "name": "Menu.KeyBindScript", "coverage": 46.6, "coveredlines": 35, "coverablelines": 75, "totallines": 172, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 42.8, "coveredmethods": 3, "totalmethods": 7 },

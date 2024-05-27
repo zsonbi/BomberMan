@@ -242,7 +242,7 @@ var assemblies = [
       { "name": "Bomberman.Obstacle", "rp": "BomberManAssembly_Obstacle.html", "cl": 86, "ucl": 18, "cal": 104, "tl": 224, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "Bomberman.Player", "rp": "BomberManAssembly_Player.html", "cl": 321, "ucl": 30, "cal": 351, "tl": 625, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "Bomberman.SmartyBrain", "rp": "BomberManAssembly_SmartyBrain.html", "cl": 36, "ucl": 0, "cal": 36, "tl": 91, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "Bomberman.StalkerBrain", "rp": "BomberManAssembly_StalkerBrain.html", "cl": 54, "ucl": 4, "cal": 58, "tl": 122, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Bomberman.StalkerBrain", "rp": "BomberManAssembly_StalkerBrain.html", "cl": 56, "ucl": 2, "cal": 58, "tl": 122, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "DataTypes.Position", "rp": "BomberManAssembly_Position.html", "cl": 54, "ucl": 3, "cal": 57, "tl": 166, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "HideInWebGL", "rp": "BomberManAssembly_HideInWebGL.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 24, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "Menu.KeyBindScript", "rp": "BomberManAssembly_KeyBindScript.html", "cl": 35, "ucl": 40, "cal": 75, "tl": 172, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
